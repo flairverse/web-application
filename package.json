@@ -19,7 +19,8 @@
     "git-flow:linux": "sudo apt-get install git-flow",
     "git-flow:BSD": "git clone git://github.com/petervanderdoes/gitflow.git && sudo gmake install",
     "git-flow:mac": "brew install git-flow-avh",
-    "git-flow:win": "explorer \"https://github.com/petervanderdoes/gitflow-avh/wiki/Installing-on-Windows\""
+    "git-flow:win": "explorer \"https://github.com/petervanderdoes/gitflow-avh/wiki/Installing-on-Windows\"",
+    "format": "npx prettier --write ."
   },
   "dependencies": {
     "axios": "^0.26.0",

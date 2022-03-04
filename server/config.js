@@ -3,4 +3,4 @@ module.exports = {
     server: 9998,
     client: 9999,
   },
-};
+}

@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
-const { nextI18NextRewrites } = require("next-i18next/rewrites");
+const { nextI18NextRewrites } = require('next-i18next/rewrites')
 // const removeImports = require("next-remove-imports")();
 
-const localeSubpaths = {};
+const localeSubpaths = {}
 
 const nextConfig = {
   rewrites: async () => nextI18NextRewrites(localeSubpaths),
@@ -10,11 +10,11 @@ const nextConfig = {
     localeSubpaths,
   },
   // env: {},
-  pageExtensions: ["page.tsx", "page.ts"],
+  pageExtensions: ['page.tsx', 'page.ts'],
 
   devIndicators: {
-    buildActivityPosition: "top-left",
+    buildActivityPosition: 'top-left',
   },
-};
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig
