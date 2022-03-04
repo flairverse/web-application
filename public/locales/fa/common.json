@@ -1,0 +1,11 @@
+{
+  "h1": "یک مثال ساده",
+  "change-locale": "تعویض زبان",
+  "to-second-page": "به صفحه دوم",
+  "error-with-status": "یک {{statusCode}} در سرور اتفاق افتاد",
+  "error-without-status": "یک ارور در سرور اتفاق افتاد",
+  "title": "خانه | next-i18next",
+  "nested": {
+    "translations": "ترجمه تو در تو"
+  }
+}

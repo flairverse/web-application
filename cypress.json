@@ -1,0 +1,14 @@
+{
+  "baseUrl": "http://localhost:9999/",
+  "ignoreTestFiles": ["**/examples/**/*", "**/__snapshots__/*", "**/__image_snapshots__/*"],
+  "viewportHeight": 1080,
+  "viewportWidth": 1920,
+  "video": true,
+  "videosFolder": "reporters/reports/videos",
+  "defaultCommandTimeout": 10000,
+  "retries": 2,
+  "reporter": "cypress-multi-reporters",
+  "reporterOptions": {
+    "configFile": "reporters/cypress-reporter.json"
+  }
+}

@@ -3,19 +3,47 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 9999",
+    "dev": "node ./server",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "browserslist": "npx browserslist",
+    "cy:open": "npx cypress open",
+    "cy:run": "npx cypress run",
+    "cy:chrome": "cypress run --browser chrome --reporter json",
+    "cy:firefox": "cypress run --browser firefox --reporter json",
+    "cy:edge": "cypress run --browser edge --reporter json",
+    "cy:clear-reps:wins": "del .\\reporters\\reports\\junit\\*",
+    "cy:clear-reps:unix": "rm -r reporters/reports/junit/*",
+    "prepare": "husky install",
+    "git-flow:linux": "sudo apt-get install git-flow",
+    "git-flow:BSD": "git clone git://github.com/petervanderdoes/gitflow.git && sudo gmake install",
+    "git-flow:mac": "brew install git-flow-avh",
+    "git-flow:win": "explorer \"https://github.com/petervanderdoes/gitflow-avh/wiki/Installing-on-Windows\""
   },
   "dependencies": {
+    "axios": "^0.26.0",
+    "express": "^4.17.3",
     "next": "12.1.0",
+    "next-i18next": "7.0.1",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "styled-components": "^5.3.3"
   },
   "devDependencies": {
     "@types/node": "17.0.21",
     "@types/react": "17.0.39",
+    "@types/styled-components": "^5.1.23",
+    "babel-plugin-styled-components": "^2.0.6",
+    "cypress": "^9.5.0",
+    "cypress-multi-reporters": "^1.5.0",
+    "http-proxy-middleware": "^2.0.3",
+    "husky": "^7.0.4",
+    "junit-merge": "^2.0.0",
+    "mocha-junit-reporter": "^2.0.2",
+    "mochawesome": "^7.1.0",
+    "mochawesome-merge": "^4.2.1",
+    "mochawesome-report-generator": "^6.1.0",
     "typescript": "4.5.5"
   }
 }
