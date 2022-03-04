@@ -1,0 +1,68 @@
+// font sizes
+$base-font-size: 1rem !default;
+
+$fontsSizes: (
+  '-4': $base-font-size * 0.2,
+  '-3': $base-font-size * 0.4,
+  '-2': $base-font-size * 0.6,
+  '-1': $base-font-size * 0.8,
+  '0': $base-font-size,
+  '1': $base-font-size * 1.2,
+  '2': $base-font-size * 1.4,
+  '3': $base-font-size * 1.6,
+  '4': $base-font-size * 1.8
+);
+
+$fontFamilies: (
+  // 'bo',
+  // 'bl_it',
+  // 'bo',
+  // 'bo-it',
+  // 'ex-bo',
+  // 'ex-bo-it',
+  // 'he',
+  // 'he-it',
+  // 'li',
+  // 'li-it',
+  // 'me',
+  // 'me-it',
+  // 're',
+  // 're-it',
+  // 'se-bo',
+  // 'se-bo-it',
+  // 'th',
+  // 'th-it',
+  // 'ul-li',
+  // 'ul-li-it'
+);
+
+$colors: (
+  'bg': #101010,
+  'accent': #007bff
+);
+
+:root {
+  @each $key in $fontFamilies {
+    --f-#{$key}: #{$key}, Arial, Helvetica, sans-serif;
+  }
+
+  @each $key, $val in $fontsSizes {
+    --f-#{$key}: #{$val};
+  }
+
+  @each $key, $val in $colors {
+    --c-#{$key}: #{$val};
+  }
+
+  @each $key, $val in $colors {
+    @for $i from 1 through 9 {
+      --c-#{$key}-light-#{$i}: #{mix(white, $val, $i * 10)};
+    }
+  }
+
+  @each $key, $val in $colors {
+    @for $i from 1 through 9 {
+      --c-#{$key}-dark-#{$i}: #{mix(black, $val, $i * 10)};
+    }
+  }
+}

@@ -17,7 +17,6 @@ describe('testing [providers] => internationalization', () => {
         <InternationalizationProvider>
           <p>test paragraph</p>
         </InternationalizationProvider>
-        ,
       </RecoilRoot>,
     )
     expect(screen.getByText(/test paragraph/i)).toBeInTheDocument()
