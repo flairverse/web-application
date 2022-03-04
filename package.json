@@ -20,7 +20,20 @@
     "git-flow:BSD": "git clone git://github.com/petervanderdoes/gitflow.git && sudo gmake install",
     "git-flow:mac": "brew install git-flow-avh",
     "git-flow:win": "explorer \"https://github.com/petervanderdoes/gitflow-avh/wiki/Installing-on-Windows\"",
-    "format": "npx prettier --write ."
+    "format": "npx prettier --write .",
+    "git:feature": "git flow feature",
+    "git:feature:s": "git flow feature start",
+    "git:feature:f": "git flow feature finish",
+    "git:feature:d": "git flow feature delete",
+    "git:hotfix": "git flow hotfix",
+    "git:hotfix:s": "git flow hotfix start",
+    "git:hotfix:f": "git flow hotfix finish",
+    "git:hotfix:d": "git flow hotfix delete",
+    "git:bugfix": "git flow bugfix",
+    "git:bugfix:s": "git flow bugfix start",
+    "git:bugfix:f": "git flow bugfix finish",
+    "git:bugfix:d": "git flow bugfix delete",
+    "git:develop": "git checkout develop && git pull"
   },
   "dependencies": {
     "axios": "^0.26.0",
