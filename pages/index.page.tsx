@@ -5,7 +5,6 @@ import type { MainPage } from '@/types/next-page.type'
 import Link from 'next/link'
 
 const Homepage: MainPage = () => {
-
   return (
     <Lib.S.Container>
       <div className="container">
