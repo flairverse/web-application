@@ -1,6 +1,22 @@
 import { createGlobalStyle } from 'styled-components'
+import { Theme } from '@/helpers/theme'
 
 export const GlobalStyles = createGlobalStyle`
+  ${Theme.use()}
+
+  body {
+    background-color: var(--layer-1);
+  }
+
+  .ReactQueryDevtools > button, .devtool {
+    opacity: 0.5;
+    transition: all 150ms linear;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
   @media (min-width: 768px) {
     .container {
       max-width: 966px !important;

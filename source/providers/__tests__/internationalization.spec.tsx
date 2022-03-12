@@ -5,7 +5,7 @@ import { RecoilRoot } from 'recoil'
 import { renderHook } from '@testing-library/react-hooks'
 import { commonHookRenderer } from '@/constants/testing-hook.constants'
 
-describe('testing [providers] => internationalization', () => {
+describe('Testing [providers] => internationalization', () => {
   it("should store user's current language in it's atom", () => {
     const { result } = renderHook(useInternationalization, commonHookRenderer)
     expect(result.current.language).toBe('en')

@@ -1,6 +1,6 @@
 import { i18n } from 'next-i18next.config'
 import { LANGUAGES_TYPE } from '@/constants/languages'
-import { Cookie } from './cookie'
+import { Cookie } from './cookie.helper'
 
 export class I18n {
   static change(language: LANGUAGES_TYPE) {
