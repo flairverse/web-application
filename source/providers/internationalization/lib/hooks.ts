@@ -19,7 +19,7 @@ export const useInternationalization = () => {
   }, [])
 
   /**
-   * return language for test
+   * return language for test only purposes
    */
   return { mounted, language }
 }

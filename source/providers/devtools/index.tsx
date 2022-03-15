@@ -2,8 +2,13 @@ import { FC } from 'react'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import * as Lib from './lib'
 
-export const DevtoolsProvider: FC = () => {
-  return process.env.NODE_ENV === 'development' ? (
+/**
+ *
+ *
+ * devtools wrapper, we'll add all the devtools here
+ */
+export const DevtoolsProvider: FC<Lib.T.DevtoolsProviderProps> = ({ testMode }) => {
+  return process.env.NODE_ENV === 'development' || testMode ? (
     <>
       <ReactQueryDevtools initialIsOpen={false} />
       <Lib.C.ThemeDevtool />

@@ -7,16 +7,22 @@ import { Button } from 'antd'
 import { themeNames } from '@/helpers/theme/lib/constants'
 import { useTheme } from 'next-themes'
 import { I18n } from '@/helpers/language.helper'
-import { LANGUAGES, LANGUAGES_NAME } from '@/constants/languages'
+import { LANGUAGES, LANGUAGES_NAME } from '@/constants/languages.constants'
 import { useRecoilValue } from 'recoil'
 import { languageState } from '@/store/atoms'
 
-export const Devtool: FC<Lib.T.DevtoolProps> = ({ children, Icon, position, name, current }) => {
+/**
+ *
+ *
+ *
+ * devtool component. all devtools will use this component to be placed in the document
+ */
+export const Devtool: FC<Lib.T.DevtoolProps> = ({ children, Icon, position, name, current, testId }) => {
   const [showBox, setShowBox] = useState<boolean>(false)
 
   return (
     <>
-      <Lib.S.FloatButton position={position} onClick={() => setShowBox(true)} className="devtool">
+      <Lib.S.FloatButton data-testid={testId} position={position} onClick={() => setShowBox(true)} className="devtool">
         <Icon color="white" size={15} />
       </Lib.S.FloatButton>
 
@@ -48,23 +54,39 @@ export const Devtool: FC<Lib.T.DevtoolProps> = ({ children, Icon, position, name
   )
 }
 
+/**
+ *
+ *
+ *
+ * devtool for changing and testing several themes
+ */
 export const ThemeDevtool: FC = () => {
   const { theme, setTheme } = useTheme()
   return (
-    <Devtool position={[55, 10]} Icon={FaBrush} name="Theme" current={theme}>
+    <Devtool testId="themeDevtool" position={[55, 10]} Icon={FaBrush} name="Theme" current={theme}>
       {themeNames.map((theme, index) => (
         <Button type="primary" key={index} onClick={() => setTheme(theme)}>
           {theme}
         </Button>
       ))}
+
+      <Button type="primary" onClick={() => setTheme('system')}>
+        system
+      </Button>
     </Devtool>
   )
 }
 
+/**
+ *
+ *
+ *
+ * devtool for changing and testing several languages
+ */
 export const LanguageDevtool: FC = () => {
   const current = useRecoilValue(languageState)
   return (
-    <Devtool position={[10, 55]} Icon={MdOutlineLanguage} name="Language" current={LANGUAGES_NAME[LANGUAGES.indexOf(current)]}>
+    <Devtool testId="languageDevtool" position={[10, 55]} Icon={MdOutlineLanguage} name="Language" current={LANGUAGES_NAME[LANGUAGES.indexOf(current)]}>
       {LANGUAGES_NAME.map((language, index) => (
         <Button type="primary" key={index} onClick={() => I18n.change(LANGUAGES[index])}>
           {language}
@@ -74,9 +96,15 @@ export const LanguageDevtool: FC = () => {
   )
 }
 
+/**
+ *
+ *
+ *
+ * devtool for changing and testing several font families
+ */
 export const FontDevtool: FC = () => {
   return (
-    <Devtool position={[45, 45]} Icon={AiOutlineFontColors} name="Font" current={'myFont'}>
+    <Devtool testId="fontDevtool" position={[45, 45]} Icon={AiOutlineFontColors} name="Font" current={'myFont'}>
       <p>list of fonts</p>
     </Devtool>
   )

@@ -3,12 +3,15 @@ import * as Lib from './lib'
 import { MainWrapper } from '@/components/layouts/main-wrapper'
 import type { MainPage } from '@/types/next-page.type'
 import Link from 'next/link'
+import { useTranslation } from 'react-i18next'
 
 const Homepage: MainPage = () => {
+  const { t } = useTranslation('common')
   return (
     <Lib.S.Container>
       <div className="container">
         <span className="col-lg-12">{I18n.get}</span>
+        <p>{t('nested.translations')}</p>
         <Link href="/auth">to login</Link>
         <p>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi ipsum amet, cumque asperiores atque quam, earum perspiciatis exercitationem consequatur suscipit, dignissimos libero
