@@ -6,5 +6,5 @@ const { LANGUAGES } = require('./source/constants/languages.constants')
 module.exports = new NextI18Next({
   otherLanguages: LANGUAGES.filter(language => language !== 'en'),
   localeSubpaths,
-  localePath: path.resolve('./public/locales'),
+  localePath: path.resolve('./public/locales')
 })

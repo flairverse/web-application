@@ -1,6 +1,6 @@
 import { NextComponent } from '@/types/next-page.type'
 import { appWithTranslation } from 'next-i18next.config'
-import { InternationalizationProvider, DevtoolsProvider } from '@/providers'
+import { InternationalizationProvider, DevtoolsProvider, AcceleratorsProvider } from '@/providers'
 import { RecoilRoot } from 'recoil'
 import { GlobalStyles } from '@/styles'
 import { ThemeProvider } from 'next-themes'
@@ -19,9 +19,11 @@ const FlairVerse: NextComponent = ({ Component, pageProps }) => {
           <DevtoolsProvider />
 
           <InternationalizationProvider>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            <AcceleratorsProvider>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </AcceleratorsProvider>
           </InternationalizationProvider>
         </ThemeProvider>
       </QueryClientProvider>

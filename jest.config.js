@@ -1,7 +1,7 @@
 const nextJest = require('next/jest')
 
 const createJestConfig = nextJest({
-  dir: './',
+  dir: './'
 })
 
 const customJestConfig = {
@@ -10,10 +10,10 @@ const customJestConfig = {
   moduleNameMapper: {
     '^@/source/(.*)$': '<rootDir>/source/$1',
     '^@/pages/(.*)$': '<rootDir>/pages/$1',
-    '^@/(.*)$': '<rootDir>/source/$1',
+    '^@/(.*)$': '<rootDir>/source/$1'
   },
   testEnvironment: 'jest-environment-jsdom',
-  modulePaths: ['<rootDir>/'],
+  modulePaths: ['<rootDir>/']
 }
 
 module.exports = createJestConfig(customJestConfig)

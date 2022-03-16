@@ -10,7 +10,7 @@ $fontsSizes: (
   '1': $base-font-size * 1.2,
   '2': $base-font-size * 1.4,
   '3': $base-font-size * 1.6,
-  '4': $base-font-size * 1.8,
+  '4': $base-font-size * 1.8
 );
 
 $fontFamilies: (
@@ -39,6 +39,10 @@ $fontFamilies: (
 $colors: (
   'bg': #101010,
   'accent': #007bff,
+  'podcast': #17b391,
+  'blog': #ae63b9,
+  'article': #ee486a,
+  'job': #f3a701
 );
 
 :root {

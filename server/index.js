@@ -2,7 +2,7 @@ const express = require('express')
 const next = require('next')
 const { createProxyMiddleware } = require('http-proxy-middleware')
 const {
-  ports: { client: clientPort, server: serverPort },
+  ports: { client: clientPort, server: serverPort }
 } = require('./config')
 
 const dev = process.env.NODE_ENV !== 'production'
@@ -17,8 +17,8 @@ const afterServerPrepared = () => {
       '/api',
       createProxyMiddleware({
         target: `http://localhost:${serverPort}`,
-        changeOrigin: true,
-      }),
+        changeOrigin: true
+      })
     )
   }
 

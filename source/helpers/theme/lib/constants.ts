@@ -17,31 +17,31 @@ export const themes: Lib.T.Themes = {
     settings: {
       mode: 'light',
       displayName: 'Default light',
-      id: 'light',
-    },
+      id: 'light'
+    }
   },
   dark: {
     values: _darkDefault,
     settings: {
       mode: 'dark',
       displayName: 'Default dark',
-      id: 'dark',
-    },
+      id: 'dark'
+    }
   },
   darkHighContrast: {
     values: _darkHighContrast,
     settings: {
       mode: 'dark',
       displayName: 'Dark Hugh Contrast',
-      id: 'dark/h',
-    },
+      id: 'dark/h'
+    }
   },
   darkOcean: {
     values: _darkOcean,
     settings: {
       mode: 'dark',
       displayName: 'Dark Ocean',
-      id: 'ocean/d',
-    },
-  },
+      id: 'ocean/d'
+    }
+  }
 }

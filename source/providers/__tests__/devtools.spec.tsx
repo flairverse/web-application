@@ -7,7 +7,7 @@ describe('Testing [providers] => devtools', () => {
     render(
       <RecoilRoot>
         <DevtoolsProvider testMode />
-      </RecoilRoot>,
+      </RecoilRoot>
     )
 
     expect(screen.getByTestId('themeDevtool')).toBeInTheDocument()

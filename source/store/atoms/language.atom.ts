@@ -4,5 +4,5 @@ import * as storeTypes from '@/constants/store-types.constants'
 
 export const languageState = atom({
   key: storeTypes.LANGUAGE,
-  default: <LANGUAGES_TYPE>'en',
+  default: <LANGUAGES_TYPE>'en'
 })

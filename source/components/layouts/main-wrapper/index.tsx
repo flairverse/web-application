@@ -5,7 +5,6 @@ export const MainWrapper: FC = ({ children }) => {
   return (
     <>
       <NavBarLayout />
-      wrapper
       {children}
     </>
   )
