@@ -13,7 +13,7 @@ export const Topic: FC<Lib.T.TopicProps> = ({ counter, title, TopicIcon, topic, 
 
         <div>
           <p>{title}</p>
-          
+
           <Link href={href}>
             <a href="">View all {counter} Posts</a>
           </Link>
