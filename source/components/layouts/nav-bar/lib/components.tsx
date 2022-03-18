@@ -59,6 +59,7 @@ export const SearchInput: FC = () => {
         size="middle"
         allowClear
         type="search"
+        data-testid="navbarSearchBox"
         onPressEnter={e => console.log(e)}
         onChange={e => setSearchQuery(e.target.value)}
         onFocus={() => setSearchBarFocused(true)}
@@ -66,7 +67,7 @@ export const SearchInput: FC = () => {
         suffix={<BsSlashSquare color="var(--layer-2-text-1)" className="slashIcon" />}
       />
 
-      <div className="suggestions">
+      <div className={`suggestions ${searchBarFocused ? 'visible' : 'hidden'}`} data-testid="searchSuggestion">
         {/* <Spin indicator={spinner} className="loading" /> */}
 
         <ul>

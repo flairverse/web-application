@@ -5,7 +5,7 @@ export const NavBarLayout: FC = ({}) => {
   const { onGapDBLClick } = Lib.H.useNavbarLayout()
 
   return (
-    <Lib.S.NavBarContainer>
+    <Lib.S.NavBarContainer data-testid="navbarComponent">
       {/* Flairverse Logo */}
       <Lib.C.Logo />
 

@@ -296,20 +296,26 @@ hr {
   padding-left: 10px;
   margin-right: auto;
   margin-left: auto;
+  max-width: 100%;
 }
 @media (min-width: 768px) {
   .container {
-    width: 740px;
+    width: 966px;
   }
 }
 @media (min-width: 992px) {
   .container {
-    width: 960px;
+    width: 1170px;
   }
 }
 @media (min-width: 1200px) {
   .container {
-    width: 1160px;
+    width: 1320px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .container {
+    padding: 0;
   }
 }
 .container-fluid {
@@ -380,8 +386,7 @@ hr {
 .col-lg-12 {
   position: relative;
   min-height: 1px;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding: 3px;
 }
 .col-xs-1,
 .col-xs-2,
