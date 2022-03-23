@@ -2,6 +2,8 @@ import { FC } from 'react'
 import * as Lib from '.'
 import Link from 'next/link'
 import { AppIcons } from '@/components/ui-kit/app-icons'
+import { SuggestionBox } from '@/components/ui-kit/suggestion-box'
+import * as mock from 'mock'
 
 export const Topic: FC<Lib.T.TopicProps> = ({ counter, title, TopicIcon, topic, href, ...rest }) => {
   return (
@@ -31,5 +33,23 @@ export const Topics: FC = () => {
       <Topic title="Scribers' Articles" topic="article" counter={1000} TopicIcon={AppIcons.Article} href="/" />
       <Topic title="Companies' Jobs" topic="job" counter={1000} TopicIcon={AppIcons.Job} href="/" />
     </div>
+  )
+}
+
+export const LeftAside: FC = () => {
+  return (
+    <Lib.S.TopThings>
+      <SuggestionBox count={5} topic="article" title="Top articles" suggestions={mock.suggestionInBox1} />
+      <SuggestionBox count={5} topic="blog" title="Top blog" suggestions={mock.suggestionInBox2} />
+    </Lib.S.TopThings>
+  )
+}
+
+export const RightAside: FC = () => {
+  return (
+    <Lib.S.TopThings>
+      <SuggestionBox count={5} topic="job" title="Top job" suggestions={mock.suggestionInBox2} />
+      <SuggestionBox count={5} topic="podcast" title="Top podcast" suggestions={mock.suggestionInBox1} />
+    </Lib.S.TopThings>
   )
 }

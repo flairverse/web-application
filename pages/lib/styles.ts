@@ -67,3 +67,9 @@ export const Topic = styled.div<{ backColor: string }>`
     display: none;
   }
 `
+
+export const TopThings = styled.div`
+  > div {
+    margin-bottom: 7px;
+  }
+`

@@ -18,6 +18,7 @@ export const NavBarContainer = styled.div`
   padding: 5px 10px;
   height: 45px;
   transition: all 150ms linear;
+  z-index: 2;
 
   > .logo {
     margin: 0 10px 0 0;
