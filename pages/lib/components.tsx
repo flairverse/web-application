@@ -1,9 +1,13 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import * as Lib from '.'
 import Link from 'next/link'
 import { AppIcons } from '@/components/ui-kit/app-icons'
 import { SuggestionBox } from '@/components/ui-kit/suggestion-box'
+import { Horizontal } from '@/components/ui-kit/horizontal'
+import { NapProfile } from '@/components/ui-kit/nap-profile'
 import * as mock from 'mock'
+import { HorizontalItemProps } from '@/components/ui-kit/horizontal/lib/types'
+import { Card } from '@/components/ui-kit/card'
 
 export const Topic: FC<Lib.T.TopicProps> = ({ counter, title, TopicIcon, topic, href, ...rest }) => {
   return (
@@ -39,8 +43,9 @@ export const Topics: FC = () => {
 export const LeftAside: FC = () => {
   return (
     <Lib.S.TopThings>
-      <SuggestionBox count={5} topic="article" title="Top articles" suggestions={mock.suggestionInBox1} />
-      <SuggestionBox count={5} topic="blog" title="Top blog" suggestions={mock.suggestionInBox2} />
+      <SuggestionBox topic="article" title="Top articles" suggestionsItems={mock.suggestionInBox1} />
+      <SuggestionBox topic="podcast" title="Top podcast" suggestionsFlairs={mock.suggestionFlair2} />
+      <SuggestionBox topic="blog" title="Top blog" suggestionsItems={mock.suggestionInBox2} />
     </Lib.S.TopThings>
   )
 }
@@ -48,8 +53,48 @@ export const LeftAside: FC = () => {
 export const RightAside: FC = () => {
   return (
     <Lib.S.TopThings>
-      <SuggestionBox count={5} topic="job" title="Top job" suggestions={mock.suggestionInBox2} />
-      <SuggestionBox count={5} topic="podcast" title="Top podcast" suggestions={mock.suggestionInBox1} />
+      <SuggestionBox topic="job" title="Top job" suggestionsItems={mock.suggestionInBox2} />
+      <SuggestionBox topic="podcast" title="Top podcast" suggestionsItems={mock.suggestionInBox1} />
+      <SuggestionBox topic="podcast" title="Top podcast" suggestionsFlairs={mock.suggestionFlair1} />
     </Lib.S.TopThings>
+  )
+}
+
+export const NapsList: FC = () => {
+  const items: HorizontalItemProps[] = [
+    ...Array.from(Array(50)).map((item, index) => {
+      return {
+        id: index,
+        children: (
+          <div className="nap">
+            <NapProfile id={0} username="tw4kt5hwpwxbffg33ckesrq78bmd3s" hasNap job="Computer Engineering" />
+          </div>
+        ),
+      }
+    }),
+  ]
+
+  return (
+    <Lib.S.NapsList>
+      <Horizontal speed={2} items={items} onItemsClick={id => alert(id * 2)} />
+    </Lib.S.NapsList>
+  )
+}
+
+export const FollowingsContent: FC = () => {
+  return (
+    <Lib.S.CardsContainer>
+      <p style={{ color: 'gray' }}>FollowingsContent</p>
+    </Lib.S.CardsContainer>
+  )
+}
+
+export const ForYouContent: FC = () => {
+  return (
+    <Lib.S.CardsContainer>
+      {Array.from(Array(50)).map((item, index) => {
+        return <Card />
+      })}
+    </Lib.S.CardsContainer>
   )
 }

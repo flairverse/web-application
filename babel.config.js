@@ -8,8 +8,8 @@ module.exports = {
         ssr: true,
         displayName: true,
         fileName: true,
-        namespace: 'FLAIRVERSE'
-      }
-    ]
-  ]
+        namespace: 'FLAIRVERSE',
+      },
+    ],
+  ],
 }

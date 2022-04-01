@@ -30,7 +30,7 @@ export const Container = styled.div<Pick<Lib.T.SidesProps, 'sizes' | 'left' | 'r
         sizes,
         left,
         right,
-        defaultSize: DEFAULT_ASIDE_WIDTH
+        defaultSize: DEFAULT_ASIDE_WIDTH,
       })}px)`};
   }
 `

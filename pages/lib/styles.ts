@@ -18,6 +18,10 @@ export const Container = styled.div`
       border: 1px solid var(--layer-2-border);
     }
   }
+
+  .categories {
+    margin-top: 5px;
+  }
 `
 
 export const Topic = styled.div<{ backColor: string }>`
@@ -71,5 +75,24 @@ export const Topic = styled.div<{ backColor: string }>`
 export const TopThings = styled.div`
   > div {
     margin-bottom: 7px;
+  }
+`
+
+export const NapsList = styled.div`
+  background-color: var(--layer-2);
+  border-radius: 10px;
+  border: 1px solid var(--layer-2-border);
+  padding: 10px 0 3px 0;
+`
+
+export const CardsContainer = styled.div`
+  columns: auto 2;
+  column-gap: 2px;
+  width: 100%;
+
+  > article {
+    height: auto;
+    display: inline-block;
+    margin: 3px;
   }
 `

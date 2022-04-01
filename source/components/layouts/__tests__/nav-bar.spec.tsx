@@ -7,7 +7,7 @@ describe('Testing [layouts] => nav-bar', () => {
     render(
       <RecoilRoot>
         <Lib.C.SearchInput />
-      </RecoilRoot>
+      </RecoilRoot>,
     )
     const searchInput = screen.getByTestId('navbarSearchBox')
     expect(searchInput).toBeInTheDocument()
@@ -17,7 +17,7 @@ describe('Testing [layouts] => nav-bar', () => {
     render(
       <RecoilRoot>
         <Lib.C.SearchInput />
-      </RecoilRoot>
+      </RecoilRoot>,
     )
     const searchSuggestion = screen.getByTestId('searchSuggestion')
     expect(searchSuggestion).toBeInTheDocument()
@@ -27,7 +27,7 @@ describe('Testing [layouts] => nav-bar', () => {
     render(
       <RecoilRoot>
         <Lib.C.SearchInput />
-      </RecoilRoot>
+      </RecoilRoot>,
     )
     const searchSuggestion = screen.getByTestId('searchSuggestion')
     expect(searchSuggestion).toHaveClass('hidden')
@@ -37,7 +37,7 @@ describe('Testing [layouts] => nav-bar', () => {
     render(
       <RecoilRoot>
         <Lib.C.SearchInput />
-      </RecoilRoot>
+      </RecoilRoot>,
     )
     const searchInput = screen.getByTestId('navbarSearchBox')
     const searchSuggestion = screen.getByTestId('searchSuggestion')

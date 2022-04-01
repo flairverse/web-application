@@ -10,3 +10,7 @@ export interface TopicProps extends HTMLAttributes<HTMLDivElement> {
   topic: Topic
   href: string
 }
+
+export interface CategoriesProps {
+  onChange: (key: string) => void
+}

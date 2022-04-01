@@ -7,7 +7,7 @@ export const useNavbarLayout = () => {
   }
 
   return {
-    onGapDBLClick
+    onGapDBLClick,
   }
 }
 

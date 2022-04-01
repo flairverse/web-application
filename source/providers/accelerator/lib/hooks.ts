@@ -45,7 +45,7 @@ export const useAcceleratorsProvider = () => {
     }
 
     const foundedElements: Lib.T.FoundedElements = {
-      navbarSearchBox: <Lib.T.Input>document.querySelector('.navbarSearchBox > input')
+      navbarSearchBox: <Lib.T.Input>document.querySelector('.navbarSearchBox > input'),
     }
 
     addEventListener('keyup', ({ code }) => checkThePressedKey(code, foundedElements))

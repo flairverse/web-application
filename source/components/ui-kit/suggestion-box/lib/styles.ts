@@ -22,6 +22,12 @@ export const SuggestionsBoxContainer = styled.div<Pick<Lib.T.SuggestionBoxProps,
       margin: 0 5px 0 0;
     }
   }
+
+  > .suggestions {
+    > .flair {
+      margin: 10px;
+    }
+  }
 `
 export const SuggestionContainer = styled.a<Pick<Lib.T.SuggestionItemExtraProps & Lib.T.SuggestionItem, 'topic' | 'button'>>`
   display: flex;

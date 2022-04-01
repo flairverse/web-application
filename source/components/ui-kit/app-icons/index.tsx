@@ -259,5 +259,5 @@ export const AppIcons = {
   ArticleTransparent,
 
   Job,
-  JobTransparent
+  JobTransparent,
 }

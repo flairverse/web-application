@@ -1,11 +1,12 @@
 import { Topic } from '@/types/topics'
 import { HTMLAttributes } from 'react'
+import { NapProfileProps } from '../../nap-profile/lib/types'
 
 export interface SuggestionBoxProps extends HTMLAttributes<HTMLDivElement> {
-  count: number
   topic: Topic
   title: string
-  suggestions: SuggestionItem[]
+  suggestionsItems?: SuggestionItem[]
+  suggestionsFlairs?: SuggestionFlair[]
 }
 
 export type SuggestionItem = {
@@ -17,6 +18,7 @@ export type SuggestionItem = {
     text: string
   }
 }
+export interface SuggestionFlair extends NapProfileProps {}
 
 export interface SuggestionItemExtraProps extends Pick<SuggestionBoxProps, 'topic'> {
   index: number
