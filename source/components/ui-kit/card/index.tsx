@@ -22,6 +22,7 @@ const user = {
   profile: '/removal/profile.jpg',
   id: 0,
 }
+const topic = 'blog'
 
 export const Card: FC<Lib.T.CardProps> = ({}) => {
   return (
@@ -30,7 +31,7 @@ export const Card: FC<Lib.T.CardProps> = ({}) => {
         <header>
           <Link href={`/${user.username}`}>
             <a>
-              <NapProfile id={user.id} hasNap mode="horizontal" username={user.fullName} job={user.job} />
+              <NapProfile id={user.id} hasNap mode="horizontal" username={user.fullName} job={user.job} size={0.6} className="flairDetail" />
             </a>
           </Link>
 
@@ -45,21 +46,21 @@ export const Card: FC<Lib.T.CardProps> = ({}) => {
           </span>
         </header>
 
-        <body>
+        <div>
           <Link href={slug}>
             <a>
-              <img src={Img.random()} alt={title} />
+              <img src={'/removal/1.jpg'} alt={title} />
 
               <h2>{title}</h2>
 
               <div>
-                <ColumnarDate />
+                <ColumnarDate dateTime="2018-07-08" topic={topic} />
 
                 <summary>{summary}</summary>
               </div>
             </a>
           </Link>
-        </body>
+        </div>
 
         <span />
 

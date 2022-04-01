@@ -13,41 +13,47 @@ $fontsSizes: (
   '4': $base-font-size * 1.8,
 );
 
+// change the "FONTS" array in "source/hooks/font/lib/constants.ts" if you change this list
 $fontFamilies: (
-  // 'bo',
-  // 'bl_it',
-  // 'bo',
-  // 'bo-it',
-  // 'ex-bo',
-  // 'ex-bo-it',
-  // 'he',
-  // 'he-it',
-  // 'li',
-  // 'li-it',
-  // 'me',
-  // 'me-it',
-  // 're',
-  // 're-it',
-  // 'se-bo',
-  // 'se-bo-it',
-  // 'th',
-  // 'th-it',
-  // 'ul-li',
-  // 'ul-li-it'
+  'alegreya-sans-sc',
+  'baloo-tammudu-2',
+  'calibri',
+  'caveat',
+  'grandstander',
+  'grenze',
+  'karla',
+  'kodchasan',
+  'lato',
+  'mali',
+  'montserrat',
+  'newsreader',
+  'open-sans',
+  'quicksand',
+  'roboto',
+  'tomorrow',
+  'ubuntu',
+  'vazir'
 );
 
 $colors: (
-  'bg': #101010,
-  'accent': #007bff,
-  'podcast': #17b391,
-  'blog': #ae63b9,
-  'article': #ee486a,
-  'job': #f3a701,
+  'bg': rgb(16 16 16),
+  'accent': rgb(0 123 255),
+  'podcast': rgb(23 179 145),
+  'blog': rgb(174 99 185),
+  'article': rgb(238 72 106),
+  'job': rgb(243 167 1),
 );
 
 :root {
+  --ff-0: var(--f-open-sans-0);
+  --ff-1: var(--f-open-sans-1);
+  --ff-2: var(--f-open-sans-2);
+  --ff-3: var(--f-open-sans-3);
+
   @each $key in $fontFamilies {
-    --f-#{$key}: #{$key}, Arial, Helvetica, sans-serif;
+    @for $i from 0 through 3 {
+      --f-#{$key}-#{$i}: #{$key}-#{$i}, Arial, Helvetica, sans-serif;
+    }
   }
 
   @each $key, $val in $fontsSizes {
@@ -55,18 +61,12 @@ $colors: (
   }
 
   @each $key, $val in $colors {
-    --c-#{$key}: #{$val};
-  }
+    --c-#{$key}: #{$val}; // DEFAULT TONES
 
-  @each $key, $val in $colors {
     @for $i from 1 through 9 {
-      --c-#{$key}-light-#{$i}: #{mix(white, $val, $i * 10)};
-    }
-  }
-
-  @each $key, $val in $colors {
-    @for $i from 1 through 9 {
-      --c-#{$key}-dark-#{$i}: #{mix(black, $val, $i * 10)};
+      --c-#{$key}-light-#{$i}: #{mix(white, $val, $i * 10)}; /// LIGHTER
+      --c-#{$key}-dark-#{$i}: #{mix(black, $val, $i * 10)}; /// DARKER
+      --c-#{$key}-trans-#{$i}: #{rgba($val, $i / 10)}; /// TRANSPARENCY
     }
   }
 }

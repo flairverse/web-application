@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 import * as Lib from '.'
 
-export const NapProfileContainer = styled.div<Pick<Lib.T.NapProfileProps, 'mode' | 'hasNap' | 'loading' | 'seen'>>`
+export const NapProfileContainer = styled.div<Pick<Lib.T.NapProfileProps, 'mode' | 'hasNap' | 'loading' | 'seen' | 'size'>>`
   width: auto;
   height: auto;
   margin: 0 10px;
   max-width: ${({ mode }) => (mode === 'horizontal' ? '100%' : '80px')};
-  min-width: 65px;
+  min-width: ${({ size }) => Lib.HE.Scale.image(size!)};
   text-align: center;
   display: flex;
   flex-direction: ${({ mode }) => (mode === 'horizontal' ? 'row' : 'column')};
@@ -14,9 +14,9 @@ export const NapProfileContainer = styled.div<Pick<Lib.T.NapProfileProps, 'mode'
   filter: ${({ seen }) => `grayscale(${seen ? 1 : 0})`};
 
   > div {
-    width: 65px;
-    min-width: 65px;
-    height: 65px;
+    width: ${({ size }) => Lib.HE.Scale.image(size!)};
+    min-width: ${({ size }) => Lib.HE.Scale.image(size!)};
+    height: ${({ size }) => Lib.HE.Scale.image(size!)};
     position: relative;
     border-radius: ${({ loading }) => (loading ? 50 : 40)}%;
     transition: all 150ms linear;
@@ -59,7 +59,7 @@ export const NapProfileContainer = styled.div<Pick<Lib.T.NapProfileProps, 'mode'
   > p {
     color: var(--layer-2-text-2);
     margin: ${({ mode }) => (mode === 'horizontal' ? '0 0 0 5px' : '5px 0 0 0')};
-    font-size: var(--f-2);
+    font-size: ${({ size }) => Lib.HE.Scale.username(size!)};
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -74,7 +74,7 @@ export const NapProfileContainer = styled.div<Pick<Lib.T.NapProfileProps, 'mode'
       overflow: hidden;
 
       &:nth-child(2) {
-        font-size: var(--f-1);
+        font-size: ${({ size }) => Lib.HE.Scale.job(size!)};
       }
     }
   }

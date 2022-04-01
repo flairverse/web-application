@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import * as Lib from './lib'
 
-export const NapProfile: FC<Lib.T.NapProfileProps> = ({ mode = 'vertical', username, hasNap, loading, id, onClick, seen, profile, job, ...rest }) => {
+export const NapProfile: FC<Lib.T.NapProfileProps> = ({ mode = 'vertical', username, hasNap, loading, id, onClick, seen, profile, size = 1, job, ...rest }) => {
   const clickHandler = () => {
     if (onClick) {
       onClick(id)
@@ -9,7 +9,7 @@ export const NapProfile: FC<Lib.T.NapProfileProps> = ({ mode = 'vertical', usern
   }
 
   return (
-    <Lib.S.NapProfileContainer onClickCapture={clickHandler} seen={seen} mode={mode} hasNap={hasNap} loading={loading} {...rest}>
+    <Lib.S.NapProfileContainer onClickCapture={clickHandler} seen={seen} mode={mode} hasNap={hasNap} loading={loading} size={size} {...rest}>
       <div className="picture">
         {hasNap && <div />}
 

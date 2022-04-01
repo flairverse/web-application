@@ -10,6 +10,7 @@ import { I18n } from '@/helpers/language.helper'
 import { LANGUAGES, LANGUAGES_NAME } from '@/constants/languages.constants'
 import { useRecoilValue } from 'recoil'
 import { languageState } from '@/store/atoms'
+import { useFont } from '@/hooks/font'
 
 /**
  *
@@ -103,9 +104,15 @@ export const LanguageDevtool: FC = () => {
  * devtool for changing and testing several font families
  */
 export const FontDevtool: FC = () => {
+  const { font, setFont, fonts } = useFont()
+
   return (
-    <Devtool testId="fontDevtool" position={[45, 45]} Icon={AiOutlineFontColors} name="Font" current={'myFont'}>
-      <p>list of fonts</p>
+    <Devtool testId="fontDevtool" position={[45, 45]} Icon={AiOutlineFontColors} name="Font" current={font}>
+      {fonts.map((item, index) => (
+        <Button type="primary" key={index} onClick={() => setFont(item)}>
+          {item}
+        </Button>
+      ))}
     </Devtool>
   )
 }

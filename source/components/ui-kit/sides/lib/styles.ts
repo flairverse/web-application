@@ -24,7 +24,7 @@ export const Container = styled.div<Pick<Lib.T.SidesProps, 'sizes' | 'left' | 'r
 
   > .main {
     flex: 1 1 0%;
-    padding: 4px;
+    padding: 2px;
     max-width: ${({ sizes, left, right }) =>
       `calc(100% - ${Lib.HE.calculateCentralDivSize({
         sizes,

@@ -93,7 +93,7 @@ export const ForYouContent: FC = () => {
   return (
     <Lib.S.CardsContainer>
       {Array.from(Array(50)).map((item, index) => {
-        return <Card />
+        return <Card key={index} />
       })}
     </Lib.S.CardsContainer>
   )

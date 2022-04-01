@@ -1,81 +1,377 @@
-// @font-face {
-//   font-family: bo;
-//   src: url('/fonts/bo.ttf');
-// }
-// @font-face {
-//   font-family: bl_it;
-//   src: url('/fonts/bl-it.ttf');
-//   font-display: fallback;
-// }
-// @font-face {
-//   font-family: bo;
-//   src: url('/fonts/bo.ttf');
-// }
-// @font-face {
-//   font-family: bo-it;
-//   src: url('/fonts/bo-it.ttf');
-// }
-// @font-face {
-//   font-family: ex-bo;
-//   src: url('/fonts/ex-bo.ttf');
-// }
-// @font-face {
-//   font-family: ex-bo-it;
-//   src: url('/fonts/ex-bo-it.ttf');
-// }
-// @font-face {
-//   font-family: he;
-//   src: url('/fonts/he.ttf');
-// }
-// @font-face {
-//   font-family: he-it;
-//   src: url('/fonts/he-it.ttf');
-// }
-// @font-face {
-//   font-family: li;
-//   src: url('/fonts/li.ttf');
-// }
-// @font-face {
-//   font-family: li-it;
-//   src: url('/fonts/li-it.ttf');
-// }
-// @font-face {
-//   font-family: me;
-//   src: url('/fonts/me.ttf');
-// }
-// @font-face {
-//   font-family: me-it;
-//   src: url('/fonts/me-it.ttf');
-// }
-// @font-face {
-//   font-family: re;
-//   src: url('/fonts/re.ttf');
-// }
-// @font-face {
-//   font-family: re-it;
-//   src: url('/fonts/re-it.ttf');
-// }
-// @font-face {
-//   font-family: se-bo;
-//   src: url('/fonts/se-bo.ttf');
-// }
-// @font-face {
-//   font-family: se-bo-it;
-//   src: url('/fonts/se-bo-it.ttf');
-// }
-// @font-face {
-//   font-family: th;
-//   src: url('/fonts/th.ttf');
-// }
-// @font-face {
-//   font-family: th-it;
-//   src: url('/fonts/th-it.ttf');
-// }
-// @font-face {
-//   font-family: ul-li;
-//   src: url('/fonts/ul-li.ttf');
-// }
-// @font-face {
-//   font-family: ul-li-it;
-//   src: url('/fonts/ul-li-it.ttf');
-// }
+/*
+ *
+ * Family => Alegreya Sans SC
+ */
+@font-face {
+  font-family: alegreya-sans-sc-0;
+  src: url('/fonts/alegreya-sans-sc/0.ttf');
+}
+@font-face {
+  font-family: alegreya-sans-sc-1;
+  src: url('/fonts/alegreya-sans-sc/1.ttf');
+}
+@font-face {
+  font-family: alegreya-sans-sc-2;
+  src: url('/fonts/alegreya-sans-sc/2.ttf');
+}
+@font-face {
+  font-family: alegreya-sans-sc-3;
+  src: url('/fonts/alegreya-sans-sc/3.ttf');
+}
+
+/*
+ *
+ * Family => Baloo Tammudu 2
+ */
+@font-face {
+  font-family: baloo-tammudu-2-0;
+  src: url('/fonts/baloo-tammudu-2/0.ttf');
+}
+@font-face {
+  font-family: baloo-tammudu-2-1;
+  src: url('/fonts/baloo-tammudu-2/1.ttf');
+}
+@font-face {
+  font-family: baloo-tammudu-2-2;
+  src: url('/fonts/baloo-tammudu-2/2.ttf');
+}
+@font-face {
+  font-family: baloo-tammudu-2-3;
+  src: url('/fonts/baloo-tammudu-2/3.ttf');
+}
+
+/*
+ *
+ * Family => Calibri
+ */
+@font-face {
+  font-family: calibri-0;
+  src: url('/fonts/calibri/0.ttf');
+}
+@font-face {
+  font-family: calibri-1;
+  src: url('/fonts/calibri/1.ttf');
+}
+@font-face {
+  font-family: calibri-2;
+  src: url('/fonts/calibri/2.ttf');
+}
+@font-face {
+  font-family: calibri-3;
+  src: url('/fonts/calibri/3.ttf');
+}
+
+/*
+ *
+ * Family => Caveat
+ */
+@font-face {
+  font-family: caveat-0;
+  src: url('/fonts/caveat/0.ttf');
+}
+@font-face {
+  font-family: caveat-1;
+  src: url('/fonts/caveat/1.ttf');
+}
+@font-face {
+  font-family: caveat-2;
+  src: url('/fonts/caveat/2.ttf');
+}
+@font-face {
+  font-family: caveat-3;
+  src: url('/fonts/caveat/3.ttf');
+}
+
+/*
+ *
+ * Family => Grandstander
+ */
+@font-face {
+  font-family: grandstander-0;
+  src: url('/fonts/grandstander/0.ttf');
+}
+@font-face {
+  font-family: grandstander-1;
+  src: url('/fonts/grandstander/1.ttf');
+}
+@font-face {
+  font-family: grandstander-2;
+  src: url('/fonts/grandstander/2.ttf');
+}
+@font-face {
+  font-family: grandstander-3;
+  src: url('/fonts/grandstander/3.ttf');
+}
+
+/*
+ *
+ * Family => Grenze
+ */
+@font-face {
+  font-family: grenze-0;
+  src: url('/fonts/grenze/0.ttf');
+}
+@font-face {
+  font-family: grenze-1;
+  src: url('/fonts/grenze/1.ttf');
+}
+@font-face {
+  font-family: grenze-2;
+  src: url('/fonts/grenze/2.ttf');
+}
+@font-face {
+  font-family: grenze-3;
+  src: url('/fonts/grenze/3.ttf');
+}
+
+/*
+ *
+ * Family => Karla
+ */
+@font-face {
+  font-family: karla-0;
+  src: url('/fonts/karla/0.ttf');
+}
+@font-face {
+  font-family: karla-1;
+  src: url('/fonts/karla/1.ttf');
+}
+@font-face {
+  font-family: karla-2;
+  src: url('/fonts/karla/2.ttf');
+}
+@font-face {
+  font-family: karla-3;
+  src: url('/fonts/karla/3.ttf');
+}
+
+/*
+ *
+ * Family => Kodchasan
+ */
+@font-face {
+  font-family: kodchasan-0;
+  src: url('/fonts/kodchasan/0.ttf');
+}
+@font-face {
+  font-family: kodchasan-1;
+  src: url('/fonts/kodchasan/1.ttf');
+}
+@font-face {
+  font-family: kodchasan-2;
+  src: url('/fonts/kodchasan/2.ttf');
+}
+@font-face {
+  font-family: kodchasan-3;
+  src: url('/fonts/kodchasan/3.ttf');
+}
+
+/*
+ *
+ * Family => Lato
+ */
+@font-face {
+  font-family: lato-0;
+  src: url('/fonts/lato/0.ttf');
+}
+@font-face {
+  font-family: lato-1;
+  src: url('/fonts/lato/1.ttf');
+}
+@font-face {
+  font-family: lato-2;
+  src: url('/fonts/lato/2.ttf');
+}
+@font-face {
+  font-family: lato-3;
+  src: url('/fonts/lato/3.ttf');
+}
+
+/*
+ *
+ * Family => Mali
+ */
+@font-face {
+  font-family: mali-0;
+  src: url('/fonts/mali/0.ttf');
+}
+@font-face {
+  font-family: mali-1;
+  src: url('/fonts/mali/1.ttf');
+}
+@font-face {
+  font-family: mali-2;
+  src: url('/fonts/mali/2.ttf');
+}
+@font-face {
+  font-family: mali-3;
+  src: url('/fonts/mali/3.ttf');
+}
+
+/*
+ *
+ * Family => Montserrat
+ */
+@font-face {
+  font-family: montserrat-0;
+  src: url('/fonts/montserrat/0.ttf');
+}
+@font-face {
+  font-family: montserrat-1;
+  src: url('/fonts/montserrat/1.ttf');
+}
+@font-face {
+  font-family: montserrat-2;
+  src: url('/fonts/montserrat/2.ttf');
+}
+@font-face {
+  font-family: montserrat-3;
+  src: url('/fonts/montserrat/3.ttf');
+}
+
+/*
+ *
+ * Family => Newsreader
+ */
+@font-face {
+  font-family: newsreader-0;
+  src: url('/fonts/newsreader/0.ttf');
+}
+@font-face {
+  font-family: newsreader-1;
+  src: url('/fonts/newsreader/1.ttf');
+}
+@font-face {
+  font-family: newsreader-2;
+  src: url('/fonts/newsreader/2.ttf');
+}
+@font-face {
+  font-family: newsreader-3;
+  src: url('/fonts/newsreader/3.ttf');
+}
+
+/*
+ *
+ * Family => Open Sans
+ */
+@font-face {
+  font-family: open-sans-0;
+  src: url('/fonts/open-sans/0.ttf');
+}
+@font-face {
+  font-family: open-sans-1;
+  src: url('/fonts/open-sans/1.ttf');
+}
+@font-face {
+  font-family: open-sans-2;
+  src: url('/fonts/open-sans/2.ttf');
+}
+@font-face {
+  font-family: open-sans-3;
+  src: url('/fonts/open-sans/3.ttf');
+}
+
+/*
+ *
+ * Family => Quicksand
+ */
+@font-face {
+  font-family: quicksand-0;
+  src: url('/fonts/quicksand/0.ttf');
+}
+@font-face {
+  font-family: quicksand-1;
+  src: url('/fonts/quicksand/1.ttf');
+}
+@font-face {
+  font-family: quicksand-2;
+  src: url('/fonts/quicksand/2.ttf');
+}
+@font-face {
+  font-family: quicksand-3;
+  src: url('/fonts/quicksand/3.ttf');
+}
+
+/*
+ *
+ * Family => Roboto
+ */
+@font-face {
+  font-family: roboto-0;
+  src: url('/fonts/roboto/0.ttf');
+}
+@font-face {
+  font-family: roboto-1;
+  src: url('/fonts/roboto/1.ttf');
+}
+@font-face {
+  font-family: roboto-2;
+  src: url('/fonts/roboto/2.ttf');
+}
+@font-face {
+  font-family: roboto-3;
+  src: url('/fonts/roboto/3.ttf');
+}
+
+/*
+ *
+ * Family => Tomorrow
+ */
+@font-face {
+  font-family: tomorrow-0;
+  src: url('/fonts/tomorrow/0.ttf');
+}
+@font-face {
+  font-family: tomorrow-1;
+  src: url('/fonts/tomorrow/1.ttf');
+}
+@font-face {
+  font-family: tomorrow-2;
+  src: url('/fonts/tomorrow/2.ttf');
+}
+@font-face {
+  font-family: tomorrow-3;
+  src: url('/fonts/tomorrow/3.ttf');
+}
+
+/*
+ *
+ * Family => Ubuntu
+ */
+@font-face {
+  font-family: ubuntu-0;
+  src: url('/fonts/ubuntu/0.ttf');
+}
+@font-face {
+  font-family: ubuntu-1;
+  src: url('/fonts/ubuntu/1.ttf');
+}
+@font-face {
+  font-family: ubuntu-2;
+  src: url('/fonts/ubuntu/2.ttf');
+}
+@font-face {
+  font-family: ubuntu-3;
+  src: url('/fonts/ubuntu/3.ttf');
+}
+
+/*
+ *
+ * Family => Vazir
+ */
+@font-face {
+  font-family: vazir-0;
+  src: url('/fonts/vazir/0.ttf');
+}
+@font-face {
+  font-family: vazir-1;
+  src: url('/fonts/vazir/1.ttf');
+}
+@font-face {
+  font-family: vazir-2;
+  src: url('/fonts/vazir/2.ttf');
+}
+@font-face {
+  font-family: vazir-3;
+  src: url('/fonts/vazir/3.ttf');
+}

@@ -87,12 +87,11 @@ export const NapsList = styled.div`
 
 export const CardsContainer = styled.div`
   columns: auto 2;
-  column-gap: 2px;
+  column-gap: 5px;
   width: 100%;
 
   > article {
     height: auto;
     display: inline-block;
-    margin: 3px;
   }
 `

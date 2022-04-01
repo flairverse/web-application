@@ -6,6 +6,7 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     background-color: var(--layer-1);
+    font-family: var(--ff-1);
   }
 
   .ReactQueryDevtools > button, .devtool {
