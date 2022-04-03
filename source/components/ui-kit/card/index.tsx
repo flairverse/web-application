@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import * as Lib from './lib'
 import { Img } from '@/helpers/image.helper'
 import Link from 'next/link'
@@ -7,9 +7,13 @@ import { MdBookmark } from 'react-icons/md'
 import { IoMdWallet } from 'react-icons/io'
 import { Button } from 'antd'
 import { ColumnarDate } from '../columnar-date'
-import { AppIcons } from '../app-icons'
-import { DetailedInfo } from '../detailed-info'
+import { AppIconByTopic } from '../app-icons'
 import { NapProfile } from '../nap-profile'
+import { Information } from '../information'
+import { RiHeart2Line } from 'react-icons/ri'
+import { FiMessageSquare } from 'react-icons/fi'
+import { Topic, TOPICS } from '@/types/topics'
+import { Num } from '@/helpers/number.heler'
 
 const title = 'How To Manage You Time And Get More Done? Is It Realy Helps You Tobe More Carefull aAbout Times?'
 const summary =
@@ -22,9 +26,17 @@ const user = {
   profile: '/removal/profile.jpg',
   id: 0,
 }
-const topic = 'blog'
 
 export const Card: FC<Lib.T.CardProps> = ({}) => {
+  const [topic, setTopic] = useState<Topic>('blog')
+
+  useEffect(() => {
+    const theTopic = TOPICS[Num.random(0, 4)]
+    if (theTopic) {
+      setTopic(theTopic)
+    }
+  }, [])
+
   return (
     <Lib.S.CardContainer>
       <data>
@@ -49,12 +61,12 @@ export const Card: FC<Lib.T.CardProps> = ({}) => {
         <div>
           <Link href={slug}>
             <a>
-              <img src={'/removal/1.jpg'} alt={title} />
+              <img src={Img.random()} alt={title} />
 
               <h2>{title}</h2>
 
               <div>
-                <ColumnarDate dateTime="2018-07-08" topic={topic} />
+                <ColumnarDate dateTime="2018-05-08" topic={topic} />
 
                 <summary>{summary}</summary>
               </div>
@@ -65,11 +77,15 @@ export const Card: FC<Lib.T.CardProps> = ({}) => {
         <span />
 
         <footer>
-          {/* <IoMdWallet color="white" size={50} />
-
-          <span>
-            <AppIcons.Blog />
-          </span> */}
+          <Information icon={<IoMdWallet />} colorTheme={topic} title="Payment Required" />
+          <Information icon={<AppIconByTopic topic={topic} transparent />} title={`An ${topic}`} />
+          <Information icon={<RiHeart2Line />} title="Likes">
+            12.5k
+          </Information>
+          <Information icon={<FiMessageSquare />} title="Comments">
+            12.5k
+          </Information>
+          <Information title="Required time to read">55 "</Information>
         </footer>
       </data>
     </Lib.S.CardContainer>

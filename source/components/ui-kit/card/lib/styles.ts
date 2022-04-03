@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import * as Lib from '.'
 
 export const CardContainer = styled.article`
   width: 100%;
@@ -40,6 +39,11 @@ export const CardContainer = styled.article`
           padding: 0;
           font-size: 18pt;
           margin: 0 0 0 5px;
+          opacity: 0.5;
+
+          &:hover {
+            opacity: 0.8;
+          }
         }
       }
     }
@@ -69,16 +73,34 @@ export const CardContainer = styled.article`
 
         > div {
           padding: 0 8px;
-
-          > time {
-          }
+          display: flex;
+          align-items: flex-start;
 
           > summary {
             color: var(--layer-2-text-1);
             font-size: var(--f-2);
+            padding: 0 0 0 10px;
           }
         }
       }
+    }
+
+    > span {
+      width: 100%;
+      padding: 8px 8px 15px 8px;
+      display: block;
+      opacity: 0.3;
+
+      &::after {
+        content: '';
+        float: left;
+        width: 100%;
+        border: 1px dashed var(--layer-2-placeholder);
+      }
+    }
+
+    > footer {
+      padding: 0 8px 8px 8px;
     }
   }
 `

@@ -248,6 +248,38 @@ export const JobTransparent: FC<Lib.T.TransparentProps> = ({ fillColor }) => {
   )
 }
 
+export const AppIconByTopic: FC<Lib.T.AppIconByTopicProps> = ({ topic, transparent, ...rest }) => {
+  switch (topic) {
+    case 'article': {
+      if (transparent) {
+        return <AppIcons.ArticleTransparent {...rest} />
+      }
+      return <AppIcons.Article />
+    }
+
+    case 'blog': {
+      if (transparent) {
+        return <AppIcons.BlogTransparent {...rest} />
+      }
+      return <AppIcons.Blog />
+    }
+
+    case 'job': {
+      if (transparent) {
+        return <AppIcons.JobTransparent {...rest} />
+      }
+      return <AppIcons.Job />
+    }
+
+    case 'podcast': {
+      if (transparent) {
+        return <AppIcons.PodcastTransparent {...rest} />
+      }
+      return <AppIcons.Podcast />
+    }
+  }
+}
+
 export const AppIcons = {
   Blog,
   BlogTransparent,
@@ -260,4 +292,6 @@ export const AppIcons = {
 
   Job,
   JobTransparent,
+
+  AppIconByTopic,
 }

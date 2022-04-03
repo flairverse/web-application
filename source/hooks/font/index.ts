@@ -9,7 +9,6 @@ export const useFont = () => {
   const [font, setFont] = useRecoilState(fontAtoms.fontState)
 
   const changeRoot = (property: Lib.T.FontWeightVariant, value: string) => {
-    console.log(`--ff-${property}`, value)
     document.documentElement.style.setProperty(`--ff-${property}`, `var(--f-${value}-${property})`)
   }
 

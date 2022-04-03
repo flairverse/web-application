@@ -13,9 +13,9 @@ export class Sizing {
 
       case 'medium': {
         return {
-          day: '10pt',
-          year: '17pt',
-          month: '8pt',
+          month: '10pt',
+          day: '17pt',
+          year: '8pt',
         }
       }
 
