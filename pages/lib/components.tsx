@@ -67,7 +67,7 @@ export const NapsList: FC = () => {
         id: index,
         children: (
           <div className="nap">
-            <NapProfile id={0} username="tw4kt5hwpwxbffg33ckesrq78bmd3s" hasNap job="Computer Engineering" />
+            <NapProfile id={0} loading={false} username="tw4kt5hwpwxbffg33ckesrq78bmd3s" hasNap job="Computer Engineering" />
           </div>
         ),
       }
@@ -92,7 +92,7 @@ export const FollowingsContent: FC = () => {
 export const ForYouContent: FC = () => {
   return (
     <Lib.S.CardsContainer>
-      {Array.from(Array(50)).map((item, index) => {
+      {Array.from(Array(10)).map((item, index) => {
         return <Card key={index} />
       })}
     </Lib.S.CardsContainer>

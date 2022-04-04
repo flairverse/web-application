@@ -5,6 +5,7 @@ export interface NapProfileProps extends Omit<HTMLAttributes<HTMLDivElement>, 'o
   username?: string
   job?: string
   hasNap?: boolean
+  opening?: boolean
   loading?: boolean
   seen?: boolean
   id: number

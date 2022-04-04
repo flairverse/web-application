@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import * as Lib from '.'
 
-export const NapProfileContainer = styled.div<Pick<Lib.T.NapProfileProps, 'mode' | 'hasNap' | 'loading' | 'seen' | 'size'>>`
+export const NapProfileContainer = styled.div<Pick<Lib.T.NapProfileProps, 'mode' | 'hasNap' | 'opening' | 'seen' | 'size' | 'loading'>>`
   width: auto;
   height: auto;
   margin: 0 10px;
@@ -18,7 +18,7 @@ export const NapProfileContainer = styled.div<Pick<Lib.T.NapProfileProps, 'mode'
     min-width: ${({ size }) => Lib.HE.Scale.image(size!)};
     height: ${({ size }) => Lib.HE.Scale.image(size!)};
     position: relative;
-    border-radius: ${({ loading }) => (loading ? 50 : 40)}%;
+    border-radius: ${({ opening }) => (opening ? 50 : 40)}%;
     transition: all 150ms linear;
 
     > div,
@@ -36,9 +36,9 @@ export const NapProfileContainer = styled.div<Pick<Lib.T.NapProfileProps, 'mode'
       width: 100%;
       height: 100%;
       margin: 0 auto;
-      animation: ${({ loading }) => (loading ? 'nap 2s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite' : 'none')};
-      background: ${({ hasNap }) =>
-        hasNap
+      animation: ${({ opening }) => (opening ? 'nap 2s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite' : 'none')};
+      background: ${({ hasNap, loading }) =>
+        !loading && hasNap
           ? `-webkit-linear-gradient(
               45deg,
               var(--c-blog),
@@ -53,6 +53,13 @@ export const NapProfileContainer = styled.div<Pick<Lib.T.NapProfileProps, 'mode'
       width: ${({ hasNap }) => (hasNap ? 'calc(100% - 4px)' : '100%')};
       height: ${({ hasNap }) => (hasNap ? 'calc(100% - 4px)' : '100%')};
       -webkit-user-drag: none;
+    }
+
+    > .ant-skeleton {
+      > span {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 
@@ -75,6 +82,35 @@ export const NapProfileContainer = styled.div<Pick<Lib.T.NapProfileProps, 'mode'
 
       &:nth-child(2) {
         font-size: ${({ size }) => Lib.HE.Scale.job(size!)};
+      }
+    }
+
+    > .ant-skeleton {
+      width: 100%;
+      text-align: left;
+      flex: 1;
+      display: flex;
+
+      &.username {
+        align-items: flex-end;
+
+        > span {
+          height: 12px;
+          margin: 0 0 5px 0;
+          width: 80px;
+          min-width: unset;
+          max-width: 95%;
+        }
+      }
+
+      &.job {
+        > span {
+          height: 6px;
+          margin: 0;
+          width: 130px;
+          min-width: unset;
+          max-width: 95%;
+        }
       }
     }
   }

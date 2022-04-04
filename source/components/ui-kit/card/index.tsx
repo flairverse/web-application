@@ -5,13 +5,13 @@ import Link from 'next/link'
 import { HiOutlineDotsHorizontal } from 'react-icons/hi'
 import { MdBookmark } from 'react-icons/md'
 import { IoMdWallet } from 'react-icons/io'
-import { Button } from 'antd'
+import { Button, Skeleton } from 'antd'
 import { ColumnarDate } from '../columnar-date'
 import { AppIconByTopic } from '../app-icons'
 import { NapProfile } from '../nap-profile'
 import { Information } from '../information'
-import { RiHeart2Line } from 'react-icons/ri'
 import { FiMessageSquare } from 'react-icons/fi'
+import { FaRegHeart } from 'react-icons/fa'
 import { Topic, TOPICS } from '@/types/topics'
 import { Num } from '@/helpers/number.heler'
 
@@ -26,6 +26,7 @@ const user = {
   profile: '/removal/profile.jpg',
   id: 0,
 }
+const loading = false
 
 export const Card: FC<Lib.T.CardProps> = ({}) => {
   const [topic, setTopic] = useState<Topic>('blog')
@@ -38,12 +39,12 @@ export const Card: FC<Lib.T.CardProps> = ({}) => {
   }, [])
 
   return (
-    <Lib.S.CardContainer>
+    <Lib.S.CardContainer loading={loading}>
       <data>
         <header>
           <Link href={`/${user.username}`}>
             <a>
-              <NapProfile id={user.id} hasNap mode="horizontal" username={user.fullName} job={user.job} size={0.6} className="flairDetail" />
+              <NapProfile loading={loading} id={user.id} hasNap mode="horizontal" username={user.fullName} job={user.job} size={0.6} className="flairDetail" />
             </a>
           </Link>
 
@@ -61,15 +62,26 @@ export const Card: FC<Lib.T.CardProps> = ({}) => {
         <div>
           <Link href={slug}>
             <a>
-              <img src={Img.random()} alt={title} />
+              {loading ? <Skeleton.Image /> : <img src={Img.random()} alt={title} />}
 
-              <h2>{title}</h2>
+              {loading ? <Skeleton active className="title" /> : <h2>{title}</h2>}
 
-              <div>
-                <ColumnarDate dateTime="2018-05-08" topic={topic} />
+              {loading ? (
+                <div className="descSkeleton">
+                  <Skeleton.Button active className="date" />
 
-                <summary>{summary}</summary>
-              </div>
+                  <div className="descriptions">
+                    <Skeleton active className="description" />
+                    <Skeleton active className="description" />
+                  </div>
+                </div>
+              ) : (
+                <div className="description">
+                  <ColumnarDate dateTime="2018-05-08" topic={topic} />
+
+                  <summary>{summary}</summary>
+                </div>
+              )}
             </a>
           </Link>
         </div>
@@ -77,15 +89,21 @@ export const Card: FC<Lib.T.CardProps> = ({}) => {
         <span />
 
         <footer>
-          <Information icon={<IoMdWallet />} colorTheme={topic} title="Payment Required" />
-          <Information icon={<AppIconByTopic topic={topic} transparent />} title={`An ${topic}`} />
-          <Information icon={<RiHeart2Line />} title="Likes">
+          <Information loading={loading} icon={<IoMdWallet />} colorTheme={topic} title="Payment Required" />
+
+          <Information loading={loading} icon={<AppIconByTopic topic={topic} transparent />} title={`An ${topic}`} />
+
+          <Information loading={loading} icon={<FaRegHeart />} title="Likes">
             12.5k
           </Information>
-          <Information icon={<FiMessageSquare />} title="Comments">
+
+          <Information loading={loading} icon={<FiMessageSquare />} title="Comments">
             12.5k
           </Information>
-          <Information title="Required time to read">55 "</Information>
+
+          <Information loading={loading} title="Required time to read">
+            55 "
+          </Information>
         </footer>
       </data>
     </Lib.S.CardContainer>

@@ -1,7 +1,8 @@
 import { FC } from 'react'
+import { Skeleton } from 'antd'
 import * as Lib from './lib'
 
-export const NapProfile: FC<Lib.T.NapProfileProps> = ({ mode = 'vertical', username, hasNap, loading, id, onClick, seen, profile, size = 1, job, ...rest }) => {
+export const NapProfile: FC<Lib.T.NapProfileProps> = ({ mode = 'vertical', username, hasNap, opening, loading, id, onClick, seen, profile, size = 1, job, ...rest }) => {
   const clickHandler = () => {
     if (onClick) {
       onClick(id)
@@ -9,16 +10,23 @@ export const NapProfile: FC<Lib.T.NapProfileProps> = ({ mode = 'vertical', usern
   }
 
   return (
-    <Lib.S.NapProfileContainer onClickCapture={clickHandler} seen={seen} mode={mode} hasNap={hasNap} loading={loading} size={size} {...rest}>
+    <Lib.S.NapProfileContainer onClickCapture={clickHandler} seen={seen} mode={mode} loading={loading} hasNap={hasNap} opening={opening} size={size} {...rest}>
       <div className="picture">
-        {hasNap && <div />}
+        {loading ? (
+          <Skeleton.Avatar active />
+        ) : (
+          <>
+            {hasNap && <div />}
 
-        <img src={profile || '/removal/profile.jpg'} alt="user" draggable={false} />
+            <img src={profile || '/removal/profile.jpg'} alt="user" draggable={false} />
+          </>
+        )}
       </div>
 
       <p className="detail">
-        {username && <span>{username}</span>}
-        {mode === 'horizontal' && job && <span>{job}</span>}
+        {loading ? <Skeleton.Button active className="username" /> : username && <span>{username}</span>}
+
+        {mode === 'horizontal' ? loading ? <Skeleton.Button active className="job" /> : job && <span>{job}</span> : null}
       </p>
     </Lib.S.NapProfileContainer>
   )

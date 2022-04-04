@@ -1,6 +1,7 @@
 import styled from 'styled-components'
+import * as Lib from '.'
 
-export const CardContainer = styled.article`
+export const CardContainer = styled.article<Pick<Lib.T.CardProps, 'loading'>>`
   width: 100%;
   height: auto;
   background-color: var(--layer-2);
@@ -8,6 +9,19 @@ export const CardContainer = styled.article`
   padding: 3px;
   overflow: hidden;
   border: 1px solid var(--layer-2-border);
+  position: relative;
+  
+  ${({ loading }) =>
+    loading &&
+    `&::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+  `}
 
   > data {
     width: 100%;
@@ -71,7 +85,7 @@ export const CardContainer = styled.article`
           margin: 5px 0;
         }
 
-        > div {
+        > .description {
           padding: 0 8px;
           display: flex;
           align-items: flex-start;
@@ -80,6 +94,81 @@ export const CardContainer = styled.article`
             color: var(--layer-2-text-1);
             font-size: var(--f-2);
             padding: 0 0 0 10px;
+          }
+        }
+
+        > .ant-skeleton {
+          padding: 0 8px;
+          display: flex;
+          align-items: flex-start;
+
+          > .ant-skeleton-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 15px;
+          }
+
+          &.title {
+            margin: 0 0 7px 0;
+
+            > div {
+              > h3 {
+                width: 90% !important;
+              }
+
+              > ul {
+                display: none;
+              }
+            }
+          }
+        }
+
+        > .descSkeleton {
+          display: flex;
+          padding: 0 8px;
+          align-items: flex-start;
+
+          > .date {
+            > span {
+              min-width: unset;
+              width: 45px;
+              margin: 0 7px 0 0;
+              height: 55px;
+            }
+          }
+
+          > .descriptions {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+
+            > .description {
+              > div {
+                > h3 {
+                  display: none;
+                }
+
+                > ul {
+                  margin: 0;
+
+                  > li {
+                    margin: 0 0 7px 0;
+                  }
+                }
+              }
+
+              &:nth-child(1) {
+                > div {
+                  > ul {
+                    > li {
+                      &:last-child {
+                        display: none;
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
