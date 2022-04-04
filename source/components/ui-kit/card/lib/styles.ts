@@ -10,7 +10,7 @@ export const CardContainer = styled.article<Pick<Lib.T.CardProps, 'loading'>>`
   overflow: hidden;
   border: 1px solid var(--layer-2-border);
   position: relative;
-  
+
   ${({ loading }) =>
     loading &&
     `&::after {
