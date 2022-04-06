@@ -1,4 +1,4 @@
-import { Num } from './number.heler'
+import { Num } from './number'
 
 export class Img {
   /**

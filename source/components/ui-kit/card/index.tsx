@@ -1,6 +1,5 @@
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 import * as Lib from './lib'
-import { Img } from '@/helpers/image.helper'
 import Link from 'next/link'
 import { HiOutlineDotsHorizontal } from 'react-icons/hi'
 import { MdBookmark } from 'react-icons/md'
@@ -12,46 +11,30 @@ import { NapProfile } from '../nap-profile'
 import { Information } from '../information'
 import { FiMessageSquare } from 'react-icons/fi'
 import { FaRegHeart } from 'react-icons/fa'
-import { Topic, TOPICS } from '@/types/topics'
-import { Num } from '@/helpers/number.heler'
+import { Num } from '@/helpers/number'
+import { Menu } from '@/components/menu'
 
-const title = 'How To Manage You Time And Get More Done? Is It Realy Helps You Tobe More Carefull aAbout Times?'
-const summary =
-  'It may not possible to squeeze more time in the day without sacrificing sleep. So how do you achieve It may not possible to squeeze more time in the day without sacrificing sleep. So how do you achieve...'
-const slug = '/'
-const user = {
-  fullName: 'HamidReza Qafoori',
-  username: 'qafoori',
-  job: 'Computer Engineering',
-  profile: '/removal/profile.jpg',
-  id: 0,
-}
-const loading = false
-
-export const Card: FC<Lib.T.CardProps> = ({}) => {
-  const [topic, setTopic] = useState<Topic>('blog')
-
-  useEffect(() => {
-    const theTopic = TOPICS[Num.random(0, 4)]
-    if (theTopic) {
-      setTopic(theTopic)
-    }
-  }, [])
+export const Card: FC<Lib.T.CardProps> = ({ post, user, loading }) => {
+  const { menuItems } = Lib.H.useCard()
+  const { slug: postSlug, summary, title, topic, comments, likes, cover } = post
+  const { fullName, job, profile, slug: userSlug, id: userID } = user
 
   return (
     <Lib.S.CardContainer loading={loading}>
       <data>
         <header>
-          <Link href={`/${user.username}`}>
+          <Link href={userSlug}>
             <a>
-              <NapProfile loading={loading} id={user.id} hasNap mode="horizontal" username={user.fullName} job={user.job} size={0.6} className="flairDetail" />
+              <NapProfile profile={profile} loading={loading} id={userID} hasNap mode="horizontal" username={fullName} job={job} size={0.6} className="flairDetail" />
             </a>
           </Link>
 
           <span>
-            <Button>
-              <HiOutlineDotsHorizontal />
-            </Button>
+            <Menu<Lib.T.MenuItemKeys, void> items={menuItems}>
+              <Button>
+                <HiOutlineDotsHorizontal />
+              </Button>
+            </Menu>
 
             <Button>
               <MdBookmark />
@@ -60,9 +43,9 @@ export const Card: FC<Lib.T.CardProps> = ({}) => {
         </header>
 
         <div>
-          <Link href={slug}>
+          <Link href={postSlug}>
             <a>
-              {loading ? <Skeleton.Image /> : <img src={Img.random()} alt={title} />}
+              {loading ? <Skeleton.Image /> : cover ? <img src={cover} alt={title} /> : null}
 
               {loading ? <Skeleton active className="title" /> : <h2>{title}</h2>}
 
@@ -94,11 +77,11 @@ export const Card: FC<Lib.T.CardProps> = ({}) => {
           <Information loading={loading} icon={<AppIconByTopic topic={topic} transparent />} title={`An ${topic}`} />
 
           <Information loading={loading} icon={<FaRegHeart />} title="Likes">
-            12.5k
+            {Num.stringify(likes)}
           </Information>
 
           <Information loading={loading} icon={<FiMessageSquare />} title="Comments">
-            12.5k
+            {Num.stringify(comments)}
           </Information>
 
           <Information loading={loading} title="Required time to read">

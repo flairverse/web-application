@@ -1,4 +1,26 @@
 import { SuggestionItem, SuggestionFlair } from '@/components/ui-kit/suggestion-box/lib/types'
+import { CardProps } from '@/components/ui-kit/card/lib/types'
+
+export const blog1: CardProps = {
+  post: {
+    comments: 5165561,
+    likes: 112154,
+    slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    summary:
+      'It may not possible to squeeze more time in the day without sacrificing sleep. So how do you achieve It may not possible to squeeze more time in the day without sacrificing sleep. So how do you achieve...',
+    title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+    topic: 'article',
+    cover: '/removal/1.jpg',
+  },
+  user: {
+    fullName: 'HamidReza Qafoori',
+    id: 0,
+    job: 'Computer Engineering',
+    profile: '/removal/profile.jpg',
+    slug: '/qafoori',
+  },
+  loading: false,
+}
 
 export const suggestionInBox1: SuggestionItem[] = [
   {
