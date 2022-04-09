@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { HiOutlineDotsHorizontal } from 'react-icons/hi'
 import { MdBookmark } from 'react-icons/md'
 import { IoMdWallet } from 'react-icons/io'
-import { Button, Skeleton } from 'antd'
+import { Skeleton } from 'antd'
 import { ColumnarDate } from '../columnar-date'
 import { AppIconByTopic } from '../app-icons'
 import { NapProfile } from '../nap-profile'
@@ -12,7 +12,7 @@ import { Information } from '../information'
 import { FiMessageSquare } from 'react-icons/fi'
 import { FaRegHeart } from 'react-icons/fa'
 import { Num } from '@/helpers/number'
-import { Menu } from '@/components/menu'
+import { Menu } from '@/components/ui-kit/menu'
 
 export const Card: FC<Lib.T.CardProps> = ({ post, user, loading }) => {
   const { menuItems } = Lib.H.useCard()
@@ -30,15 +30,15 @@ export const Card: FC<Lib.T.CardProps> = ({ post, user, loading }) => {
           </Link>
 
           <span>
-            <Menu<Lib.T.MenuItemKeys, void> items={menuItems}>
-              <Button>
+            <Menu<Lib.T.MenuItemKeys, void> items={menuItems} position={['35px', '-31px', 'unset', 'unset']} openMenuEffect="scale-out">
+              <button>
                 <HiOutlineDotsHorizontal />
-              </Button>
+              </button>
             </Menu>
 
-            <Button>
+            <button>
               <MdBookmark />
-            </Button>
+            </button>
           </span>
         </header>
 

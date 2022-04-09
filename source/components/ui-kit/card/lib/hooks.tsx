@@ -1,4 +1,4 @@
-import { MenuItem } from '@/components/menu/lib/types'
+import { MenuItem } from '@/components/ui-kit/menu/lib/types'
 import * as Lib from '.'
 import { AiFillAccountBook } from 'react-icons/ai'
 

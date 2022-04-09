@@ -92,7 +92,7 @@ export const FollowingsContent: FC = () => {
 export const ForYouContent: FC = () => {
   return (
     <Lib.S.CardsContainer>
-      {Array.from(Array(10)).map((item, index) => {
+      {Array.from(Array(20)).map((item, index) => {
         return <Card key={index} post={mock.blog1.post} user={mock.blog1.user} />
       })}
     </Lib.S.CardsContainer>

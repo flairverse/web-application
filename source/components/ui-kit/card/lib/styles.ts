@@ -46,6 +46,7 @@ export const CardContainer = styled.article<Pick<Lib.T.CardProps, 'loading'>>`
         display: flex;
         align-items: center;
 
+        > div > button, 
         > button {
           background-color: transparent !important;
           border: none;
@@ -54,9 +55,19 @@ export const CardContainer = styled.article<Pick<Lib.T.CardProps, 'loading'>>`
           font-size: 18pt;
           margin: 0 0 0 5px;
           opacity: 0.5;
+          position: relative;
 
           &:hover {
             opacity: 0.8;
+          }
+
+          &.menuButton {
+            &:focus {
+              > div {
+                visibility: visible;
+                opacity: 1;
+              }
+            }
           }
         }
       }
