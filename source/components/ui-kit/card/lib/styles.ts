@@ -46,7 +46,7 @@ export const CardContainer = styled.article<Pick<Lib.T.CardProps, 'loading'>>`
         display: flex;
         align-items: center;
 
-        > div > button, 
+        > div > button,
         > button {
           background-color: transparent !important;
           border: none;
