@@ -30,7 +30,7 @@ export const Card: FC<Lib.T.CardProps> = ({ post, user, loading }) => {
           </Link>
 
           <span>
-            <Menu<Lib.T.MenuItemKeys, void> items={menuItems} position={['35px', '-31px', 'unset', 'unset']} openMenuEffect="scale-out">
+            <Menu<Lib.T.MenuItemKeys, void> items={menuItems} position={['35px', '-31px', 'unset', 'unset']} openMenuEffect="scale-out" compact>
               <button>
                 <HiOutlineDotsHorizontal />
               </button>
@@ -72,21 +72,25 @@ export const Card: FC<Lib.T.CardProps> = ({ post, user, loading }) => {
         <span />
 
         <footer>
-          <Information loading={loading} icon={<IoMdWallet />} colorTheme={topic} title="Payment Required" />
+          <Link href={postSlug}>
+            <a>
+              <Information loading={loading} icon={<IoMdWallet />} colorTheme={topic} title="Payment Required" />
 
-          <Information loading={loading} icon={<AppIconByTopic topic={topic} transparent />} title={`An ${topic}`} />
+              <Information loading={loading} icon={<AppIconByTopic topic={topic} transparent />} title={`An ${topic}`} />
 
-          <Information loading={loading} icon={<FaRegHeart />} title="Likes">
-            {Num.stringify(likes)}
-          </Information>
+              <Information loading={loading} icon={<FaRegHeart />} title="Likes">
+                {Num.stringify(likes)}
+              </Information>
 
-          <Information loading={loading} icon={<FiMessageSquare />} title="Comments">
-            {Num.stringify(comments)}
-          </Information>
+              <Information loading={loading} icon={<FiMessageSquare />} title="Comments">
+                {Num.stringify(comments)}
+              </Information>
 
-          <Information loading={loading} title="Required time to read">
-            55 "
-          </Information>
+              <Information loading={loading} title="Required time to read">
+                55 "
+              </Information>
+            </a>
+          </Link>
         </footer>
       </data>
     </Lib.S.CardContainer>

@@ -16,7 +16,7 @@ export const SuggestionBox: FC<Lib.T.SuggestionBoxProps> = ({ topic, title, sugg
         ))}
 
         {suggestionsFlairs?.map((flair, index) => (
-          <NapProfile key={index} mode="horizontal" {...flair} className={`flair ${flair.className || ''}`} />
+          <NapProfile key={index} mode="horizontal" {...flair} className={`flair ${flair.className || ''}`} linked />
         ))}
       </div>
     </Lib.S.SuggestionsBoxContainer>

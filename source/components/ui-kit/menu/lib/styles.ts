@@ -21,7 +21,7 @@ export const MenuButton = styled.div`
   }
 `
 
-export const MenuContainer = styled.ul<Pick<Lib.T.MenuProps, 'position' | 'openMenuEffect'>>`
+export const MenuContainer = styled.ul<Pick<Lib.T.MenuProps, 'position' | 'openMenuEffect' | 'minWidth' | 'compact'>>`
   top: ${({ position }) => (position ? position[0] : 'unset')};
   right: ${({ position }) => (position ? position[1] : 'unset')};
   bottom: ${({ position }) => (position ? position[2] : 'unset')};
@@ -33,43 +33,55 @@ export const MenuContainer = styled.ul<Pick<Lib.T.MenuProps, 'position' | 'openM
   margin: 0px;
   border-radius: 12px;
   box-shadow: 0 0 0px 3px var(--layer-1);
-  padding: 6px 3px;
+  padding: ${({ compact }) => (compact ? '4px 5px' : '8px 10px')};
   display: flex;
   flex-direction: column;
   transition: all 150ms linear;
   transform: ${({ openMenuEffect }) => Lib.HE.makeOpenMenuEffect(openMenuEffect)};
   visibility: hidden;
   opacity: 0;
+  min-width: ${({ minWidth }) => minWidth || 'unset'};
 
   > li {
-    color: var(--layer-2-text-3);
     font-size: 11pt;
-    padding: 5px 7px;
     flex: 1 1 0%;
     width: 100%;
-    text-align: left;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: all 150ms linear;
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
 
-    &:hover {
-      background-color: var(--layer-1);
+    > a,
+    > span {
+      border-radius: 3px;
+      white-space: nowrap;
+      display: flex;
+      color: var(--layer-2-text-3);
+      padding: ${({ compact }) => (compact ? '4px 6px' : '8px 12px')};
+      align-items: center;
+      cursor: pointer;
+      transition: all 150ms linear;
+      text-align: left;
+
+      &:hover {
+        background-color: var(--layer-1);
+      }
+
+      > .icon {
+        display: block;
+        width: 19px;
+        height: 20px;
+        margin: 0 8px 2px 0;
+        color: var(--layer-2-text-1);
+
+        > svg {
+          width: 100%;
+          height: 100%;
+        }
+      }
     }
 
-    > .icon {
-      display: block;
-      width: 19px;
-      height: 20px;
-      margin: 0 4px 2px 0;
-      color: var(--layer-2-text-1);
-
-      > svg {
-        width: 100%;
-        height: 100%;
-      }
+    > div.breaker {
+      background-color: var(--layer-2-border);
+      width: 100%;
+      height: 1px;
+      margin: 7px 0;
     }
   }
 `

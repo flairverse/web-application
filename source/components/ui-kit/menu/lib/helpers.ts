@@ -4,11 +4,11 @@ export const makeOpenMenuEffect = (effect?: Lib.T.OpenMenuEffects): string => {
   switch (effect) {
     default:
     case 'scale-in': {
-      return 'scale(0.95)'
+      return 'scale(0.97)'
     }
 
     case 'scale-out': {
-      return 'scale(1.07)'
+      return 'scale(1.03)'
     }
 
     case 'slide-down': {

@@ -4,6 +4,10 @@ import { Theme } from '@/helpers/theme'
 export const GlobalStyles = createGlobalStyle`
   ${Theme.use()}
 
+  html, body {
+    scroll-behavior: smooth;
+  }
+
   body {
     background-color: var(--layer-1);
     font-family: var(--ff-1);

@@ -9,3 +9,22 @@ export interface SearchSuggestProps extends LinkProps {
 export type SearchSuggestActionTypes = Topic | 'query'
 
 export interface SuggestionActionsProps extends Pick<SearchSuggestProps, 'actionType'> {}
+
+export type ProfileMenuKeys =
+  | 'profile'
+  | 'create-new-post'
+  | 'make-new-nap'
+  | 'bookmarks'
+  | 'messaging'
+  | 'new-group'
+  | 'people-nearby'
+  | 'reactions'
+  | 'preferences'
+  | 'faq'
+  | 'breaker'
+  | 'comments'
+  | 'likes'
+
+export interface ProfileProps {
+  username: string
+}

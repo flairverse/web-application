@@ -5,24 +5,28 @@ export const NavBarLayout: FC = ({}) => {
   const { onGapDBLClick } = Lib.H.useNavbarLayout()
 
   return (
-    <Lib.S.NavBarContainer data-testid="navbarComponent">
-      {/* Flairverse Logo */}
-      <Lib.C.Logo />
+    <>
+      <Lib.S.Backdrop />
 
-      {/* Search box */}
-      <Lib.C.SearchInput />
+      <Lib.S.NavBarContainer data-testid="navbarComponent">
+        {/* Flairverse Logo */}
+        <Lib.C.Logo />
 
-      {/* middle gap with ability to double click to scroll to the top */}
-      <div onDoubleClick={onGapDBLClick} className="gap" />
+        {/* Search box */}
+        <Lib.C.SearchInput />
 
-      {/* (sign in & create account || create post) buttons */}
-      <Lib.C.Buttons />
+        {/* middle gap with ability to double click to scroll to the top */}
+        <div onDoubleClick={onGapDBLClick} className="gap" />
 
-      {/* user profile */}
-      <Lib.C.Profile />
+        {/* (sign in & create account || create post) buttons */}
+        <Lib.C.Buttons />
 
-      {/* create new post button in mobile view (min 768px) */}
-      <Lib.C.AdderButton />
-    </Lib.S.NavBarContainer>
+        {/* user profile */}
+        <Lib.C.Profile username="qafoori" />
+
+        {/* create new post button in mobile view (min 768px) */}
+        <Lib.C.AdderButton />
+      </Lib.S.NavBarContainer>
+    </>
   )
 }

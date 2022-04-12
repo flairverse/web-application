@@ -12,4 +12,5 @@ export interface NapProfileProps extends Omit<HTMLAttributes<HTMLDivElement>, 'o
   onClick?: (id: number) => void
   profile?: string
   size?: number
+  linked?: boolean
 }

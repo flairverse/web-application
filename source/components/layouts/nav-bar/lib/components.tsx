@@ -10,6 +10,8 @@ import FullDynamicLogo from 'public/app-logos/full-dynamic.svg'
 import * as Lib from '.'
 import Link from 'next/link'
 import { AppIcons } from '@/components/ui-kit/app-icons'
+import { Menu } from '@/components/ui-kit/menu'
+
 /**
  *
  *
@@ -30,13 +32,19 @@ export const Logo: FC = () => (
  *
  * user profile
  */
-export const Profile: FC = () => (
-  <div className="profile">
-    <button>
-      <img src="/removal/profile.jpg" alt="" />
-    </button>
-  </div>
-)
+export const Profile: FC<Lib.T.ProfileProps> = ({ username }) => {
+  const { menuItems } = Lib.H.useProfile({ username })
+
+  return (
+    <div className="profile">
+      <Menu<Lib.T.ProfileMenuKeys, void> items={menuItems} minWidth="270px" position={['33px', '3px', 'unset', 'unset']} openMenuEffect="scale-out">
+        <button>
+          <img src="/removal/profile.jpg" alt="" />
+        </button>
+      </Menu>
+    </div>
+  )
+}
 
 /**
  *

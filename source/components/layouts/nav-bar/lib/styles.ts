@@ -96,15 +96,17 @@ export const NavBarContainer = styled.div`
     height: 35px;
     margin: 0 0 0 10px;
 
-    > button {
-      padding: 0;
-      border: none;
-      overflow: hidden;
-      border-radius: 40%;
+    > div {
+      > button {
+        padding: 0;
+        border: none;
+        overflow: hidden;
+        border-radius: 40%;
 
-      > img {
-        width: 100%;
-        height: 100%;
+        > img {
+          width: 100%;
+          height: 100%;
+        }
       }
     }
   }
@@ -192,4 +194,14 @@ export const SearchSuggest = styled.li`
     cursor: pointer;
     margin: 0 10px 0 0;
   }
+`
+
+export const Backdrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 55px;
+  background: linear-gradient(180deg, var(--layer-2), transparent);
+  right: 0;
+  z-index: 2;
 `

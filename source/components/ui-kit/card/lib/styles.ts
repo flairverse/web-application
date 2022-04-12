@@ -6,7 +6,7 @@ export const CardContainer = styled.article<Pick<Lib.T.CardProps, 'loading'>>`
   height: auto;
   background-color: var(--layer-2);
   border-radius: 10px;
-  padding: 3px;
+  padding: 0;
   overflow: hidden;
   border: 1px solid var(--layer-2-border);
   position: relative;
@@ -26,16 +26,17 @@ export const CardContainer = styled.article<Pick<Lib.T.CardProps, 'loading'>>`
   > data {
     width: 100%;
     height: 100%;
+    display: block;
 
     > header {
       width: 100%;
       display: flex;
-      padding: 4px;
 
       > a {
         display: block;
         width: 100%;
         height: 100%;
+        padding: 8px 0 0 9px;
 
         > .flairDetail {
           margin: 0;
@@ -45,17 +46,29 @@ export const CardContainer = styled.article<Pick<Lib.T.CardProps, 'loading'>>`
       > span {
         display: flex;
         align-items: center;
+        padding: 0 2px 0 0;
+
+        > div > button {
+          background-color: transparent;
+          padding: 0;
+          width: 100%;
+          height: 100%;
+          margin: 0;
+          border: none;
+        }
 
         > div > button,
         > button {
           background-color: transparent !important;
           border: none;
           color: var(--layer-2-text-2) !important;
-          padding: 0;
+          padding: 10px 0 0 0;
           font-size: 18pt;
-          margin: 0 0 0 5px;
+          margin: 0;
           opacity: 0.5;
           position: relative;
+          height: 100%;
+          width: 34px;
 
           &:hover {
             opacity: 0.8;
@@ -82,7 +95,7 @@ export const CardContainer = styled.article<Pick<Lib.T.CardProps, 'loading'>>`
         display: block;
         width: 100%;
         height: 100%;
-        padding: 10px 0 0 0;
+        padding: 10px 3px 0 3px;
 
         > img {
           width: 100%;
@@ -185,22 +198,25 @@ export const CardContainer = styled.article<Pick<Lib.T.CardProps, 'loading'>>`
       }
     }
 
-    > span {
-      width: 100%;
-      padding: 8px 8px 15px 8px;
-      display: block;
-      opacity: 0.3;
-
-      &::after {
-        content: '';
-        float: left;
-        width: 100%;
-        border: 1px dashed var(--layer-2-placeholder);
-      }
-    }
-
     > footer {
-      padding: 0 8px 8px 8px;
+      > a {
+        padding: 0 8px 8px 8px;
+        display: block;
+
+        > span {
+          width: 100%;
+          padding: 8px 8px 15px 8px;
+          display: block;
+          opacity: 0.3;
+
+          &::after {
+            content: '';
+            float: left;
+            width: 100%;
+            border: 1px dashed var(--layer-2-placeholder);
+          }
+        }
+      }
     }
   }
 `
