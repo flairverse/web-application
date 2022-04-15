@@ -84,6 +84,41 @@ export const MenuContainer = styled.ul<Pick<Lib.T.MenuProps, 'position' | 'openM
       margin: 7px 0;
     }
   }
+
+  @media screen and (max-width: 1199px) {
+    padding: ${({ compact }) => (compact ? '4px' : '5px')};
+
+    > li {
+      font-size: 10pt;
+
+      > a,
+      > span {
+        padding: ${({ compact }) => (compact ? '3px 5px' : '6px 10px')};
+
+        > .icon {
+          width: 17px;
+          height: 18px;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: unset;
+    border-radius: 12px 12px 0 0;
+    transform: translateY(15px);
+
+    > li {
+      > a,
+      > span {
+        padding: 8px 12px;
+      }
+    }
+  }
 `
 
 export const MenuShadow = styled.div`

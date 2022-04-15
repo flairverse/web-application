@@ -10,7 +10,7 @@ import { I18n } from '@/helpers/language.helper'
 import { LANGUAGES, LANGUAGES_NAME } from '@/constants/languages.constants'
 import { useRecoilValue } from 'recoil'
 import { languageState } from '@/store/atoms'
-import { useFont } from '@/hooks/font'
+import { useFont } from '@/hooks/use-font'
 
 /**
  *

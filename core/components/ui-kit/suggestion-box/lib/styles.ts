@@ -60,6 +60,50 @@ export const SuggestionsBoxContainer = styled.div<Pick<Lib.T.SuggestionBoxProps,
       margin: 10px;
     }
   }
+
+  @media screen and (max-width: 1199px) {
+    > .suggestionContent {
+      > p {
+        font-size: var(--f-2);
+      }
+
+      > a {
+        font-size: var(--f-1);
+      }
+    }
+
+    > h5.header {
+      padding: 5px 7px;
+      font-size: var(--f-2);
+
+      > span {
+        font-size: var(--f-1);
+      }
+    }
+
+    > .suggestions {
+      > .flair {
+        > a {
+          > .picture {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+          }
+
+          > .detail {
+            > span {
+              &:nth-child(1) {
+                font-size: var(--f-1);
+              }
+              &:nth-child(2) {
+                font-size: var(--f-0);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 `
 export const SuggestionContainer = styled.a<Pick<Lib.T.SuggestionItemExtraProps & Lib.T.SuggestionItem, 'topic' | 'button'>>`
   display: flex;
@@ -101,5 +145,23 @@ export const SuggestionContainer = styled.a<Pick<Lib.T.SuggestionItemExtraProps 
     padding: 1px 8px;
     font-size: var(--f-1);
     height: auto;
+  }
+
+  @media screen and (max-width: 1199px) {
+    padding: 0 5px;
+
+    > span {
+      &.index {
+        font-size: var(--f-0);
+      }
+
+      &.title {
+        font-size: var(--f-1);
+      }
+    }
+
+    > button {
+      font-size: var(--f-0);
+    }
   }
 `

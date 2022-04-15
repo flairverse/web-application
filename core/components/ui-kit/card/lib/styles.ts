@@ -220,4 +220,83 @@ export const CardContainer = styled.article<Pick<Lib.T.CardProps, 'loading'>>`
       }
     }
   }
+
+  @media screen and (max-width: 1199px) {
+    > data {
+      > header {
+        > a {
+          > .flairDetail {
+            > span {
+              .picture {
+                width: 32px;
+                min-width: 32px;
+                height: 32px;
+              }
+
+              > .detail {
+                font-size: var(--f-0);
+              }
+            }
+          }
+        }
+
+        > span {
+          > div > button,
+          > button {
+            padding: 3px 0 0 0;
+          }
+        }
+      }
+
+      > div {
+        > a {
+          > h2 {
+            font-size: var(--f-2);
+          }
+
+          > .description {
+            > time {
+              > span {
+                &.month {
+                  font-size: 8pt;
+                }
+                &.day {
+                  font-size: 15pt;
+                }
+                &.year {
+                  font-size: 6pt;
+                }
+              }
+            }
+
+            > summary {
+              font-size: var(--f-1);
+            }
+          }
+        }
+      }
+
+      > footer {
+        > a {
+          > span {
+            padding: 8px 8px 10px 8px;
+          }
+
+          > div {
+            &:not(.noIcon) {
+              > svg {
+                width: 15px;
+                height: 15px;
+              }
+            }
+
+            > span {
+              font-size: 9pt;
+              margin: 4px 1px 5px 4px;
+            }
+          }
+        }
+      }
+    }
+  }
 `

@@ -40,4 +40,14 @@ export const FooterContainer = styled.footer`
       }
     }
   }
+
+  @media screen and (max-width: 1199px) {
+    > div {
+      font-size: var(--f-2);
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
 `

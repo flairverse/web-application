@@ -9,10 +9,15 @@ export interface SidesProps extends HTMLAttributes<HTMLDivElement> {
   }
   sizes?: {
     left?: number
-    right: number
+    right?: number
+
+    left_1200?: number
+    right_1200?: number
   }
 }
 
-export interface CentralDivSizeCalculator extends Pick<SidesProps, 'sizes' | 'left' | 'right'> {
+export interface CentralDivSizeCalculator extends Pick<SidesProps, 'left' | 'right'> {
   defaultSize: number
+  leftSize: number
+  rightSize: number
 }

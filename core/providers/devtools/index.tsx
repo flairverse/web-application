@@ -7,7 +7,7 @@ import * as Lib from './lib'
  *
  * devtools wrapper, we'll add all the devtools here
  */
-export const DevtoolsProvider: FC<Lib.T.DevtoolsProviderProps> = ({ testMode }) => {
+export const DevtoolsProvider: FC<Lib.T.DevtoolsProviderProps> = ({ testMode = true }) => {
   return process.env.NODE_ENV === 'development' || testMode ? (
     <>
       <ReactQueryDevtools initialIsOpen={false} />

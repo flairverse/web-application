@@ -1,14 +1,14 @@
 import { FC } from 'react'
 import * as Lib from './lib'
 
-export const NavBarLayout: FC = ({}) => {
+export const TopNavBarLayout: FC = ({}) => {
   const { onGapDBLClick } = Lib.H.useNavbarLayout()
 
   return (
     <>
       <Lib.S.Backdrop />
 
-      <Lib.S.NavBarContainer data-testid="navbarComponent">
+      <Lib.S.TopNavBarContainer data-testid="navbarComponent">
         {/* Flairverse Logo */}
         <Lib.C.Logo />
 
@@ -26,7 +26,7 @@ export const NavBarLayout: FC = ({}) => {
 
         {/* create new post button in mobile view (min 768px) */}
         <Lib.C.AdderButton />
-      </Lib.S.NavBarContainer>
+      </Lib.S.TopNavBarContainer>
     </>
   )
 }

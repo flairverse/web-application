@@ -1,4 +1,4 @@
-import * as Lib from '../nav-bar/lib'
+import * as Lib from '../top-nav-bar/lib'
 import { render, screen, act, fireEvent } from '@testing-library/react'
 import { RecoilRoot } from 'recoil'
 

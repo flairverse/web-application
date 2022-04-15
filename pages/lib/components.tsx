@@ -12,32 +12,32 @@ import { Button } from 'antd'
 
 export const Topic: FC<Lib.T.TopicProps> = ({ counter, title, TopicIcon, topic, href, ...rest }) => {
   return (
-    <Lib.S.Topic className="col-lg-3 col-md-3 col-sm-6" backColor={`var(--c-${topic})`} {...rest}>
-      <div>
-        <span>
-          <TopicIcon />
-        </span>
-
+    <Link href={href}>
+      <Lib.S.Topic href={href} className="col-lg-3 col-md-3 col-sm-3 col-xs-6" backColor={`var(--c-${topic})`} {...rest}>
         <div>
-          <p>{title}</p>
+          <span>
+            <TopicIcon />
+          </span>
 
-          <Link href={href}>
-            <a href="">View all {counter} Posts</a>
-          </Link>
+          <div>
+            <p>{title}</p>
+
+            <span>View all {counter} Posts</span>
+          </div>
         </div>
-      </div>
-    </Lib.S.Topic>
+      </Lib.S.Topic>
+    </Link>
   )
 }
 
-export const Topics: FC = () => {
+export const Topics: FC<Lib.T.TopicsProps> = ({ ...rest }) => {
   return (
-    <div>
+    <Lib.S.Topics {...rest} className={`topics ${rest.className}`}>
       <Topic title="Authors' Blogs" topic="blog" counter={1000} TopicIcon={AppIcons.Blog} href="/" />
       <Topic title="Orators' Podcasts" topic="podcast" counter={1000} TopicIcon={AppIcons.Podcast} href="/" />
       <Topic title="Scribers' Articles" topic="article" counter={1000} TopicIcon={AppIcons.Article} href="/" />
       <Topic title="Companies' Jobs" topic="job" counter={1000} TopicIcon={AppIcons.Job} href="/" />
-    </div>
+    </Lib.S.Topics>
   )
 }
 
@@ -71,16 +71,16 @@ export const NapsList: FC = () => {
       return {
         id: index,
         children: (
-          <div className="nap">
+          <Lib.S.NapProfileContainer className="nap">
             <NapProfile id={0} loading={false} username="tw4kt5hwpwxbffg33ckesrq78bmd3s" hasNap job="Computer Engineering" />
-          </div>
+          </Lib.S.NapProfileContainer>
         ),
       }
     }),
   ]
 
   return (
-    <Lib.S.NapsList>
+    <Lib.S.NapsList className="napList">
       <Horizontal speed={2} items={items} onItemsClick={id => alert(id * 2)} />
     </Lib.S.NapsList>
   )
