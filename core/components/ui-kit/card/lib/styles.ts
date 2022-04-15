@@ -105,6 +105,7 @@ export const CardContainer = styled.article<Pick<Lib.T.CardProps, 'loading'>>`
         > h2 {
           color: var(--layer-2-text-3);
           font-size: var(--f-3);
+          font-family: var(--ff-3);
           padding: 0 8px;
           margin: 5px 0;
         }

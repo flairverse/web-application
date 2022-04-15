@@ -18,6 +18,26 @@ export const useAcceleratorsProvider = () => {
   /**
    *
    *
+   * blur any focused element by pressing the escape key
+   */
+  const blurTheFocusedElement = () => {
+    /**
+     * "activeElement" is not always a Div element,
+     * but i cased "HTMLDivElement" to the "activeElement" because
+     * by default it was "Element" and ".blur()" method does not exist on type "Element",
+     * but we know that whatever "activeElement" is, the ".blur()" method will be exist on that.
+     * For preventing common errors, i used "?" before ".blur()"
+     */
+    const activeElement = <HTMLDivElement>document.activeElement
+
+    if (activeElement) {
+      activeElement?.blur()
+    }
+  }
+
+  /**
+   *
+   *
    * switch the pressed key and execute the associated listener
    */
   const checkThePressedKey = (code: string, foundedElements: Lib.T.FoundedElements) => {
@@ -26,6 +46,10 @@ export const useAcceleratorsProvider = () => {
     switch (code) {
       case 'Slash': {
         return listenToNavbarSearchBox(navbarSearchBox)
+      }
+
+      case 'Escape': {
+        return blurTheFocusedElement()
       }
     }
   }

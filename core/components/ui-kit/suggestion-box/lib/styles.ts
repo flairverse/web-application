@@ -6,10 +6,42 @@ export const SuggestionsBoxContainer = styled.div<Pick<Lib.T.SuggestionBoxProps,
   background-color: var(--layer-2);
   border-radius: 5px;
   border: 1px solid var(--layer-2-border);
+  overflow: hidden;
+
+  > .suggestionContent {
+    background-color: ${({ topic }) => `var(--c-${topic})`};
+    background: ${({ topic }) => `linear-gradient(180deg, var(--c-${topic}), var(--c-${topic}-dark-2))`};
+    color: white;
+    font-family: var(--ff-2);
+    text-align: center;
+    padding: 5px 5px 10px 5px;
+    opacity: 0.85;
+
+    > p {
+      text-shadow: rgb(0 0 0 / 66%) 0 1px 2px;
+      font-size: var(--f-4);
+      line-height: 1.2;
+      margin: 0 0 10px 0;
+    }
+
+    > a {
+      padding: 0 9px 0 9px !important;
+      font-family: var(--ff-2);
+      color: ${({ topic }) => `var(--c-${topic}-dark-2)`};
+      border-color: white;
+      font-size: var(--f-3);
+
+      &:hover {
+        border-color: white;
+        color: ${({ topic }) => `var(--c-${topic})`};
+      }
+    }
+  }
 
   > h5.header {
     color: var(--layer-2-text-1);
     font-size: var(--f-3);
+    font-family: var(--ff-3);
     padding: 10px 10px;
     border-bottom: 1px solid var(--layer-2-border);
 

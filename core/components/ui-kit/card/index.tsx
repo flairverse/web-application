@@ -69,11 +69,11 @@ export const Card: FC<Lib.T.CardProps> = ({ post, user, loading }) => {
           </Link>
         </div>
 
-        <span />
-
         <footer>
           <Link href={postSlug}>
             <a>
+              <span />
+
               <Information loading={loading} icon={<IoMdWallet />} colorTheme={topic} title="Payment Required" />
 
               <Information loading={loading} icon={<AppIconByTopic topic={topic} transparent />} title={`An ${topic}`} />

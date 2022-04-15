@@ -8,6 +8,7 @@ import { NapProfile } from '@/components/ui-kit/nap-profile'
 import * as mock from 'mock'
 import { HorizontalItemProps } from '@/components/ui-kit/horizontal/lib/types'
 import { Card } from '@/components/ui-kit/card'
+import { Button } from 'antd'
 
 export const Topic: FC<Lib.T.TopicProps> = ({ counter, title, TopicIcon, topic, href, ...rest }) => {
   return (
@@ -44,8 +45,10 @@ export const LeftAside: FC = () => {
   return (
     <Lib.S.TopThings>
       <SuggestionBox topic="article" title="Top articles" suggestionsItems={mock.suggestionInBox1} />
+      <SuggestionBox topic="article" title="We are proud of your valuable articles and read them with interest." suggestionContent={{ href: '/', buttonText: 'Publish now' }} />
       <SuggestionBox topic="podcast" title="Top podcast" suggestionsFlairs={mock.suggestionFlair2} />
       <SuggestionBox topic="blog" title="Top blog" suggestionsItems={mock.suggestionInBox2} />
+      <SuggestionBox topic="blog" title="We cant't wait to read what you write." suggestionContent={{ href: '/', buttonText: 'Write now' }} />
     </Lib.S.TopThings>
   )
 }
@@ -54,7 +57,9 @@ export const RightAside: FC = () => {
   return (
     <Lib.S.TopThings>
       <SuggestionBox topic="job" title="Top job" suggestionsItems={mock.suggestionInBox2} />
+      <SuggestionBox topic="job" title="People with flair are waiting for your company jobs." suggestionContent={{ href: '/', buttonText: 'Make now' }} />
       <SuggestionBox topic="podcast" title="Top podcast" suggestionsItems={mock.suggestionInBox1} />
+      <SuggestionBox topic="podcast" title="Do you have any amazing things to say? We listen to them." suggestionContent={{ href: '/', buttonText: 'Speak now' }} />
       <SuggestionBox topic="podcast" title="Top podcast" suggestionsFlairs={mock.suggestionFlair1} />
     </Lib.S.TopThings>
   )
@@ -96,5 +101,13 @@ export const ForYouContent: FC = () => {
         return <Card key={index} post={mock.blog1.post} user={mock.blog1.user} />
       })}
     </Lib.S.CardsContainer>
+  )
+}
+
+export const LoadMore: FC = () => {
+  return (
+    <Lib.S.LoadMore>
+      <Button type="primary">Load more posts</Button>
+    </Lib.S.LoadMore>
   )
 }

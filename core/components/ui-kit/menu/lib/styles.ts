@@ -36,7 +36,7 @@ export const MenuContainer = styled.ul<Pick<Lib.T.MenuProps, 'position' | 'openM
   padding: ${({ compact }) => (compact ? '4px 5px' : '8px 10px')};
   display: flex;
   flex-direction: column;
-  transition: all 150ms linear;
+  transition: all 100ms linear;
   transform: ${({ openMenuEffect }) => Lib.HE.makeOpenMenuEffect(openMenuEffect)};
   visibility: hidden;
   opacity: 0;
@@ -56,7 +56,7 @@ export const MenuContainer = styled.ul<Pick<Lib.T.MenuProps, 'position' | 'openM
       padding: ${({ compact }) => (compact ? '4px 6px' : '8px 12px')};
       align-items: center;
       cursor: pointer;
-      transition: all 150ms linear;
+      transition: all 100ms linear;
       text-align: left;
 
       &:hover {
@@ -96,5 +96,5 @@ export const MenuShadow = styled.div`
   z-index: 9999999999999;
   opacity: 0;
   visibility: hidden;
-  transition: all 150ms linear;
+  transition: all 100ms linear;
 `

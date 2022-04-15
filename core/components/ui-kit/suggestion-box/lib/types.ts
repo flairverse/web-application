@@ -7,6 +7,7 @@ export interface SuggestionBoxProps extends HTMLAttributes<HTMLDivElement> {
   title: string
   suggestionsItems?: SuggestionItem[]
   suggestionsFlairs?: SuggestionFlair[]
+  suggestionContent?: SuggestionContent
 }
 
 export type SuggestionItem = {
@@ -18,7 +19,13 @@ export type SuggestionItem = {
     text: string
   }
 }
+
 export interface SuggestionFlair extends NapProfileProps {}
+
+export type SuggestionContent = {
+  href: string
+  buttonText: string
+}
 
 export interface SuggestionItemExtraProps extends Pick<SuggestionBoxProps, 'topic'> {
   index: number

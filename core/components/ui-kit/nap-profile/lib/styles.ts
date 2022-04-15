@@ -55,9 +55,9 @@ export const NapProfileContainer = styled.div<Pick<Lib.T.NapProfileProps, 'mode'
       }
 
       > img {
-        width: ${({ hasNap }) => (hasNap ? 'calc(100% - 4px)' : '100%')};
-        height: ${({ hasNap }) => (hasNap ? 'calc(100% - 4px)' : '100%')};
-        border: 5px solid var(--layer-2);
+        width: ${({ hasNap }) => (hasNap ? 'calc(100% - 6px)' : '100%')};
+        height: ${({ hasNap }) => (hasNap ? 'calc(100% - 6px)' : '100%')};
+        /* border: 5px solid var(--layer-2); */
         -webkit-user-drag: none;
       }
 
@@ -85,6 +85,10 @@ export const NapProfileContainer = styled.div<Pick<Lib.T.NapProfileProps, 'mode'
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
+
+        &:nth-child(1) {
+          color: var(--layer-2-text-3);
+        }
 
         &:nth-child(2) {
           font-size: ${({ size }) => Lib.HE.Scale.job(size!)};

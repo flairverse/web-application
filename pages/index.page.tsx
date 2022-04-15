@@ -15,6 +15,8 @@ const Homepage: MainPage = () => {
         <Lib.C.NapsList />
 
         <Tabs tabs={get.categories} onChange={console.log} className="categories" />
+
+        <Lib.C.LoadMore />
       </Sides>
     </Lib.S.Container>
   )

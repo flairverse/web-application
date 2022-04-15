@@ -25,6 +25,8 @@ export const Container = styled.div`
 `
 
 export const Topic = styled.div<{ backColor: string }>`
+  margin-bottom: 5px;
+
   > div {
     background-color: var(--layer-2);
     border: 1px solid var(--layer-2-border);
@@ -58,23 +60,43 @@ export const Topic = styled.div<{ backColor: string }>`
       > p {
         color: var(--layer-2-text-1);
         margin: 0;
-        font-size: var(--f-2);
+        font-size: var(--f-3);
+        font-family: var(--ff-3);
       }
 
       > a {
-        font-size: var(--f-1);
+        font-size: var(--f-2);
       }
     }
   }
 
-  @media screen and (max-width: 768px) {
-    display: none;
+  @media screen and (max-width: 1199px) {
+    > div {
+      > span {
+        width: 40px;
+        height: 40px;
+        padding: 5px;
+
+        > svg {
+        }
+      }
+
+      > div {
+        > p {
+          font-size: var(--f-2);
+        }
+
+        > a {
+          font-size: var(--f-1);
+        }
+      }
+    }
   }
 `
 
 export const TopThings = styled.div`
   > div {
-    margin-bottom: 7px;
+    margin-bottom: 10px;
   }
 `
 
@@ -87,11 +109,24 @@ export const NapsList = styled.div`
 
 export const CardsContainer = styled.div`
   columns: auto 2;
-  column-gap: 5px;
+  column-gap: 10px;
   width: 100%;
 
   > article {
     height: auto;
     display: inline-block;
+    margin-bottom: 5px;
+  }
+`
+
+export const LoadMore = styled.div`
+  width: 100%;
+  text-align: center;
+  margin: 30px 0 50px 0;
+
+  > button {
+    font-size: var(--f-4);
+    padding: 8px 15px;
+    height: unset;
   }
 `
