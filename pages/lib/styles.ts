@@ -240,4 +240,16 @@ export const LoadMore = styled.div`
       font-size: var(--f-3);
     }
   }
+
+  @media screen and (max-width: 991px) {
+    > button {
+      font-size: var(--f-2);
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    > button {
+      font-size: var(--f-1);
+    }
+  }
 `
