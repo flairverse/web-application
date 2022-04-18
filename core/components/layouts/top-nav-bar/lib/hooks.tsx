@@ -41,7 +41,7 @@ export const useProfile = ({ username }: Pick<Lib.T.ProfileProps, 'username'>) =
     {
       title: 'Make New Nap',
       key: 'make-new-nap',
-      onClick: key => alert(key),
+      href: '/create-new/nap',
       icon: <BsFilePlus />,
     },
     {
