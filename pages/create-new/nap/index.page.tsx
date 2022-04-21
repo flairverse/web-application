@@ -4,16 +4,18 @@ import { useState } from 'react'
 import * as Lib from './lib'
 
 const CreateNewNap: MainPage = () => {
-  const { get } = Lib.H.useCreateNewNapPage()
+  const { on } = Lib.H.useCreateNewNapPage()
 
   return (
     <Lib.S.CreateNewNapContainer>
-      <Lib.C.Toolbox />
+      <Lib.C.Toolbox active={true} />
 
-      <div className="boardContainer">
-        <div className={`board`} />
+      <div className={`board`}>
+        <div className="initialContent">
+          <Lib.C.GuidLines />
 
-        <Lib.C.Items items={get.items} />
+          <Lib.C.Items onOptionsClick={on.optionsClick} />
+        </div>
       </div>
     </Lib.S.CreateNewNapContainer>
   )
