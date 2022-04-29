@@ -27,6 +27,12 @@ export const GlobalStyles = createGlobalStyle`
     to { transform: rotate(360deg) }
   }
 
+  [contenteditable="true"] {
+    outline: 1px solid var(--layer-2-dash);
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+
   /**
   *
   * Ant design customization

@@ -45,7 +45,6 @@ export const Items: FC<Lib.T.ItemsProps> = ({ onOptionsClick, boardRef }) => {
   return (
     <>
       <Lib.S.ItemsShadowing active={showMoreOptions} />
-
       <Lib.S.ItemsContainer className={`${!showMoreOptions && 'showLess'}`}>
         <ul>
           {get.items.map(({ icon, title, key }, index) => (
