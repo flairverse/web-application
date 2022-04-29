@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import * as Lib from '.'
 
 export const CreateNewNapContainer = styled.div`
@@ -10,7 +10,7 @@ export const CreateNewNapContainer = styled.div`
     width: 100%;
     padding-top: 56.25%;
     background-color: var(--layer-2);
-    border: 2px solid var(--layer-2-border);
+    border: 1px solid var(--layer-2-border);
     border-radius: 8px;
     flex: 1;
     position: relative;
@@ -37,12 +37,76 @@ export const CreateNewNapContainer = styled.div`
 
 export const ToolboxContainer = styled.div<Pick<Lib.T.ToolboxProps, 'active'>>`
   width: 100%;
-  height: 40px;
-  background: var(--layer-2);
-  border: 1px solid var(--layer-2-border);
-  border-radius: 8px;
+  height: auto;
   margin: 0 0 7px 0;
-  display: flex;
+  position: relative;
+  overflow: hidden;
+  min-height: 40px;
+
+  > div {
+    transition: all 150ms ease-out;
+    position: absolute;
+    height: 100%;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 0 5px;
+
+    &.toolsContainer {
+      border: 1px solid var(--layer-2-border);
+      background: var(--layer-2);
+      border-radius: 5px;
+      bottom: -100%;
+
+      &.true {
+        bottom: 0;
+      }
+
+      > .tools {
+        flex: 1;
+      }
+
+      > .backButton {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 40%;
+        cursor: pointer;
+
+        &:hover {
+          background-color: var(--layer-2-hover);
+        }
+      }
+    }
+
+    &.withTitle {
+      top: -100%;
+
+      &.true {
+        top: 0;
+      }
+
+      > h1 {
+        color: var(--layer-2-text-3);
+        font-size: var(--f-4);
+        font-family: var(--ff-3);
+        flex: 1;
+        margin: 0;
+      }
+    }
+
+    > .nextBtn {
+      display: flex;
+      align-items: center;
+      font-family: var(--ff-3);
+
+      > svg {
+        margin: 0 -5px 0 0;
+      }
+    }
+  }
 `
 
 export const ItemsContainer = styled.div`
@@ -53,6 +117,8 @@ export const ItemsContainer = styled.div`
 
   &.showLess {
     > ul {
+      padding: 0 0 0 5px;
+
       > li {
         margin: 0;
 
@@ -76,20 +142,19 @@ export const ItemsContainer = styled.div`
           }
         }
 
-        &:not(.active) {
-          > p {
-            display: none;
-          }
+        > p {
+          display: none;
         }
       }
     }
   }
 
   > ul {
-    padding: 0 0 0 20px;
+    padding: 0 0 0 10px;
     margin: 0;
     list-style: none;
     user-select: none;
+    transition: all 150ms linear;
 
     > li {
       display: flex;
@@ -103,6 +168,10 @@ export const ItemsContainer = styled.div`
 
       &.active {
         background-color: var(--c-bg-trans-1);
+
+        > span {
+          opacity: 1;
+        }
       }
 
       > p {
@@ -118,6 +187,7 @@ export const ItemsContainer = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
+        opacity: 0.3;
 
         > svg {
           width: 100%;
@@ -238,5 +308,35 @@ export const GuidLines = styled.div`
       background-color: var(--layer-2-hover);
       border-radius: 20px;
     }
+  }
+`
+
+export const Tool = styled.button``
+
+const scaleOut = keyframes`
+  from {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+`
+
+export const MainBoard = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 15px;
+  height: calc(100% - 135px);
+  width: calc(100% - 50px);
+  margin: auto;
+  overflow: hidden;
+
+  > .text {
+    position: absolute;
+    cursor: default;
+    animation: ${scaleOut} 150ms ease-in;
   }
 `

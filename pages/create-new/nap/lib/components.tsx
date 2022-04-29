@@ -1,24 +1,46 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import * as Lib from '.'
-import { HiChevronLeft } from 'react-icons/hi'
+import { HiChevronRight } from 'react-icons/hi'
 import { createNapAtoms } from '@/store/atoms'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { FaPause, FaShare, FaEllipsisH } from 'react-icons/fa'
+import { MdOutlineClose } from 'react-icons/md'
+import { Button } from 'antd'
 
 export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active }) => {
+  const [activeOption, setActiveOption] = useRecoilState(createNapAtoms.activeOption)
+
   return (
     <Lib.S.ToolboxContainer active={active}>
-      {/* <span className="menuButton">
-        <HiChevronLeft color="var(--layer-2-text-3)" size={20} />
-      </span> */}
+      <div className={`withTitle ${activeOption === 'none'}`}>
+        <h1>Create Your Nap</h1>
+        <ToolBoxNextBtn />
+      </div>
+
+      <div className={`toolsContainer ${activeOption !== 'none'}`}>
+        <span className="backButton" onClick={() => setActiveOption('none')}>
+          <MdOutlineClose color="var(--layer-2-text-3)" size={22} />
+        </span>
+        <div className="tools">
+          <Tools selectedOption={activeOption} />
+        </div>
+        <ToolBoxNextBtn />
+      </div>
     </Lib.S.ToolboxContainer>
   )
 }
 
-export const Items: FC<Lib.T.ItemsProps> = ({ onOptionsClick }) => {
+export const ToolBoxNextBtn: FC = () => (
+  <Button type="primary" className="nextBtn">
+    <span>Next</span>
+    <HiChevronRight color="var(--layer-2-text-3)" size={20} />
+  </Button>
+)
+
+export const Items: FC<Lib.T.ItemsProps> = ({ onOptionsClick, boardRef }) => {
   const showMoreOptions = useRecoilValue(createNapAtoms.showMoreOptions)
   const activeOption = useRecoilValue(createNapAtoms.activeOption)
-  const { get } = Lib.H.useItems()
+  const { get, on } = Lib.H.useItems({ onOptionsClick, boardRef })
 
   return (
     <>
@@ -27,7 +49,7 @@ export const Items: FC<Lib.T.ItemsProps> = ({ onOptionsClick }) => {
       <Lib.S.ItemsContainer className={`${!showMoreOptions && 'showLess'}`}>
         <ul>
           {get.items.map(({ icon, title, key }, index) => (
-            <li key={index} title={showMoreOptions || activeOption === key ? undefined : title} className={`${activeOption === key ? 'active' : ''}`} onClick={() => onOptionsClick(key)}>
+            <li key={index} title={showMoreOptions ? undefined : title} className={`${activeOption === key ? 'active' : ''}`} onClick={() => on.itemClicks(key)}>
               <span>{icon}</span>
 
               <p>{title}</p>
@@ -78,4 +100,40 @@ export const GuidLines: FC = () => {
       </div>
     </Lib.S.GuidLines>
   )
+}
+
+export const Tool: FC<Lib.T.ToolProps> = ({ active, disabled, icon, type, onClick, title }) => {
+  return (
+    <Lib.S.Tool title={title} onClick={() => onClick(type)} className={`${disabled && 'disabled'} ${active && 'active'}`}>
+      {icon}
+    </Lib.S.Tool>
+  )
+}
+
+export const Tools: FC<Lib.T.ToolsProps> = ({ selectedOption }) => {
+  switch (selectedOption) {
+    case 'text': {
+      return <ToolsForTextInserter />
+    }
+
+    default:
+    case 'post': {
+      return <ToolsForPostExplorer />
+    }
+  }
+}
+
+export const ToolsForTextInserter: FC = () => {
+  const { get, on } = Lib.H.useToolsForTextInserter()
+  return (
+    <>
+      {get.tools.map((tool, index) => (
+        <Tool {...tool} onClick={on.toolClick} active={false} disabled={false} key={index} />
+      ))}
+    </>
+  )
+}
+
+export const ToolsForPostExplorer: FC = () => {
+  return <>post explorer tools</>
 }
