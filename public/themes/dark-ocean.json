@@ -1,0 +1,17 @@
+{
+  "layer-1": "#22272e",
+  "layer-1-border": "#3c434c",
+
+  "layer-2": "#2d333b",
+  "layer-2-border": "#363f4a",
+  "layer-2-placeholder": "#556371",
+  "layer-2-hover": "#373f4a",
+  "layer-2-dash": "#404a58",
+  "layer-2-text-1": "#cdd9e5",
+  "layer-2-text-2": "#9fabb7",
+  "layer-2-text-3": "#b2c2d2",
+
+  "layer-3": "#79808a",
+
+  "trans-pattern": "#0000001f"
+}

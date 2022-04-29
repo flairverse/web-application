@@ -1,0 +1,72 @@
+// font sizes
+$base-font-size: 1rem !default;
+
+$fontsSizes: (
+  '-4': $base-font-size * 0.2,
+  '-3': $base-font-size * 0.4,
+  '-2': $base-font-size * 0.6,
+  '-1': $base-font-size * 0.8,
+  '0': $base-font-size,
+  '1': $base-font-size * 1.2,
+  '2': $base-font-size * 1.4,
+  '3': $base-font-size * 1.6,
+  '4': $base-font-size * 1.8,
+);
+
+// change the "FONTS" array in "source/hooks/font/lib/constants.ts" if you change this list
+$fontFamilies: (
+  'alegreya-sans-sc',
+  'baloo-tammudu-2',
+  'calibri',
+  'caveat',
+  'grandstander',
+  'grenze',
+  'karla',
+  'kodchasan',
+  'lato',
+  'mali',
+  'montserrat',
+  'newsreader',
+  'open-sans',
+  'quicksand',
+  'roboto',
+  'tomorrow',
+  'ubuntu',
+  'vazir'
+);
+
+$colors: (
+  'bg': rgb(16 16 16),
+  'accent': rgb(0 123 255),
+  'podcast': rgb(23 179 145),
+  'blog': rgb(174 99 185),
+  'article': rgb(238 72 106),
+  'job': rgb(243 167 1),
+);
+
+:root {
+  --ff-0: var(--f-open-sans-0);
+  --ff-1: var(--f-open-sans-1);
+  --ff-2: var(--f-open-sans-2);
+  --ff-3: var(--f-open-sans-3);
+
+  @each $key in $fontFamilies {
+    @for $i from 0 through 3 {
+      --f-#{$key}-#{$i}: #{$key}-#{$i}, Arial, Helvetica, sans-serif;
+    }
+  }
+
+  @each $key, $val in $fontsSizes {
+    --f-#{$key}: #{$val};
+  }
+
+  @each $key, $val in $colors {
+    --c-#{$key}: #{$val}; // DEFAULT TONES
+
+    @for $i from 1 through 9 {
+      --c-#{$key}-light-#{$i}: #{mix(white, $val, $i * 10)}; /// LIGHTER
+      --c-#{$key}-dark-#{$i}: #{mix(black, $val, $i * 10)}; /// DARKER
+      --c-#{$key}-trans-#{$i}: #{rgba($val, $i / 10)}; /// TRANSPARENCY
+    }
+  }
+}

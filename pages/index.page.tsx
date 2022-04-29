@@ -1,29 +1,32 @@
-import { useTranslation } from 'next-i18next.config'
-import { changeLanguage } from 'source/helpers/language.helper'
 import * as Lib from './lib'
+import { MainWrapper } from '@/components/layouts/main-wrapper'
+import type { MainPage } from '@/types/next-page.type'
+import { Sides } from '@/components/ui-kit/sides'
+import { Tabs } from '@/components/ui-kit/tabs'
+import { useBreakpoint } from '@/hooks/use-breakpoint'
 
-const Homepage = () => {
-  const { t } = useTranslation('common')
+const Homepage: MainPage = () => {
+  const { get } = Lib.H.useIndexPage()
+  const [isGreaterThan768] = useBreakpoint(768, true)
 
   return (
     <Lib.S.Container>
-      <ul>
-        <li className="theLI">{t('h1')}</li>
-        <li className="theLI">{t('change-locale')}</li>
-        <li className="theLI">{t('to-second-page')}</li>
-        <li className="theLI">{t('error-with-status')}</li>
-        <li className="theLI">{t('error-without-status')}</li>
-        <li className="theLI">{t('title')}</li>
-        <li className="theLI">{t('nested.translations')}</li>
-        <li className="theLI">
-          <button onClick={() => changeLanguage('en')}>to en</button>
-        </li>
-        <li className="theLI">
-          <button onClick={() => changeLanguage('fa')}>to en</button>
-        </li>
-      </ul>
+      <Lib.C.Topics className="top" />
+
+      <Sides left={isGreaterThan768 ? <Lib.C.LeftAside /> : null} right={isGreaterThan768 ? <Lib.C.RightAside /> : null}>
+        <Lib.S.NapListAndTopics>
+          <Lib.C.Topics className="bottom" />
+          <Lib.C.NapsList />
+        </Lib.S.NapListAndTopics>
+
+        <Tabs tabs={get.categories} onChange={console.log} className="categories" />
+
+        <Lib.C.LoadMore />
+      </Sides>
     </Lib.S.Container>
   )
 }
+
+Homepage.layout = MainWrapper
 
 export default Homepage
