@@ -83,3 +83,14 @@ export namespace Elements {
     & Partial<Mention> 
     & Partial<Video>
 }
+
+export type ElementFrameActionTypes = 'delete' | 'editInnerText'
+
+export type ElementFrameActions = {
+  type: ElementFrameActionTypes
+  icon: string
+}
+
+export type IconsObject = {
+  [name in ElementFrameActionTypes]: string
+}

@@ -334,9 +334,63 @@ export const MainBoard = styled.div`
   margin: auto;
   overflow: hidden;
 
-  > .text {
+  > .frame {
     position: absolute;
     cursor: default;
     animation: ${scaleOut} 150ms ease-in;
+    padding: 10px;
+    user-select: none;
+    border: 2px dashed transparent;
+    transition: border 150ms linear;
+    border-radius: 10px;
+
+    * {
+      user-select: none;
+    }
+
+    &:focus {
+      border-color: var(--layer-2-dash);
+
+      > .buttons {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    > .buttons {
+      position: absolute;
+      top: -15px;
+      display: flex;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 150ms linear;
+      height: auto;
+      left: 0;
+
+      > span {
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        border-radius: 40%;
+        background: var(--layer-3);
+        margin: 0 2px;
+        cursor: pointer;
+
+        > svg {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    &.text {
+      p {
+        margin: 0;
+        transition: all 150ms linear;
+      }
+    }
   }
 `

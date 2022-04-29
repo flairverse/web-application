@@ -1,4 +1,3 @@
-import { HTMLAttributes } from 'react'
 import * as Lib from './lib'
 
 export class DOM {
@@ -6,12 +5,6 @@ export class DOM {
     const styleKeys = <any[]>Object.keys(styles)
     const styleValues = <string[]>Object.values(styles)
     styleKeys.map((key, index) => (element.style[key] = styleValues[index]))
-  }
-
-  static addAttrs<T extends HTMLElement = HTMLElement>(element: HTMLElement, attributes: HTMLAttributes<T> & { [keyName: string]: any }) {
-    const attrKeys = Object.keys(attributes)
-    const attrValues = Object.values(attributes)
-    attrKeys.map((key, index) => ((element as any)[key] = attrValues[index]))
   }
 
   static makeElementDraggable({ element, areaSensitive }: Lib.T.MakeElementDraggableArgs) {
@@ -28,13 +21,12 @@ export class DOM {
 
       document.onmousemove = evt => {
         evt = evt || window.event
-        evt.preventDefault()
         const { clientX, clientY } = evt
         elementDrag(clientX, clientY)
       }
+
       document.ontouchmove = evt => {
         evt = evt || window.event
-        evt.preventDefault()
         const { pageX, pageY } = evt.touches[0]
         elementDrag(pageX, pageY)
       }
@@ -84,13 +76,11 @@ export class DOM {
 
     element.onmousedown = evt => {
       evt = evt || window.event
-      evt.preventDefault()
       dragMouseDown(evt.clientX, evt.clientY)
     }
 
     element.ontouchstart = evt => {
       evt = evt || window.event
-      evt.preventDefault()
       const { pageX, pageY } = evt.touches[0]
       dragMouseDown(pageX, pageY)
     }
