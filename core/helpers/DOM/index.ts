@@ -20,13 +20,24 @@ export class DOM {
     let pos3 = 0
     let pos4 = 0
 
-    const dragMouseDown = (e: MouseEvent) => {
-      e = e || window.event
-      e.preventDefault()
-      pos3 = e.clientX
-      pos4 = e.clientY
+    const dragMouseDown = (x: number, y: number) => {
+      pos3 = x
+      pos4 = y
       document.onmouseup = closeDragElement
-      document.onmousemove = elementDrag
+      document.ontouchcancel = closeDragElement
+
+      document.onmousemove = evt => {
+        evt = evt || window.event
+        evt.preventDefault()
+        const { clientX, clientY } = evt
+        elementDrag(clientX, clientY)
+      }
+      document.ontouchmove = evt => {
+        evt = evt || window.event
+        evt.preventDefault()
+        const { pageX, pageY } = evt.touches[0]
+        elementDrag(pageX, pageY)
+      }
     }
 
     const setRestrictedPositions = () => {
@@ -48,13 +59,11 @@ export class DOM {
       element.style.left = newLeft + 'px'
     }
 
-    const elementDrag = (e: MouseEvent) => {
-      e = e || window.event
-      e.preventDefault()
-      pos1 = pos3 - e.clientX
-      pos2 = pos4 - e.clientY
-      pos3 = e.clientX
-      pos4 = e.clientY
+    const elementDrag = (x: number, y: number) => {
+      pos1 = pos3 - x
+      pos2 = pos4 - y
+      pos3 = x
+      pos4 = y
 
       if (areaSensitive && areaSensitive.sensitiveOnMove) {
         setRestrictedPositions()
@@ -73,6 +82,17 @@ export class DOM {
       }
     }
 
-    element.onmousedown = dragMouseDown
+    element.onmousedown = evt => {
+      evt = evt || window.event
+      evt.preventDefault()
+      dragMouseDown(evt.clientX, evt.clientY)
+    }
+
+    element.ontouchstart = evt => {
+      evt = evt || window.event
+      evt.preventDefault()
+      const { pageX, pageY } = evt.touches[0]
+      dragMouseDown(pageX, pageY)
+    }
   }
 }
