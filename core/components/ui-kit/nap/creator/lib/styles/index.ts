@@ -1,7 +1,10 @@
-import styled, { keyframes } from 'styled-components'
-import * as Lib from '.'
+import styled, { keyframes, css } from 'styled-components'
+import * as Lib from '../'
+import * as textEffects from './text-effects'
 
-export const CreateNewNapContainer = styled.div`
+const TRANSITION = 'all 150ms ease-out'
+
+export const NapCreatorContainer = styled.div`
   display: block;
   height: auto;
   padding: 5px;
@@ -44,7 +47,7 @@ export const ToolboxContainer = styled.div<Pick<Lib.T.ToolboxProps, 'active'>>`
   min-height: 40px;
 
   > div {
-    transition: all 150ms ease-out;
+    transition: ${TRANSITION};
     position: absolute;
     height: 100%;
     display: flex;
@@ -114,27 +117,15 @@ export const ItemsContainer = styled.div`
   overflow: hidden;
   position: relative;
   z-index: 1;
+  margin: 0 0 0 10px;
+  transition: ${TRANSITION};
 
   &.showLess {
     > ul {
-      padding: 0 0 0 5px;
-
       > li {
-        margin: 0;
-
-        &:first-child {
-          margin-top: 0;
-        }
-
-        &:nth-child(n + 5):nth-child(-n + 9):not(.active) {
-          height: 0;
-          margin: 0;
-          padding: 0;
-        }
+        width: 30px;
 
         &:last-child {
-          margin: 0;
-
           > span {
             > svg {
               transform: rotate(180deg);
@@ -143,27 +134,41 @@ export const ItemsContainer = styled.div`
         }
 
         > p {
-          display: none;
+          margin: 0 0 0 0;
+          visibility: hidden;
+          opacity: 0;
         }
       }
     }
   }
 
+  &.showMore {
+    /* background-color: var(--layer-1); */
+    border-radius: 15px;
+    padding: 15px 10px;
+
+    > ul {
+      > li {
+        padding: 10px 15px;
+      }
+    }
+  }
+
   > ul {
-    padding: 0 0 0 10px;
+    padding: 0;
     margin: 0;
     list-style: none;
     user-select: none;
-    transition: all 150ms linear;
 
     > li {
       display: flex;
       height: auto;
       cursor: pointer;
       overflow: hidden;
-      transition: all 150ms linear;
+      transition: ${TRANSITION};
+      width: 100%;
       margin: 0 0;
-      padding: 10px 15px;
+      padding: 5px;
       border-radius: 100px;
 
       &.active {
@@ -179,19 +184,19 @@ export const ItemsContainer = styled.div`
         margin: 0 0 0 15px;
         flex: 1;
         height: 100%;
+        transition: ${TRANSITION};
       }
 
       > span {
-        width: 20px;
-        height: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
         opacity: 0.3;
 
         > svg {
-          width: 100%;
-          transition: all 300ms linear;
+          width: 20px;
+          height: 20px;
+          transition: ${TRANSITION};
           height: 100%;
         }
       }
@@ -203,7 +208,7 @@ export const ItemsShadowing = styled.span<Lib.T.ItemsShadowingProps>`
   position: absolute;
   top: 0;
   bottom: 0;
-  transition: all 150ms linear;
+  transition: ${TRANSITION};
   left: -60px;
   width: 300px;
   background: var(--layer-1);
@@ -311,7 +316,61 @@ export const GuidLines = styled.div`
   }
 `
 
-export const Tool = styled.button``
+export const Tools = styled.div`
+  width: 100%;
+  height: auto;
+`
+
+const toolAnimation = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`
+
+export const Tool = styled.div<Pick<Lib.T.ToolProps, 'index'>>`
+  display: inline-block;
+  animation-name: ${toolAnimation};
+  animation-timing-function: linear;
+  animation-duration: 150ms;
+  opacity: 0;
+  animation-delay: ${({ index }) => index * 50}ms;
+  animation-fill-mode: forwards;
+
+  &.disabled {
+    &,
+    & * {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+  }
+
+  > button {
+    height: auto;
+    padding: 3px 10px;
+    display: flex;
+    align-items: center;
+    margin: 0 3px;
+    background-color: transparent;
+    border-color: var(--layer-2-dash);
+    color: var(--layer-2-text-2);
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: var(--layer-2-text-2);
+      background-color: var(--layer-1);
+      border-color: var(--layer-2-dash);
+    }
+
+    > span {
+      font-size: var(--f-2);
+      margin: 0 0 0 5px;
+    }
+  }
+`
 
 const scaleOut = keyframes`
   from {
@@ -341,8 +400,9 @@ export const MainBoard = styled.div`
     padding: 10px;
     user-select: none;
     border: 2px dashed transparent;
-    transition: border 150ms linear;
+    transition: ${TRANSITION.replace('all', 'border')};
     border-radius: 10px;
+    max-width: 90%;
 
     * {
       user-select: none;
@@ -363,7 +423,7 @@ export const MainBoard = styled.div`
       display: flex;
       opacity: 0;
       visibility: hidden;
-      transition: all 150ms linear;
+      transition: ${TRANSITION};
       height: auto;
       left: 0;
 
@@ -389,8 +449,13 @@ export const MainBoard = styled.div`
     &.text {
       p {
         margin: 0;
-        transition: all 150ms linear;
+        transition: ${TRANSITION};
+        font-size: 100%;
+        word-break: break-all;
+        color: var(--layer-2-text-3);
       }
+
+      ${Object.values(textEffects).map(item => item)}
     }
   }
 `

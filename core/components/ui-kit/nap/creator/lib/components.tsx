@@ -7,7 +7,7 @@ import { FaPause, FaShare, FaEllipsisH } from 'react-icons/fa'
 import { MdOutlineClose } from 'react-icons/md'
 import { Button } from 'antd'
 
-export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active }) => {
+export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active, boardRef }) => {
   const [activeOption, setActiveOption] = useRecoilState(createNapAtoms.activeOption)
 
   return (
@@ -22,7 +22,7 @@ export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active }) => {
           <MdOutlineClose color="var(--layer-2-text-3)" size={22} />
         </span>
         <div className="tools">
-          <Tools selectedOption={activeOption} />
+          <Tools selectedOption={activeOption} boardRef={boardRef} />
         </div>
         <ToolBoxNextBtn />
       </div>
@@ -45,11 +45,14 @@ export const Items: FC<Lib.T.ItemsProps> = ({ onOptionsClick, boardRef }) => {
   return (
     <>
       <Lib.S.ItemsShadowing active={showMoreOptions} />
-      <Lib.S.ItemsContainer className={`${!showMoreOptions && 'showLess'}`}>
+
+      <Lib.S.ItemsContainer className={`${showMoreOptions ? 'showMore' : 'showLess'}`}>
         <ul>
-          {get.items.map(({ icon, title, key }, index) => (
+          {get.items.map(({ Icon, title, key }, index) => (
             <li key={index} title={showMoreOptions ? undefined : title} className={`${activeOption === key ? 'active' : ''}`} onClick={() => on.itemClicks(key)}>
-              <span>{icon}</span>
+              <span>
+                <Icon color="var(--layer-2-text-3)" size={30} />
+              </span>
 
               <p>{title}</p>
             </li>
@@ -101,38 +104,40 @@ export const GuidLines: FC = () => {
   )
 }
 
-export const Tool: FC<Lib.T.ToolProps> = ({ active, disabled, icon, type, onClick, title }) => {
+export const Tool: FC<Lib.T.ToolProps> = ({ disabled, Icon, type, onClick, title, index }) => {
   return (
-    <Lib.S.Tool title={title} onClick={() => onClick(type)} className={`${disabled && 'disabled'} ${active && 'active'}`}>
-      {icon}
+    <Lib.S.Tool index={index} onClick={() => onClick(type)} className={`${disabled && 'disabled'}`}>
+      <Button type="dashed">
+        <Icon color="var(--layer-2-text-2)" size={17} />
+        <span>{title}</span>
+      </Button>
     </Lib.S.Tool>
   )
 }
 
-export const Tools: FC<Lib.T.ToolsProps> = ({ selectedOption }) => {
-  switch (selectedOption) {
-    case 'text': {
-      return <ToolsForTextInserter />
-    }
-
-    default:
-    case 'post': {
-      return <ToolsForPostExplorer />
-    }
-  }
+export const Tools: FC<Lib.T.ToolsProps> = ({ selectedOption, boardRef }) => {
+  const tools = Lib.H.useTools({ selectedOption, boardRef })
+  return <Lib.S.Tools>{tools}</Lib.S.Tools>
 }
 
-export const ToolsForTextInserter: FC = () => {
-  const { get, on } = Lib.H.useToolsForTextInserter()
+export const ToolsForTextInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) => {
+  const { get, on } = Lib.H.useToolsForTextInserter({ boardRef })
   return (
     <>
       {get.tools.map((tool, index) => (
-        <Tool {...tool} onClick={on.toolClick} active={false} disabled={false} key={index} />
+        <Tool {...tool} onClick={on.toolClick} key={index} index={index} />
       ))}
     </>
   )
 }
 
-export const ToolsForPostExplorer: FC = () => {
-  return <>post explorer tools</>
+export const ToolsForPostExplorer: FC<Lib.T.ToolsForInserters> = ({ boardRef }) => {
+  const { get, on } = Lib.H.useToolsForPostInserter({ boardRef })
+  return (
+    <>
+      {get.tools.map((tool, index) => (
+        <Tool {...tool} onClick={on.toolClick} key={index} index={index} />
+      ))}
+    </>
+  )
 }

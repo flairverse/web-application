@@ -1,8 +1,8 @@
-import { HTMLAttributes, RefObject } from 'react'
-import { DetailedReactHTMLElement, ReactNode } from 'react'
+import { RefObject } from 'react'
+import { IconType } from 'react-icons/lib'
+import * as Lib from '.'
 
 export interface ItemsProps {
-  // items: Item[]
   onOptionsClick: (key: Options) => void
   boardRef: RefObject<HTMLDivElement>
 }
@@ -11,32 +11,36 @@ export interface ItemsShadowingProps {
   active: boolean
 }
 
-export interface ToolsProps {
+export interface ToolsProps extends Pick<ItemsProps, 'boardRef'> {
   selectedOption: Options | 'none'
 }
+
+export interface ToolsForInserters extends Pick<ItemsProps, 'boardRef'> {}
 
 export type Options = 'text' | 'image' | 'gif' | 'question' | 'reminder' | 'quiz' | 'post' | 'mention' | 'video' | 'more|less'
 
 export type Item = {
-  icon: ReactNode
+  Icon: IconType
   title: string
   key: Options
 }
 
-export interface ToolboxProps {
+export interface ToolboxProps extends Pick<ItemsProps, 'boardRef'> {
   active?: boolean
 }
 
 export interface ToolProps {
   disabled?: boolean
-  active?: boolean
   title: string
   type: Tool
   onClick: (type: Tool) => void
-  icon: ReactNode
+  Icon: IconType
+  index: number
 }
 
-export type Tool = 'none' | 'add-text'
+export type Tool = 'none' | 'add-text' | 'text-font-size' | 'text-effect' | 'text-rotation'
+
+export type TextEffects = typeof Lib.CO.TEXT_EFFECTS[number]
 
 export namespace Elements {
   interface BaseElement {
@@ -46,13 +50,15 @@ export namespace Elements {
       top: string
       left: string
     }
+    rotate: ElementRotation
   }
+  export type ElementRotation = 0 | 45 | 90 | 135 | 180 | 225 | 270 | 315
 
   export interface Text extends BaseElement {
     type: 'text'
     text: string
-    color: string
-    fontSize: number
+    fontSize: string
+    effect: TextEffects
   }
 
   export interface Image extends BaseElement {}

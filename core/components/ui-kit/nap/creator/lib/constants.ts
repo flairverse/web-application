@@ -2,6 +2,8 @@ import * as Lib from '.'
 
 const ICON_COLORS = 'var(--layer-2)'
 
+export const TEXT_EFFECTS = ['no-effect', 'animated-gradient', 'horror', 'shining', 'extreme-offset', 'bingo', 'floor'] as const
+
 export const ICONS: Lib.T.IconsObject = {
   editInnerText: `
     <svg viewBox="0 0 44 45" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -2,7 +2,7 @@ import * as Lib from '../'
 import { createNapAtoms } from '@/store/atoms'
 import { useSetRecoilState } from 'recoil'
 
-export const useCreateNewNapPage = () => {
+export const useNapCreator = () => {
   const setShowMoreOptions = useSetRecoilState(createNapAtoms.showMoreOptions)
   const setActiveOption = useSetRecoilState(createNapAtoms.activeOption)
 
