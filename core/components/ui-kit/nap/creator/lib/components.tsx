@@ -1,11 +1,15 @@
 import { FC, useEffect } from 'react'
 import * as Lib from '.'
 import { HiChevronRight } from 'react-icons/hi'
+import { IoClose } from 'react-icons/io5'
 import { createNapAtoms } from '@/store/atoms'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { FaPause, FaShare, FaEllipsisH } from 'react-icons/fa'
 import { MdOutlineClose } from 'react-icons/md'
 import { Button } from 'antd'
+import { Card } from '@/components/ui-kit/card'
+import * as mock from 'mock'
+import { Popup } from '@/components/ui-kit/popup'
 
 export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active, boardRef }) => {
   const [activeOption, setActiveOption] = useRecoilState(createNapAtoms.activeOption)
@@ -101,6 +105,30 @@ export const GuidLines: FC = () => {
         <span className="timer" />
       </div>
     </Lib.S.GuidLines>
+  )
+}
+
+export const PostCard: FC<Lib.T.PostCardProps> = () => {
+  return <></>
+}
+
+export const PostsPopup: FC = () => {
+  const [visibility, setVisibility] = useRecoilState(createNapAtoms.postsPopupVisibility)
+
+  return (
+    <Popup visible={visibility} onClose={() => setVisibility(false)}>
+      {Array.from(Array(20)).map((_, index) => {
+        return <PostCard key={index} {...mock.napPosts[index]} />
+      })}
+    </Popup>
+  )
+}
+
+export const Popups: FC = () => {
+  return (
+    <>
+      <PostsPopup />
+    </>
   )
 }
 

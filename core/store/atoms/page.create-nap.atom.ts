@@ -16,3 +16,18 @@ export const activeItemID = atom<string | null>({
   key: storeTypes.IN_CREATE_NAP_PAGE_ACTIVE_ITEM_ID,
   default: null,
 })
+
+export const postsPopupVisibility = atom<boolean>({
+  key: storeTypes.IN_CREATE_NAP_PAGE_POSTS_POPUP_VISIBILITY,
+  default: false,
+})
+
+export const gifPopupVisibility = atom<boolean>({
+  key: storeTypes.IN_CREATE_NAP_PAGE_GIF_POPUP_VISIBILITY,
+  default: false,
+})
+
+export const mentionPopupVisibility = atom<boolean>({
+  key: storeTypes.IN_CREATE_NAP_PAGE_MENTION_POPUP_VISIBILITY,
+  default: false,
+})

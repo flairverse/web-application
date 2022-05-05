@@ -26,10 +26,7 @@ export const useInserters = () => {
         type: 'text',
         id: Str.random(20),
         text: 'Type Something here...',
-        position: {
-          left: '20px',
-          top: '20px',
-        },
+        position: { left: '20px', top: '20px' },
         fontSize: '20px',
         rotate: 0,
         effect: 'no-effect',

@@ -61,6 +61,8 @@ export namespace Elements {
     effect: TextEffects
   }
 
+  export interface Post extends BaseElement {}
+
   export interface Image extends BaseElement {}
 
   export interface Gif extends BaseElement {}
@@ -71,17 +73,15 @@ export namespace Elements {
 
   export interface Quiz extends BaseElement {}
 
-  export interface Post extends BaseElement {}
-
   export interface Mention extends BaseElement {}
 
   export interface Video extends BaseElement {}
 
   // prettier-ignore
   export type All = 
-    & Partial<Text> 
-    & Partial<Image> 
-    & Partial<Gif> 
+  & Partial<Text> 
+  & Partial<Image> 
+  & Partial<Gif> 
     & Partial<Question> 
     & Partial<Reminder> 
     & Partial<Quiz> 
@@ -99,4 +99,17 @@ export type ElementFrameActions = {
 
 export type IconsObject = {
   [name in ElementFrameActionTypes]: string
+}
+
+export interface PostCardProps {
+  author: {
+    profile: string
+    fullName: string
+    username: string
+  }
+  post: {
+    cover?: string
+    title: string
+    id: number
+  }
 }

@@ -70,57 +70,58 @@ export const useBoardCompiler = (boardId: string) => {
     return frame
   }
 
-  return { compileDown, compileDownAll }
-}
-
-class Action {
-  static getElement(evt: MouseEvent) {
-    return <HTMLDivElement | null>(<HTMLSpanElement>evt.currentTarget)?.parentNode?.parentNode
-  }
-
-  static delete(evt: MouseEvent) {
-    const element = Action.getElement(evt)
-    element?.remove()
-  }
-
-  static editInnerText(evt: MouseEvent) {
-    const element = Action.getElement(evt)
-    if (!element) return
-
-    const paragraph = element.getElementsByTagName('p')[0]
-    if (!paragraph) return
-
-    paragraph.contentEditable = 'true'
-
-    // set cursor position to the end
-    if (paragraph.firstChild) {
-      try {
-        const range = document.createRange()
-        const selection = window.getSelection()
-        range.setStart(paragraph.firstChild, paragraph.innerText.length)
-        range.collapse(true)
-
-        if (selection) {
-          selection.removeAllRanges()
-          selection.addRange(range)
-        }
-      } catch (error) {}
+  class Action {
+    static getElement(evt: MouseEvent) {
+      return <HTMLDivElement | null>(<HTMLSpanElement>evt.currentTarget)?.parentNode?.parentNode
     }
 
-    const frame = <HTMLDivElement>paragraph.parentNode
-    const currentEffect = <Lib.T.TextEffects>frame.className.split(' ').pop()
-
-    if (currentEffect !== 'no-effect') {
-      frame.classList.remove(currentEffect)
+    static delete(evt: MouseEvent) {
+      const element = Action.getElement(evt)
+      setActiveItemID(null)
+      element?.remove()
     }
 
-    paragraph.addEventListener('blur', () => {
-      paragraph.contentEditable = 'false'
-      ;(<HTMLDivElement | null>paragraph.parentNode)?.focus()
+    static editInnerText(evt: MouseEvent) {
+      const element = Action.getElement(evt)
+      if (!element) return
+
+      const paragraph = element.getElementsByTagName('p')[0]
+      if (!paragraph) return
+
+      paragraph.contentEditable = 'true'
+
+      // set cursor position to the end
+      if (paragraph.firstChild) {
+        try {
+          const range = document.createRange()
+          const selection = window.getSelection()
+          range.setStart(paragraph.firstChild, paragraph.innerText.length)
+          range.collapse(true)
+
+          if (selection) {
+            selection.removeAllRanges()
+            selection.addRange(range)
+          }
+        } catch (error) {}
+      }
+
+      const frame = <HTMLDivElement>paragraph.parentNode
+      const currentEffect = <Lib.T.TextEffects>frame.className.split(' ').pop()
 
       if (currentEffect !== 'no-effect') {
-        frame.classList.add(currentEffect)
+        frame.classList.remove(currentEffect)
       }
-    })
+
+      paragraph.addEventListener('blur', () => {
+        paragraph.contentEditable = 'false'
+        ;(<HTMLDivElement | null>paragraph.parentNode)?.focus()
+
+        if (currentEffect !== 'no-effect') {
+          frame.classList.add(currentEffect)
+        }
+      })
+    }
   }
+
+  return { compileDown, compileDownAll }
 }

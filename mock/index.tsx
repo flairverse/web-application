@@ -1,5 +1,6 @@
 import { SuggestionItem, SuggestionFlair } from '@/components/ui-kit/suggestion-box/lib/types'
 import { CardProps } from '@/components/ui-kit/card/lib/types'
+import { PostCardProps } from '@/components/ui-kit/nap/creator/lib/types'
 
 export const blog1: CardProps = {
   post: {
@@ -137,5 +138,64 @@ export const suggestionFlair2: SuggestionFlair[] = [
     job: 'Computer Engineering',
     hasNap: true,
     loading: false,
+  },
+]
+
+export const napPosts: PostCardProps[] = [
+  {
+    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
+    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0, cover: '/removal/1.jpg' },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
+    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0, cover: '/removal/1.jpg' },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
+    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0, cover: '/removal/1.jpg' },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
+    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0 },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
+    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0 },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
+    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0, cover: '/removal/1.jpg' },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
+    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0, cover: '/removal/1.jpg' },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
+    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0, cover: '/removal/1.jpg' },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
+    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0 },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
+    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0, cover: '/removal/1.jpg' },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
+    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0, cover: '/removal/1.jpg' },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
+    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0 },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
+    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0, cover: '/removal/1.jpg' },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
+    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0, cover: '/removal/1.jpg' },
   },
 ]
