@@ -1,15 +1,14 @@
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import * as Lib from '.'
 import { HiChevronRight } from 'react-icons/hi'
-import { IoClose } from 'react-icons/io5'
 import { createNapAtoms } from '@/store/atoms'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { FaPause, FaShare, FaEllipsisH } from 'react-icons/fa'
 import { MdOutlineClose } from 'react-icons/md'
 import { Button } from 'antd'
-import { Card } from '@/components/ui-kit/card'
 import * as mock from 'mock'
-import { Popup } from '@/components/ui-kit/popup'
+import { PickUp } from '@/components/ui-kit/pick-up'
+import { CardPick } from '@/components/ui-kit/card'
 
 export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active, boardRef }) => {
   const [activeOption, setActiveOption] = useRecoilState(createNapAtoms.activeOption)
@@ -108,26 +107,31 @@ export const GuidLines: FC = () => {
   )
 }
 
-export const PostCard: FC<Lib.T.PostCardProps> = () => {
-  return <></>
+export const PostsPopupFilters: FC = () => {
+  return (
+    <>
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio beatae iste accusamus. Cupiditate assumenda ipsum eaque dolorum eveniet cumque unde quod delectus nesciunt reiciendis fuga
+      sapiente, voluptatibus quidem quas vitae.
+    </>
+  )
 }
 
-export const PostsPopup: FC = () => {
-  const [visibility, setVisibility] = useRecoilState(createNapAtoms.postsPopupVisibility)
+export const PostsPickUp: FC = () => {
+  const { pickUpProps } = Lib.H.usePostsPickUp()
 
   return (
-    <Popup visible={visibility} onClose={() => setVisibility(false)}>
-      {Array.from(Array(20)).map((_, index) => {
-        return <PostCard key={index} {...mock.napPosts[index]} />
+    <PickUp {...pickUpProps}>
+      {Array.from(Array(mock.pickCard.length)).map((_, index) => {
+        return <CardPick key={index} {...mock.pickCard[index]} onSelect={postId => alert(postId)} />
       })}
-    </Popup>
+    </PickUp>
   )
 }
 
 export const Popups: FC = () => {
   return (
     <>
-      <PostsPopup />
+      <PostsPickUp />
     </>
   )
 }

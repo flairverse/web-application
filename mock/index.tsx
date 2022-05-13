@@ -1,6 +1,7 @@
 import { SuggestionItem, SuggestionFlair } from '@/components/ui-kit/suggestion-box/lib/types'
-import { CardProps } from '@/components/ui-kit/card/lib/types'
+import { CardProps } from '@/components/ui-kit/card/main/lib/types'
 import { PostCardProps } from '@/components/ui-kit/nap/creator/lib/types'
+import { CardPickProps } from '@/components/ui-kit/card/pick/lib/types'
 
 export const blog1: CardProps = {
   post: {
@@ -197,5 +198,120 @@ export const napPosts: PostCardProps[] = [
   {
     author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
     post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0, cover: '/removal/1.jpg' },
+  },
+]
+
+export const pickCard: CardPickProps[] = [
+  {
+    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori', profile: '/removal/profile.jpg' },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      cover: '/removal/1.jpg',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori' },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori', profile: '/removal/profile.jpg' },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      cover: '/removal/1.jpg',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori', profile: '/removal/profile.jpg' },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      cover: '/removal/1.jpg',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori' },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      cover: '/removal/1.jpg',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori', profile: '/removal/profile.jpg' },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori', profile: '/removal/profile.jpg' },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori', profile: '/removal/profile.jpg' },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      cover: '/removal/1.jpg',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori', profile: '/removal/profile.jpg' },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      cover: '/removal/1.jpg',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori' },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori', profile: '/removal/profile.jpg' },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      cover: '/removal/1.jpg',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori' },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      cover: '/removal/1.jpg',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori', profile: '/removal/profile.jpg' },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
   },
 ]

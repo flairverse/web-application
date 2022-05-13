@@ -5,7 +5,7 @@ import { useSetRecoilState } from 'recoil'
 export const useNapCreator = () => {
   const setShowMoreOptions = useSetRecoilState(createNapAtoms.showMoreOptions)
   const setActiveOption = useSetRecoilState(createNapAtoms.activeOption)
-  const setPostPopupVisibility = useSetRecoilState(createNapAtoms.postsPopupVisibility)
+  const setPostPopupVisibility = useSetRecoilState(createNapAtoms.postsPickUp)
 
   const optionsClick = (key: Lib.T.Options) => {
     if (key !== 'more|less') {

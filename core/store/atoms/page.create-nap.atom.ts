@@ -17,9 +17,9 @@ export const activeItemID = atom<string | null>({
   default: null,
 })
 
-export const postsPopupVisibility = atom<boolean>({
-  key: storeTypes.IN_CREATE_NAP_PAGE_POSTS_POPUP_VISIBILITY,
-  default: false,
+export const postsPickUp = atom<boolean>({
+  key: storeTypes.IN_CREATE_NAP_PAGE_POSTS_PICK_UP_VISIBILITY,
+  default: true,
 })
 
 export const gifPopupVisibility = atom<boolean>({
