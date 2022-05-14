@@ -13,15 +13,31 @@ export const useBoardCompiler = (boardId: string) => {
     sensitiveOnMove: true,
   }
 
+  /**
+   *
+   *
+   *
+   * decides the which compiler to be used
+   */
   const compileDown = (element: Lib.T.Elements.All): HTMLDivElement => {
     switch (element.type) {
       default: // <<--------------------------------------------------------------------------------------------------[[temporary]]
       case 'text': {
         return compileTextDown(element as Lib.T.Elements.Text)
       }
+
+      case 'post': {
+        return compilePostDown(element as Lib.T.Elements.Post)
+      }
     }
   }
 
+  /**
+   *
+   *
+   *
+   * compiles many object of `Lib.T.Elements.All[]` to actual elements
+   */
   const compileDownAll = (elements: Lib.T.Elements.All[]): Element[] => {
     const nodes: Element[] = []
     for (const element of elements) {
@@ -30,10 +46,14 @@ export const useBoardCompiler = (boardId: string) => {
     return nodes
   }
 
+  /**
+   *
+   *
+   *
+   * compiles a text object to actual element
+   */
   const compileTextDown = ({ type, id, text, position: { left, top }, fontSize, effect, rotate }: Lib.T.Elements.Text): HTMLDivElement => {
-    const node = document.createElement('p')
-    node.innerText = text
-    node.setAttribute('data-text', text)
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.text(text))
     node.addEventListener('keyup', () => node.setAttribute('data-text', node.innerText))
     const element = addFrameTo(node, ['editInnerText'], 'text', id)
     DOM.addStyles(element, { top, left, fontSize: fontSize, transform: `rotate(${rotate})` })
@@ -44,6 +64,29 @@ export const useBoardCompiler = (boardId: string) => {
     return element
   }
 
+  /**
+   *
+   *
+   *
+   * compiles a post object to actual element
+   */
+  const compilePostDown = ({ id, position: { left, top }, rotate, type, user, post, style }: Lib.T.Elements.Post): HTMLDivElement => {
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.post({ user, post }))
+    const element = addFrameTo(node, [], 'post', id)
+    DOM.addStyles(element, { top, left, transform: `rotate(${rotate})` })
+    element.id = id
+    element.classList.add(type)
+    element.classList.add(style)
+    DOM.makeElementDraggable({ element: element, areaSensitive })
+    return element
+  }
+
+  /**
+   *
+   *
+   *
+   * adds frame with custom buttons to an element
+   */
   const addFrameTo = (element: HTMLElement, actions: Lib.T.ElementFrameActionTypes[], type: Lib.T.Options, id: string) => {
     actions = [...actions, 'delete']
     const frame = document.createElement('div')
@@ -70,6 +113,12 @@ export const useBoardCompiler = (boardId: string) => {
     return frame
   }
 
+  /**
+   *
+   *
+   *
+   * Actions will be used on frame buttons
+   */
   class Action {
     static getElement(evt: MouseEvent) {
       return <HTMLDivElement | null>(<HTMLSpanElement>evt.currentTarget)?.parentNode?.parentNode
@@ -95,7 +144,7 @@ export const useBoardCompiler = (boardId: string) => {
         try {
           const range = document.createRange()
           const selection = window.getSelection()
-          range.setStart(paragraph.firstChild, paragraph.innerText.length)
+          range.setStart(paragraph.firstChild, paragraph.innerText.trim().length)
           range.collapse(true)
 
           if (selection) {

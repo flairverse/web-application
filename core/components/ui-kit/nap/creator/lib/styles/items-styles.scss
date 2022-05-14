@@ -1,0 +1,150 @@
+.createNapComponent {
+  &.post {
+    width: 300px;
+    background-color: var(--layer-1);
+    padding: 10px 7px;
+    border-radius: 15px;
+    color: var(--layer-2-text-2);
+
+    > header {
+      display: flex;
+
+      > .profilePicture {
+        > img {
+          width: 30px;
+          height: 30px;
+          border-radius: 40%;
+        }
+      }
+
+      > .profileDetail {
+        margin: -1px 0 0 0;
+        display: flex;
+        flex-direction: column;
+        flex: 1 1;
+        padding: 0 0 0 7px;
+
+        > span {
+          font-size: 10pt;
+          width: 100%;
+
+          &:nth-child(2) {
+            font-size: 8pt;
+            margin: -2px 0 0 0;
+          }
+        }
+      }
+    }
+
+    > div {
+      width: 100%;
+      margin: 10px 0 0 0;
+
+      > img {
+        border-radius: 10px;
+        width: 100%;
+        max-height: 120px;
+        object-fit: cover;
+      }
+
+      > time {
+        display: inline-flex;
+        border-radius: 10px;
+        align-items: center;
+        line-height: 1.2;
+        padding: 4px;
+        margin: 8px 0 0 0;
+
+        > span {
+          font-size: 10pt;
+          margin: 0 2px;
+        }
+      }
+
+      > h2 {
+        font-size: 13pt;
+        color: var(--layer-2-text-3);
+        margin: 5px 0 0 0;
+        padding: 0 3px;
+      }
+
+      > summary {
+        list-style: none;
+        margin: 0 0 10px 0;
+        padding: 0 3px;
+      }
+    }
+
+    > footer {
+      width: 100%;
+
+      > span {
+        width: 100%;
+        padding: 0 0 10px 0;
+        display: block;
+        opacity: 0.3;
+
+        &::after {
+          content: '';
+          float: left;
+          width: 100%;
+          border: 1px dashed var(--layer-2-placeholder);
+        }
+      }
+
+      > div {
+        display: flex;
+
+        > div {
+          background: var(--layer-2);
+          color: var(--layer-2-text-2);
+          display: inline-flex;
+          width: auto;
+          align-items: center;
+          padding: 0 6px;
+          border-radius: 6px;
+          font-size: var(--f-2);
+          margin: 0 2px;
+          cursor: default;
+          user-select: none;
+
+          > span {
+            font-size: 9pt;
+            margin: 4px 1px 5px 4px;
+          }
+
+          &.withEmptySpan {
+            > span {
+              color: transparent;
+              width: 0;
+              margin: 4px 0 5px 0;
+            }
+          }
+
+          &.withEmptySVG {
+            > svg {
+              width: 0px;
+              height: 18px;
+              margin: 4px 1px 5px 1px;
+            }
+          }
+        }
+      }
+    }
+
+    // styles
+    &.less-detail {
+      time,
+      footer {
+        display: none;
+      }
+    }
+
+    &.no-cover {
+      time,
+      > div > img {
+        display: none;
+      }
+    }
+  }
+}

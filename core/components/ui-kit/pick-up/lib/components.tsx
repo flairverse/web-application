@@ -16,7 +16,7 @@ export const FilterButton: FC<Lib.T.FilterButtonProps> = ({ filtersCount, filter
 }
 
 export const FiltersBox: FC<Lib.T.FiltersBoxProps> = ({ filter }) => {
-  const filtersVisibility = useRecoilValue(componentsAtoms.pickUpFiltersVisibility('COMPONENT_PICK_UP_FILTERS_VISIBILITY'))
+  const filtersVisibility = useRecoilValue(componentsAtoms.pickUpFiltersVisibility(filter.storeKey))
 
   return (
     <SlideUpAndDown visible={filtersVisibility}>

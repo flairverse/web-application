@@ -9,7 +9,7 @@ export const CardPickContainer = styled.div`
 
   &.selected,
   &:hover {
-    background-color: var(--layer-2);
+    background-color: var(--layer-2-hover);
     cursor: pointer;
   }
 

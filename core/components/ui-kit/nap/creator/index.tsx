@@ -1,29 +1,26 @@
-import { createNapAtoms } from '@/store/atoms'
-import { FC, useRef, useState } from 'react'
-import { useRecoilState } from 'recoil'
+import { FC, useRef } from 'react'
 import * as Lib from './lib'
 
 export const NapCreator: FC = () => {
-  const { on } = Lib.H.useNapCreator()
   const mainBoardRef = useRef<HTMLDivElement>(null)
-  const [pickUp, setPickUp] = useRecoilState(createNapAtoms.postsPickUp)
+  const { on } = Lib.H.useNapCreator(mainBoardRef)
 
   return (
-    <Lib.S.NapCreatorContainer>
-      <Lib.C.Toolbox active={true} boardRef={mainBoardRef} />
-      <button onClick={() => setPickUp(true)}>pick</button>
+    <>
+      <Lib.C.PostsPickUp boardRef={mainBoardRef} />
 
-      <div className="board">
-        <div className="initialContent">
-          <Lib.C.GuidLines />
+      <Lib.S.NapCreatorContainer>
+        <Lib.C.Toolbox active={true} boardRef={mainBoardRef} />
 
-          <Lib.C.Popups />
+        <div className="board">
+          <div className="initialContent">
+            <Lib.C.GuidLines />
+            <Lib.C.Items onOptionsClick={on.optionsClick} boardRef={mainBoardRef} />
+          </div>
 
-          <Lib.C.Items onOptionsClick={on.optionsClick} boardRef={mainBoardRef} />
+          <Lib.S.MainBoard id="mainBoard" ref={mainBoardRef} />
         </div>
-
-        <Lib.S.MainBoard id="mainBoard" ref={mainBoardRef} />
-      </div>
-    </Lib.S.NapCreatorContainer>
+      </Lib.S.NapCreatorContainer>
+    </>
   )
 }

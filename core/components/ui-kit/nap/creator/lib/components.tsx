@@ -5,7 +5,7 @@ import { createNapAtoms } from '@/store/atoms'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { FaPause, FaShare, FaEllipsisH } from 'react-icons/fa'
 import { MdOutlineClose } from 'react-icons/md'
-import { Button } from 'antd'
+import { Button, Select, Radio, Space } from 'antd'
 import * as mock from 'mock'
 import { PickUp } from '@/components/ui-kit/pick-up'
 import { CardPick } from '@/components/ui-kit/card'
@@ -107,32 +107,16 @@ export const GuidLines: FC = () => {
   )
 }
 
-export const PostsPopupFilters: FC = () => {
-  return (
-    <>
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio beatae iste accusamus. Cupiditate assumenda ipsum eaque dolorum eveniet cumque unde quod delectus nesciunt reiciendis fuga
-      sapiente, voluptatibus quidem quas vitae.
-    </>
-  )
-}
-
-export const PostsPickUp: FC = () => {
-  const { pickUpProps } = Lib.H.usePostsPickUp()
+export const PostsPickUp: FC<Lib.T.PostsPickUpProps> = ({ boardRef }) => {
+  const { pickUpProps, onPostSelect } = Lib.H.usePostsPickUp({ boardRef })
+  const pickUp = useRecoilValue(createNapAtoms.postsPickUp)
 
   return (
-    <PickUp {...pickUpProps}>
+    <PickUp {...pickUpProps} visibility={pickUp}>
       {Array.from(Array(mock.pickCard.length)).map((_, index) => {
-        return <CardPick key={index} {...mock.pickCard[index]} onSelect={postId => alert(postId)} />
+        return <CardPick key={index} {...mock.pickCard[index]} onSelect={onPostSelect} />
       })}
     </PickUp>
-  )
-}
-
-export const Popups: FC = () => {
-  return (
-    <>
-      <PostsPickUp />
-    </>
   )
 }
 

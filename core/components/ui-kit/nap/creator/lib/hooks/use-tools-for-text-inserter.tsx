@@ -7,7 +7,7 @@ import { createNapAtoms } from '@/store/atoms'
 
 export const useToolsForTextInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
   const Inserters = Lib.H.useInserters()
-  const { getFocusedItem } = Lib.H.useToolsForAllInserters({ boardRef })
+  const { getFocusedItem, changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({ boardRef })
   const activeItemID = useRecoilValue(createNapAtoms.activeItemID)
   const activeOption = useRecoilValue(createNapAtoms.activeOption)
   const fontSizeRange = [10, 50]
@@ -39,28 +39,12 @@ export const useToolsForTextInserter = ({ boardRef }: Lib.T.ToolsForInserters) =
       }
 
       case 'text-effect': {
-        const focusedItem = getFocusedItem()
-        if (focusedItem) {
-          const currentEffect = focusedItem.className.split(' ').pop() as Lib.T.TextEffects
-          const effectsRange = [0, Lib.CO.TEXT_EFFECTS.length - 1]
-          const currentEffectIndex = Lib.CO.TEXT_EFFECTS.indexOf(currentEffect)
-          const nextEffectIndex = currentEffectIndex + 1
-          focusedItem.classList.remove(currentEffect)
-          focusedItem.classList.add(nextEffectIndex > effectsRange[1] ? Lib.CO.TEXT_EFFECTS[effectsRange[0]] : Lib.CO.TEXT_EFFECTS[nextEffectIndex])
-          focusedItem.focus()
-        }
+        changeEffect('TEXT')
         break
       }
 
       case 'text-rotation': {
-        const focusedItem = getFocusedItem()
-        if (focusedItem) {
-          const angle = parseInt(focusedItem.getAttribute('data-rotation') || '0') as Lib.T.Elements.ElementRotation
-          const nextAngle = angle + 45
-          focusedItem.style.transform = `rotate(${nextAngle}deg)`
-          focusedItem.setAttribute('data-rotation', nextAngle.toString())
-          focusedItem.focus()
-        }
+        changeRotation()
         break
       }
     }

@@ -7,24 +7,29 @@ import { AiOutlineGif } from 'react-icons/ai'
 import { GoMention } from 'react-icons/go'
 import { IoFilmOutline } from 'react-icons/io5'
 import { createNapAtoms } from '@/store/atoms'
-import { useRecoilValue, useRecoilState } from 'recoil'
+import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil'
 import { useEffect } from 'react'
 
 export const useItems = ({ onOptionsClick, boardRef }: Pick<Lib.T.ItemsProps, 'boardRef' | 'onOptionsClick'>) => {
   const showMoreOptions = useRecoilValue(createNapAtoms.showMoreOptions)
   const [activeOption, setActiveOptions] = useRecoilState(createNapAtoms.activeOption)
+  const setActiveItemID = useSetRecoilState(createNapAtoms.activeItemID)
   const Insert = Lib.H.useInserters()
 
   const addItem = () => {
     const insert = new Insert(boardRef)
 
-    if (activeOption !== 'none' && !boardContains(activeOption)) {
+    if (activeOption !== 'none' && !Lib.HE.boardContains(activeOption, boardRef)) {
       switch (activeOption) {
         case 'text': {
           insert.newText()
           break
         }
       }
+    }
+
+    return () => {
+      setActiveItemID(null)
     }
   }
 
@@ -34,14 +39,6 @@ export const useItems = ({ onOptionsClick, boardRef }: Pick<Lib.T.ItemsProps, 'b
     } else {
       onOptionsClick(key)
     }
-  }
-
-  const boardContains = (item: Lib.T.Options): boolean => {
-    const board = boardRef.current
-    if (!board) {
-      return false
-    }
-    return board.querySelector(`.${item}`) !== null
   }
 
   const items: Lib.T.Item[] = [

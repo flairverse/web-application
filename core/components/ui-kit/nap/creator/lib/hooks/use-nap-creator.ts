@@ -1,8 +1,9 @@
 import * as Lib from '../'
 import { createNapAtoms } from '@/store/atoms'
 import { useSetRecoilState } from 'recoil'
+import { RefObject } from 'react'
 
-export const useNapCreator = () => {
+export const useNapCreator = (boardRef: RefObject<HTMLDivElement | null>) => {
   const setShowMoreOptions = useSetRecoilState(createNapAtoms.showMoreOptions)
   const setActiveOption = useSetRecoilState(createNapAtoms.activeOption)
   const setPostPopupVisibility = useSetRecoilState(createNapAtoms.postsPickUp)
@@ -19,7 +20,9 @@ export const useNapCreator = () => {
       }
 
       case 'post': {
-        setPostPopupVisibility(true)
+        if (!Lib.HE.boardContains('post', boardRef)) {
+          setPostPopupVisibility(true)
+        }
         break
       }
 

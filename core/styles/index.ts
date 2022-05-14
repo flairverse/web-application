@@ -88,6 +88,56 @@ export const GlobalStyles = createGlobalStyle`
   .ant-tabs-tab {
     padding: 10px;
   }
+
+  .ant-select-item {
+    color: var(--layer-2-text-2);
+  }
+
+  .ant-select-dropdown {
+    background-color: var(--layer-2);
+  }
+
+  .ant-select-arrow {
+    color: var(--layer-2-text-3);
+  }
+
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    background-color: var(--layer-1);
+    border: none;
+
+    .ant-select-selection-item {
+      color: var(--layer-2-text-3);
+    }
+
+    input {
+      color: var(--layer-2-text-3);
+
+      &::placeholder {
+        color: var(--layer-2-placeholder);
+      }
+    }
+  }
+  
+  .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+    color: var(--layer-2-text-3);
+    background-color: var(--layer-2-dash);
+  }
+
+  .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+    background-color: var(--layer-2-hover);
+  }
+
+  .ant-btn {
+    &.ant-btn-default {
+      background-color: var(--layer-2);
+      color: var(--layer-2-text-2);
+      border: none;
+
+      &:hover {
+        background-color: var(--layer-2-hover);
+      }
+    }
+  }
   /**
   * End -- Ant design customization
   **/

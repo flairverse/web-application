@@ -1,13 +1,18 @@
 import { useEffect } from 'react'
+import { useSetRecoilState } from 'recoil'
+import { createNapAtoms } from '@/store/atoms'
 import * as Lib from '.'
 
 export const useAcceleratorsProvider = () => {
+  const setPostsPickUpInCreateNapPage = useSetRecoilState(createNapAtoms.postsPickUp)
+  const setActiveOptionInCreateNapPage = useSetRecoilState(createNapAtoms.activeOption)
+
   /**
    *
    *
    * reserves forward slash accelerator for focusing on navbar search box
    */
-  const listenToNavbarSearchBox = (input: Lib.T.Input) => {
+  const focusNavbarSearchBox = (input: Lib.T.Input) => {
     if (!input) {
       return
     }
@@ -38,6 +43,25 @@ export const useAcceleratorsProvider = () => {
   /**
    *
    *
+   * closes all opened pickups components
+   */
+  const closeOpenedPickUps = () => {
+    setPostsPickUpInCreateNapPage(false)
+  }
+
+  /**
+   *
+   *
+   * Things that can not be placed in a specific category,
+   *    but need to be run when the Escape button is pressed.
+   */
+  const doCustomEventsOnEscape = () => {
+    setActiveOptionInCreateNapPage('none')
+  }
+
+  /**
+   *
+   *
    * switch the pressed key and execute the associated listener
    */
   const checkThePressedKey = (code: string, foundedElements: Lib.T.FoundedElements) => {
@@ -45,11 +69,15 @@ export const useAcceleratorsProvider = () => {
 
     switch (code) {
       case 'Slash': {
-        return listenToNavbarSearchBox(navbarSearchBox)
+        focusNavbarSearchBox(navbarSearchBox)
+        break
       }
 
       case 'Escape': {
-        return blurTheFocusedElement()
+        blurTheFocusedElement()
+        closeOpenedPickUps()
+        doCustomEventsOnEscape()
+        break
       }
     }
   }
@@ -72,7 +100,7 @@ export const useAcceleratorsProvider = () => {
       navbarSearchBox: <Lib.T.Input>document.querySelector('.navbarSearchBox > input'),
     }
 
-    addEventListener('keyup', ({ code }) => checkThePressedKey(code, foundedElements))
+    addEventListener('keydown', ({ code }) => checkThePressedKey(code, foundedElements))
   }
 
   useEffect(onMount, [])

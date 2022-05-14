@@ -14,6 +14,13 @@ export const PickUpContainer = styled.div<Pick<Lib.T.PickUpProps, 'boxHeight' | 
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 90ms linear;
+
+  &.false {
+    transform: scale(1.05);
+    visibility: hidden;
+    opacity: 0;
+  }
 
   > div {
     width: ${({ boxWidth }) => boxWidth || '800px'};
@@ -62,6 +69,15 @@ export const PickUpContainer = styled.div<Pick<Lib.T.PickUpProps, 'boxHeight' | 
           height: 100%;
           display: flex;
           align-items: center;
+        }
+
+        &.cancel {
+          width: 30px;
+          height: 30px;
+          padding: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
       }
     }

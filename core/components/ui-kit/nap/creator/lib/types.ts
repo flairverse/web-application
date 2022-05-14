@@ -1,3 +1,4 @@
+import { Topic } from '@/types/topics'
 import { RefObject } from 'react'
 import { IconType } from 'react-icons/lib'
 import * as Lib from '.'
@@ -38,9 +39,13 @@ export interface ToolProps {
   index: number
 }
 
-export type Tool = 'none' | 'add-text' | 'text-font-size' | 'text-effect' | 'text-rotation'
+export type TextTools = 'add-text' | 'text-font-size' | 'text-effect' | 'text-rotation'
+export type PostTools = 'add-post' | 'post-style' | 'post-rotation'
+export type Tool = 'none' | TextTools | PostTools
 
-export type TextEffects = typeof Lib.CO.TEXT_EFFECTS[number]
+export type TextEffects = typeof Lib.CO.EFFECTS.TEXT[number]
+export type PostEffects = typeof Lib.CO.EFFECTS.POST[number]
+export type AllEffects = TextEffects | PostEffects
 
 export namespace Elements {
   interface BaseElement {
@@ -61,7 +66,29 @@ export namespace Elements {
     effect: TextEffects
   }
 
-  export interface Post extends BaseElement {}
+  export interface Post extends BaseElement {
+    type: 'post'
+    style: PostEffects
+    user: {
+      fullName: string
+      job: string
+      profile: string | null
+    }
+    post: {
+      cover: string | null
+      title: string
+      month: string
+      day: string
+      year: string
+      summary: string
+      paymentRequired: boolean
+      topic: Topic
+      timeToRead: number
+      comments: number
+      likes: number
+      id: number
+    }
+  }
 
   export interface Image extends BaseElement {}
 
@@ -79,15 +106,16 @@ export namespace Elements {
 
   // prettier-ignore
   export type All = 
-  & Partial<Text> 
-  & Partial<Image> 
-  & Partial<Gif> 
-    & Partial<Question> 
-    & Partial<Reminder> 
-    & Partial<Quiz> 
-    & Partial<Post> 
-    & Partial<Mention> 
-    & Partial<Video>
+    & { type: Options }
+    & Partial<Omit<Text, 'type'>> 
+    & Partial<Omit<Image, 'type'>> 
+    & Partial<Omit<Gif, 'type'>> 
+    & Partial<Omit<Question, 'type'>> 
+    & Partial<Omit<Reminder, 'type'>> 
+    & Partial<Omit<Quiz, 'type'>> 
+    & Partial<Omit<Post, 'type'>> 
+    & Partial<Omit<Mention, 'type'>> 
+    & Partial<Omit<Video, 'type'>>
 }
 
 export type ElementFrameActionTypes = 'delete' | 'editInnerText'
@@ -112,4 +140,13 @@ export interface PostCardProps {
     title: string
     id: number
   }
+}
+
+export interface PostsPickUpProps {
+  boardRef: RefObject<HTMLDivElement>
+}
+
+export type ItemsDOMStringGenerators = {
+  text: (innerText: string) => string
+  post: ({}: Pick<Elements.Post, 'post' | 'user'>) => string
 }

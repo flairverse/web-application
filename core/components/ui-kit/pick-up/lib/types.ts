@@ -9,6 +9,7 @@ export interface PickUpProps extends HTMLAttributes<HTMLDivElement> {
   boxHeight?: string
   placeholder?: string
   backdrop?: Omit<BackDropProps, 'visibility'>
+  cancelButton?: boolean
   searchBox: {
     storeKey: StoreKeys
     onChange?: (value: string) => void

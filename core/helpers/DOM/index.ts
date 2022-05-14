@@ -85,4 +85,15 @@ export class DOM {
       dragMouseDown(pageX, pageY)
     }
   }
+
+  /**
+   *
+   *
+   *
+   * converts a DOM string to actual DOM
+   */
+  static DOMStringToNode<T = HTMLElement>(DOMString: string) {
+    const document = new DOMParser().parseFromString(DOMString, 'text/html')
+    return <T>(<unknown>document.body.firstChild!)
+  }
 }
