@@ -14,7 +14,15 @@ export const useItems = ({ onOptionsClick, boardRef }: Pick<Lib.T.ItemsProps, 'b
   const showMoreOptions = useRecoilValue(createNapAtoms.showMoreOptions)
   const [activeOption, setActiveOptions] = useRecoilState(createNapAtoms.activeOption)
   const setActiveItemID = useSetRecoilState(createNapAtoms.activeItemID)
-  const Insert = Lib.H.useInserters()
+  const Insert = Lib.H.useInserters(boardRef)
+
+  useEffect(() => {
+    // new Insert(boardRef).newPost(10)
+    new Insert(boardRef).newText()
+    new Insert(boardRef).newText()
+    new Insert(boardRef).newText()
+    new Insert(boardRef).newText()
+  }, [])
 
   const addItem = () => {
     const insert = new Insert(boardRef)

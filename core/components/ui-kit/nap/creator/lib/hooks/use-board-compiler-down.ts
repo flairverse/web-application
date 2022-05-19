@@ -1,4 +1,4 @@
-import * as Lib from '../'
+import * as Lib from '..'
 import { DOM } from '@/helpers/DOM'
 import { MakeElementDraggableSensitive } from '@/helpers/DOM/lib/types'
 import { useSetRecoilState } from 'recoil'
@@ -8,16 +8,18 @@ export const useBoardCompiler = (boardId: string) => {
   const setActiveOption = useSetRecoilState(createNapAtoms.activeOption)
   const setActiveItemID = useSetRecoilState(createNapAtoms.activeItemID)
 
-  const areaSensitive: MakeElementDraggableSensitive = {
-    target: `#${boardId}`,
-    sensitiveOnMove: true,
-  }
+  // const areaSensitive: MakeElementDraggableSensitive = {
+  //   target: `#${boardId}`,
+  //   sensitiveOnMove: true,
+  // }
+
+  const areaSensitive = undefined
 
   /**
    *
    *
    *
-   * decides the which compiler to be used
+   * decides which compiler to be used
    */
   const compileDown = (element: Lib.T.Elements.All): HTMLDivElement => {
     switch (element.type) {
@@ -38,7 +40,7 @@ export const useBoardCompiler = (boardId: string) => {
    *
    * compiles many object of `Lib.T.Elements.All[]` to actual elements
    */
-  const compileDownAll = (elements: Lib.T.Elements.All[]): Element[] => {
+  const compileAllDown = (elements: Lib.T.Elements.All[]): Element[] => {
     const nodes: Element[] = []
     for (const element of elements) {
       compileDown(element)
@@ -92,6 +94,7 @@ export const useBoardCompiler = (boardId: string) => {
     const frame = document.createElement('div')
     frame.tabIndex = 0
     frame.classList.add('frame')
+    frame.setAttribute(Lib.CO.FRAMES_DATA_ATTRS.TYPE, type)
     frame.addEventListener('focus', () => {
       setActiveOption(type)
       setActiveItemID(id)
@@ -172,5 +175,5 @@ export const useBoardCompiler = (boardId: string) => {
     }
   }
 
-  return { compileDown, compileDownAll }
+  return { compileDown, compileAllDown }
 }

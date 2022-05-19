@@ -3,6 +3,7 @@ import * as Lib from './lib'
 
 export const NapCreator: FC = () => {
   const mainBoardRef = useRef<HTMLDivElement>(null)
+  const mainBoardParentRef = useRef<HTMLDivElement>(null)
   const { on } = Lib.H.useNapCreator(mainBoardRef)
 
   return (
@@ -12,7 +13,7 @@ export const NapCreator: FC = () => {
       <Lib.S.NapCreatorContainer>
         <Lib.C.Toolbox active={true} boardRef={mainBoardRef} />
 
-        <div className="board">
+        <div className="board" ref={mainBoardParentRef}>
           <div className="initialContent">
             <Lib.C.GuidLines />
             <Lib.C.Items onOptionsClick={on.optionsClick} boardRef={mainBoardRef} />

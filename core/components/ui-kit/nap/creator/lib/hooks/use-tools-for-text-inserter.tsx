@@ -6,7 +6,7 @@ import { useRecoilValue } from 'recoil'
 import { createNapAtoms } from '@/store/atoms'
 
 export const useToolsForTextInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
-  const Inserters = Lib.H.useInserters()
+  const Inserters = Lib.H.useInserters(boardRef)
   const { getFocusedItem, changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({ boardRef })
   const activeItemID = useRecoilValue(createNapAtoms.activeItemID)
   const activeOption = useRecoilValue(createNapAtoms.activeOption)

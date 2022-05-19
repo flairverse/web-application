@@ -5,6 +5,19 @@ import * as Lib from '.'
 
 const ICON_COLORS = 'var(--layer-2)'
 
+export const BASE_BOARD_WIDTH = 1288
+
+export const BASE_BOARD_HEIGHT = 722.14
+
+export const MIN_BOARD_WIDTH = 768
+
+export const FRAMES_DATA_ATTRS = {
+  ROTATION: 'data-rotation',
+  SCALE: 'data-scale',
+  TYPE: 'data-type',
+  EFFECT: 'data-effect',
+}
+
 export const EFFECTS = {
   TEXT: ['no-effect', 'animated-gradient', 'horror', 'shining', 'extreme-offset', 'bingo', 'floor'] as const,
   POST: ['no-effect', 'less-detail', 'no-cover'] as const,
@@ -186,28 +199,28 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
       <article class="createNapComponent post no-effect" data-post-id="${post.id}">
         <header>
           <div class="profilePicture">
-            <img src="${user.profile || 'default-picture-path'}"  alt="user" draggable="false">
+            <img class="profile" src="${user.profile || 'default-picture-path'}" alt="user" draggable="false">
           </div>
 
           <p class="profileDetail">
-            <span>${user.fullName}</span>
-            <span>${user.job}</span>
+            <span class="fullName">${user.fullName}</span>
+            <span class="job">${user.job}</span>
           </p>
         </header>
 
         <div> 
-          <img src="${post.cover}" alt="post title" draggable="false">
+          <img src="${post.cover}" alt="cover photo" draggable="false" class="cover">
 
           <time
             data-time="${post.year}-${post.month}-${post.day}"
             style=" background: var(--c-${post.topic}-trans-1); color: var(--c-${post.topic})"
           >
-            <span>${post.month}</span>•
-            <span>${post.day}</span>•
-            <span>${post.year}</span>
+            <span class="month">${post.month}</span>•
+            <span class="day">${post.day}</span>•
+            <span class="year">${post.year}</span>
           </time>
 
-          <h2>${Str.cut(post.title, 25)}</h2>
+          <h2 class="title">${Str.cut(post.title, 25)}</h2>
 
           <summary>${Str.cut(post.summary, 50)}</summary>
         </div>
@@ -229,22 +242,22 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
 
             <div class="info withEmptySpan">
               ${ITEMS_ICONS[post.topic]}
-              <span>0</span>
+              <span class="topic" data-topic="${post.topic}">0</span>
             </div>
 
             <div class="info">
               ${ITEMS_ICONS.heart}
-              <span>${Num.stringify(post.likes)}</span>
+              <span data-likes="${post.likes}" class="likes">${Num.stringify(post.likes)}</span>
             </div>
 
             <div class="info">
               ${ITEMS_ICONS.message}
-              <span>${Num.stringify(post.comments)}</span>
+              <span data-comments="${post.comments}" class="comments">${Num.stringify(post.comments)}</span>
             </div>
 
             <div class="info withEmptySVG">
               <svg></svg>
-              <span>${post.timeToRead} "</span>
+              <span class="timeToRead" data-timeToRead="${post.timeToRead}">${post.timeToRead} "</span>
             </div>
           </div>
 

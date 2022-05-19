@@ -1,9 +1,8 @@
 import * as Lib from '../'
 import { Str } from '@/helpers/string'
 import { RefObject } from 'react'
-import * as mock from 'mock'
 
-export const useInserters = () => {
+export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
   const { compileDown } = Lib.H.useBoardCompiler('mainBoard')
 
   return class Insert {
@@ -19,6 +18,7 @@ export const useInserters = () => {
       }
       const element = compileDown(elementInfo)
       this.board.appendChild(element)
+      Lib.HE.changeFrameScale(boardRef, element)
       element.focus()
     }
 
@@ -31,8 +31,8 @@ export const useInserters = () => {
      *
      * makes new text item and passes it to the `appendItem`
      */
-    newText() {
-      const text: Lib.T.Elements.Text = {
+    newText(defaultValues?: Lib.T.Elements.Text) {
+      const text: Lib.T.Elements.Text = defaultValues || {
         type: 'text',
         id: this.makeID(),
         text: 'Type Something here...',
@@ -49,8 +49,8 @@ export const useInserters = () => {
      *
      * makes new post item and passes it to the `appendItem`
      */
-    newPost(id: number) {
-      const post: Lib.T.Elements.Post = {
+    newPost(id: number, defaultValues?: Lib.T.Elements.Post) {
+      const post: Lib.T.Elements.Post = defaultValues || {
         type: 'post',
         style: 'no-effect',
         id: this.makeID(),

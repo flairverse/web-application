@@ -1,6 +1,7 @@
-import styled, { keyframes, css } from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import * as Lib from '../'
 import * as textEffects from './text-effects'
+import { MIN_BOARD_WIDTH, BASE_BOARD_HEIGHT, BASE_BOARD_WIDTH } from '../constants'
 
 const TRANSITION = 'all 150ms ease-out'
 
@@ -11,12 +12,14 @@ export const NapCreatorContainer = styled.div`
 
   > .board {
     width: 100%;
-    padding-top: 56.25%;
+    height: ${BASE_BOARD_HEIGHT}px;
+    max-height: calc(100vh - 161px);
+    position: relative;
     background-color: var(--layer-2);
     border: 1px solid var(--layer-2-border);
     border-radius: 8px;
     flex: 1;
-    position: relative;
+    overflow: auto;
 
     &.true {
       transform: rotate(90deg);
@@ -218,7 +221,9 @@ export const ItemsShadowing = styled.span<Lib.T.ItemsShadowingProps>`
   opacity: ${({ active }) => (active ? 0.4 : 0)};
 `
 
-export const GuidLines = styled.div`
+export const GUIDE_LINES_COLOR = 'var(--layer-2-dash)'
+
+export const GuideLines = styled.div`
   position: absolute;
   left: 0;
   right: 0;
@@ -229,6 +234,9 @@ export const GuidLines = styled.div`
   height: 100%;
   display: flex;
   padding: 15px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.4;
 
   span {
     display: block;
@@ -238,6 +246,7 @@ export const GuidLines = styled.div`
     flex: 1;
     display: flex;
     flex-direction: column;
+    z-index: 1;
 
     > .top {
       display: flex;
@@ -246,7 +255,7 @@ export const GuidLines = styled.div`
       > .profile {
         width: 40px;
         height: 40px;
-        background-color: var(--layer-2-hover);
+        background-color: ${GUIDE_LINES_COLOR};
         border-radius: 50%;
       }
 
@@ -258,14 +267,14 @@ export const GuidLines = styled.div`
 
         > .username {
           width: 100px;
-          background-color: var(--layer-2-hover);
+          background-color: ${GUIDE_LINES_COLOR};
           height: 10px;
           border-radius: 100px;
         }
 
         > .job {
           width: 130px;
-          background-color: var(--layer-2-hover);
+          background-color: ${GUIDE_LINES_COLOR};
           height: 5px;
           border-radius: 100px;
           margin: 5px 0 0 0;
@@ -280,7 +289,7 @@ export const GuidLines = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
-        color: var(--layer-2-hover);
+        color: ${GUIDE_LINES_COLOR};
         margin: 0 4px;
       }
     }
@@ -292,13 +301,13 @@ export const GuidLines = styled.div`
     > .bottom {
       > .input {
         width: 50%;
-        border: 3px solid var(--layer-2-hover);
+        border: 3px solid ${GUIDE_LINES_COLOR};
         border-radius: 100px;
         height: 40px;
         display: flex;
         align-items: center;
         padding: 0 10px;
-        color: var(--layer-2-hover);
+        color: ${GUIDE_LINES_COLOR};
         user-select: none;
       }
     }
@@ -306,11 +315,12 @@ export const GuidLines = styled.div`
 
   > .right {
     width: 5px;
+    z-index: 1;
 
     > .timer {
       width: 100%;
       height: 100%;
-      background-color: var(--layer-2-hover);
+      background-color: ${GUIDE_LINES_COLOR};
       border-radius: 20px;
     }
   }
@@ -374,11 +384,11 @@ export const Tool = styled.div<Pick<Lib.T.ToolProps, 'index'>>`
 
 const scaleOut = keyframes`
   from {
-    transform: scale(1.2);
+    /* transform: translateY(15px); */
     opacity: 0;
   }
   to {
-    transform: none;
+    /* transform: none; */
     opacity: 1;
   }
 `
@@ -387,11 +397,11 @@ export const MainBoard = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 15px;
-  height: calc(100% - 135px);
-  width: calc(100% - 50px);
+  left: 0;
+  height: 100%;
   margin: auto;
   overflow: hidden;
+  width: 100%;
 
   > .frame {
     position: absolute;
@@ -403,6 +413,7 @@ export const MainBoard = styled.div`
     transition: ${TRANSITION.replace('all', 'border')};
     border-radius: 10px;
     max-width: 90%;
+    transform: scale(1) rotate(0deg);
 
     * {
       user-select: none;

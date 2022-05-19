@@ -7,6 +7,7 @@ export const useNapCreator = (boardRef: RefObject<HTMLDivElement | null>) => {
   const setShowMoreOptions = useSetRecoilState(createNapAtoms.showMoreOptions)
   const setActiveOption = useSetRecoilState(createNapAtoms.activeOption)
   const setPostPopupVisibility = useSetRecoilState(createNapAtoms.postsPickUp)
+  Lib.H.useFramesScaling(boardRef)
 
   const optionsClick = (key: Lib.T.Options) => {
     if (key !== 'more|less') {

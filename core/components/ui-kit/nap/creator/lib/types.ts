@@ -30,6 +30,8 @@ export interface ToolboxProps extends Pick<ItemsProps, 'boardRef'> {
   active?: boolean
 }
 
+export interface ToolBoxNextBtnProps extends Pick<ItemsProps, 'boardRef'> {}
+
 export interface ToolProps {
   disabled?: boolean
   title: string
@@ -48,7 +50,7 @@ export type PostEffects = typeof Lib.CO.EFFECTS.POST[number]
 export type AllEffects = TextEffects | PostEffects
 
 export namespace Elements {
-  interface BaseElement {
+  export interface BaseElement {
     type: Options
     id: string
     position: {

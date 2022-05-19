@@ -17,7 +17,7 @@ export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active, boardRef }) => {
     <Lib.S.ToolboxContainer active={active}>
       <div className={`withTitle ${activeOption === 'none'}`}>
         <h1>Create Your Nap</h1>
-        <ToolBoxNextBtn />
+        <ToolBoxNextBtn boardRef={boardRef} />
       </div>
 
       <div className={`toolsContainer ${activeOption !== 'none'}`}>
@@ -27,18 +27,22 @@ export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active, boardRef }) => {
         <div className="tools">
           <Tools selectedOption={activeOption} boardRef={boardRef} />
         </div>
-        <ToolBoxNextBtn />
+        <ToolBoxNextBtn boardRef={boardRef} />
       </div>
     </Lib.S.ToolboxContainer>
   )
 }
 
-export const ToolBoxNextBtn: FC = () => (
-  <Button type="primary" className="nextBtn">
-    <span>Next</span>
-    <HiChevronRight color="var(--layer-2-text-3)" size={20} />
-  </Button>
-)
+export const ToolBoxNextBtn: FC<Lib.T.ToolBoxNextBtnProps> = ({ boardRef }) => {
+  const { compileAllUp } = Lib.H.useBoardCompileUp(boardRef)
+
+  return (
+    <Button type="primary" onClick={compileAllUp} className="nextBtn">
+      <span>Next</span>
+      <HiChevronRight color="var(--layer-2-text-3)" size={20} />
+    </Button>
+  )
+}
 
 export const Items: FC<Lib.T.ItemsProps> = ({ onOptionsClick, boardRef }) => {
   const showMoreOptions = useRecoilValue(createNapAtoms.showMoreOptions)
@@ -68,7 +72,7 @@ export const Items: FC<Lib.T.ItemsProps> = ({ onOptionsClick, boardRef }) => {
 
 export const GuidLines: FC = () => {
   return (
-    <Lib.S.GuidLines>
+    <Lib.S.GuideLines>
       <div className="left">
         <div className="top">
           <span className="profile" />
@@ -103,7 +107,7 @@ export const GuidLines: FC = () => {
       <div className="right">
         <span className="timer" />
       </div>
-    </Lib.S.GuidLines>
+    </Lib.S.GuideLines>
   )
 }
 
