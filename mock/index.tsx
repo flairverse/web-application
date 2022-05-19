@@ -1,6 +1,6 @@
 import { SuggestionItem, SuggestionFlair } from '@/components/ui-kit/suggestion-box/lib/types'
 import { CardProps } from '@/components/ui-kit/card/main/lib/types'
-import { PostCardProps } from '@/components/ui-kit/nap/creator/lib/types'
+import { MentionProps, PostCardProps } from '@/components/ui-kit/nap/creator/lib/types'
 import { CardPickProps } from '@/components/ui-kit/card/pick/lib/types'
 
 export const blog1: CardProps = {
@@ -314,4 +314,27 @@ export const pickCard: CardPickProps[] = [
       slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
     },
   },
+]
+
+export const mentions: MentionProps[] = [
+  { id: 1, username: 'qafooriqafooriqafooriqafoori', hasNap: true, profile: '/removal/profile.jpg' },
+  { id: 2, username: 'qafooriqafooriqafooriqafoori', hasNap: false, profile: '/removal/profile.jpg' },
+  { id: 3, username: 'qafooriqafooriqafooriqafoori', hasNap: true, profile: '/removal/profile.jpg' },
+  { id: 4, username: 'qafooriqafooriqafooriqafoori', hasNap: true, profile: '/removal/profile.jpg' },
+  { id: 5, username: 'qafooriqafooriqafooriqafoori', hasNap: false },
+  { id: 6, username: 'qafooriqafooriqafooriqafoori', hasNap: false, profile: '/removal/profile.jpg' },
+  { id: 7, username: 'qafooriqafooriqafooriqafoori', hasNap: true, profile: '/removal/profile.jpg' },
+  { id: 8, username: 'qafooriqafooriqafooriqafoori', hasNap: true, profile: '/removal/profile.jpg' },
+  { id: 9, username: 'qafooriqafooriqafooriqafoori', hasNap: true, profile: '/removal/profile.jpg' },
+  { id: 10, username: 'qafooriqafooriqafooriqafoori', hasNap: true },
+  { id: 11, username: 'qafooriqafooriqafooriqafoori', hasNap: false, profile: '/removal/profile.jpg' },
+  { id: 12, username: 'qafooriqafooriqafooriqafoori', hasNap: true },
+  { id: 13, username: 'qafooriqafooriqafooriqafoori', hasNap: true, profile: '/removal/profile.jpg' },
+  { id: 14, username: 'qafooriqafooriqafooriqafoori', hasNap: false },
+  { id: 15, username: 'qafooriqafooriqafooriqafoori', hasNap: true, profile: '/removal/profile.jpg' },
+  { id: 16, username: 'qafooriqafooriqafooriqafoori', hasNap: true, profile: '/removal/profile.jpg' },
+  { id: 17, username: 'qafooriqafooriqafooriqafoori', hasNap: true, profile: '/removal/profile.jpg' },
+  { id: 18, username: 'qafooriqafooriqafooriqafoori', hasNap: false },
+  { id: 19, username: 'qafooriqafooriqafooriqafoori', hasNap: true, profile: '/removal/profile.jpg' },
+  { id: 20, username: 'qafooriqafooriqafooriqafoori', hasNap: false, profile: '/removal/profile.jpg' },
 ]

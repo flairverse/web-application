@@ -13,7 +13,7 @@ export const useToolsForPostInserter = ({ boardRef }: Lib.T.ToolsForInserters) =
 
   const tools: Pick<Lib.T.ToolProps, 'Icon' | 'type' | 'title' | 'disabled'>[] = [
     { Icon: IoAddCircleOutline, type: 'add-post', title: 'Add new', disabled: false },
-    { Icon: MdOutlineStyle, type: 'post-style', title: 'Style', disabled: activeOption !== 'post' || activeItemID === null },
+    { Icon: MdOutlineStyle, type: 'post-effect', title: 'Style', disabled: activeOption !== 'post' || activeItemID === null },
     { Icon: AiOutlineRotateRight, type: 'post-rotation', title: 'Rotate', disabled: activeOption !== 'post' || activeItemID === null },
   ]
 
@@ -24,7 +24,7 @@ export const useToolsForPostInserter = ({ boardRef }: Lib.T.ToolsForInserters) =
         break
       }
 
-      case 'post-style': {
+      case 'post-effect': {
         changeEffect('POST', 'article')
         break
       }

@@ -18,10 +18,7 @@ export const useItems = ({ onOptionsClick, boardRef }: Pick<Lib.T.ItemsProps, 'b
 
   useEffect(() => {
     // new Insert(boardRef).newPost(10)
-    new Insert(boardRef).newText()
-    new Insert(boardRef).newText()
-    new Insert(boardRef).newText()
-    new Insert(boardRef).newText()
+    // new Insert(boardRef).newText()
   }, [])
 
   const addItem = () => {

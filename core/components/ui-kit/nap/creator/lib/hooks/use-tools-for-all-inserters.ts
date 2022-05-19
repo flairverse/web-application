@@ -49,10 +49,10 @@ export const useToolsForAllInserters = ({ boardRef }: Pick<Lib.T.ToolsForInserte
    *
    *
    *
-   * changes the focused item style/effect
+   * changes the focused item effect
    *
-   * @param effectGroup group name of styles/effects
-   * @param queried sometimes we need to query the found focused item to achieve the actual element that has the effect/style className
+   * @param effectGroup group name of effects
+   * @param queried sometimes we need to query the found focused item to achieve the actual element that has the effect className
    */
   const changeEffect = (effectGroup: keyof typeof Lib.CO.EFFECTS, queried?: string) => {
     const focusedItem = getFocusedItem()

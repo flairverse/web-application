@@ -21,6 +21,7 @@ export const FRAMES_DATA_ATTRS = {
 export const EFFECTS = {
   TEXT: ['no-effect', 'animated-gradient', 'horror', 'shining', 'extreme-offset', 'bingo', 'floor'] as const,
   POST: ['no-effect', 'less-detail', 'no-cover'] as const,
+  MENTION: ['no-effect'] as const,
 }
 
 export const ICONS: Lib.T.IconsObject = {
@@ -194,75 +195,79 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
     <p data-text="${innerText}">${innerText}</p>
   `,
 
-  post: ({ post, user }) => {
-    return `
-      <article class="createNapComponent post no-effect" data-post-id="${post.id}">
-        <header>
-          <div class="profilePicture">
-            <img class="profile" src="${user.profile || 'default-picture-path'}" alt="user" draggable="false">
-          </div>
-
-          <p class="profileDetail">
-            <span class="fullName">${user.fullName}</span>
-            <span class="job">${user.job}</span>
-          </p>
-        </header>
-
-        <div> 
-          <img src="${post.cover}" alt="cover photo" draggable="false" class="cover">
-
-          <time
-            data-time="${post.year}-${post.month}-${post.day}"
-            style=" background: var(--c-${post.topic}-trans-1); color: var(--c-${post.topic})"
-          >
-            <span class="month">${post.month}</span>•
-            <span class="day">${post.day}</span>•
-            <span class="year">${post.year}</span>
-          </time>
-
-          <h2 class="title">${Str.cut(post.title, 25)}</h2>
-
-          <summary>${Str.cut(post.summary, 50)}</summary>
+  post: ({ post, user }) => `
+    <article class="createNapComponent post no-effect" data-post-id="${post.id}">
+      <header>
+        <div class="profilePicture">
+          <img class="profile" src="${user.profile || 'default-picture-path'}" alt="user" draggable="false">
         </div>
 
-        <footer>
-          <span></span>
-          
-          <div>
-            ${
-              post.paymentRequired
-                ? `
-                    <div class="payment withEmptySpan" style="background: var(--c-${post.topic}-trans-2)">
-                      ${ITEMS_ICONS.paymentRequired(post.topic)}
-                      <span>0</span>
-                    </div>
-                  `
-                : ''
-            }
+        <p class="profileDetail">
+          <span class="fullName">${user.fullName}</span>
+          <span class="job">${user.job}</span>
+        </p>
+      </header>
 
-            <div class="info withEmptySpan">
-              ${ITEMS_ICONS[post.topic]}
-              <span class="topic" data-topic="${post.topic}">0</span>
-            </div>
+      <div> 
+        <img src="${post.cover}" alt="cover photo" draggable="false" class="cover">
 
-            <div class="info">
-              ${ITEMS_ICONS.heart}
-              <span data-likes="${post.likes}" class="likes">${Num.stringify(post.likes)}</span>
-            </div>
+        <time
+          data-time="${post.year}-${post.month}-${post.day}"
+          style=" background: var(--c-${post.topic}-trans-1); color: var(--c-${post.topic})"
+        >
+          <span class="month">${post.month}</span>•
+          <span class="day">${post.day}</span>•
+          <span class="year">${post.year}</span>
+        </time>
 
-            <div class="info">
-              ${ITEMS_ICONS.message}
-              <span data-comments="${post.comments}" class="comments">${Num.stringify(post.comments)}</span>
-            </div>
+        <h2 class="title">${Str.cut(post.title, 25)}</h2>
 
-            <div class="info withEmptySVG">
-              <svg></svg>
-              <span class="timeToRead" data-timeToRead="${post.timeToRead}">${post.timeToRead} "</span>
-            </div>
+        <summary>${Str.cut(post.summary, 50)}</summary>
+      </div>
+
+      <footer>
+        <span></span>
+        
+        <div>
+          ${
+            post.paymentRequired
+              ? `
+                  <div class="payment withEmptySpan" style="background: var(--c-${post.topic}-trans-2)">
+                    ${ITEMS_ICONS.paymentRequired(post.topic)}
+                    <span>0</span>
+                  </div>
+                `
+              : ''
+          }
+
+          <div class="info withEmptySpan">
+            ${ITEMS_ICONS[post.topic]}
+            <span class="topic" data-topic="${post.topic}">0</span>
           </div>
 
-        </footer>
-      </article> 
-    `
-  },
+          <div class="info">
+            ${ITEMS_ICONS.heart}
+            <span data-likes="${post.likes}" class="likes">${Num.stringify(post.likes)}</span>
+          </div>
+
+          <div class="info">
+            ${ITEMS_ICONS.message}
+            <span data-comments="${post.comments}" class="comments">${Num.stringify(post.comments)}</span>
+          </div>
+
+          <div class="info withEmptySVG">
+            <svg></svg>
+            <span class="timeToRead" data-timeToRead="${post.timeToRead}">${post.timeToRead} "</span>
+          </div>
+        </div>
+
+      </footer>
+    </article> 
+  `,
+
+  mention: ({ effect }) => `
+    <div>
+      mention ${effect}
+    </div>
+  `,
 }

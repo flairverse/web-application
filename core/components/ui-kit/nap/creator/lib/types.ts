@@ -42,35 +42,33 @@ export interface ToolProps {
 }
 
 export type TextTools = 'add-text' | 'text-font-size' | 'text-effect' | 'text-rotation'
-export type PostTools = 'add-post' | 'post-style' | 'post-rotation'
+export type PostTools = 'add-post' | 'post-effect' | 'post-rotation'
 export type Tool = 'none' | TextTools | PostTools
 
 export type TextEffects = typeof Lib.CO.EFFECTS.TEXT[number]
 export type PostEffects = typeof Lib.CO.EFFECTS.POST[number]
-export type AllEffects = TextEffects | PostEffects
+export type MentionEffects = typeof Lib.CO.EFFECTS.MENTION[number]
+export type AllEffects = TextEffects | PostEffects | MentionEffects
 
 export namespace Elements {
-  export interface BaseElement {
-    type: Options
+  export interface BaseElement<Effect extends AllEffects = AllEffects, Type extends Options = Options> {
+    type: Type
     id: string
+    effect: Effect
+    rotate: ElementRotation
     position: {
       top: string
       left: string
     }
-    rotate: ElementRotation
   }
   export type ElementRotation = 0 | 45 | 90 | 135 | 180 | 225 | 270 | 315
 
-  export interface Text extends BaseElement {
-    type: 'text'
+  export interface Text extends BaseElement<TextEffects, 'text'> {
     text: string
     fontSize: string
-    effect: TextEffects
   }
 
-  export interface Post extends BaseElement {
-    type: 'post'
-    style: PostEffects
+  export interface Post extends BaseElement<PostEffects, 'post'> {
     user: {
       fullName: string
       job: string
@@ -92,6 +90,14 @@ export namespace Elements {
     }
   }
 
+  export interface Mention extends BaseElement<MentionEffects, 'mention'> {
+    fullName: string
+    username: string
+    userID: number
+    profile?: string
+    job?: string
+  }
+
   export interface Image extends BaseElement {}
 
   export interface Gif extends BaseElement {}
@@ -102,22 +108,20 @@ export namespace Elements {
 
   export interface Quiz extends BaseElement {}
 
-  export interface Mention extends BaseElement {}
-
   export interface Video extends BaseElement {}
 
   // prettier-ignore
   export type All = 
-    & { type: Options }
-    & Partial<Omit<Text, 'type'>> 
-    & Partial<Omit<Image, 'type'>> 
-    & Partial<Omit<Gif, 'type'>> 
-    & Partial<Omit<Question, 'type'>> 
-    & Partial<Omit<Reminder, 'type'>> 
-    & Partial<Omit<Quiz, 'type'>> 
-    & Partial<Omit<Post, 'type'>> 
-    & Partial<Omit<Mention, 'type'>> 
-    & Partial<Omit<Video, 'type'>>
+    & { type: Options, effect: AllEffects }
+    & Partial<Omit<Text, 'type' | 'effect'>> 
+    & Partial<Omit<Image, 'type' | 'effect'>> 
+    & Partial<Omit<Gif, 'type' | 'effect'>> 
+    & Partial<Omit<Question, 'type' | 'effect'>> 
+    & Partial<Omit<Reminder, 'type' | 'effect'>> 
+    & Partial<Omit<Quiz, 'type' | 'effect'>> 
+    & Partial<Omit<Post, 'type' | 'effect'>> 
+    & Partial<Omit<Mention, 'type' | 'effect'>> 
+    & Partial<Omit<Video, 'type' | 'effect'>>
 }
 
 export type ElementFrameActionTypes = 'delete' | 'editInnerText'
@@ -148,7 +152,20 @@ export interface PostsPickUpProps {
   boardRef: RefObject<HTMLDivElement>
 }
 
+export interface MentionPickUpProps {
+  boardRef: RefObject<HTMLDivElement>
+}
+
 export type ItemsDOMStringGenerators = {
   text: (innerText: string) => string
   post: ({}: Pick<Elements.Post, 'post' | 'user'>) => string
+  mention: ({}: Pick<Elements.Mention, 'effect'>) => string
+}
+
+export interface MentionProps {
+  username: string
+  id: number
+  profile?: string
+  hasNap?: boolean
+  onClick?: (id: number) => void
 }

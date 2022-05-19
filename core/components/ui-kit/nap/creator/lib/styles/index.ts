@@ -414,6 +414,7 @@ export const MainBoard = styled.div`
     border-radius: 10px;
     max-width: 90%;
     transform: scale(1) rotate(0deg);
+    outline: none;
 
     * {
       user-select: none;
@@ -468,5 +469,59 @@ export const MainBoard = styled.div`
 
       ${Object.values(textEffects).map(item => item)}
     }
+  }
+`
+
+export const Mentions = styled.div`
+  width: 100%;
+  padding: 10px;
+`
+
+export const Mention = styled.div`
+  height: auto;
+  display: inline-block;
+  margin: 3px 0;
+  width: calc(100% / 6);
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 150ms linear;
+    border: 1px solid transparent;
+
+    &:hover {
+      background: var(--layer-2);
+      border-color: var(--layer-2-border);
+    }
+
+    > div {
+    }
+
+    > p {
+      margin: 0;
+      font-size: var(--f-2);
+      color: var(--layer-2-text-2);
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    width: calc(100% / 5);
+  }
+
+  @media screen and (max-width: 575px) {
+    width: calc(100% / 4);
+  }
+
+  @media screen and (max-width: 400px) {
+    width: calc(100% / 3);
+  }
+
+  @media screen and (max-width: 300px) {
+    width: calc(100% / 2);
   }
 `

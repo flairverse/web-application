@@ -10,6 +10,8 @@ export const NapCreator: FC = () => {
     <>
       <Lib.C.PostsPickUp boardRef={mainBoardRef} />
 
+      <Lib.C.MentionPickUp boardRef={mainBoardRef} />
+
       <Lib.S.NapCreatorContainer>
         <Lib.C.Toolbox active={true} boardRef={mainBoardRef} />
 

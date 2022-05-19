@@ -54,15 +54,17 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
    *
    * compiles all shared attributes of a frame
    */
-  const compileSharedUp = (frame: HTMLDivElement): Omit<Lib.T.Elements.BaseElement, 'type'> => {
+  const compileSharedUp = <Effect extends Lib.T.AllEffects>(frame: HTMLDivElement): Omit<Lib.T.Elements.BaseElement<Effect>, 'type'> => {
     const id = frame.id
     const { left, top } = window.getComputedStyle(frame)
     const rotate: Lib.T.Elements.ElementRotation = <Lib.T.Elements.ElementRotation>parseInt(frame.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.ROTATION) || '0')
+    const effect = <Effect>(<Lib.T.AllEffects | null>frame.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.EFFECT) || 'no-effect')
 
     return {
       position: { left, top },
       id,
       rotate,
+      effect,
     }
   }
 
@@ -73,9 +75,8 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
    * compiles a text frame to a JSON
    */
   const compileTextUp = (frame: HTMLDivElement): Lib.T.Elements.Text => {
-    const { id, position, rotate } = compileSharedUp(frame)
+    const { id, position, rotate, effect } = compileSharedUp<Lib.T.TextEffects>(frame)
     const { fontSize } = window.getComputedStyle(frame)
-    const effect: Lib.T.TextEffects = <Lib.T.TextEffects | null>frame.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.EFFECT) || 'no-effect'
     const text = frame.innerText
 
     return {
@@ -112,14 +113,14 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
     const fullName = (<HTMLSpanElement>frame.querySelector('.fullName')!).innerText
     const job = (<HTMLSpanElement>frame.querySelector('.job')!).innerText
     const profile = (<HTMLImageElement>frame.querySelector('.profile')!).src
-    const style: Lib.T.PostEffects = <Lib.T.PostEffects | null>frame.querySelector('.createNapComponent')!.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.EFFECT) || 'no-effect'
+    const effect: Lib.T.PostEffects = <Lib.T.PostEffects | null>frame.querySelector('.createNapComponent')!.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.EFFECT) || 'no-effect'
 
     return {
       type: 'post',
       id,
       position,
       rotate,
-      style,
+      effect,
       user: {
         fullName,
         job,

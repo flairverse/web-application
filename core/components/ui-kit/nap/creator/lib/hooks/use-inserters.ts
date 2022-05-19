@@ -52,7 +52,7 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
     newPost(id: number, defaultValues?: Lib.T.Elements.Post) {
       const post: Lib.T.Elements.Post = defaultValues || {
         type: 'post',
-        style: 'no-effect',
+        effect: 'no-effect',
         id: this.makeID(),
         position: { left: '40px', top: '40px' },
         rotate: 0,
@@ -77,6 +77,22 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
         },
       }
       this.appendItem(post)
+    }
+
+    newMention(id: number, defaultValues?: Lib.T.Elements.Mention) {
+      const mention: Lib.T.Elements.Mention = defaultValues || {
+        type: 'mention',
+        effect: 'no-effect',
+        id: this.makeID(),
+        position: { left: '40px', top: '40px' },
+        rotate: 0,
+        fullName: 'HamidReza Qafoori',
+        userID: id,
+        username: 'qafoori',
+        job: 'Computer Engineering',
+        profile: '/removal/profile.jpg',
+      }
+      this.appendItem(mention)
     }
   }
 }

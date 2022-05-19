@@ -31,6 +31,10 @@ export const useBoardCompiler = (boardId: string) => {
       case 'post': {
         return compilePostDown(element as Lib.T.Elements.Post)
       }
+
+      case 'mention': {
+        return compileMentionDown(element as Lib.T.Elements.Mention)
+      }
     }
   }
 
@@ -62,7 +66,7 @@ export const useBoardCompiler = (boardId: string) => {
     element.id = id
     element.classList.add(type)
     element.classList.add(effect)
-    DOM.makeElementDraggable({ element: element, areaSensitive })
+    DOM.makeElementDraggable({ element, areaSensitive })
     return element
   }
 
@@ -72,14 +76,31 @@ export const useBoardCompiler = (boardId: string) => {
    *
    * compiles a post object to actual element
    */
-  const compilePostDown = ({ id, position: { left, top }, rotate, type, user, post, style }: Lib.T.Elements.Post): HTMLDivElement => {
+  const compilePostDown = ({ id, position: { left, top }, rotate, type, user, post, effect }: Lib.T.Elements.Post): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.post({ user, post }))
     const element = addFrameTo(node, [], 'post', id)
     DOM.addStyles(element, { top, left, transform: `rotate(${rotate})` })
     element.id = id
     element.classList.add(type)
-    element.classList.add(style)
-    DOM.makeElementDraggable({ element: element, areaSensitive })
+    element.classList.add(effect)
+    DOM.makeElementDraggable({ element, areaSensitive })
+    return element
+  }
+
+  /**
+   *
+   *
+   *
+   * compiles a mention object to actual element
+   */
+  const compileMentionDown = ({ effect, fullName, id, position: { left, top }, rotate, type, userID, username, job, profile }: Lib.T.Elements.Mention): HTMLDivElement => {
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.mention({ effect }))
+    const element = addFrameTo(node, [], 'mention', id)
+    DOM.addStyles(element, { top, left, transform: `rotate(${rotate})` })
+    element.id = id
+    element.classList.add(type)
+    element.classList.add(effect)
+    DOM.makeElementDraggable({ element, areaSensitive })
     return element
   }
 

@@ -9,6 +9,7 @@ import { Button, Select, Radio, Space } from 'antd'
 import * as mock from 'mock'
 import { PickUp } from '@/components/ui-kit/pick-up'
 import { CardPick } from '@/components/ui-kit/card'
+import { NapProfile } from '../../profile'
 
 export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active, boardRef }) => {
   const [activeOption, setActiveOption] = useRecoilState(createNapAtoms.activeOption)
@@ -121,6 +122,31 @@ export const PostsPickUp: FC<Lib.T.PostsPickUpProps> = ({ boardRef }) => {
         return <CardPick key={index} {...mock.pickCard[index]} onSelect={onPostSelect} />
       })}
     </PickUp>
+  )
+}
+
+export const MentionPickUp: FC<Lib.T.MentionPickUpProps> = ({ boardRef }) => {
+  const { pickUpProps, onUserSelect } = Lib.H.useMentionPickUp({ boardRef })
+  const pickUp = useRecoilValue(createNapAtoms.mentionPickUp)
+
+  return (
+    <PickUp {...pickUpProps} visibility={pickUp}>
+      <Lib.S.Mentions>
+        {Array.from(Array(mock.mentions.length)).map((_, index) => (
+          <Mention key={index} {...mock.mentions[index]} onClick={onUserSelect} />
+        ))}
+      </Lib.S.Mentions>
+    </PickUp>
+  )
+}
+
+export const Mention: FC<Lib.T.MentionProps> = ({ id, username, profile, hasNap, onClick }) => {
+  return (
+    <Lib.S.Mention onClick={() => onClick?.(id)}>
+      <div>
+        <NapProfile id={id} profile={profile} hasNap={hasNap} username={username} usernameWithAtSign size={0.8} />
+      </div>
+    </Lib.S.Mention>
   )
 }
 

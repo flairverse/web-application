@@ -22,6 +22,11 @@ export const postsPickUp = atom<boolean>({
   default: false,
 })
 
+export const mentionPickUp = atom<boolean>({
+  key: storeTypes.IN_CREATE_NAP_PAGE_MENTION_PICK_UP_VISIBILITY,
+  default: false,
+})
+
 export const gifPopupVisibility = atom<boolean>({
   key: storeTypes.IN_CREATE_NAP_PAGE_GIF_POPUP_VISIBILITY,
   default: false,
