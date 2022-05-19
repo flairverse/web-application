@@ -10,7 +10,7 @@ const nextConfig = {
     localeSubpaths,
   },
   // env: {},
-  pageExtensions: ['page.tsx', 'page.ts'],
+  pageExtensions: ['page.tsx'],
 
   devIndicators: {
     buildActivityPosition: 'top-left',

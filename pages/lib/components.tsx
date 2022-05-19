@@ -4,10 +4,10 @@ import Link from 'next/link'
 import { AppIcons } from '@/components/ui-kit/app-icons'
 import { SuggestionBox } from '@/components/ui-kit/suggestion-box'
 import { Horizontal } from '@/components/ui-kit/horizontal'
-import { NapProfile } from '@/components/ui-kit/nap-profile'
+import { NapProfile } from '@/components/ui-kit/nap'
 import * as mock from 'mock'
 import { HorizontalItemProps } from '@/components/ui-kit/horizontal/lib/types'
-import { Card } from '@/components/ui-kit/card'
+import { CardMain } from '@/components/ui-kit/card'
 import { Button } from 'antd'
 
 export const Topic: FC<Lib.T.TopicProps> = ({ counter, title, TopicIcon, topic, href, ...rest }) => {
@@ -98,7 +98,7 @@ export const ForYouContent: FC = () => {
   return (
     <Lib.S.CardsContainer>
       {Array.from(Array(20)).map((item, index) => {
-        return <Card key={index} post={mock.blog1.post} user={mock.blog1.user} />
+        return <CardMain key={index} post={mock.blog1.post} user={mock.blog1.user} />
       })}
     </Lib.S.CardsContainer>
   )

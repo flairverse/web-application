@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import * as Lib from './lib'
-import { NapProfile } from '../nap-profile'
+import { NapProfile } from '../nap'
 import { Button } from 'antd'
 import Link from 'next/link'
 
