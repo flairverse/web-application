@@ -104,7 +104,7 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
     const day = (<HTMLSpanElement>frame.querySelector('.day')!).innerText
     const month = (<HTMLSpanElement>frame.querySelector('.month')!).innerText
     const year = (<HTMLSpanElement>frame.querySelector('.year')!).innerText
-    const postId = parseInt(frame.querySelector('.createNapComponent')!.getAttribute('data-post-id')!)
+    const postId = parseInt(frame.querySelector('.napElement')!.getAttribute('data-post-id')!)
     const paymentRequired = !!frame.querySelector('.payment')
     const summary = frame.querySelector('summary')!.innerText
     const timeToRead = parseInt(frame.querySelector('.timeToRead')!.getAttribute('data-timeToRead')!)
@@ -113,7 +113,9 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
     const fullName = (<HTMLSpanElement>frame.querySelector('.fullName')!).innerText
     const job = (<HTMLSpanElement>frame.querySelector('.job')!).innerText
     const profile = (<HTMLImageElement>frame.querySelector('.profile')!).src
-    const effect: Lib.T.PostEffects = <Lib.T.PostEffects | null>frame.querySelector('.createNapComponent')!.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.EFFECT) || 'no-effect'
+    const hasNap = (<HTMLDivElement>frame.querySelector('.profileComponent')).getAttribute('data-has-nap')! === 'true'
+    const seen = (<HTMLDivElement>frame.querySelector('.profileComponent')).getAttribute('data-seen')! === 'true'
+    const effect: Lib.T.PostEffects = <Lib.T.PostEffects | null>frame.querySelector('.napElement')!.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.EFFECT) || 'no-effect'
 
     return {
       type: 'post',
@@ -125,6 +127,8 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
         fullName,
         job,
         profile,
+        hasNap,
+        seen,
       },
       post: {
         id: postId,

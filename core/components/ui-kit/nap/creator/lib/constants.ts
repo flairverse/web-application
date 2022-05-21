@@ -21,7 +21,8 @@ export const FRAMES_DATA_ATTRS = {
 export const EFFECTS = {
   TEXT: ['no-effect', 'animated-gradient', 'horror', 'shining', 'extreme-offset', 'bingo', 'floor'] as const,
   POST: ['no-effect', 'less-detail', 'no-cover'] as const,
-  MENTION: ['no-effect'] as const,
+  MENTION: ['no-effect', 'with-background', 'username-name-profile', 'username-name-job', 'username-name-job-followers-subscriptions'] as const,
+  QUESTION: ['no-effect', 'no-profile'] as const,
 }
 
 export const ICONS: Lib.T.IconsObject = {
@@ -43,6 +44,10 @@ export const ICONS: Lib.T.IconsObject = {
       />
     </svg>
   `,
+
+  get editQuestionAndHint() {
+    return this.editInnerText
+  },
 }
 
 export const ITEMS_ICONS = {
@@ -188,6 +193,45 @@ export const ITEMS_ICONS = {
       />
     </svg>  
   `,
+
+  follower: `
+    <svg width="15" viewBox="0 0 22 33" fill="none">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M18.3337 7.33333C18.3337 11.3834 15.0503 14.6667 11.0003 14.6667C6.95024 14.6667 3.66699 11.3834 3.66699 7.33333C3.66699 3.28324 6.95024 0 11.0003 0C15.0503 0 18.3337 3.28324 18.3337 7.33333ZM14.667 7.33333C14.667 9.35838 13.0254 11 11.0003 11C8.97523 11 7.33366 9.35838 7.33366 7.33333C7.33366 5.30829 8.97523 3.66667 11.0003 3.66667C13.0254 3.66667 14.667 5.30829 14.667 7.33333Z"
+        fill="var(--layer-2-text-2)"
+      />
+      <path
+        d="M18.3333 22C18.3333 20.9875 17.5126 20.1667 16.5 20.1667H5.5C4.48749 20.1667 3.66667 20.9875 3.66667 22V33H0V22C0 18.9623 2.46244 16.5 5.5 16.5H16.5C19.5377 16.5 22 18.9623 22 22V33H18.3333V22Z"
+        fill="var(--layer-2-text-2)"
+      />
+    </svg>
+  `,
+
+  bell: `
+    <svg width="15" viewBox="0 0 24 33" fill="none">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M15 3V3.43482C19.3372 4.72565 22.5 8.74347 22.5 13.5V24H24V27H0V24H1.5V13.5C1.5 8.74347 4.66277 4.72565 9 3.43482V3C9 1.34314 10.3431 0 12 0C13.6569 0 15 1.34314 15 3ZM4.5 24H19.5V13.5C19.5 9.35787 16.1421 6 12 6C7.85787 6 4.5 9.35787 4.5 13.5V24ZM15 30V28.5H9V30C9 31.6569 10.3431 33 12 33C13.6569 33 15 31.6569 15 30Z"
+        fill="var(--layer-2-text-2)"
+      />
+    </svg>  
+  `,
+}
+
+export const ITEMS_DOM_STRING_COMPONENTS: Lib.T.ItemsDOMStringComponents = {
+  profile: ({ hasNap, seen, profile, size = 5 }) => `
+    <div
+      class="napElementComponents profileComponent size${size} ${hasNap ? 'hasNap' : ''} ${hasNap && seen ? 'seen' : ''}"
+      data-has-nap="${hasNap}"
+      data-seen="${seen}"
+    >
+      <div></div>
+      <img src="${profile}" class="profile" alt="user" draggable="false">
+    </div>
+  `,
 }
 
 export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
@@ -196,10 +240,10 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
   `,
 
   post: ({ post, user }) => `
-    <article class="createNapComponent post no-effect" data-post-id="${post.id}">
+    <article class="napElement post no-effect" data-post-id="${post.id}">
       <header>
         <div class="profilePicture">
-          <img class="profile" src="${user.profile || 'default-picture-path'}" alt="user" draggable="false">
+          ${ITEMS_DOM_STRING_COMPONENTS.profile({ hasNap: user.hasNap, seen: user.seen, profile: user.profile, size: 3 })}
         </div>
 
         <p class="profileDetail">
@@ -208,15 +252,11 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
         </p>
       </header>
 
-      <div> 
-        <img src="${post.cover}" alt="cover photo" draggable="false" class="cover">
+      <div>
+        <img src="${post.cover}" alt="cover photo" draggable="false" class="cover" />
 
-        <time
-          data-time="${post.year}-${post.month}-${post.day}"
-          style=" background: var(--c-${post.topic}-trans-1); color: var(--c-${post.topic})"
-        >
-          <span class="month">${post.month}</span>•
-          <span class="day">${post.day}</span>•
+        <time data-time="${post.year}-${post.month}-${post.day}" style=" background: var(--c-${post.topic}-trans-1); color: var(--c-${post.topic})">
+          <span class="month">${post.month}</span>• <span class="day">${post.day}</span>•
           <span class="year">${post.year}</span>
         </time>
 
@@ -227,16 +267,16 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
 
       <footer>
         <span></span>
-        
+
         <div>
           ${
             post.paymentRequired
               ? `
-                  <div class="payment withEmptySpan" style="background: var(--c-${post.topic}-trans-2)">
-                    ${ITEMS_ICONS.paymentRequired(post.topic)}
-                    <span>0</span>
-                  </div>
-                `
+                <div class="payment withEmptySpan" style="background: var(--c-${post.topic}-trans-2)">
+                  ${ITEMS_ICONS.paymentRequired(post.topic)}
+                  <span>0</span>
+                </div>
+              `
               : ''
           }
 
@@ -260,14 +300,47 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
             <span class="timeToRead" data-timeToRead="${post.timeToRead}">${post.timeToRead} "</span>
           </div>
         </div>
-
       </footer>
-    </article> 
+    </article>
   `,
 
-  mention: ({ effect }) => `
-    <div>
-      mention ${effect}
+  mention: ({ fullName, username, job, profile, userID, hasNap, seen, followers, subscribes }) => `
+    <div class="napElement mention no-effect" data-user-id="${userID}">
+      <div class="profileContainer">
+        ${ITEMS_DOM_STRING_COMPONENTS.profile({ hasNap, seen, profile, size: 6 })}
+      </div>
+
+      <p class="username">@${username}</p>
+
+      <p class="name">${fullName}</p>
+
+      <p class="job">${job}</p>
+
+      <div class="detail">
+        <div>
+          ${ITEMS_ICONS.follower}
+          <span data-followers="${followers}" class="followers">${Num.stringify(followers)}</span>
+        </div>
+
+        <div>
+          ${ITEMS_ICONS.bell}
+          <span data-subscribes="${subscribes}" class="subscribes">${Num.stringify(subscribes)}</span>
+        </div>
+      </dib>
+    </div>
+  `,
+
+  question: ({ hint, question, questionerUser: { hasNap, profile, seen } }) => `
+    <div class="napElement question no-effect">
+      <div class="profileContainer">
+        ${ITEMS_DOM_STRING_COMPONENTS.profile({ hasNap, seen, profile, size: 4 })}
+      </div>
+      
+      <p class="questionText">${question}</p>
+      
+      <p class="hint">${hint}</p>
+
+      <span>Type something here</span>
     </div>
   `,
 }

@@ -9,9 +9,13 @@ export const useTools = ({ selectedOption, boardRef }: Pick<Lib.T.ToolsProps, 's
           return <Lib.C.ToolsForTextInserter boardRef={boardRef} />
         }
 
-        default:
+        default: // <<--------------------------------------------------------------------------------------------------[[temporary]]
         case 'post': {
-          return <Lib.C.ToolsForPostExplorer boardRef={boardRef} />
+          return <Lib.C.ToolsForPostInserter boardRef={boardRef} />
+        }
+
+        case 'mention': {
+          return <Lib.C.ToolsForMentionInserter boardRef={boardRef} />
         }
       }
     } else return null

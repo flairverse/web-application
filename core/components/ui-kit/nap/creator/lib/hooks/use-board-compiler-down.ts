@@ -25,15 +25,19 @@ export const useBoardCompiler = (boardId: string) => {
     switch (element.type) {
       default: // <<--------------------------------------------------------------------------------------------------[[temporary]]
       case 'text': {
-        return compileTextDown(element as Lib.T.Elements.Text)
+        return compileTextDown(<Lib.T.Elements.Text>element)
       }
 
       case 'post': {
-        return compilePostDown(element as Lib.T.Elements.Post)
+        return compilePostDown(<Lib.T.Elements.Post>element)
       }
 
       case 'mention': {
-        return compileMentionDown(element as Lib.T.Elements.Mention)
+        return compileMentionDown(<Lib.T.Elements.Mention>element)
+      }
+
+      case 'question': {
+        return compileQuestionDown(<Lib.T.Elements.Question>element)
       }
     }
   }
@@ -62,7 +66,7 @@ export const useBoardCompiler = (boardId: string) => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.text(text))
     node.addEventListener('keyup', () => node.setAttribute('data-text', node.innerText))
     const element = addFrameTo(node, ['editInnerText'], 'text', id)
-    DOM.addStyles(element, { top, left, fontSize: fontSize, transform: `rotate(${rotate})` })
+    DOM.addStyles(element, { top, left, fontSize: fontSize, transform: `rotate(${rotate}deg)` })
     element.id = id
     element.classList.add(type)
     element.classList.add(effect)
@@ -79,7 +83,7 @@ export const useBoardCompiler = (boardId: string) => {
   const compilePostDown = ({ id, position: { left, top }, rotate, type, user, post, effect }: Lib.T.Elements.Post): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.post({ user, post }))
     const element = addFrameTo(node, [], 'post', id)
-    DOM.addStyles(element, { top, left, transform: `rotate(${rotate})` })
+    DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
     element.id = id
     element.classList.add(type)
     element.classList.add(effect)
@@ -93,10 +97,42 @@ export const useBoardCompiler = (boardId: string) => {
    *
    * compiles a mention object to actual element
    */
-  const compileMentionDown = ({ effect, fullName, id, position: { left, top }, rotate, type, userID, username, job, profile }: Lib.T.Elements.Mention): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.mention({ effect }))
+  const compileMentionDown = ({
+    effect,
+    fullName,
+    id,
+    position: { left, top },
+    rotate,
+    type,
+    userID,
+    username,
+    job,
+    profile,
+    hasNap,
+    seen,
+    followers,
+    subscribes,
+  }: Lib.T.Elements.Mention): HTMLDivElement => {
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.mention({ fullName, username, job, profile, userID, hasNap, seen, followers, subscribes }))
     const element = addFrameTo(node, [], 'mention', id)
-    DOM.addStyles(element, { top, left, transform: `rotate(${rotate})` })
+    DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
+    element.id = id
+    element.classList.add(type)
+    element.classList.add(effect)
+    DOM.makeElementDraggable({ element, areaSensitive })
+    return element
+  }
+
+  /**
+   *
+   *
+   *
+   * compiles a question object to actual element
+   */
+  const compileQuestionDown = ({ effect, hint, id, position: { left, top }, question, questionerUser, rotate, type }: Lib.T.Elements.Question): HTMLDivElement => {
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.question({ hint, question, questionerUser }))
+    const element = addFrameTo(node, ['editQuestionAndHint'], 'question', id)
+    DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
     element.id = id
     element.classList.add(type)
     element.classList.add(effect)
@@ -155,30 +191,16 @@ export const useBoardCompiler = (boardId: string) => {
     }
 
     static editInnerText(evt: MouseEvent) {
-      const element = Action.getElement(evt)
-      if (!element) return
+      const frame = Action.getElement(evt)
+      if (!frame) return
 
-      const paragraph = element.getElementsByTagName('p')[0]
+      const paragraph = frame.getElementsByTagName('p')[0]
       if (!paragraph) return
 
       paragraph.contentEditable = 'true'
 
-      // set cursor position to the end
-      if (paragraph.firstChild) {
-        try {
-          const range = document.createRange()
-          const selection = window.getSelection()
-          range.setStart(paragraph.firstChild, paragraph.innerText.trim().length)
-          range.collapse(true)
+      DOM.setCursorPositionToTheEnd(paragraph)
 
-          if (selection) {
-            selection.removeAllRanges()
-            selection.addRange(range)
-          }
-        } catch (error) {}
-      }
-
-      const frame = <HTMLDivElement>paragraph.parentNode
       const currentEffect = <Lib.T.TextEffects>frame.className.split(' ').pop()
 
       if (currentEffect !== 'no-effect') {
@@ -187,11 +209,35 @@ export const useBoardCompiler = (boardId: string) => {
 
       paragraph.addEventListener('blur', () => {
         paragraph.contentEditable = 'false'
-        ;(<HTMLDivElement | null>paragraph.parentNode)?.focus()
+        frame.focus()
 
         if (currentEffect !== 'no-effect') {
           frame.classList.add(currentEffect)
         }
+      })
+    }
+
+    static editQuestionAndHint(evt: MouseEvent) {
+      const frame = Action.getElement(evt)
+      if (!frame) return
+
+      const question = <HTMLParagraphElement | null>frame.querySelector('.questionText')
+      if (!question) return
+
+      question.contentEditable = 'true'
+
+      DOM.setCursorPositionToTheEnd(question)
+
+      function restrictLength(evt: Event) {
+        DOM.restrictInputValueLength(<InputEvent>evt, 300)
+      }
+
+      question.addEventListener('input', restrictLength, false)
+
+      question.addEventListener('blur', () => {
+        question.contentEditable = 'false'
+        question.removeEventListener('input', restrictLength, false)
+        frame.focus()
       })
     }
   }

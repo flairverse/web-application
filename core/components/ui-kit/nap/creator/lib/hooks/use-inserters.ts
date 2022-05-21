@@ -1,9 +1,12 @@
 import * as Lib from '../'
 import { Str } from '@/helpers/string'
 import { RefObject } from 'react'
+import { useSetRecoilState } from 'recoil'
+import { createNapAtoms } from '@/store/atoms'
 
 export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
   const { compileDown } = Lib.H.useBoardCompiler('mainBoard')
+  const setShowMoreOptions = useSetRecoilState(createNapAtoms.showMoreOptions)
 
   return class Insert {
     board: HTMLDivElement | null = null
@@ -36,7 +39,7 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
         type: 'text',
         id: this.makeID(),
         text: 'Type Something here...',
-        position: { left: '20px', top: '20px' },
+        position: { left: '85px', top: '85px' },
         rotate: 0,
         fontSize: '20px',
         effect: 'no-effect',
@@ -54,12 +57,14 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
         type: 'post',
         effect: 'no-effect',
         id: this.makeID(),
-        position: { left: '40px', top: '40px' },
+        position: { left: '85px', top: '85px' },
         rotate: 0,
         user: {
           fullName: 'HamidReza Qafoori',
           job: 'Computer engineering',
           profile: '/removal/profile.jpg',
+          hasNap: true,
+          seen: false,
         },
         post: {
           id,
@@ -76,23 +81,58 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
           paymentRequired: true,
         },
       }
+      setShowMoreOptions(false)
       this.appendItem(post)
     }
 
+    /**
+     *
+     *
+     * makes new mention item and passes it to the `appendItem`
+     */
     newMention(id: number, defaultValues?: Lib.T.Elements.Mention) {
       const mention: Lib.T.Elements.Mention = defaultValues || {
         type: 'mention',
         effect: 'no-effect',
         id: this.makeID(),
-        position: { left: '40px', top: '40px' },
+        position: { left: '85px', top: '85px' },
         rotate: 0,
         fullName: 'HamidReza Qafoori',
         userID: id,
         username: 'qafoori',
         job: 'Computer Engineering',
         profile: '/removal/profile.jpg',
+        hasNap: true,
+        seen: false,
+        followers: 66757757,
+        subscribes: 654654648678,
       }
+      setShowMoreOptions(false)
       this.appendItem(mention)
+    }
+
+    /**
+     *
+     *
+     * makes new ask item and passes it to the `appendItem`
+     */
+    newQuestion(defaultValues?: Lib.T.Elements.Question) {
+      const question: Lib.T.Elements.Question = defaultValues || {
+        type: 'question',
+        effect: 'no-effect',
+        id: this.makeID(),
+        position: { left: '85px', top: '85px' },
+        rotate: 0,
+        hint: '',
+        question: 'Type your question here...',
+        questionerUser: {
+          hasNap: true,
+          profile: '/removal/profile.jpg',
+          seen: false,
+        },
+      }
+      setShowMoreOptions(false)
+      this.appendItem(question)
     }
   }
 }

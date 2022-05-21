@@ -1,3 +1,4 @@
+import { Range } from '@/types/enumerable'
 import { Topic } from '@/types/topics'
 import { RefObject } from 'react'
 import { IconType } from 'react-icons/lib'
@@ -18,7 +19,7 @@ export interface ToolsProps extends Pick<ItemsProps, 'boardRef'> {
 
 export interface ToolsForInserters extends Pick<ItemsProps, 'boardRef'> {}
 
-export type Options = 'text' | 'image' | 'gif' | 'question' | 'reminder' | 'quiz' | 'post' | 'mention' | 'video' | 'more|less'
+export type Options = 'text' | 'image' | 'gif' | 'question' | 'reminder' | 'quiz' | 'post' | 'mention' | 'link' | 'more|less'
 
 export type Item = {
   Icon: IconType
@@ -43,12 +44,15 @@ export interface ToolProps {
 
 export type TextTools = 'add-text' | 'text-font-size' | 'text-effect' | 'text-rotation'
 export type PostTools = 'add-post' | 'post-effect' | 'post-rotation'
-export type Tool = 'none' | TextTools | PostTools
+export type MentionTools = 'add-mention' | 'mention-effect' | 'mention-rotation'
+export type QuestionTools = 'add-question' | 'question-effect' | 'question-rotation'
+export type Tool = 'none' | TextTools | PostTools | MentionTools | QuestionTools
 
 export type TextEffects = typeof Lib.CO.EFFECTS.TEXT[number]
 export type PostEffects = typeof Lib.CO.EFFECTS.POST[number]
 export type MentionEffects = typeof Lib.CO.EFFECTS.MENTION[number]
-export type AllEffects = TextEffects | PostEffects | MentionEffects
+export type QuestionEffects = typeof Lib.CO.EFFECTS.QUESTION[number]
+export type AllEffects = TextEffects | PostEffects | MentionEffects | QuestionEffects
 
 export namespace Elements {
   export interface BaseElement<Effect extends AllEffects = AllEffects, Type extends Options = Options> {
@@ -72,7 +76,9 @@ export namespace Elements {
     user: {
       fullName: string
       job: string
-      profile: string | null
+      profile: string
+      seen: boolean
+      hasNap: boolean
     }
     post: {
       cover: string | null
@@ -96,19 +102,31 @@ export namespace Elements {
     userID: number
     profile?: string
     job?: string
+    hasNap: boolean
+    seen: boolean
+    followers: number
+    subscribes: number
+  }
+
+  export interface Question extends BaseElement<QuestionEffects, 'question'> {
+    question: string
+    hint: string
+    questionerUser: {
+      profile: string
+      hasNap: boolean
+      seen: boolean
+    }
   }
 
   export interface Image extends BaseElement {}
 
   export interface Gif extends BaseElement {}
 
-  export interface Question extends BaseElement {}
-
   export interface Reminder extends BaseElement {}
 
   export interface Quiz extends BaseElement {}
 
-  export interface Video extends BaseElement {}
+  export interface Link extends BaseElement {}
 
   // prettier-ignore
   export type All = 
@@ -121,10 +139,10 @@ export namespace Elements {
     & Partial<Omit<Quiz, 'type' | 'effect'>> 
     & Partial<Omit<Post, 'type' | 'effect'>> 
     & Partial<Omit<Mention, 'type' | 'effect'>> 
-    & Partial<Omit<Video, 'type' | 'effect'>>
+    & Partial<Omit<Link, 'type' | 'effect'>>
 }
 
-export type ElementFrameActionTypes = 'delete' | 'editInnerText'
+export type ElementFrameActionTypes = 'delete' | 'editInnerText' | 'editQuestionAndHint'
 
 export type ElementFrameActions = {
   type: ElementFrameActionTypes
@@ -156,10 +174,15 @@ export interface MentionPickUpProps {
   boardRef: RefObject<HTMLDivElement>
 }
 
+export type ItemsDOMStringComponents = {
+  profile: ({}: Pick<Elements.Mention, 'profile' | 'hasNap' | 'seen'> & { size?: Range<1, 11> }) => string
+}
+
 export type ItemsDOMStringGenerators = {
   text: (innerText: string) => string
-  post: ({}: Pick<Elements.Post, 'post' | 'user'>) => string
-  mention: ({}: Pick<Elements.Mention, 'effect'>) => string
+  post: (args: Pick<Elements.Post, 'post' | 'user'>) => string
+  mention: (args: Pick<Elements.Mention, 'fullName' | 'job' | 'profile' | 'username' | 'userID' | 'hasNap' | 'seen' | 'followers' | 'subscribes'>) => string
+  question: (args: Pick<Elements.Question, 'hint' | 'question' | 'questionerUser'>) => string
 }
 
 export interface MentionProps {
