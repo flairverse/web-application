@@ -1,19 +1,27 @@
-.createNapComponent {
+/* styles for elements used in naps */
+.napElement {
+  /**
+   *
+   *
+   *
+   * styles for post element
+   **/
   &.post {
     width: 300px;
     background-color: var(--layer-1);
     padding: 10px 7px;
     border-radius: 15px;
     color: var(--layer-2-text-2);
+    border: 1px solid var(--layer-2-border);
 
     > header {
       display: flex;
 
       > .profilePicture {
-        > img {
-          width: 30px;
-          height: 30px;
-          border-radius: 40%;
+        > div {
+          width: 35px;
+          height: 35px;
+          min-width: 35px;
         }
       }
 
@@ -144,6 +152,212 @@
       time,
       > div > img {
         display: none;
+      }
+    }
+  }
+
+  /**
+   *
+   *
+   *
+   * styles for mention element
+   **/
+  &.mention {
+    background-color: var(--layer-1);
+    border: 1px solid var(--layer-2-border);
+    border-radius: 15px;
+    padding: 10px;
+
+    > .profileContainer {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    > p {
+      margin: 0;
+      color: var(--layer-2-text-2);
+      text-align: center;
+      font-size: 10pt;
+
+      &.username {
+        color: var(--layer-2-text-1);
+        opacity: 0.8;
+        margin: 5px 0 0 0;
+      }
+
+      &.name {
+        color: var(--layer-2-text-3);
+      }
+
+      &.job {
+        opacity: 0.9;
+      }
+    }
+
+    > .detail {
+      display: flex;
+      border-top: 1px dashed var(--layer-2-dash);
+      padding: 10px 0 0 0;
+      margin: 10px 0 0 0;
+
+      > div {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        > svg {
+          width: 10px;
+        }
+
+        > span {
+          color: var(--layer-2-text-1);
+          font-size: 10pt;
+          margin: 5px 0 0 0;
+        }
+      }
+    }
+
+    &.no-effect,
+    &.with-background {
+      padding: 5px 10px;
+
+      &:not(.with-background) {
+        padding: 0;
+        border-radius: 0;
+        border: none;
+        background-color: transparent;
+      }
+
+      > .profileContainer,
+      > .name,
+      > .job,
+      > .detail {
+        display: none;
+      }
+
+      > .username {
+        margin: 0;
+      }
+    }
+
+    &.username-name-profile {
+      > .job,
+      > .detail {
+        display: none;
+      }
+    }
+
+    &.username-name-job {
+      > .profileContainer,
+      > .detail {
+        display: none;
+      }
+    }
+  }
+
+  /**
+   *
+   *
+   *
+   * styles for question element
+   **/
+  &.question {
+    background-color: var(--layer-1);
+    border: 1px solid var(--layer-2-border);
+    border-radius: 15px;
+    padding: 10px;
+    max-width: 250px;
+
+    > .profileContainer {
+      margin: -30px 0 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    > .questionText {
+      color: var(--layer-2-text-1);
+      margin: 5px 0 0 0;
+      font-family: var(--ff-2);
+      transition: all 150ms linear;
+      text-align: center;
+      word-break: break-all;
+    }
+
+    > .hint {
+    }
+
+    > span {
+      width: 100%;
+      height: 35px;
+      display: flex;
+      background: var(--layer-2);
+      border-radius: 8px;
+      align-items: center;
+      justify-content: flex-start;
+      color: var(--layer-2-placeholder);
+      padding: 0 8px;
+      border: 1px solid var(--layer-2-border);
+      opacity: 0.5;
+    }
+  }
+}
+
+/* styles for components used in nap elements */
+.napElementComponents {
+  /**
+   *
+   *
+   *
+   * styles for profile component
+   **/
+  &.profileComponent {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    position: relative;
+    border-radius: 40%;
+
+    @for $i from 1 through 10 {
+      &.size#{$i} {
+        width: #{$i * 10}px;
+        height: #{$i * 10}px;
+        min-width: #{$i * 10}px;
+      }
+    }
+
+    > div,
+    img {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      border-radius: inherit;
+      position: absolute;
+      margin: auto;
+    }
+
+    > div {
+      width: 100%;
+      height: 100%;
+    }
+
+    > img {
+      width: calc(100% - 6px);
+      height: calc(100% - 6px);
+      -webkit-user-drag: none;
+    }
+
+    &.seen {
+      filter: grayscale(1);
+    }
+
+    &.hasNap {
+      > div {
+        background: -webkit-linear-gradient(45deg, var(--c-blog), var(--c-article), var(--c-job), var(--c-podcast));
       }
     }
   }

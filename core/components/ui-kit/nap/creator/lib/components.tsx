@@ -177,8 +177,19 @@ export const ToolsForTextInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) 
   )
 }
 
-export const ToolsForPostExplorer: FC<Lib.T.ToolsForInserters> = ({ boardRef }) => {
+export const ToolsForPostInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) => {
   const { get, on } = Lib.H.useToolsForPostInserter({ boardRef })
+  return (
+    <>
+      {get.tools.map((tool, index) => (
+        <Tool {...tool} onClick={on.toolClick} key={index} index={index} />
+      ))}
+    </>
+  )
+}
+
+export const ToolsForMentionInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) => {
+  const { get, on } = Lib.H.useToolsForMentionInserter({ boardRef })
   return (
     <>
       {get.tools.map((tool, index) => (

@@ -1,11 +1,10 @@
 import * as Lib from '../'
 import { MdFormatColorText } from 'react-icons/md'
 import { BsFillImageFill, BsQuestionCircle, BsPlusSquare, BsChevronCompactLeft } from 'react-icons/bs'
-import { FiBell } from 'react-icons/fi'
+import { FiBell, FiLink2 } from 'react-icons/fi'
 import { HiOutlineChatAlt2 } from 'react-icons/hi'
 import { AiOutlineGif } from 'react-icons/ai'
 import { GoMention } from 'react-icons/go'
-import { IoFilmOutline } from 'react-icons/io5'
 import { createNapAtoms } from '@/store/atoms'
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil'
 import { useEffect } from 'react'
@@ -17,8 +16,10 @@ export const useItems = ({ onOptionsClick, boardRef }: Pick<Lib.T.ItemsProps, 'b
   const Insert = Lib.H.useInserters(boardRef)
 
   useEffect(() => {
-    // new Insert(boardRef).newPost(10)
     // new Insert(boardRef).newText()
+    // new Insert(boardRef).newPost(0)
+    // new Insert(boardRef).newMention(0)
+    new Insert(boardRef).newQuestion()
   }, [])
 
   const addItem = () => {
@@ -88,9 +89,9 @@ export const useItems = ({ onOptionsClick, boardRef }: Pick<Lib.T.ItemsProps, 'b
       key: 'image',
     },
     {
-      Icon: IoFilmOutline,
-      title: 'Video',
-      key: 'video',
+      Icon: FiLink2,
+      title: 'Link',
+      key: 'link',
     },
     {
       Icon: BsChevronCompactLeft,

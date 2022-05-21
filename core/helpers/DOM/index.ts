@@ -96,4 +96,31 @@ export class DOM {
     const document = new DOMParser().parseFromString(DOMString, 'text/html')
     return <T>(<unknown>document.body.firstChild!)
   }
+
+  static setCursorPositionToTheEnd(paragraph: HTMLParagraphElement) {
+    if (paragraph.firstChild) {
+      try {
+        const range = document.createRange()
+        const selection = window.getSelection()
+        range.setStart(paragraph.firstChild, paragraph.innerText.trim().length)
+        range.collapse(true)
+
+        if (selection) {
+          selection.removeAllRanges()
+          selection.addRange(range)
+        }
+      } catch (error) {}
+    }
+  }
+
+  static restrictInputValueLength(evt: InputEvent, max: number) {
+    const element = <HTMLParagraphElement>evt.target
+    const { innerText } = element
+
+    if (innerText.length >= max) {
+      element.innerText = innerText.substring(0, max)
+    }
+
+    DOM.setCursorPositionToTheEnd(element)
+  }
 }
