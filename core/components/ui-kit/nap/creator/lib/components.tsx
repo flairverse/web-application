@@ -198,3 +198,14 @@ export const ToolsForMentionInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef 
     </>
   )
 }
+
+export const ToolsForQuestionInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) => {
+  const { get, on } = Lib.H.useToolsForQuestionInserter({ boardRef })
+  return (
+    <>
+      {get.tools.map((tool, index) => (
+        <Tool {...tool} onClick={on.toolClick} key={index} index={index} />
+      ))}
+    </>
+  )
+}

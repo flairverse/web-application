@@ -1,6 +1,7 @@
 export interface MakeElementDraggableArgs {
   element: HTMLElement
   areaSensitive?: MakeElementDraggableSensitive
+  blackList?: string[]
 }
 
 export type MakeElementDraggableSensitive = {

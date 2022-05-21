@@ -19,7 +19,7 @@ export interface ToolsProps extends Pick<ItemsProps, 'boardRef'> {
 
 export interface ToolsForInserters extends Pick<ItemsProps, 'boardRef'> {}
 
-export type Options = 'text' | 'image' | 'gif' | 'question' | 'reminder' | 'quiz' | 'post' | 'mention' | 'link' | 'more|less'
+export type Options = 'text' | 'image' | 'gif' | 'question' | 'reminder' | 'quiz' | 'post' | 'mention' | 'link' | 'discussion' | 'more|less'
 
 export type Item = {
   Icon: IconType
@@ -45,7 +45,7 @@ export interface ToolProps {
 export type TextTools = 'add-text' | 'text-font-size' | 'text-effect' | 'text-rotation'
 export type PostTools = 'add-post' | 'post-effect' | 'post-rotation'
 export type MentionTools = 'add-mention' | 'mention-effect' | 'mention-rotation'
-export type QuestionTools = 'add-question' | 'question-effect' | 'question-rotation'
+export type QuestionTools = 'add-question' | 'question-effect' | 'question-rotation' | 'question-hint'
 export type Tool = 'none' | TextTools | PostTools | MentionTools | QuestionTools
 
 export type TextEffects = typeof Lib.CO.EFFECTS.TEXT[number]
@@ -142,7 +142,7 @@ export namespace Elements {
     & Partial<Omit<Link, 'type' | 'effect'>>
 }
 
-export type ElementFrameActionTypes = 'delete' | 'editInnerText' | 'editQuestionAndHint'
+export type ElementFrameActionTypes = 'delete' | 'editInnerText'
 
 export type ElementFrameActions = {
   type: ElementFrameActionTypes

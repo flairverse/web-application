@@ -7,7 +7,7 @@ export class DOM {
     styleKeys.map((key, index) => (element.style[key] = styleValues[index]))
   }
 
-  static makeElementDraggable({ element, areaSensitive }: Lib.T.MakeElementDraggableArgs) {
+  static makeElementDraggable({ element, areaSensitive, blackList }: Lib.T.MakeElementDraggableArgs) {
     let pos1 = 0
     let pos2 = 0
     let pos3 = 0
@@ -75,6 +75,16 @@ export class DOM {
     }
 
     element.onmousedown = evt => {
+      const target = <HTMLDivElement | null>evt.target
+
+      if (target && blackList) {
+        for (const blocked of blackList) {
+          if (target.classList.contains(blocked)) {
+            return
+          }
+        }
+      }
+
       evt = evt || window.event
       dragMouseDown(evt.clientX, evt.clientY)
     }

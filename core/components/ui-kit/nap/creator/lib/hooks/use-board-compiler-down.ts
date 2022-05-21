@@ -131,12 +131,12 @@ export const useBoardCompiler = (boardId: string) => {
    */
   const compileQuestionDown = ({ effect, hint, id, position: { left, top }, question, questionerUser, rotate, type }: Lib.T.Elements.Question): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.question({ hint, question, questionerUser }))
-    const element = addFrameTo(node, ['editQuestionAndHint'], 'question', id)
+    const element = addFrameTo(node, [], 'question', id)
     DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
     element.id = id
     element.classList.add(type)
     element.classList.add(effect)
-    DOM.makeElementDraggable({ element, areaSensitive })
+    DOM.makeElementDraggable({ element, areaSensitive, blackList: ['questionText', 'hintSection'] })
     return element
   }
 
@@ -214,30 +214,6 @@ export const useBoardCompiler = (boardId: string) => {
         if (currentEffect !== 'no-effect') {
           frame.classList.add(currentEffect)
         }
-      })
-    }
-
-    static editQuestionAndHint(evt: MouseEvent) {
-      const frame = Action.getElement(evt)
-      if (!frame) return
-
-      const question = <HTMLParagraphElement | null>frame.querySelector('.questionText')
-      if (!question) return
-
-      question.contentEditable = 'true'
-
-      DOM.setCursorPositionToTheEnd(question)
-
-      function restrictLength(evt: Event) {
-        DOM.restrictInputValueLength(<InputEvent>evt, 300)
-      }
-
-      question.addEventListener('input', restrictLength, false)
-
-      question.addEventListener('blur', () => {
-        question.contentEditable = 'false'
-        question.removeEventListener('input', restrictLength, false)
-        frame.focus()
       })
     }
   }

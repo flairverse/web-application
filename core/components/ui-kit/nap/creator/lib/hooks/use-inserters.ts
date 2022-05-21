@@ -124,7 +124,7 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
         position: { left: '85px', top: '85px' },
         rotate: 0,
         hint: '',
-        question: 'Type your question here...',
+        question: '',
         questionerUser: {
           hasNap: true,
           profile: '/removal/profile.jpg',

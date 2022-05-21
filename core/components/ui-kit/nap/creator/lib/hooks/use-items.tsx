@@ -3,7 +3,7 @@ import { MdFormatColorText } from 'react-icons/md'
 import { BsFillImageFill, BsQuestionCircle, BsPlusSquare, BsChevronCompactLeft } from 'react-icons/bs'
 import { FiBell, FiLink2 } from 'react-icons/fi'
 import { HiOutlineChatAlt2 } from 'react-icons/hi'
-import { AiOutlineGif } from 'react-icons/ai'
+import { AiOutlineGif, AiOutlineMessage } from 'react-icons/ai'
 import { GoMention } from 'react-icons/go'
 import { createNapAtoms } from '@/store/atoms'
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil'
@@ -19,7 +19,7 @@ export const useItems = ({ onOptionsClick, boardRef }: Pick<Lib.T.ItemsProps, 'b
     // new Insert(boardRef).newText()
     // new Insert(boardRef).newPost(0)
     // new Insert(boardRef).newMention(0)
-    new Insert(boardRef).newQuestion()
+    // new Insert(boardRef).newQuestion()
   }, [])
 
   const addItem = () => {
@@ -29,6 +29,11 @@ export const useItems = ({ onOptionsClick, boardRef }: Pick<Lib.T.ItemsProps, 'b
       switch (activeOption) {
         case 'text': {
           insert.newText()
+          break
+        }
+
+        case 'question': {
+          insert.newQuestion()
           break
         }
       }
@@ -64,9 +69,14 @@ export const useItems = ({ onOptionsClick, boardRef }: Pick<Lib.T.ItemsProps, 'b
       key: 'mention',
     },
     {
-      Icon: HiOutlineChatAlt2,
-      title: 'Ask',
+      Icon: AiOutlineMessage,
+      title: 'Question',
       key: 'question',
+    },
+    {
+      Icon: HiOutlineChatAlt2,
+      title: 'Discussion',
+      key: 'discussion',
     },
     {
       Icon: BsQuestionCircle,

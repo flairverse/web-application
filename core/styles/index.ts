@@ -31,6 +31,13 @@ export const GlobalStyles = createGlobalStyle`
     outline: 1px solid var(--layer-2-dash);
     padding: 4px 10px;
     border-radius: 4px;
+    cursor: text;
+
+    &:empty::before {
+      content: attr(data-ph);
+      color: var(--layer-2-placeholder);
+      font-style: italic;
+    }
   }
 
   /**

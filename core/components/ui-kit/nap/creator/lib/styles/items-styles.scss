@@ -269,7 +269,7 @@
     border: 1px solid var(--layer-2-border);
     border-radius: 15px;
     padding: 10px;
-    max-width: 250px;
+    width: 250px;
 
     > .profileContainer {
       margin: -30px 0 0 0;
@@ -280,14 +280,28 @@
 
     > .questionText {
       color: var(--layer-2-text-1);
-      margin: 5px 0 0 0;
+      margin: 5px 0 10px 0;
       font-family: var(--ff-2);
       transition: all 150ms linear;
       text-align: center;
       word-break: break-all;
+      min-height: 30px;
+      outline: none;
     }
 
-    > .hint {
+    > .hintSection {
+      border: 1px dashed var(--layer-2-border);
+      margin: 0 0 10px 0;
+      padding: 6px 5px 4px 5px;
+      border-radius: 7px;
+      position: relative;
+      transition: all 150ms linear;
+      color: var(--layer-2-text-2);
+      opacity: 0.7;
+      text-align: center;
+      min-height: 30px;
+      outline: none;
+      display: block;
     }
 
     > span {
@@ -302,6 +316,16 @@
       padding: 0 8px;
       border: 1px solid var(--layer-2-border);
       opacity: 0.5;
+    }
+
+    &.no-profile {
+      > .profileContainer {
+        display: none;
+      }
+
+      > .questionText {
+        margin-top: 0;
+      }
     }
   }
 }

@@ -21,7 +21,7 @@ export const FRAMES_DATA_ATTRS = {
 export const EFFECTS = {
   TEXT: ['no-effect', 'animated-gradient', 'horror', 'shining', 'extreme-offset', 'bingo', 'floor'] as const,
   POST: ['no-effect', 'less-detail', 'no-cover'] as const,
-  MENTION: ['no-effect', 'with-background', 'username-name-profile', 'username-name-job', 'username-name-job-followers-subscriptions'] as const,
+  MENTION: ['no-effect', 'with-background', 'username-name-job', 'username-name-profile', 'username-name-job-followers-subscriptions'] as const,
   QUESTION: ['no-effect', 'no-profile'] as const,
 }
 
@@ -44,10 +44,6 @@ export const ICONS: Lib.T.IconsObject = {
       />
     </svg>
   `,
-
-  get editQuestionAndHint() {
-    return this.editInnerText
-  },
 }
 
 export const ITEMS_ICONS = {
@@ -336,9 +332,17 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
         ${ITEMS_DOM_STRING_COMPONENTS.profile({ hasNap, seen, profile, size: 4 })}
       </div>
       
-      <p class="questionText">${question}</p>
+      <p
+        class="questionText"
+        data-ph="Ask me anything..."
+        contenteditable="true"
+      >${question}</p>
       
-      <p class="hint">${hint}</p>
+      <p
+        class="hintSection"
+        data-ph="Hint (optional)"
+        contenteditable="true"
+      >${hint}</p>
 
       <span>Type something here</span>
     </div>
