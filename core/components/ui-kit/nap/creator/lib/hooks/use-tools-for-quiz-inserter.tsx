@@ -5,27 +5,27 @@ import { FaRegLightbulb } from 'react-icons/fa'
 import { useRecoilValue } from 'recoil'
 import { createNapAtoms } from '@/store/atoms'
 
-export const useToolsForQuestionInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
+export const useToolsForQuizInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
   const Inserters = Lib.H.useInserters(boardRef)
   const { getFocusedItem, changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({ boardRef })
   const activeItemID = useRecoilValue(createNapAtoms.activeItemID)
   const activeOption = useRecoilValue(createNapAtoms.activeOption)
 
   const tools: Pick<Lib.T.ToolProps, 'Icon' | 'type' | 'title' | 'disabled'>[] = [
-    { Icon: IoAddCircleOutline, type: 'add-question', title: 'Add new', disabled: false },
-    { Icon: FaRegLightbulb, type: 'question-hint', title: 'Toggle hint', disabled: activeOption !== 'question' || activeItemID === null },
-    { Icon: IoColorFilterOutline, type: 'question-effect', title: 'Effect', disabled: activeOption !== 'question' || activeItemID === null },
-    { Icon: AiOutlineRotateRight, type: 'question-rotation', title: 'Rotate', disabled: activeOption !== 'question' || activeItemID === null },
+    { Icon: IoAddCircleOutline, type: 'add-quiz', title: 'Add new', disabled: false },
+    { Icon: FaRegLightbulb, type: 'quiz-hint', title: 'Toggle hint', disabled: activeOption !== 'quiz' || activeItemID === null },
+    { Icon: IoColorFilterOutline, type: 'quiz-effect', title: 'Effect', disabled: activeOption !== 'quiz' || activeItemID === null },
+    { Icon: AiOutlineRotateRight, type: 'quiz-rotation', title: 'Rotate', disabled: activeOption !== 'quiz' || activeItemID === null },
   ]
 
-  const toolClick = (type: Lib.T.QuestionTools) => {
+  const toolClick = (type: Lib.T.QuizTools) => {
     switch (type) {
-      case 'add-question': {
-        new Inserters(boardRef).newQuestion()
+      case 'add-quiz': {
+        new Inserters(boardRef).newQuiz()
         break
       }
 
-      case 'question-hint': {
+      case 'quiz-hint': {
         const focusedItem = getFocusedItem()
         if (!focusedItem) {
           return
@@ -42,12 +42,12 @@ export const useToolsForQuestionInserter = ({ boardRef }: Lib.T.ToolsForInserter
         break
       }
 
-      case 'question-effect': {
-        changeEffect('QUESTION', '.question')
+      case 'quiz-effect': {
+        changeEffect('QUIZ', '.quiz')
         break
       }
 
-      case 'question-rotation': {
+      case 'quiz-rotation': {
         changeRotation()
         break
       }

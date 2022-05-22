@@ -36,6 +36,11 @@ export const useItems = ({ onOptionsClick, boardRef }: Pick<Lib.T.ItemsProps, 'b
           insert.newQuestion()
           break
         }
+
+        case 'quiz': {
+          insert.newQuiz()
+          break
+        }
       }
     }
 
@@ -73,11 +78,11 @@ export const useItems = ({ onOptionsClick, boardRef }: Pick<Lib.T.ItemsProps, 'b
       title: 'Question',
       key: 'question',
     },
-    {
-      Icon: HiOutlineChatAlt2,
-      title: 'Discussion',
-      key: 'discussion',
-    },
+    // {
+    //   Icon: HiOutlineChatAlt2,
+    //   title: 'Discussion',
+    //   key: 'discussion',
+    // },
     {
       Icon: BsQuestionCircle,
       title: 'Quiz',

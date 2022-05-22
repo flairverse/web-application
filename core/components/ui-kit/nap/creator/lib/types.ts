@@ -46,13 +46,15 @@ export type TextTools = 'add-text' | 'text-font-size' | 'text-effect' | 'text-ro
 export type PostTools = 'add-post' | 'post-effect' | 'post-rotation'
 export type MentionTools = 'add-mention' | 'mention-effect' | 'mention-rotation'
 export type QuestionTools = 'add-question' | 'question-effect' | 'question-rotation' | 'question-hint'
-export type Tool = 'none' | TextTools | PostTools | MentionTools | QuestionTools
+export type QuizTools = 'add-quiz' | 'quiz-effect' | 'quiz-rotation' | 'quiz-hint'
+export type Tool = 'none' | TextTools | PostTools | MentionTools | QuestionTools | QuizTools
 
 export type TextEffects = typeof Lib.CO.EFFECTS.TEXT[number]
 export type PostEffects = typeof Lib.CO.EFFECTS.POST[number]
 export type MentionEffects = typeof Lib.CO.EFFECTS.MENTION[number]
 export type QuestionEffects = typeof Lib.CO.EFFECTS.QUESTION[number]
-export type AllEffects = TextEffects | PostEffects | MentionEffects | QuestionEffects
+export type QuizEffects = typeof Lib.CO.EFFECTS.QUIZ[number]
+export type AllEffects = TextEffects | PostEffects | MentionEffects | QuestionEffects | QuizEffects
 
 export namespace Elements {
   export interface BaseElement<Effect extends AllEffects = AllEffects, Type extends Options = Options> {
@@ -118,13 +120,23 @@ export namespace Elements {
     }
   }
 
+  export interface Quiz extends BaseElement<QuizEffects, 'quiz'> {
+    questionText: string
+    hintText: string
+    answers: string[]
+    correctAnswer: number
+    questioner: {
+      profile: string
+      hasNap: boolean
+      seen: boolean
+    }
+  }
+
   export interface Image extends BaseElement {}
 
   export interface Gif extends BaseElement {}
 
   export interface Reminder extends BaseElement {}
-
-  export interface Quiz extends BaseElement {}
 
   export interface Link extends BaseElement {}
 
@@ -183,6 +195,7 @@ export type ItemsDOMStringGenerators = {
   post: (args: Pick<Elements.Post, 'post' | 'user'>) => string
   mention: (args: Pick<Elements.Mention, 'fullName' | 'job' | 'profile' | 'username' | 'userID' | 'hasNap' | 'seen' | 'followers' | 'subscribes'>) => string
   question: (args: Pick<Elements.Question, 'hint' | 'question' | 'questionerUser'>) => string
+  quiz: (args: Pick<Elements.Quiz, 'answers' | 'correctAnswer' | 'hintText' | 'questionText' | 'questioner'>) => string
 }
 
 export interface MentionProps {

@@ -328,6 +328,158 @@
       }
     }
   }
+
+  /**
+   *
+   *
+   *
+   * styles for quiz element
+   **/
+  &.quiz {
+    background-color: var(--layer-1);
+    color: var(--layer-1);
+    border: 1px solid var(--layer-2-border);
+    border-radius: 15px;
+    padding: 10px;
+    width: 250px;
+
+    > .profileContainer {
+      margin: -30px 0 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    > .questionText {
+      color: var(--layer-2-text-1);
+      margin: 5px 0 10px 0;
+      font-family: var(--ff-2);
+      transition: all 150ms linear;
+      text-align: center;
+      word-break: break-all;
+      min-height: 30px;
+      outline: none;
+    }
+
+    > .hintSection {
+      border: 1px dashed var(--layer-2-border);
+      margin: 0 0 10px 0;
+      padding: 6px 5px 4px 5px;
+      border-radius: 7px;
+      position: relative;
+      transition: all 150ms linear;
+      color: var(--layer-2-text-2);
+      opacity: 0.7;
+      text-align: center;
+      min-height: 30px;
+      outline: none;
+      display: block;
+    }
+
+    $answersTransition: all 100ms linear;
+
+    > .answers {
+      margin: 15px 0 0 0;
+
+      > .answer {
+        width: 100%;
+        height: auto;
+        display: flex;
+        background: var(--layer-2);
+        border-radius: 5px;
+        align-items: flex-start;
+        padding: 6px 8px;
+        transition: $answersTransition;
+        border: 1px solid transparent;
+
+        &:not(:last-child) {
+          margin: 0 0 -15px 0;
+        }
+
+        &:not(:nth-child(1), :nth-child(2)) {
+          display: none;
+        }
+
+        &[data-activation='inactive'] {
+          background: inherit;
+          border: 1px dashed var(--layer-2-dash);
+
+          > span {
+            pointer-events: none;
+            cursor: default;
+            background-color: inherit;
+            color: var(--layer-2-text-2);
+            opacity: 0.5;
+            border: 1px dashed var(--layer-2-dash);
+          }
+        }
+
+        > span {
+          border-radius: 50%;
+          display: inline-flex;
+          width: 30px;
+          height: 30px;
+          color: var(--layer-2);
+          align-items: center;
+          justify-content: center;
+          background-color: var(--layer-3);
+          cursor: pointer;
+          font-size: 15pt;
+          font-family: var(--ff-3);
+          transition: $answersTransition;
+
+          > svg {
+            display: none;
+          }
+        }
+
+        > p {
+          margin: 0;
+          color: var(--layer-2-text-2);
+          outline: none;
+          flex: 1 1;
+          max-width: calc(100% - 30px);
+          padding: 4px 0 0 8px;
+          word-break: break-all;
+          transition: $answersTransition;
+        }
+
+        &.true {
+          background-color: var(--c-podcast-trans-1);
+
+          > span {
+            background-color: var(--c-podcast);
+
+            > span {
+              display: none;
+            }
+
+            > svg {
+              display: block;
+            }
+          }
+
+          > p {
+            color: var(--c-podcast);
+
+            &::before {
+              color: var(--c-podcast-trans-4);
+            }
+          }
+        }
+      }
+    }
+
+    &.no-profile {
+      > .profileContainer {
+        display: none;
+      }
+
+      > .questionText {
+        margin-top: 0;
+      }
+    }
+  }
 }
 
 /* styles for components used in nap elements */

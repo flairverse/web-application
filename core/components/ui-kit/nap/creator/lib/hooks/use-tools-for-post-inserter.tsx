@@ -17,7 +17,7 @@ export const useToolsForPostInserter = ({ boardRef }: Lib.T.ToolsForInserters) =
     { Icon: AiOutlineRotateRight, type: 'post-rotation', title: 'Rotate', disabled: activeOption !== 'post' || activeItemID === null },
   ]
 
-  const toolClick = (type: Lib.T.Tool) => {
+  const toolClick = (type: Lib.T.PostTools) => {
     switch (type) {
       case 'add-post': {
         setPickUp(true)

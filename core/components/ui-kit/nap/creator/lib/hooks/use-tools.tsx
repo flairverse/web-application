@@ -21,6 +21,10 @@ export const useTools = ({ selectedOption, boardRef }: Pick<Lib.T.ToolsProps, 's
         case 'question': {
           return <Lib.C.ToolsForQuestionInserter boardRef={boardRef} />
         }
+
+        case 'quiz': {
+          return <Lib.C.ToolsForQuizInserter boardRef={boardRef} />
+        }
       }
     } else return null
   }

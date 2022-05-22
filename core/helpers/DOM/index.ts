@@ -133,4 +133,36 @@ export class DOM {
 
     DOM.setCursorPositionToTheEnd(element)
   }
+
+  static toggleClass(element: HTMLElement, className: string) {
+    const { classList } = element
+
+    // remove className
+    if (classList.contains(className)) {
+      element.classList.remove(className)
+    }
+    // add className
+    else {
+      element.classList.add(className)
+    }
+  }
+
+  static toggleClasses(element: HTMLElement, class1: string, class2: string) {
+    const { classList } = element
+
+    // remove class1 and add class2
+    if (classList.contains(class1)) {
+      element.classList.remove(class1)
+      element.classList.add(class2)
+    }
+    // remove class2 and add class1
+    else if (classList.contains(class2)) {
+      element.classList.remove(class2)
+      element.classList.add(class1)
+    }
+    // add class1
+    else {
+      element.classList.add(class1)
+    }
+  }
 }

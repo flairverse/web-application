@@ -4,7 +4,7 @@ import { MakeElementDraggableSensitive } from '@/helpers/DOM/lib/types'
 import { useSetRecoilState } from 'recoil'
 import { createNapAtoms } from '@/store/atoms'
 
-export const useBoardCompiler = (boardId: string) => {
+export const useBoardCompileDown = (boardId: string) => {
   const setActiveOption = useSetRecoilState(createNapAtoms.activeOption)
   const setActiveItemID = useSetRecoilState(createNapAtoms.activeItemID)
 
@@ -38,6 +38,10 @@ export const useBoardCompiler = (boardId: string) => {
 
       case 'question': {
         return compileQuestionDown(<Lib.T.Elements.Question>element)
+      }
+
+      case 'quiz': {
+        return compileQuizDown(<Lib.T.Elements.Quiz>element)
       }
     }
   }
@@ -136,7 +140,70 @@ export const useBoardCompiler = (boardId: string) => {
     element.id = id
     element.classList.add(type)
     element.classList.add(effect)
+    activateFrameByFocusingContentEditables(element)
     DOM.makeElementDraggable({ element, areaSensitive, blackList: ['questionText', 'hintSection'] })
+    return element
+  }
+
+  /**
+   *
+   *
+   *
+   * compiles a quiz object to actual element
+   */
+  const compileQuizDown = ({ answers, correctAnswer, effect, hintText, id, position: { left, top }, questionText, questioner, rotate, type }: Lib.T.Elements.Quiz): HTMLDivElement => {
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.quiz({ answers, correctAnswer, hintText, questionText, questioner }))
+    const element = addFrameTo(node, [], 'quiz', id)
+    DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
+    element.id = id
+    element.classList.add(type)
+    element.classList.add(effect)
+    activateFrameByFocusingContentEditables(element)
+    DOM.makeElementDraggable({ element, areaSensitive, blackList: ['questionText', 'hintSection', 'answerText'] })
+
+    const answerNumbers = <NodeListOf<HTMLDivElement>>element.querySelectorAll('.answer > span')
+    const answerContents = <NodeListOf<HTMLDivElement>>element.querySelectorAll('.answer > p')
+
+    answerNumbers.forEach(answerNumber => answerNumber.addEventListener('click', () => switchCorrectAnswer(answerNumber)))
+    answerContents.forEach(answerContent => answerContent.addEventListener('input', evt => toggleNextAnswer(<InputEvent>evt)))
+
+    function switchCorrectAnswer(answerNumber: HTMLDivElement) {
+      const answerBox = <HTMLDivElement>answerNumber.parentNode!
+      const answerActivation = answerBox.getAttribute('data-activation')!
+
+      if (answerActivation === 'inactive') {
+        return
+      }
+
+      const allAnswerBoxes = answerBox.parentNode!.querySelectorAll('.answer')
+      allAnswerBoxes.forEach(answer => answer.classList.remove('true', 'false'))
+      answerBox.classList.add('true')
+    }
+
+    function toggleNextAnswer(evt: InputEvent) {
+      const answer = <HTMLDivElement>evt.target
+      const { innerText: answerText } = answer
+      const answerIndex = parseInt(answer.getAttribute('data-index')!)
+      const answerContainer = <HTMLDivElement>answer.parentNode!
+      const nextAnswer = <HTMLDivElement>answerContainer.nextElementSibling
+
+      if (answerIndex !== 0 && answerIndex !== 3) {
+        if (answerText) {
+          nextAnswer.style.display = 'flex'
+        } else {
+          nextAnswer.style.display = 'none'
+        }
+      }
+
+      if (answerIndex !== 0 && answerIndex !== 1) {
+        if (answerText) {
+          answerContainer.setAttribute('data-activation', 'active')
+        } else {
+          answerContainer.setAttribute('data-activation', 'inactive')
+        }
+      }
+    }
+
     return element
   }
 
@@ -171,6 +238,22 @@ export const useBoardCompiler = (boardId: string) => {
     frame.appendChild(buttons)
     frame.appendChild(element)
     return frame
+  }
+
+  const activateFrameByFocusingContentEditables = (element: HTMLDivElement) => {
+    const contentEditables = element.querySelectorAll('*[contenteditable="true"]')
+
+    const type = <Lib.T.Options | null>element.getAttribute('data-type')
+    const id = <string | null>element.id
+
+    if (!type || !id) return
+
+    contentEditables.forEach(contentEditable =>
+      contentEditable.addEventListener('focus', () => {
+        setActiveOption(type)
+        setActiveItemID(id)
+      }),
+    )
   }
 
   /**

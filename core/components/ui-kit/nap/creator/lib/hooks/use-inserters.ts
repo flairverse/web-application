@@ -1,11 +1,11 @@
 import * as Lib from '../'
-import { Str } from '@/helpers/string'
 import { RefObject } from 'react'
 import { useSetRecoilState } from 'recoil'
 import { createNapAtoms } from '@/store/atoms'
+import { Str } from '@/helpers/string'
 
 export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
-  const { compileDown } = Lib.H.useBoardCompiler('mainBoard')
+  const { compileDown } = Lib.H.useBoardCompileDown('mainBoard')
   const setShowMoreOptions = useSetRecoilState(createNapAtoms.showMoreOptions)
 
   return class Insert {
@@ -114,7 +114,7 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
     /**
      *
      *
-     * makes new ask item and passes it to the `appendItem`
+     * makes new question item and passes it to the `appendItem`
      */
     newQuestion(defaultValues?: Lib.T.Elements.Question) {
       const question: Lib.T.Elements.Question = defaultValues || {
@@ -131,8 +131,32 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
           seen: false,
         },
       }
-      setShowMoreOptions(false)
       this.appendItem(question)
+    }
+
+    /**
+     *
+     *
+     * makes new quiz item and passes it to the `appendItem`
+     */
+    newQuiz(defaultValues?: Lib.T.Elements.Quiz) {
+      const quiz: Lib.T.Elements.Quiz = defaultValues || {
+        type: 'quiz',
+        effect: 'no-effect',
+        id: this.makeID(),
+        position: { left: '85px', top: '85px' },
+        rotate: 0,
+        hintText: '',
+        questionText: '',
+        answers: ['', '', '', ''],
+        correctAnswer: 0,
+        questioner: {
+          hasNap: true,
+          profile: '/removal/profile.jpg',
+          seen: false,
+        },
+      }
+      this.appendItem(quiz)
     }
   }
 }

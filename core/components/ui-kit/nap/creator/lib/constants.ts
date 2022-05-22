@@ -23,6 +23,7 @@ export const EFFECTS = {
   POST: ['no-effect', 'less-detail', 'no-cover'] as const,
   MENTION: ['no-effect', 'with-background', 'username-name-job', 'username-name-profile', 'username-name-job-followers-subscriptions'] as const,
   QUESTION: ['no-effect', 'no-profile'] as const,
+  QUIZ: ['no-effect', 'no-profile'] as const,
 }
 
 export const ICONS: Lib.T.IconsObject = {
@@ -215,6 +216,15 @@ export const ITEMS_ICONS = {
       />
     </svg>  
   `,
+
+  check: `
+    <svg width="15" viewBox="0 0 104 82" fill="none">
+      <path
+        d="M86.9666 3.12263C88.7132 1.3597 91.0866 0.359843 93.5682 0.341564C96.0498 0.323285 98.4377 1.28807 100.21 3.02509C101.982 4.7621 102.995 7.13008 103.027 9.61152C103.059 12.093 102.107 14.4861 100.38 16.2679L50.3996 78.7493C49.5409 79.6737 48.5048 80.4157 47.3531 80.9308C46.2014 81.4459 44.9577 81.7237 43.6962 81.7475C42.4348 81.7713 41.1815 81.5406 40.0111 81.0693C38.8408 80.598 37.7774 79.8957 36.8846 79.0043L3.74731 45.8798C1.98639 44.118 0.997449 41.7289 0.998047 39.2379C0.998645 36.747 1.98873 34.3584 3.7505 32.5974C5.51226 30.8365 7.9014 29.8476 10.3923 29.8482C12.8832 29.8488 15.2719 30.8389 17.0328 32.6006L43.2404 58.8146L86.7179 3.41588C86.7969 3.31508 86.8821 3.21927 86.9729 3.12901L86.9666 3.12263Z"
+        fill="white"
+      />
+    </svg>  
+  `,
 }
 
 export const ITEMS_DOM_STRING_COMPONENTS: Lib.T.ItemsDOMStringComponents = {
@@ -345,6 +355,46 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
       >${hint}</p>
 
       <span>Type something here</span>
+    </div>
+  `,
+
+  quiz: ({ answers, correctAnswer, hintText, questionText, questioner: { hasNap, profile, seen } }) => `
+    <div class="napElement quiz no-effect">
+      <div class="profileContainer">
+        ${ITEMS_DOM_STRING_COMPONENTS.profile({ hasNap, seen, profile, size: 4 })}
+      </div>
+
+      <p
+        class="questionText"
+        data-ph="Ask me anything..."
+        contenteditable="true"
+      >${questionText}</p>
+
+      <p
+        class="hintSection"
+        data-ph="Hint (optional)"
+        contenteditable="true"
+      >${hintText}</p>
+
+      <div class="answers">
+        ${answers.map((answer, index) => {
+          return `
+            <div class="answer ${correctAnswer === index}" data-activation="${index === 0 || index === 1 ? 'active' : 'inactive'}">
+              <span>
+                <span>${index + 1}</span>
+                ${ITEMS_ICONS.check}
+              </span>
+
+              <p 
+                class="answerText"
+                data-ph="Type the answer"
+                contenteditable="true"
+                data-index="${index}"
+              >${answer}</p>
+            </div>
+          `
+        })}
+      </div>
     </div>
   `,
 }
