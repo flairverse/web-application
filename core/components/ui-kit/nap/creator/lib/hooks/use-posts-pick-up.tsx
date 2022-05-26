@@ -28,7 +28,7 @@ export const usePostsPickUp = ({ boardRef }: Pick<Lib.T.PostsPickUpProps, 'board
     cancelButton: true,
     onClose: handlePickUpClose,
     searchBox: {
-      storeKey: 'COMPONENT_PUCK_UP_SEARCH_QUERY',
+      storeKey: 'PAGE__CREATE_NAP___POSTS_PICKUP_SEARCH_QUERY',
       delay: 500,
       onChange: query => console.log(query),
     },

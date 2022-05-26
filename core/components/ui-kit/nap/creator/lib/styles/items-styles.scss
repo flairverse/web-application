@@ -480,6 +480,119 @@
       }
     }
   }
+
+  /**
+   *
+   *
+   *
+   * styles for reminder element
+   **/
+  &.reminder {
+    background-color: var(--layer-1);
+    color: var(--layer-1);
+    border: 1px solid var(--layer-2-border);
+    border-radius: 15px;
+    padding: 10px;
+    width: 250px;
+
+    > .reminderName {
+      color: var(--layer-2-text-1);
+      margin: 5px 0 10px 0;
+      font-family: var(--ff-2);
+      transition: all 150ms linear;
+      text-align: center;
+      word-break: break-all;
+      min-height: 30px;
+      outline: none;
+    }
+
+    > .countdown {
+      width: 100%;
+      display: flex;
+
+      > div {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+
+        $counterTransaction: all 100ms linear;
+
+        > p {
+          margin: 0;
+          display: flex;
+          flex-wrap: wrap;
+          border: 1px solid transparent;
+          transition: $counterTransaction;
+
+          > span {
+            flex: 1;
+            color: var(--layer-2-text-2);
+            margin: 0 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--f-4);
+            background-color: var(--layer-2);
+            padding: 7px 0;
+            border-radius: 5px;
+            border: 1px solid var(--layer-2-border);
+            transition: $counterTransaction;
+          }
+        }
+
+        > span {
+          color: var(--layer-2-text-2);
+          font-size: var(--f-1);
+          padding: 0 5px;
+          margin: 3px 0 0 0;
+        }
+      }
+
+      > span {
+        color: var(--layer-2-text-2);
+        padding: 6px 3px 0 3px;
+        font-size: var(--f-4);
+        font-family: var(--ff-3);
+      }
+    }
+
+    &.joint-backgrounds {
+      > div {
+        > div {
+          > p {
+            background-color: var(--layer-2);
+            border-radius: 5px;
+            border-color: var(--layer-2-border);
+
+            > span {
+              margin: 0;
+              border-color: transparent;
+              border-radius: 0;
+              background-color: transparent;
+            }
+          }
+        }
+      }
+    }
+
+    &.no-background {
+      > div {
+        > div {
+          > p {
+            border-color: var(--layer-2-border);
+            border-radius: 5px;
+
+            > span {
+              margin: 0;
+              border-color: transparent;
+              border-radius: 0;
+              background-color: inherit;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 /* styles for components used in nap elements */

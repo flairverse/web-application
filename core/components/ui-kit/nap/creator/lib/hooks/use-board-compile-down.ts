@@ -2,11 +2,12 @@ import * as Lib from '..'
 import { DOM } from '@/helpers/DOM'
 import { MakeElementDraggableSensitive } from '@/helpers/DOM/lib/types'
 import { useSetRecoilState } from 'recoil'
-import { createNapAtoms } from '@/store/atoms'
+import { createNapAtoms, componentsAtoms } from '@/store/atoms'
 
 export const useBoardCompileDown = (boardId: string) => {
   const setActiveOption = useSetRecoilState(createNapAtoms.activeOption)
   const setActiveItemID = useSetRecoilState(createNapAtoms.activeItemID)
+  const setTimePickerVisibility = useSetRecoilState(componentsAtoms.timePickerPopupVisibility('PAGE__CREATE_NAP___TIME_PICKER_POPUP'))
 
   // const areaSensitive: MakeElementDraggableSensitive = {
   //   target: `#${boardId}`,
@@ -42,6 +43,10 @@ export const useBoardCompileDown = (boardId: string) => {
 
       case 'quiz': {
         return compileQuizDown(<Lib.T.Elements.Quiz>element)
+      }
+
+      case 'reminder': {
+        return compileReminderDown(<Lib.T.Elements.Reminder>element)
       }
     }
   }
@@ -211,6 +216,24 @@ export const useBoardCompileDown = (boardId: string) => {
    *
    *
    *
+   * compiles a reminder object to actual element
+   */
+  const compileReminderDown = ({ day, effect, hour, id, minute, month, position: { left, top }, reminderName, rotate, type, year }: Lib.T.Elements.Reminder): HTMLDivElement => {
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.reminder({ day, hour, minute, month, reminderName, year }))
+    const element = addFrameTo(node, ['changeReminderValue'], 'reminder', id)
+    DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
+    element.id = id
+    element.classList.add(type)
+    element.classList.add(effect)
+    activateFrameByFocusingContentEditables(element)
+    DOM.makeElementDraggable({ element, areaSensitive, blackList: ['reminderName'] })
+    return element
+  }
+
+  /**
+   *
+   *
+   *
    * adds frame with custom buttons to an element
    */
   const addFrameTo = (element: HTMLElement, actions: Lib.T.ElementFrameActionTypes[], type: Lib.T.Options, id: string) => {
@@ -298,6 +321,11 @@ export const useBoardCompileDown = (boardId: string) => {
           frame.classList.add(currentEffect)
         }
       })
+    }
+
+    static changeReminderValue(evt: MouseEvent) {
+      console.log(evt)
+      setTimePickerVisibility(true)
     }
   }
 

@@ -158,5 +158,28 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
       }
       this.appendItem(quiz)
     }
+
+    /**
+     *
+     *
+     * makes new reminder item and passes it to the `appendItem`
+     */
+    newReminder(defaultValues?: Lib.T.Elements.Reminder) {
+      const now = new Date()
+      const reminder: Lib.T.Elements.Reminder = defaultValues || {
+        type: 'reminder',
+        effect: 'no-effect',
+        id: this.makeID(),
+        position: { left: '85px', top: '85px' },
+        rotate: 0,
+        reminderName: '',
+        year: now.getFullYear(),
+        month: now.getMonth(),
+        day: now.getDate(),
+        hour: now.getHours(),
+        minute: now.getMinutes(),
+      }
+      this.appendItem(reminder)
+    }
   }
 }

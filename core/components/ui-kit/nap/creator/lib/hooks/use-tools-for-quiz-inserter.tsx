@@ -18,7 +18,7 @@ export const useToolsForQuizInserter = ({ boardRef }: Lib.T.ToolsForInserters) =
     { Icon: AiOutlineRotateRight, type: 'quiz-rotation', title: 'Rotate', disabled: activeOption !== 'quiz' || activeItemID === null },
   ]
 
-  const toolClick = (type: Lib.T.QuizTools) => {
+  const toolClick = (type: Lib.T.Tool) => {
     switch (type) {
       case 'add-quiz': {
         new Inserters(boardRef).newQuiz()

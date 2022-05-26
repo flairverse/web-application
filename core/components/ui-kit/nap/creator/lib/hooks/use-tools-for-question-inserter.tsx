@@ -18,7 +18,7 @@ export const useToolsForQuestionInserter = ({ boardRef }: Lib.T.ToolsForInserter
     { Icon: AiOutlineRotateRight, type: 'question-rotation', title: 'Rotate', disabled: activeOption !== 'question' || activeItemID === null },
   ]
 
-  const toolClick = (type: Lib.T.QuestionTools) => {
+  const toolClick = (type: Lib.T.Tool) => {
     switch (type) {
       case 'add-question': {
         new Inserters(boardRef).newQuestion()

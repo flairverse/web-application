@@ -10,6 +10,7 @@ import * as mock from 'mock'
 import { PickUp } from '@/components/ui-kit/pick-up'
 import { CardPick } from '@/components/ui-kit/card'
 import { NapProfile } from '../../profile'
+import { TimePicker } from '@/components/ui-kit/time-picker'
 
 export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active, boardRef }) => {
   const [activeOption, setActiveOption] = useRecoilState(createNapAtoms.activeOption)
@@ -150,6 +151,12 @@ export const Mention: FC<Lib.T.MentionProps> = ({ id, username, profile, hasNap,
   )
 }
 
+export const ReminderTimePicker: FC = () => {
+  const { get } = Lib.H.useReminderTimePicker()
+
+  return <TimePicker {...get.timePickerProps} />
+}
+
 export const Tool: FC<Lib.T.ToolProps> = ({ disabled, Icon, type, onClick, title, index }) => {
   return (
     <Lib.S.Tool index={index} onClick={() => onClick(type)} className={`${disabled && 'disabled'}`}>
@@ -212,6 +219,17 @@ export const ToolsForQuestionInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef
 
 export const ToolsForQuizInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) => {
   const { get, on } = Lib.H.useToolsForQuizInserter({ boardRef })
+  return (
+    <>
+      {get.tools.map((tool, index) => (
+        <Tool {...tool} onClick={on.toolClick} key={index} index={index} />
+      ))}
+    </>
+  )
+}
+
+export const ToolsForReminderInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) => {
+  const { get, on } = Lib.H.useToolsForReminderInserter({ boardRef })
   return (
     <>
       {get.tools.map((tool, index) => (

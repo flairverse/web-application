@@ -8,6 +8,8 @@ export const NapCreator: FC = () => {
 
   return (
     <>
+      <Lib.C.ReminderTimePicker />
+
       <Lib.C.PostsPickUp boardRef={mainBoardRef} />
 
       <Lib.C.MentionPickUp boardRef={mainBoardRef} />

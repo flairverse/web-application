@@ -40,6 +40,15 @@ export const GlobalStyles = createGlobalStyle`
     }
   }
 
+  .noScrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
   /**
   *
   * Ant design customization

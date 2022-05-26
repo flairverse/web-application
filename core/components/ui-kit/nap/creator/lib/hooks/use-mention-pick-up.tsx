@@ -28,7 +28,7 @@ export const useMentionPickUp = ({ boardRef }: Pick<Lib.T.MentionPickUpProps, 'b
     cancelButton: true,
     onClose: handlePickUpClose,
     searchBox: {
-      storeKey: 'COMPONENT_PUCK_UP_SEARCH_QUERY',
+      storeKey: 'PAGE__CREATE_NAP___MENTIONS_PICKUP_SEARCH_QUERY',
       delay: 500,
       onChange: query => console.log(query),
     },

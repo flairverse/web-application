@@ -17,7 +17,7 @@ export const useToolsForMentionInserter = ({ boardRef }: Lib.T.ToolsForInserters
     { Icon: AiOutlineRotateRight, type: 'mention-rotation', title: 'Rotate', disabled: activeOption !== 'mention' || activeItemID === null },
   ]
 
-  const toolClick = (type: Lib.T.MentionTools) => {
+  const toolClick = (type: Lib.T.Tool) => {
     switch (type) {
       case 'add-mention': {
         setPickUp(true)

@@ -20,7 +20,7 @@ export const useToolsForTextInserter = ({ boardRef }: Lib.T.ToolsForInserters) =
     { Icon: AiOutlineRotateRight, type: 'text-rotation', title: 'Rotate', disabled: activeOption !== 'text' || activeItemID === null },
   ]
 
-  const toolClick = (type: Lib.T.TextTools) => {
+  const toolClick = (type: Lib.T.Tool) => {
     switch (type) {
       case 'add-text': {
         new Inserters(boardRef).newText()

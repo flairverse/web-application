@@ -24,6 +24,7 @@ export const EFFECTS = {
   MENTION: ['no-effect', 'with-background', 'username-name-job', 'username-name-profile', 'username-name-job-followers-subscriptions'] as const,
   QUESTION: ['no-effect', 'no-profile'] as const,
   QUIZ: ['no-effect', 'no-profile'] as const,
+  REMINDER: ['no-effect', 'joint-backgrounds', 'no-background'] as const,
 }
 
 export const ICONS: Lib.T.IconsObject = {
@@ -45,6 +46,10 @@ export const ICONS: Lib.T.IconsObject = {
       />
     </svg>
   `,
+
+  get changeReminderValue() {
+    return this.editInnerText
+  },
 }
 
 export const ITEMS_ICONS = {
@@ -394,6 +399,46 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
             </div>
           `
         })}
+      </div>
+    </div>
+  `,
+
+  reminder: ({ reminderName, year, month, day, hour, minute }) => `
+    <div class="napElement reminder no-effect">
+      <p
+        class="reminderName"
+        data-ph="Ask me anything..."
+        contenteditable="true"
+      >${reminderName}</p>
+
+      <div class="countdown">
+        <div>
+          <p>
+            <span>99</span>
+            <span>99</span>
+          </p>
+          <span>Years</span>
+        </div>
+
+        <span>:</span>
+
+        <div>
+          <p>
+            <span>99</span>
+            <span>99</span>
+          </p>
+          <span>Months</span>
+        </div>
+
+        <span>:</span>
+
+        <div>
+          <p>
+            <span>99</span>
+            <span>99</span>
+          </p>
+          <span>Days</span>
+        </div>
       </div>
     </div>
   `,

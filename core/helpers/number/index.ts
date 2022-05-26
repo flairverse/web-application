@@ -32,4 +32,39 @@ export class Num {
 
     return (num / roundSymbols[i].value).toFixed(digits).replace(RegExes.round, '$1') + roundSymbols[i].symbol
   }
+
+  static createArrayFromRange = ({ prefix, range, suffix, fixesType }: Lib.T.CreateArrayFromRangeArgs) => {
+    const [from, to] = range
+    const ranged: Lib.T.CreateArrayFromRangeReturn[] = []
+    const diff = to - from
+
+    for (let i = 0; i <= diff; i++) {
+      let full: number | string = from + i
+
+      if (fixesType) {
+        const { placement, type } = fixesType
+        full = placement === 'prefix' ? 'Jan, ' + full : full + ', Jan'
+      }
+
+      if (suffix) {
+        full = full + ' ' + suffix
+      }
+
+      if (prefix) {
+        full = prefix + ' ' + full
+      }
+
+      ranged.push({
+        full: full.toString(),
+        integer: parseFloat(full.toString()),
+      })
+    }
+
+    return ranged
+  }
+
+  static extract(string: string, parse?: boolean) {
+    const result = string.match(/\d+/g)?.join('') || ''
+    return parse ? parseInt(result) : result
+  }
 }
