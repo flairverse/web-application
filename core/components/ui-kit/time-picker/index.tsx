@@ -2,82 +2,40 @@ import { FC } from 'react'
 import * as Lib from './lib'
 import { useRecoilValue } from 'recoil'
 import { componentsAtoms } from '@/store/atoms'
-import { Button } from 'antd'
+import moment from 'moment'
+import { Button, DatePicker } from 'antd'
 
-export const TimePicker: FC<Lib.T.TimePickerProps> = props => {
-  const { visibilityStoreKey, valuesStoreKey, minimumDate, maximumDate, columnsStoreKeys } = props
-  const { get } = Lib.H.useTimePicker(props)
+export const TimePicker: FC<Lib.T.TimePickerProps> = ({ visibilityStoreKey, minimumDate, maximumDate }) => {
+  const { get } = Lib.H.useTimePicker({ visibilityStoreKey, minimumDate, maximumDate })
   const visibility = useRecoilValue(componentsAtoms.timePickerPopupVisibility(visibilityStoreKey))
 
   return (
     <Lib.S.TimePickerContainer visible={visibility} {...get.modalProps}>
       <div className="content">
-        <div className="columns">
-          <Lib.C.Column
-            rangeStoreKey={columnsStoreKeys.yearsStoreKey}
-            columnsStoreKeys={columnsStoreKeys}
-            valuesStoreKey={valuesStoreKey}
-            minimumDate={minimumDate}
-            maximumDate={maximumDate}
-            prefixes={get.prefixes}
-            ranges={get.ranges}
-            title="Year"
-            type="year"
-          />
+        <DatePicker
+          size="small"
+          dropdownClassName="noFooter"
+          inputReadOnly
+          defaultOpen
+          open
+          format="YYYY/M/DD HH:mm"
+          showSecond={false}
+          disabledDate={get.disabledDates}
+          // @ts-ignore
+          disabledTime={get.disabledTimes}
+          showTime={{ defaultValue: moment('00:00', 'HH:mm') }}
+          showNow={false}
+          defaultValue={moment(minimumDate)}
+        />
 
-          <Lib.C.Column
-            rangeStoreKey={columnsStoreKeys.monthsStoreKey}
-            columnsStoreKeys={columnsStoreKeys}
-            valuesStoreKey={valuesStoreKey}
-            minimumDate={minimumDate}
-            maximumDate={maximumDate}
-            prefixes={get.prefixes}
-            ranges={get.ranges}
-            title="Month"
-            type="month"
-          />
+        <span className="gap" />
 
-          <Lib.C.Column
-            rangeStoreKey={columnsStoreKeys.daysStoreKey}
-            columnsStoreKeys={columnsStoreKeys}
-            valuesStoreKey={valuesStoreKey}
-            minimumDate={minimumDate}
-            maximumDate={maximumDate}
-            prefixes={get.prefixes}
-            ranges={get.ranges}
-            title="Day"
-            type="day"
-          />
-
-          <Lib.C.Column
-            rangeStoreKey={columnsStoreKeys.hoursStoreKey}
-            columnsStoreKeys={columnsStoreKeys}
-            valuesStoreKey={valuesStoreKey}
-            minimumDate={minimumDate}
-            maximumDate={maximumDate}
-            prefixes={get.prefixes}
-            ranges={get.ranges}
-            title="Hour"
-            type="hour"
-          />
-
-          <Lib.C.Column
-            rangeStoreKey={columnsStoreKeys.minutesStoreKey}
-            columnsStoreKeys={columnsStoreKeys}
-            valuesStoreKey={valuesStoreKey}
-            minimumDate={minimumDate}
-            maximumDate={maximumDate}
-            prefixes={get.prefixes}
-            ranges={get.ranges}
-            title="Minute"
-            type="minute"
-          />
-        </div>
-
-        <div className="actions">
-          <Lib.C.Info valuesStoreKey={valuesStoreKey} minimumDate={minimumDate} />
-          <Button type="link">Discard</Button>
-          <Button type="primary">OK</Button>
+        <div className="info">
+          <span>Ends in 2 hours, 3 minutes and 52 seconds</span>
+          <div>
+            <Button type="link">Discard</Button>
+            <Button type="primary">Ok</Button>
+          </div>
         </div>
       </div>
     </Lib.S.TimePickerContainer>

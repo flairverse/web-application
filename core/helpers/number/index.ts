@@ -63,6 +63,16 @@ export class Num {
     return ranged
   }
 
+  static createSimpleRange(range: [number, number]) {
+    const [start, end] = range
+    const rangeArray = []
+
+    for (let i = start; i < end; i++) {
+      rangeArray.push(i)
+    }
+    return rangeArray
+  }
+
   static extract(string: string, parse?: boolean) {
     const result = string.match(/\d+/g)?.join('') || ''
     return parse ? parseInt(result) : result

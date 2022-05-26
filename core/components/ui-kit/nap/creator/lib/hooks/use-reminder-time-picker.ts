@@ -11,15 +11,7 @@ export const useReminderTimePicker = () => {
 
     return {
       visibilityStoreKey: 'PAGE__CREATE_NAP___TIME_PICKER_POPUP',
-      valuesStoreKey: 'PAGE__CREATE_NAP___TIME_PICKER_VALUES',
-      columnsStoreKeys: {
-        yearsStoreKey: 'PAGE__CREATE_NAP___TIME_PICKER_YEARS',
-        monthsStoreKey: 'PAGE__CREATE_NAP___TIME_PICKER_MONTHS',
-        daysStoreKey: 'PAGE__CREATE_NAP___TIME_PICKER_DAYS',
-        hoursStoreKey: 'PAGE__CREATE_NAP___TIME_PICKER_HOURS',
-        minutesStoreKey: 'PAGE__CREATE_NAP___TIME_PICKER_MINUTES',
-      },
-      minimumDate: new Date(now.getTime() + 60 * 60000),
+      minimumDate: new Date(now.getTime() + 30 * 60000),
       maximumDate: nextYear,
     }
   }

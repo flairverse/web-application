@@ -1,5 +1,6 @@
 import * as Lib from './lib'
 import { intervalToDuration, Duration } from 'date-fns'
+import { Moment } from 'moment'
 
 export class Dates {
   static getMonth(month: Lib.T.Month, target: 'short' | 'long' | 'number' = 'short'): string | number {
@@ -24,10 +25,10 @@ export class Dates {
     }
   }
 
-  static durationToDate(duration: Lib.T.DateDurationOrNow): Date {
+  static dateDetailToDate(detail: Lib.T.DateDetailOrNow): Date {
     const date = new Date()
-    if (duration !== 'now') {
-      const { year, month, day, hour, minute } = duration
+    if (detail !== 'now') {
+      const { year, month, day, hour, minute } = detail
       date.setFullYear(year)
       date.setMonth(month)
       date.setDate(day)
@@ -38,7 +39,7 @@ export class Dates {
     return date
   }
 
-  static dateToDuration(date: Date): Lib.T.DateDuration {
+  static dateToDetail(date: Date): Lib.T.DateDetail {
     return {
       year: date.getFullYear(),
       month: date.getMonth(),
@@ -48,16 +49,26 @@ export class Dates {
     }
   }
 
-  static difference(startDate: Lib.T.DateDuration | 'now', endDate: Lib.T.DateDuration | 'now'): Duration {
-    const start = Dates.durationToDate(startDate)
-    const end = Dates.durationToDate(endDate)
+  static momentToDetail(moment: Moment): Lib.T.DateDetail {
+    return {
+      year: moment.year(),
+      month: moment.month() + 1,
+      day: moment.date(),
+      hour: moment.hour(),
+      minute: moment.minute(),
+    }
+  }
+
+  static difference(startDate: Lib.T.DateDetail | 'now', endDate: Lib.T.DateDetail | 'now'): Duration {
+    const start = Dates.dateDetailToDate(startDate)
+    const end = Dates.dateDetailToDate(endDate)
     return intervalToDuration({ start, end })
   }
 
-  static triadDuration({ duration, i18n }: Lib.T.TriadDurationArgs): Lib.T.TriadDurationReturn {
+  static triadDistance({ duration, i18n }: Lib.T.TriadDistanceArgs): Lib.T.TriadDistanceReturn {
     const { years, months, weeks, days, hours, minutes, seconds } = duration
     const { years: yearsI18n, months: monthsI18n, weeks: weeksI18n, days: daysI18n, hours: hoursI18n, minutes: minutesI18n, seconds: secondsI18n } = i18n
-    const triad: Partial<Lib.T.TriadDurationReturn> = []
+    const triad: Partial<Lib.T.TriadDistanceReturn> = []
 
     if (years) {
       triad.push({ title: yearsI18n, key: 'years', value: years })
@@ -81,6 +92,6 @@ export class Dates {
       triad.push({ title: secondsI18n, key: 'seconds', value: seconds || 0 })
     }
 
-    return <Lib.T.TriadDurationReturn>triad
+    return <Lib.T.TriadDistanceReturn>triad
   }
 }

@@ -11,7 +11,7 @@ export type StringyMonth = ShortMonths | LongMonth
 
 export type Month = NumeralMonth | ShortMonths | LongMonth
 
-export type DateDuration = {
+export type DateDetail = {
   year: number
   month: number
   day: number
@@ -19,26 +19,26 @@ export type DateDuration = {
   minute: number
 }
 
-export type DateDurationOrNow = DateDuration | 'now'
+export type DateDetailOrNow = DateDetail | 'now'
 
 export interface DifferenceArgs {
-  start: DateDurationOrNow
-  end: DateDurationOrNow
+  start: DateDetailOrNow
+  end: DateDetailOrNow
 }
 
-export type TriadDurationI18n = {
+export type TriadDistanceI18n = {
   [key in keyof Required<Duration>]: string
 }
 
-export type TriadDuration = {
+export type TriadDistance = {
   key: keyof Duration
   title: string
   value: number
 }
 
-export type TriadDurationArgs = {
+export type TriadDistanceArgs = {
   duration: Duration
-  i18n: TriadDurationI18n
+  i18n: TriadDistanceI18n
 }
 
-export type TriadDurationReturn = [TriadDuration, TriadDuration, TriadDuration]
+export type TriadDistanceReturn = [TriadDistance, TriadDistance, TriadDistance]
