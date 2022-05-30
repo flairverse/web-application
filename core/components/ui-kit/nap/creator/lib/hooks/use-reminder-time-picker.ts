@@ -7,12 +7,14 @@ export const useReminderTimePicker = () => {
   function createTimePickerProps(): TimePickerProps {
     const now = new Date()
     const nextYear = new Date()
-    nextYear.setFullYear(now.getFullYear() + 10)
+    nextYear.setFullYear(now.getFullYear() + 1)
 
     return {
       visibilityStoreKey: 'PAGE__CREATE_NAP___TIME_PICKER_POPUP',
-      minimumDate: new Date(now.getTime() + 30 * 60000),
+      valueStoreKey: 'PAGE__CREATE_NAP___TIME_PICKER_VALUE',
+      minimumDate: new Date(now.getTime() + 60 * 60000),
       maximumDate: nextYear,
+      onConfirm: console.log,
     }
   }
 

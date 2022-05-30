@@ -1,6 +1,6 @@
 import * as Lib from './lib'
 import { intervalToDuration, Duration } from 'date-fns'
-import { Moment } from 'moment'
+import moment, { Moment } from 'moment'
 
 export class Dates {
   static getMonth(month: Lib.T.Month, target: 'short' | 'long' | 'number' = 'short'): string | number {
@@ -52,11 +52,20 @@ export class Dates {
   static momentToDetail(moment: Moment): Lib.T.DateDetail {
     return {
       year: moment.year(),
-      month: moment.month() + 1,
+      month: moment.month(),
       day: moment.date(),
       hour: moment.hour(),
       minute: moment.minute(),
     }
+  }
+
+  static dateToMoment(date: Date): Moment {
+    return moment(date)
+  }
+
+  static dateDetailToMoment(detail: Lib.T.DateDetail): Moment {
+    const date = Dates.dateDetailToDate(detail)
+    return Dates.dateToMoment(date)
   }
 
   static difference(startDate: Lib.T.DateDetail | 'now', endDate: Lib.T.DateDetail | 'now'): Duration {

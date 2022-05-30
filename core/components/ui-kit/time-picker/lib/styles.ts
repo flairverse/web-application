@@ -1,7 +1,9 @@
 import { Modal } from 'antd'
 import styled, { keyframes } from 'styled-components'
 
-const INFO_HEIGHT = 70
+const ACTIONS_HEIGHT = 50
+const PICKER_HEIGHT = 270
+const DISTANCE_HEIGHT = 40
 
 const infoAnimation = keyframes`
   from {
@@ -29,49 +31,71 @@ export const TimePickerContainer = styled(Modal)`
   .content {
     padding: 0;
     background-color: inherit;
-    height: calc(270px + ${INFO_HEIGHT}px);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+    height: ${PICKER_HEIGHT + ACTIONS_HEIGHT + DISTANCE_HEIGHT}px;
     border: 1px solid var(--layer-1-border);
     border-radius: 5px;
+    overflow: hidden;
 
-    > .ant-picker {
-      padding: 0;
-      display: block;
-      margin: 0 auto;
-      width: 100%;
-      height: 0;
-      border: none;
-      visibility: hidden;
-
-      > * {
-        display: none;
-      }
-    }
-
-    > .gap {
-      flex: 1;
-    }
-
-    > .info {
-      margin: 0;
-      color: var(--layer-2-text-1);
-      height: ${INFO_HEIGHT - 3}px;
+    > .contentChild {
       display: flex;
-      align-items: center;
-      font-family: var(--ff-2);
-      border-top: 1px solid var(--layer-2-border);
-      padding: 0 10px 5px 10px;
-      opacity: 0;
-      animation-name: ${infoAnimation};
-      animation-duration: 300ms;
-      animation-delay: 170ms;
-      animation-fill-mode: forwards;
+      flex-direction: column;
+      justify-content: flex-end;
+      width: 100%;
+      height: 100%;
 
-      > span {
+      > .ant-picker {
+        padding: 0;
+        display: block;
+        margin: 0 auto;
+        width: 100%;
+        height: 0;
+        border: none;
+        visibility: hidden;
+
+        > * {
+          display: none;
+        }
+      }
+
+      > .gap {
         flex: 1;
+      }
+
+      > .actions {
+        margin: 0;
+        height: ${ACTIONS_HEIGHT - 3}px;
+        display: flex;
+        align-items: center;
+        font-family: var(--ff-2);
+        border-top: 1px solid var(--layer-2-border);
+        padding: 0 10px 5px 10px;
+        opacity: 0;
+        animation-name: ${infoAnimation};
+        animation-duration: 300ms;
+        animation-delay: 170ms;
+        animation-fill-mode: forwards;
+
+        > div {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+        }
       }
     }
   }
+`
+
+export const Distance = styled.span`
+  display: flex;
+  height: ${DISTANCE_HEIGHT}px;
+  color: var(--layer-2-text-1);
+  padding: 0 10px;
+  align-items: center;
+  border-top: 1px solid var(--layer-2-border);
+  opacity: 0;
+  animation-name: ${infoAnimation};
+  animation-duration: 300ms;
+  animation-delay: 200ms;
+  animation-fill-mode: forwards;
 `
