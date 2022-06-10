@@ -5,7 +5,7 @@ import { componentTimePickerAtoms } from '@/store/atomFamilies'
 import { Layered } from '../layered'
 
 export const DateTimePicker: FC<Lib.T.DateTimePickerProps> = ({
-  // prettier-ignore
+  // props
   storeKeys,
   maximumDate,
   onConfirm,

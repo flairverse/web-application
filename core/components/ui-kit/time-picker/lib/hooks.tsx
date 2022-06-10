@@ -11,15 +11,7 @@ import { StoreKeys } from '@/types/recoil.type'
 import { Num } from '@/helpers/number'
 import { useTriadCountdown } from '@/hooks/use-triad-countdown'
 import moment from 'moment'
-
-/**
- *
- *
- *
- *
- * makes it easy to set numeral time values
- */
-const useSetNumeralTime = (storeKey: StoreKeys) => useSetRecoilState(componentTimePickerAtoms.timePickerNumeralTimes(storeKey))
+import { useInterval } from '@/hooks/use-interval'
 
 /**
  *
@@ -220,11 +212,11 @@ export const useFixWrongChosenDate = ({ storeKeys, dayEndIsMax, maximumDate }: L
       setDay(daysInMonth - 1)
     }
 
-    if (chosenDay < minDay && year === minDay) {
+    if (chosenDay < minDay && year === minYear) {
       setDay(minDay - 1)
     }
 
-    if (chosenDay > maxDay && year === maxDay) {
+    if (chosenDay > maxDay && year === maxYear) {
       setDay(maxDay - 1)
     }
 
@@ -257,6 +249,8 @@ export const useFixWrongChosenDate = ({ storeKeys, dayEndIsMax, maximumDate }: L
     }
   }
 
+  const fixAllDisables = () => {}
+
   useEffect(fixHourAndMinute, [year, month, day])
   useEffect(fixDay, [year, month])
   useEffect(fixMonth, [year])
@@ -272,12 +266,12 @@ export const useFixWrongChosenDate = ({ storeKeys, dayEndIsMax, maximumDate }: L
 export const useDateTimePicker = ({ storeKeys, minimumDateProp, maximumDate, dayEndIsMax }: Lib.T.UseDateTimePickerArgs) => {
   useFixWrongChosenDate({ storeKeys, dayEndIsMax, maximumDate })
   const setVisibility = useSetRecoilState(componentTimePickerAtoms.timePickerPopupVisibility(storeKeys.visibility))
-  const setMinimumDate = useSetRecoilState(componentTimePickerAtoms.timePickerMinimumDate(storeKeys.minimumDate))
-  const setYear = useSetNumeralTime(storeKeys.year)
-  const setMonth = useSetNumeralTime(storeKeys.month)
-  const setDay = useSetNumeralTime(storeKeys.day)
-  const setHour = useSetNumeralTime(storeKeys.hour)
-  const setMinute = useSetNumeralTime(storeKeys.minute)
+  const [minimumDate, setMinimumDate] = useRecoilState(componentTimePickerAtoms.timePickerMinimumDate(storeKeys.minimumDate))
+  const [year, setYear] = useNumeralTime(storeKeys.year)
+  const [month, setMonth] = useNumeralTime(storeKeys.month)
+  const [day, setDay] = useNumeralTime(storeKeys.day)
+  const [hour, setHour] = useNumeralTime(storeKeys.hour)
+  const [minute, setMinute] = useNumeralTime(storeKeys.minute)
 
   const modalProps = useMemo<ModalProps>(
     () => ({
@@ -286,6 +280,7 @@ export const useDateTimePicker = ({ storeKeys, minimumDateProp, maximumDate, day
       footer: null,
       width: 405,
       closable: false,
+      destroyOnClose: true,
     }),
     [],
   )
@@ -304,31 +299,29 @@ export const useDateTimePicker = ({ storeKeys, minimumDateProp, maximumDate, day
     [],
   )
 
-  const updateTime = (time: Date) => {
-    setMinimumDate(time)
-    setYear(time.getFullYear())
-    setMonth(time.getMonth())
-    setDay(time.getDate() - 1)
-    setHour(time.getHours())
-    setMinute(time.getMinutes())
-  }
+  useEffect(() => {
+    setMinimumDate(minimumDateProp)
+    setYear(minimumDateProp.getFullYear())
+    setMonth(minimumDateProp.getMonth())
+    setDay(minimumDateProp.getDate() - 1)
+    setHour(minimumDateProp.getHours())
+    setMinute(minimumDateProp.getMinutes())
+  }, [])
 
-  const onMount = () => {
-    const time = moment(minimumDateProp)
-    updateTime(time.toDate())
+  useInterval(() => {
+    const chosenDate = moment(new Date(year, month, day + 1, hour, minute))
+    const oneMinLater = moment(chosenDate).add(1, 'minute').toDate()
 
-    const interval = window.setInterval(() => {
-      time.add(1, 'minute')
-      updateTime(time.toDate())
-    }, 5000)
-    // }, 1000 * 60)
-
-    return () => {
-      window.clearInterval(interval)
+    if (Dates.isSameMomentNoSeconds(chosenDate, moment(minimumDate))) {
+      setYear(oneMinLater.getFullYear())
+      setMonth(oneMinLater.getMonth())
+      setDay(oneMinLater.getDate() - 1)
+      setHour(oneMinLater.getHours())
+      setMinute(oneMinLater.getMinutes())
     }
-  }
 
-  useEffect(onMount, [])
+    setMinimumDate(moment(minimumDate).add(1, 'minute').toDate())
+  }, 1000 * 60)
   return { modalProps, layeredProps }
 }
 
@@ -536,7 +529,7 @@ export const useActions = ({ closeOnConfirm, onConfirm, storeKeys, closeOnEarlie
  *
  * functionalities for the distance component
  */
-export const useDistance = ({ storeKeys, triadRefs }: Lib.T.UseDistanceArgs) => {
+export const useDistance = ({ storeKeys, triadRefs, titleRefs }: Lib.T.UseDistanceArgs) => {
   const year = useNumeralTimeValue(storeKeys.year)
   const month = useNumeralTimeValue(storeKeys.month)
   const day = useNumeralTimeValue(storeKeys.day) + 1
@@ -545,6 +538,7 @@ export const useDistance = ({ storeKeys, triadRefs }: Lib.T.UseDistanceArgs) => 
 
   useTriadCountdown({
     triadRefs,
+    titleRefs,
     defaultValues: {
       year,
       month,

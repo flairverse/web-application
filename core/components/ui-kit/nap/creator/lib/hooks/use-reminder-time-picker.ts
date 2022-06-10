@@ -9,24 +9,7 @@ export const useReminderTimePicker = () => {
   function createTimePickerProps(): DateTimePickerProps {
     const now = new Date()
     const nextYear = new Date()
-    nextYear.setFullYear(now.getFullYear() + 2)
-    const minDate = moment().add('1', 'hour').toDate()
-
-    console.log(
-      {
-        // prettier-ignore
-        nextYear,
-        nextYearMonth: nextYear.getMonth(),
-        nextYearDay: nextYear.getDay(),
-        nextYearYear: nextYear.getFullYear(),
-      },
-      {
-        minDate,
-        minDateMonth: minDate.getMonth(),
-        minDateDay: minDate.getDate(),
-        minDateYear: minDate.getFullYear(),
-      },
-    )
+    nextYear.setFullYear(now.getFullYear() + 1)
 
     return {
       storeKeys: {
@@ -36,15 +19,14 @@ export const useReminderTimePicker = () => {
         day: 'PAGE__CREATE_NAP___TIME_PICKER_DAY',
         month: 'PAGE__CREATE_NAP___TIME_PICKER_MONTH',
         year: 'PAGE__CREATE_NAP___TIME_PICKER_YEAR',
-        activeLayer: Lib.CO.TIME_PICKER_ACTIVE_LAYER_STORE_KEY,
+        activeLayer: 'PAGE__CREATE_NAP___DATE_TIME_PICKER_ACTIVE_LAYER',
         minimumDate: 'PAGE__CREATE_NAO___DATE_TIME_PICKER_MINIMUM_DATE',
       },
       minimumDate: moment().add('1', 'hour').toDate(),
       maximumDate: nextYear,
       onConfirm: console.log,
-      dayEndIsMax: false,
+      dayEndIsMax: true,
       closeOnConfirm: true,
-      closeOnEarliest: false,
     }
   }
 

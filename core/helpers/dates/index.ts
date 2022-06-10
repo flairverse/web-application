@@ -100,6 +100,18 @@ export class Dates {
     return moment(date)
   }
 
+  static isSameMomentNoSeconds = (moment1: Moment, moment2: Moment) => {
+    const FORMAT = 'YYYY.MM.DD/hh.mm'
+    const date1 = moment1.format(FORMAT)
+    const date2 = moment2.format(FORMAT)
+    console.log({ date1, date2 })
+    return date1 === date2
+  }
+
+  static isSameDateNoSeconds = (date1: Date, date2: Date) => {
+    return Dates.isSameMomentNoSeconds(moment(date1), moment(date2))
+  }
+
   static momentToDate(moment: Moment): Date {
     return moment.toDate()
   }

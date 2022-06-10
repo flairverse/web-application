@@ -118,14 +118,32 @@ export const Days: FC<Lib.T.DaysProps> = ({ storeKeys, maximumDate, dayEndIsMax 
 }
 
 export const Distance: FC<Lib.T.DistanceProps> = ({ storeKeys }) => {
-  const firstInfoRef = useRef<HTMLSpanElement>(null)
-  const secondInfoRef = useRef<HTMLSpanElement>(null)
-  const thirdInfoRef = useRef<HTMLSpanElement>(null)
-  Lib.H.useDistance({ storeKeys, triadRefs: [firstInfoRef, secondInfoRef, thirdInfoRef] })
+  const info1Letter1Ref = useRef<HTMLSpanElement>(null)
+  const info1Letter2Ref = useRef<HTMLSpanElement>(null)
+  const info2Letter1Ref = useRef<HTMLSpanElement>(null)
+  const info2Letter2Ref = useRef<HTMLSpanElement>(null)
+  const info3Letter1Ref = useRef<HTMLSpanElement>(null)
+  const info3Letter2Ref = useRef<HTMLSpanElement>(null)
+  const title1Ref = useRef<HTMLSpanElement>(null)
+  const title2Ref = useRef<HTMLSpanElement>(null)
+  const title3Ref = useRef<HTMLSpanElement>(null)
+
+  Lib.H.useDistance({
+    storeKeys,
+    titleRefs: [title1Ref, title2Ref, title3Ref],
+    triadRefs: [
+      { firstLetter: info1Letter1Ref, secondLetter: info1Letter2Ref },
+      { firstLetter: info2Letter1Ref, secondLetter: info2Letter2Ref },
+      { firstLetter: info3Letter1Ref, secondLetter: info3Letter2Ref },
+    ],
+  })
 
   return (
     <Lib.S.Distance>
-      Ends in <span ref={firstInfoRef} />, <span ref={secondInfoRef} /> and <span ref={thirdInfoRef} />
+      Ends in <span ref={info1Letter1Ref} />
+      <span ref={info1Letter2Ref} /> <span ref={title1Ref} />, <span ref={info2Letter1Ref} />
+      <span ref={info2Letter2Ref} /> <span ref={title2Ref} /> and <span ref={info3Letter1Ref} />
+      <span ref={info3Letter2Ref} /> <span ref={title3Ref} />
     </Lib.S.Distance>
   )
 }

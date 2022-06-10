@@ -1,4 +1,4 @@
-import { TriadCountdownRefs } from '@/hooks/use-triad-countdown/lib/types'
+import { TriadCountdownRefs, TitleRefs } from '@/hooks/use-triad-countdown/lib/types'
 import { StoreKeys } from '@/types/recoil.type'
 
 export type TimeTarget = 'hour' | 'minute'
@@ -131,4 +131,5 @@ export interface UseActionsArgs extends Pick<Actions, 'onConfirm' | 'closeOnConf
 export interface DistanceProps extends Pick<DateTimePickerProps, 'storeKeys'> {}
 export interface UseDistanceArgs extends Pick<DistanceProps, 'storeKeys'> {
   triadRefs: TriadCountdownRefs
+  titleRefs: TitleRefs
 }
