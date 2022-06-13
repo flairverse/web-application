@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "node ./server",
+    "start": "node ./server",
     "build": "next build",
-    "start": "next start",
     "lint": "next lint",
     "browserslist": "npx browserslist",
     "prepare": "husky install",

@@ -1,6 +1,6 @@
 import { atom } from 'recoil'
-import * as storeTypes from '@/constants/store-types.constants'
 import { Options } from '@/components/ui-kit/nap/creator/lib/types'
+import * as storeTypes from '@/constants/store-keys.constants'
 
 export const showMoreOptions = atom<boolean>({
   key: storeTypes.PAGE__CREATE_NAP___SHOW_MORE_OPTIONS,
@@ -35,4 +35,9 @@ export const gifPopupVisibility = atom<boolean>({
 export const mentionPopupVisibility = atom<boolean>({
   key: storeTypes.PAGE__CREATE_NAP___MENTION_POPUP_VISIBILITY,
   default: false,
+})
+
+export const dateTimePickerActiveLayer = atom<number>({
+  key: storeTypes.PAGE__CREATE_NAP___DATE_TIME_PICKER_ACTIVE_LAYER,
+  default: 0,
 })

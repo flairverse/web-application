@@ -3,13 +3,13 @@ import { GoTextSize } from 'react-icons/go'
 import { IoAddCircleOutline, IoColorFilterOutline } from 'react-icons/io5'
 import { AiOutlineRotateRight } from 'react-icons/ai'
 import { useRecoilValue } from 'recoil'
-import { createNapAtoms } from '@/store/atoms'
+import { pageCreateNapAtoms } from '@/store/atoms'
 
 export const useToolsForTextInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
   const Inserters = Lib.H.useInserters(boardRef)
   const { getFocusedItem, changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({ boardRef })
-  const activeItemID = useRecoilValue(createNapAtoms.activeItemID)
-  const activeOption = useRecoilValue(createNapAtoms.activeOption)
+  const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
+  const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
   const fontSizeRange = [10, 50]
   const fontSizeStep = 10
 

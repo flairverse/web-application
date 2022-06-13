@@ -9,7 +9,7 @@ import { useTheme } from 'next-themes'
 import { I18n } from '@/helpers/language.helper'
 import { LANGUAGES, LANGUAGES_NAME } from '@/constants/languages.constants'
 import { useRecoilValue } from 'recoil'
-import { languageState } from '@/store/atoms'
+import { providerInternationalizationAtoms } from '@/store/atoms'
 import { useFont } from '@/hooks/use-font'
 
 /**
@@ -85,7 +85,7 @@ export const ThemeDevtool: FC = () => {
  * devtool for changing and testing several languages
  */
 export const LanguageDevtool: FC = () => {
-  const current = useRecoilValue(languageState)
+  const current = useRecoilValue(providerInternationalizationAtoms.language)
   return (
     <Devtool testId="languageDevtool" position={[10, 55]} Icon={MdOutlineLanguage} name="Language" current={LANGUAGES_NAME[LANGUAGES.indexOf(current)]}>
       {LANGUAGES_NAME.map((language, index) => (

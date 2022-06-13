@@ -5,14 +5,14 @@ import { FiBell, FiLink2 } from 'react-icons/fi'
 import { HiOutlineChatAlt2 } from 'react-icons/hi'
 import { AiOutlineGif, AiOutlineMessage } from 'react-icons/ai'
 import { GoMention } from 'react-icons/go'
-import { createNapAtoms } from '@/store/atoms'
+import { pageCreateNapAtoms } from '@/store/atoms'
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil'
 import { useEffect } from 'react'
 
 export const useItems = ({ onOptionsClick, boardRef }: Pick<Lib.T.ItemsProps, 'boardRef' | 'onOptionsClick'>) => {
-  const showMoreOptions = useRecoilValue(createNapAtoms.showMoreOptions)
-  const [activeOption, setActiveOptions] = useRecoilState(createNapAtoms.activeOption)
-  const setActiveItemID = useSetRecoilState(createNapAtoms.activeItemID)
+  const showMoreOptions = useRecoilValue(pageCreateNapAtoms.showMoreOptions)
+  const [activeOption, setActiveOptions] = useRecoilState(pageCreateNapAtoms.activeOption)
+  const setActiveItemID = useSetRecoilState(pageCreateNapAtoms.activeItemID)
   const Insert = Lib.H.useInserters(boardRef)
 
   useEffect(() => {

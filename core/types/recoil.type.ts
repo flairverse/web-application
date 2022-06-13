@@ -1,6 +1,3 @@
-import { RecoilState } from 'recoil'
-import * as storeTypes from '@/constants/store-types.constants'
-
-export type RecoilWithDynamicKey<T> = (key: StoreKeys, defaultValue?: T) => RecoilState<T>
+import * as storeTypes from '@/constants/store-keys.constants'
 
 export type StoreKeys = keyof typeof storeTypes

@@ -1,9 +1,10 @@
 import * as Lib from './lib'
-import { intervalToDuration, Duration } from 'date-fns'
+import { intervalToDuration, Duration, format as dateFNsFormat } from 'date-fns'
 import moment, { Moment } from 'moment'
+import { Str } from '../string'
 
 export class Dates {
-  static getMonth(month: Lib.T.Month, target: 'short' | 'long' | 'number' = 'short'): string | number {
+  static getMonth(month: Lib.T.Month, target: Lib.T.MonthTypes = 'short'): string | number {
     const currentMonthType = typeof month === 'string' ? 'string' : 'number'
     // prettier-ignore
     const currentMonthIndex = currentMonthType === 'number' 
@@ -25,15 +26,25 @@ export class Dates {
     }
   }
 
+  static getWeekDay(detail: Lib.T.DateDetailOrNow) {
+    const date = Dates.dateDetailToDate(detail)
+    return dateFNsFormat(date, 'EEE')
+  }
+
+  static getDaysInMonth(year: number, month: number): number {
+    return new Date(year, month, 0).getDate()
+  }
+
   static dateDetailToDate(detail: Lib.T.DateDetailOrNow): Date {
     const date = new Date()
     if (detail !== 'now') {
-      const { year, month, day, hour, minute } = detail
+      const { year, month, day, hour, minute, second } = detail
       date.setFullYear(year)
       date.setMonth(month)
       date.setDate(day)
       date.setHours(hour)
       date.setMinutes(minute)
+      date.setSeconds(second || 0)
       return date
     }
     return date
@@ -49,6 +60,32 @@ export class Dates {
     }
   }
 
+  static dateKeyToMilliseconds = (key: keyof Duration): number => {
+    switch (key) {
+      case 'years': {
+        return 3.154e10 // not always
+      }
+      case 'months': {
+        return 2.628e9 // not always
+      }
+      case 'weeks': {
+        return 6.048e8
+      }
+      case 'days': {
+        return 8.64e7
+      }
+      case 'hours': {
+        return 3.6e6
+      }
+      case 'minutes': {
+        return 60000
+      }
+      case 'seconds': {
+        return 1000
+      }
+    }
+  }
+
   static momentToDetail(moment: Moment): Lib.T.DateDetail {
     return {
       year: moment.year(),
@@ -61,6 +98,10 @@ export class Dates {
 
   static dateToMoment(date: Date): Moment {
     return moment(date)
+  }
+
+  static momentToDate(moment: Moment): Date {
+    return moment.toDate()
   }
 
   static dateDetailToMoment(detail: Lib.T.DateDetail): Moment {

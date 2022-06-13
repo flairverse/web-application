@@ -1,13 +1,13 @@
 import * as Lib from '../'
-import { createNapAtoms } from '@/store/atoms'
+import { pageCreateNapAtoms } from '@/store/atoms'
 import { useSetRecoilState } from 'recoil'
 import { RefObject } from 'react'
 
 export const useNapCreator = (boardRef: RefObject<HTMLDivElement | null>) => {
-  const setShowMoreOptions = useSetRecoilState(createNapAtoms.showMoreOptions)
-  const setActiveOption = useSetRecoilState(createNapAtoms.activeOption)
-  const setPostPopupVisibility = useSetRecoilState(createNapAtoms.postsPickUp)
-  const setMentionPopupVisibility = useSetRecoilState(createNapAtoms.mentionPickUp)
+  const setShowMoreOptions = useSetRecoilState(pageCreateNapAtoms.showMoreOptions)
+  const setActiveOption = useSetRecoilState(pageCreateNapAtoms.activeOption)
+  const setPostPopupVisibility = useSetRecoilState(pageCreateNapAtoms.postsPickUp)
+  const setMentionPopupVisibility = useSetRecoilState(pageCreateNapAtoms.mentionPickUp)
   Lib.H.useFramesScaling(boardRef)
 
   const optionsClick = (key: Lib.T.Options) => {

@@ -11,12 +11,15 @@ export type StringyMonth = ShortMonths | LongMonth
 
 export type Month = NumeralMonth | ShortMonths | LongMonth
 
+export type MonthTypes = 'short' | 'long' | 'number'
+
 export type DateDetail = {
   year: number
   month: number
   day: number
   hour: number
   minute: number
+  second?: number
 }
 
 export type DateDetailOrNow = DateDetail | 'now'

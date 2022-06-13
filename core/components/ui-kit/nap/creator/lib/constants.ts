@@ -1,5 +1,6 @@
 import { Num } from '@/helpers/number'
 import { Str } from '@/helpers/string'
+import { StoreKeys } from '@/types/recoil.type'
 import { Topic } from '@/types/topics'
 import * as Lib from '.'
 
@@ -10,6 +11,8 @@ export const BASE_BOARD_WIDTH = 1288
 export const BASE_BOARD_HEIGHT = 722.14
 
 export const MIN_BOARD_WIDTH = 768
+
+export const TIME_PICKER_ACTIVE_LAYER_STORE_KEY: StoreKeys = 'PAGE__CREATE_NAP___DATE_TIME_PICKER_ACTIVE_LAYER'
 
 export const FRAMES_DATA_ATTRS = {
   ROTATION: 'data-rotation',

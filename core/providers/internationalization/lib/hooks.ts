@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
-import { languageState } from '@/store/atoms'
+import { providerInternationalizationAtoms } from '@/store/atoms'
 import { I18n } from '@/helpers/language.helper'
 
 /**
@@ -9,7 +9,7 @@ import { I18n } from '@/helpers/language.helper'
  */
 export const useInternationalization = () => {
   const [mounted, setMounted] = useState<boolean>(false)
-  const [language, setLanguage] = useRecoilState(languageState)
+  const [language, setLanguage] = useRecoilState(providerInternationalizationAtoms.language)
 
   useEffect(() => {
     if (typeof window === 'object') {

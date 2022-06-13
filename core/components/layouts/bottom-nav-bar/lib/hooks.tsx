@@ -3,10 +3,10 @@ import { RiSearch2Fill, RiSearch2Line, RiUserSmileLine, RiUserSmileFill, RiHomeS
 import { BsChatSquareFill, BsChatSquare, BsPlusSquareFill, BsPlusSquare } from 'react-icons/bs'
 import { IconBaseProps } from 'react-icons'
 import { useRecoilValue } from 'recoil'
-import { navbarAtoms } from '@/store/atoms'
+import { layoutBottomNavbarAtoms } from '@/store/atoms'
 
 export const useBottomNavBar = () => {
-  const bottomNavBarActiveItem = useRecoilValue(navbarAtoms.bottomNavbarActiveItem)
+  const bottomNavBarActiveItem = useRecoilValue(layoutBottomNavbarAtoms.activeItem)
   const username = 'qafoori'
 
   const iconsProps: IconBaseProps = {

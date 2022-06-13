@@ -3,13 +3,13 @@ import { IoAddCircleOutline, IoColorFilterOutline } from 'react-icons/io5'
 import { AiOutlineRotateRight } from 'react-icons/ai'
 import { FaRegLightbulb } from 'react-icons/fa'
 import { useRecoilValue } from 'recoil'
-import { createNapAtoms } from '@/store/atoms'
+import { pageCreateNapAtoms } from '@/store/atoms'
 
 export const useToolsForQuizInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
   const Inserters = Lib.H.useInserters(boardRef)
   const { getFocusedItem, changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({ boardRef })
-  const activeItemID = useRecoilValue(createNapAtoms.activeItemID)
-  const activeOption = useRecoilValue(createNapAtoms.activeOption)
+  const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
+  const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
 
   const tools: Pick<Lib.T.ToolProps, 'Icon' | 'type' | 'title' | 'disabled'>[] = [
     { Icon: IoAddCircleOutline, type: 'add-quiz', title: 'Add new', disabled: false },

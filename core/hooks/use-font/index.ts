@@ -1,12 +1,12 @@
 import * as Lib from './lib'
 import { useRecoilState } from 'recoil'
-import { fontAtoms } from '@/store/atoms'
+import { hookFontAtoms } from '@/store/atoms'
 import { LocalStorage } from '@/helpers/localstorage.helper'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { SETTINGS } from '@/constants/settings.constant'
 
 export const useFont = () => {
-  const [font, setFont] = useRecoilState(fontAtoms.fontState)
+  const [font, setFont] = useRecoilState(hookFontAtoms.fontState)
 
   const changeRoot = (property: Lib.T.FontWeightVariant, value: string) => {
     document.documentElement.style.setProperty(`--ff-${property}`, `var(--f-${value}-${property})`)

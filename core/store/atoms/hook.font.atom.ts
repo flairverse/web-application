@@ -1,9 +1,9 @@
 import { atom } from 'recoil'
 import { Font } from '@/hooks/use-font/lib/types'
-import * as storeTypes from '@/constants/store-types.constants'
 import { SETTINGS } from '@/constants/settings.constant'
+import * as storeTypes from '@/constants/store-keys.constants'
 
 export const fontState = atom<Font>({
-  key: storeTypes.FONT,
+  key: storeTypes.HOOK__USER_FONT___FONT,
   default: SETTINGS.defaultFont,
 })

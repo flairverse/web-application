@@ -1,50 +1,30 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import * as Lib from './lib'
 import { useRecoilValue } from 'recoil'
-import { componentsAtoms } from '@/store/atoms'
-import { Button } from 'antd'
+import { componentTimePickerAtoms } from '@/store/atomFamilies'
+import { Layered } from '../layered'
 
-export const TimePicker: FC<Lib.T.TimePickerProps> = ({ visibilityStoreKey, minimumDate, maximumDate, valueStoreKey, onConfirm, closeOnConfirm = true }) => {
-  const [showContent, setShowContent] = useState<boolean>(false)
-  const { get, handleEarliestClick, closeModal } = Lib.H.useTimePicker({ visibilityStoreKey, minimumDate, valueStoreKey, setShowContent })
-  const visibility = useRecoilValue(componentsAtoms.timePickerPopupVisibility(visibilityStoreKey))
+export const DateTimePicker: FC<Lib.T.DateTimePickerProps> = ({
+  // prettier-ignore
+  storeKeys,
+  maximumDate,
+  onConfirm,
+  dayEndIsMax,
+  closeOnEarliest,
+  closeOnConfirm = true,
+  minimumDate: minimumDateProp,
+}) => {
+  const visibility = useRecoilValue(componentTimePickerAtoms.timePickerPopupVisibility(storeKeys.visibility))
+  const { modalProps, layeredProps } = Lib.H.useDateTimePicker({ storeKeys, minimumDateProp, maximumDate, dayEndIsMax })
 
   return (
-    <Lib.S.TimePickerContainer visible={visibility} {...get.modalProps}>
-      <div className="content">
-        {showContent && (
-          <div className="contentChild">
-            <Lib.C.DatePicker minimumDate={minimumDate} valueStoreKey={valueStoreKey} maximumDate={maximumDate} />
-
-            <span className="gap" />
-
-            <div className="actions">
-              <Button type="default" onClick={handleEarliestClick}>
-                Earliest
-              </Button>
-
-              <div>
-                <Button type="link" onClick={closeModal}>
-                  Discard
-                </Button>
-
-                {onConfirm && (
-                  <Lib.C.ConfirmButton
-                    // prettier-ignore
-                    onConfirm={onConfirm}
-                    closeOnConfirm={closeOnConfirm}
-                    minimumDate={minimumDate}
-                    valueStoreKey={valueStoreKey}
-                    closeModal={closeModal}
-                  />
-                )}
-              </div>
-            </div>
-
-            <Lib.C.Distance valueStoreKey={valueStoreKey} minimumDate={minimumDate} />
-          </div>
-        )}
-      </div>
-    </Lib.S.TimePickerContainer>
+    <Lib.S.DateTimePicker visible={visibility} {...modalProps}>
+      <Layered {...layeredProps}>
+        <Lib.C.TimePicker storeKeys={storeKeys} maximumDate={maximumDate} dayEndIsMax={dayEndIsMax} />
+        <Lib.C.DatePicker storeKeys={storeKeys} maximumDate={maximumDate} dayEndIsMax={dayEndIsMax} />
+        <Lib.C.Distance storeKeys={storeKeys} />
+        <Lib.C.Actions closeOnConfirm={closeOnConfirm} onConfirm={onConfirm} storeKeys={storeKeys} closeOnEarliest={closeOnEarliest} />
+      </Layered>
+    </Lib.S.DateTimePicker>
   )
 }

@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import * as Lib from '.'
 import { HiChevronRight } from 'react-icons/hi'
-import { createNapAtoms } from '@/store/atoms'
+import { pageCreateNapAtoms } from '@/store/atoms'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { FaPause, FaShare, FaEllipsisH } from 'react-icons/fa'
 import { MdOutlineClose } from 'react-icons/md'
@@ -10,10 +10,10 @@ import * as mock from 'mock'
 import { PickUp } from '@/components/ui-kit/pick-up'
 import { CardPick } from '@/components/ui-kit/card'
 import { NapProfile } from '../../profile'
-import { TimePicker } from '@/components/ui-kit/time-picker'
+import { DateTimePicker } from '@/components/ui-kit/time-picker'
 
 export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active, boardRef }) => {
-  const [activeOption, setActiveOption] = useRecoilState(createNapAtoms.activeOption)
+  const [activeOption, setActiveOption] = useRecoilState(pageCreateNapAtoms.activeOption)
 
   return (
     <Lib.S.ToolboxContainer active={active}>
@@ -47,8 +47,8 @@ export const ToolBoxNextBtn: FC<Lib.T.ToolBoxNextBtnProps> = ({ boardRef }) => {
 }
 
 export const Items: FC<Lib.T.ItemsProps> = ({ onOptionsClick, boardRef }) => {
-  const showMoreOptions = useRecoilValue(createNapAtoms.showMoreOptions)
-  const activeOption = useRecoilValue(createNapAtoms.activeOption)
+  const showMoreOptions = useRecoilValue(pageCreateNapAtoms.showMoreOptions)
+  const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
   const { get, on } = Lib.H.useItems({ onOptionsClick, boardRef })
 
   return (
@@ -115,7 +115,7 @@ export const GuidLines: FC = () => {
 
 export const PostsPickUp: FC<Lib.T.PostsPickUpProps> = ({ boardRef }) => {
   const { pickUpProps, onPostSelect } = Lib.H.usePostsPickUp({ boardRef })
-  const pickUp = useRecoilValue(createNapAtoms.postsPickUp)
+  const pickUp = useRecoilValue(pageCreateNapAtoms.postsPickUp)
 
   return (
     <PickUp {...pickUpProps} visibility={pickUp}>
@@ -128,7 +128,7 @@ export const PostsPickUp: FC<Lib.T.PostsPickUpProps> = ({ boardRef }) => {
 
 export const MentionPickUp: FC<Lib.T.MentionPickUpProps> = ({ boardRef }) => {
   const { pickUpProps, onUserSelect } = Lib.H.useMentionPickUp({ boardRef })
-  const pickUp = useRecoilValue(createNapAtoms.mentionPickUp)
+  const pickUp = useRecoilValue(pageCreateNapAtoms.mentionPickUp)
 
   return (
     <PickUp {...pickUpProps} visibility={pickUp}>
@@ -154,7 +154,7 @@ export const Mention: FC<Lib.T.MentionProps> = ({ id, username, profile, hasNap,
 export const ReminderTimePicker: FC = () => {
   const { get } = Lib.H.useReminderTimePicker()
 
-  return <TimePicker {...get.timePickerProps} />
+  return <DateTimePicker {...get.timePickerProps} />
 }
 
 export const Tool: FC<Lib.T.ToolProps> = ({ disabled, Icon, type, onClick, title, index }) => {

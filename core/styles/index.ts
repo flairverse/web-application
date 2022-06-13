@@ -152,6 +152,11 @@ export const GlobalStyles = createGlobalStyle`
       &:hover {
         background-color: var(--layer-2-hover);
       }
+
+      &[disabled] {
+        opacity: .5;
+        pointer-events: none;
+      }
     }
   }
 

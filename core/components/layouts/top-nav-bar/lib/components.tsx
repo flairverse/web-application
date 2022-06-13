@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Input, Button, Spin } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 import { useRecoilState, useSetRecoilState } from 'recoil'
-import { navbarAtoms } from '@/store/atoms'
+import { layoutTopNavbarAtoms } from '@/store/atoms'
 import { MdAddCircleOutline, MdQueryBuilder } from 'react-icons/md'
 import { BsSlashSquare } from 'react-icons/bs'
 import { FaTimes } from 'react-icons/fa'
@@ -54,8 +54,8 @@ export const Profile: FC<Lib.T.ProfileProps> = ({ username }) => {
  */
 export const SearchInput: FC = () => {
   Lib.H.useNavbarSearchBox()
-  const setSearchQuery = useSetRecoilState(navbarAtoms.searchQuery)
-  const [searchBarFocused, setSearchBarFocused] = useRecoilState(navbarAtoms.searchBoxFocused)
+  const setSearchQuery = useSetRecoilState(layoutTopNavbarAtoms.searchQuery)
+  const [searchBarFocused, setSearchBarFocused] = useRecoilState(layoutTopNavbarAtoms.searchBoxFocused)
   const spinner = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
   return (

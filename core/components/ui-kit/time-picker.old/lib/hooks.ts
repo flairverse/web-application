@@ -1,7 +1,7 @@
 import * as Lib from '.'
 import { ModalProps } from 'antd'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { componentsAtoms } from '@/store/atoms'
+import { componentTimePickerAtoms } from '@/store/atomFamilies'
 import type { RangePickerProps } from 'antd/es/date-picker'
 import moment, { Moment } from 'moment'
 import { Dates } from '@/helpers/dates'
@@ -57,9 +57,9 @@ export const useFindLatest = () => {
  * functionalities for the timepicker component
  */
 export const useTimePicker = ({ visibilityStoreKey, minimumDate, valueStoreKey, setShowContent }: Lib.T.UseTimePickerArgs) => {
-  const [visibility, setVisibility] = useRecoilState(componentsAtoms.timePickerPopupVisibility(visibilityStoreKey))
+  const [visibility, setVisibility] = useRecoilState(componentTimePickerAtoms.timePickerPopupVisibility(visibilityStoreKey))
   const findEarliest = Lib.H.useFindEarliest()
-  const setTimePickerValue = useSetRecoilState(componentsAtoms.timePickerValue(valueStoreKey))
+  const setTimePickerValue = useSetRecoilState(componentTimePickerAtoms.timePickerValue(valueStoreKey))
 
   const modalProps = useMemo<ModalProps>(
     () => ({
@@ -99,13 +99,29 @@ export const useTimePicker = ({ visibilityStoreKey, minimumDate, valueStoreKey, 
  *
  *
  *
+ * removal
+ */
+const customDate = (year: number, month: number, day: number, hour: number, minute: number): Date => {
+  const date = new Date()
+  date.setFullYear(year)
+  date.setMonth(month)
+  date.setDate(day)
+  date.setHours(hour)
+  date.setMinutes(minute)
+  return date
+}
+
+/**
+ *
+ *
+ *
  *
  * functionalities for the datepicker component
  */
 export const useDatePicker = ({ minimumDate, valueStoreKey, maximumDate }: Lib.T.UseDatePickerArgs) => {
   const minDate = useMemo<DateDetail>(() => Dates.dateToDetail(minimumDate), [minimumDate])
   const maxDate = useMemo<DateDetail>(() => Dates.dateToDetail(maximumDate), [maximumDate])
-  const [timePickerValue, setTimePickerValue] = useRecoilState(componentsAtoms.timePickerValue(valueStoreKey, Dates.dateToDetail(minimumDate)))
+  const [timePickerValue, setTimePickerValue] = useRecoilState(componentTimePickerAtoms.timePickerValue(valueStoreKey, Dates.dateToDetail(minimumDate)))
   const findEarliest = useFindEarliest()
   const findLatest = useFindLatest()
 
@@ -119,8 +135,8 @@ export const useDatePicker = ({ minimumDate, valueStoreKey, maximumDate }: Lib.T
     const isCurrentYearAndMonth = year === minDate.year && month === minDate.month
 
     return {
-      disabledHours: () => (day === minDate.day && isCurrentYearAndMonth ? Num.createSimpleRange([0, minDate.hour]) : []),
-      disabledMinutes: () => (hour === minDate.hour && isCurrentYearAndMonth ? Num.createSimpleRange([0, minDate.minute]) : []),
+      disabledHours: () => (day === minDate.day && isCurrentYearAndMonth ? Num.range([0, minDate.hour]) : []),
+      disabledMinutes: () => (hour === minDate.hour && isCurrentYearAndMonth ? Num.range([0, minDate.minute]) : []),
     }
   }
 
@@ -129,6 +145,7 @@ export const useDatePicker = ({ minimumDate, valueStoreKey, maximumDate }: Lib.T
     const { hour, minute } = selected
 
     if (selected.year === minDate.year && selected.month === minDate.month && selected.day === minDate.day) {
+      console.log('min date selected')
       const earliest = findEarliest({ minimumDate, hour, minute })
       setTimeout(() => setTimePickerValue(Dates.dateToDetail(earliest)), 0)
     } else if (selected.year === maxDate.year && selected.month === maxDate.month && selected.day === maxDate.day) {
@@ -157,7 +174,7 @@ export const useDatePicker = ({ minimumDate, valueStoreKey, maximumDate }: Lib.T
  * functionalities for the distance component
  */
 export const useDistance = ({ valueStoreKey, minimumDate }: Lib.T.UseDistanceArgs) => {
-  const timePickerValue = useRecoilValue(componentsAtoms.timePickerValue(valueStoreKey, Dates.dateToDetail(minimumDate)))
+  const timePickerValue = useRecoilValue(componentTimePickerAtoms.timePickerValue(valueStoreKey, Dates.dateToDetail(minimumDate)))
 
   const triadDistanceIntl: TriadDistanceI18n = {
     years: 'years',
@@ -191,7 +208,7 @@ export const useDistance = ({ valueStoreKey, minimumDate }: Lib.T.UseDistanceArg
  * functionalities for the confirm button component
  */
 export const useConfirmButton = ({ onConfirm, minimumDate, valueStoreKey, closeOnConfirm, closeModal }: Lib.T.UseConfirmButton) => {
-  const timePickerValue = useRecoilValue(componentsAtoms.timePickerValue(valueStoreKey, Dates.dateToDetail(minimumDate)))
+  const timePickerValue = useRecoilValue(componentTimePickerAtoms.timePickerValue(valueStoreKey, Dates.dateToDetail(minimumDate)))
 
   const confirm = () => {
     onConfirm?.(Dates.dateDetailToDate(timePickerValue))

@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 import { useSetRecoilState } from 'recoil'
-import { createNapAtoms } from '@/store/atoms'
+import { pageCreateNapAtoms } from '@/store/atoms'
 import * as Lib from '.'
 
 export const useAcceleratorsProvider = () => {
-  const setPostsPickUpInCreateNapPage = useSetRecoilState(createNapAtoms.postsPickUp)
-  const setMentionPickUpInCreateNapPage = useSetRecoilState(createNapAtoms.mentionPickUp)
-  const setActiveOptionInCreateNapPage = useSetRecoilState(createNapAtoms.activeOption)
+  const setPostsPickUpInCreateNapPage = useSetRecoilState(pageCreateNapAtoms.postsPickUp)
+  const setMentionPickUpInCreateNapPage = useSetRecoilState(pageCreateNapAtoms.mentionPickUp)
+  const setActiveOptionInCreateNapPage = useSetRecoilState(pageCreateNapAtoms.activeOption)
 
   /**
    *
@@ -66,10 +66,10 @@ export const useAcceleratorsProvider = () => {
    *
    * switch the pressed key and execute the associated listener
    */
-  const checkThePressedKey = (code: string, foundedElements: Lib.T.FoundedElements) => {
+  const checkThePressedKey = (evt: KeyboardEvent, foundedElements: Lib.T.FoundedElements) => {
     const { navbarSearchBox } = foundedElements
 
-    switch (code) {
+    switch (evt.code) {
       case 'Slash': {
         focusNavbarSearchBox(navbarSearchBox)
         break
@@ -102,7 +102,7 @@ export const useAcceleratorsProvider = () => {
       navbarSearchBox: <Lib.T.Input>document.querySelector('.navbarSearchBox > input'),
     }
 
-    addEventListener('keydown', ({ code }) => checkThePressedKey(code, foundedElements))
+    addEventListener('keydown', evt => checkThePressedKey(evt, foundedElements))
   }
 
   useEffect(onMount, [])

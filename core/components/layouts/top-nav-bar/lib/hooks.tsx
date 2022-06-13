@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil'
-import { navbarAtoms } from '@/store/atoms'
+import { layoutTopNavbarAtoms } from '@/store/atoms'
 import { MenuItem } from '@/components/ui-kit/menu/lib/types'
 import * as Lib from '.'
 
@@ -21,7 +21,7 @@ export const useNavbarLayout = () => {
 }
 
 export const useNavbarSearchBox = () => {
-  const searchQuery = useRecoilValue(navbarAtoms.searchQuery)
+  const searchQuery = useRecoilValue(layoutTopNavbarAtoms.searchQuery)
 }
 
 export const useProfile = ({ username }: Pick<Lib.T.ProfileProps, 'username'>) => {

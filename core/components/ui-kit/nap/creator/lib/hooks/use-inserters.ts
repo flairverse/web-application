@@ -1,12 +1,12 @@
 import * as Lib from '../'
 import { RefObject } from 'react'
 import { useSetRecoilState } from 'recoil'
-import { createNapAtoms } from '@/store/atoms'
+import { pageCreateNapAtoms } from '@/store/atoms'
 import { Str } from '@/helpers/string'
 
 export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
   const { compileDown } = Lib.H.useBoardCompileDown('mainBoard')
-  const setShowMoreOptions = useSetRecoilState(createNapAtoms.showMoreOptions)
+  const setShowMoreOptions = useSetRecoilState(pageCreateNapAtoms.showMoreOptions)
 
   return class Insert {
     board: HTMLDivElement | null = null

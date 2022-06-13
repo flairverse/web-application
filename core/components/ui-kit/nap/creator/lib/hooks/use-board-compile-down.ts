@@ -2,12 +2,13 @@ import * as Lib from '..'
 import { DOM } from '@/helpers/DOM'
 import { MakeElementDraggableSensitive } from '@/helpers/DOM/lib/types'
 import { useSetRecoilState } from 'recoil'
-import { createNapAtoms, componentsAtoms } from '@/store/atoms'
+import { pageCreateNapAtoms } from '@/store/atoms'
+import { componentTimePickerAtoms } from '@/store/atomFamilies'
 
 export const useBoardCompileDown = (boardId: string) => {
-  const setActiveOption = useSetRecoilState(createNapAtoms.activeOption)
-  const setActiveItemID = useSetRecoilState(createNapAtoms.activeItemID)
-  const setTimePickerVisibility = useSetRecoilState(componentsAtoms.timePickerPopupVisibility('PAGE__CREATE_NAP___TIME_PICKER_POPUP'))
+  const setActiveOption = useSetRecoilState(pageCreateNapAtoms.activeOption)
+  const setActiveItemID = useSetRecoilState(pageCreateNapAtoms.activeItemID)
+  const setTimePickerVisibility = useSetRecoilState(componentTimePickerAtoms.timePickerPopupVisibility('PAGE__CREATE_NAP___TIME_PICKER_POPUP'))
 
   // const areaSensitive: MakeElementDraggableSensitive = {
   //   target: `#${boardId}`,

@@ -1,14 +1,14 @@
 import * as Lib from '..'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
-import { createNapAtoms } from '@/store/atoms'
+import { pageCreateNapAtoms } from '@/store/atoms'
 import { AiOutlineRotateRight } from 'react-icons/ai'
 import { MdOutlineStyle } from 'react-icons/md'
 import { IoAddCircleOutline } from 'react-icons/io5'
 
 export const useToolsForPostInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
-  const activeOption = useRecoilValue(createNapAtoms.activeOption)
-  const activeItemID = useRecoilValue(createNapAtoms.activeItemID)
-  const setPickUp = useSetRecoilState(createNapAtoms.postsPickUp)
+  const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
+  const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
+  const setPickUp = useSetRecoilState(pageCreateNapAtoms.postsPickUp)
   const { changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({ boardRef })
 
   const tools: Pick<Lib.T.ToolProps, 'Icon' | 'type' | 'title' | 'disabled'>[] = [

@@ -1,9 +1,9 @@
-import { createNapAtoms } from '@/store/atoms'
+import { pageCreateNapAtoms } from '@/store/atoms'
 import { useRecoilValue } from 'recoil'
 import * as Lib from '../'
 
 export const useToolsForAllInserters = ({ boardRef }: Pick<Lib.T.ToolsForInserters, 'boardRef'>) => {
-  const activeItemID = useRecoilValue(createNapAtoms.activeItemID)
+  const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
 
   /**
    *

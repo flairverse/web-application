@@ -56,4 +56,8 @@ export class Str {
 
     return string.substring(0, length - 3).concat('...')
   }
+
+  static toTitleCase = (string: string): string => {
+    return string.toLowerCase().replace(/(^|\s)\S/g, L => L.toUpperCase())
+  }
 }

@@ -1,32 +1,134 @@
+import { TriadCountdownRefs } from '@/hooks/use-triad-countdown/lib/types'
 import { StoreKeys } from '@/types/recoil.type'
-import { Dispatch } from 'react'
 
-export interface TimePickerProps {
-  visibilityStoreKey: StoreKeys
-  valueStoreKey: StoreKeys
+export type TimeTarget = 'hour' | 'minute'
+export type TimeAction = 'increase' | 'decrease'
+export type DateTarget = 'year' | 'month' | 'day'
+
+/**
+ *
+ *
+ * DateTimePicker
+ */
+export interface DateTimePickerProps {
+  storeKeys: {
+    visibility: StoreKeys
+    minute: StoreKeys
+    hour: StoreKeys
+    day: StoreKeys
+    month: StoreKeys
+    year: StoreKeys
+    activeLayer: StoreKeys
+    minimumDate: StoreKeys
+  }
   minimumDate: Date
   maximumDate: Date
   onConfirm?: (confirmedValue: Date) => void
   closeOnConfirm?: boolean
+  dayEndIsMax?: boolean
+  closeOnEarliest?: boolean
 }
-export interface UseTimePickerArgs extends Pick<TimePickerProps, 'visibilityStoreKey' | 'minimumDate' | 'valueStoreKey'> {
-  setShowContent: Dispatch<boolean>
+export interface UseDateTimePickerArgs extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {
+  minimumDateProp: Date
 }
 
-export interface DatePickerProps extends Pick<TimePickerProps, 'valueStoreKey' | 'minimumDate' | 'maximumDate'> {}
-export interface UseDatePickerArgs extends Pick<DatePickerProps, 'minimumDate' | 'valueStoreKey' | 'maximumDate'> {}
+/**
+ *
+ *
+ * TimePicker
+ */
+export interface TimePickerProps extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
 
-export interface DistanceProps extends Pick<TimePickerProps, 'valueStoreKey' | 'minimumDate'> {}
-export interface UseDistanceArgs extends Pick<DistanceProps, 'valueStoreKey' | 'minimumDate'> {}
-
-export interface ConfirmButtonProps extends Pick<TimePickerProps, 'onConfirm' | 'valueStoreKey' | 'minimumDate' | 'closeOnConfirm'> {
-  closeModal: () => void
+/**
+ *
+ *
+ * TimePickerInput
+ */
+export interface TimePickerInputProps extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {
+  target: TimeTarget
 }
-export interface UseConfirmButton extends Pick<ConfirmButtonProps, 'onConfirm' | 'valueStoreKey' | 'minimumDate' | 'closeOnConfirm' | 'closeModal'> {}
+export interface UseTimePickerInput extends Pick<TimePickerInputProps, 'storeKeys' | 'target' | 'maximumDate' | 'dayEndIsMax'> {}
 
-export interface FindersArgs {
-  hour?: number
-  minute?: number
+/**
+ *
+ *
+ * TimePickerButton
+ */
+export interface TimePickerButtonProps extends Pick<TimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {
+  target: TimeTarget
+  action: TimeAction
 }
-export interface FindEarliestArgs extends FindersArgs, Pick<TimePickerProps, 'minimumDate'> {}
-export interface FindLatestArgs extends FindersArgs, Pick<TimePickerProps, 'maximumDate'> {}
+export interface UseTimePickerButtonArgs extends Pick<TimePickerButtonProps, 'target' | 'action' | 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
+
+/**
+ *
+ *
+ * UseTimeValues
+ */
+export interface UseCalculateTimeValueArgs extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
+export interface UseMinimumValues extends Pick<DateTimePickerProps, 'storeKeys'> {}
+export interface UseMaximumValues extends Pick<DateTimePickerProps, 'maximumDate' | 'dayEndIsMax'> {}
+export interface UseFixWrongChosenDate extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
+export interface UseDisabledDays extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
+export interface UseDisabledMonths extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
+
+/**
+ *
+ *
+ * DatePicker
+ */
+export interface DatePickerProps extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
+
+/**
+ *
+ *
+ * DatePickerItem
+ */
+export interface DatePickerItemProps extends Pick<DatePickerProps, 'storeKeys' | 'maximumDate'> {
+  target: DateTarget
+}
+export interface UseDatePickerItemsArgs extends Pick<DatePickerItemProps, 'target' | 'storeKeys'> {}
+
+/**
+ *
+ *
+ * Year
+ */
+export interface YearsProps extends Pick<DatePickerProps, 'storeKeys' | 'maximumDate'> {}
+export interface UseYearsArgs extends Pick<YearsProps, 'storeKeys' | 'maximumDate'> {}
+
+/**
+ *
+ *
+ * Months
+ */
+export interface MonthsProps extends Pick<DatePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
+export interface UseMonthsArgs extends Pick<MonthsProps, 'storeKeys'> {}
+
+/**
+ *
+ *
+ * Days
+ */
+export interface DaysProps extends Pick<DatePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
+export interface UseDaysArgs extends Pick<DaysProps, 'storeKeys'> {}
+
+/**
+ *
+ *
+ *
+ * Actions
+ */
+export interface Actions extends Pick<DateTimePickerProps, 'onConfirm' | 'closeOnConfirm' | 'storeKeys' | 'closeOnEarliest'> {}
+export interface UseActionsArgs extends Pick<Actions, 'onConfirm' | 'closeOnConfirm' | 'storeKeys' | 'closeOnEarliest'> {}
+
+/**
+ *
+ *
+ *
+ * Distance
+ */
+export interface DistanceProps extends Pick<DateTimePickerProps, 'storeKeys'> {}
+export interface UseDistanceArgs extends Pick<DistanceProps, 'storeKeys'> {
+  triadRefs: TriadCountdownRefs
+}
