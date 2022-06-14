@@ -1,4 +1,4 @@
-export * as C from './components'
-export * as HE from './helpers'
-export * as S from './styles'
-export * as T from './types'
+export * as C from './menu.components'
+export * as HE from './menu.helpers'
+export * as S from './menu.styles'
+export * as T from './menu.types'

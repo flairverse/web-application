@@ -1,7 +1,7 @@
-import { CardProps } from '@/components/ui-kit/card/main/lib/types'
-import { CardPickProps } from '@/components/ui-kit/card/pick/lib/types'
-import { MentionProps, PostCardProps } from '@/components/ui-kit/nap/creator/lib/types'
-import { SuggestionFlair, SuggestionItem } from '@/components/ui-kit/suggestion-box/lib/types'
+import { CardProps } from '@/components/ui-kit/card/main/lib/card-main.types'
+import { CardPickProps } from '@/components/ui-kit/card/pick/lib/card-pick.types'
+import { MentionProps, PostCardProps } from '@/components/ui-kit/nap/creator/lib/nap-creator.types'
+import { SuggestionFlair, SuggestionItem } from '@/components/ui-kit/suggestion-box/lib/suggestion-box.types'
 
 export const blog1: CardProps = {
   post: {

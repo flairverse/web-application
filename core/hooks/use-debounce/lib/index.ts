@@ -1,1 +1,1 @@
-export * as T from './types'
+export * as T from './use-debounce.types'

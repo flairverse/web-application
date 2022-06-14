@@ -1,2 +1,2 @@
-export * as H from './hooks'
-export * as T from './type'
+export * as H from './accelerator.hooks'
+export * as T from './accelerator.type'

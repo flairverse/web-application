@@ -1,2 +1,2 @@
-export * as CO from './constants'
-export * as T from './types'
+export * as CO from './number.constants'
+export * as T from './number.types'

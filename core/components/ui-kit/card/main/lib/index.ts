@@ -1,3 +1,3 @@
-export * as H from './hooks'
-export * as S from './styles'
-export * as T from './types'
+export * as H from './card-main.hooks'
+export * as S from './card-main.styles'
+export * as T from './card-main.types'

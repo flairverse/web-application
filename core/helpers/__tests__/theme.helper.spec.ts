@@ -7,7 +7,7 @@ import _darkHighContrast from 'public/themes/dark-high-contrast.json'
 import _darkOcean from 'public/themes/dark-ocean.json'
 import _lightDefault from 'public/themes/light-default.json'
 import { Theme } from '../theme'
-import { themes } from '../theme/lib/constants'
+import { themes } from '../theme/lib/theme.constants'
 
 describe('Testing [helpers] => theme', () => {
   /**

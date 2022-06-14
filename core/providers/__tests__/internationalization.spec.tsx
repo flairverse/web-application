@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 import { RecoilRoot } from 'recoil'
 import { InternationalizationProvider } from '../internationalization'
-import { useInternationalization } from '../internationalization/lib/hooks'
+import { useInternationalization } from '../internationalization/lib/internationalization.hooks'
 
 describe('Testing [providers] => internationalization', () => {
   it("should store user's current language in it's atom", () => {

@@ -1,4 +1,4 @@
-export * as C from './components'
-export * as H from './hooks'
-export * as S from './styles'
-export * as T from './types'
+export * as C from './index.components'
+export * as H from './index.hooks'
+export * as S from './index.styles'
+export * as T from './index.types'

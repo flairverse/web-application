@@ -1,1 +1,1 @@
-export * as H from './hooks'
+export * as H from './create-new-post.hooks'

@@ -1,4 +1,4 @@
-import { Options } from '@/components/ui-kit/nap/creator/lib/types'
+import { Options } from '@/components/ui-kit/nap/creator/lib/nap-creator.types'
 import * as storeTypes from '@/constants/store-keys.constants'
 import { atom } from 'recoil'
 

@@ -1,2 +1,2 @@
-export * as HE from './helpers'
-export * as T from './types'
+export * as HE from './app-icons.helpers'
+export * as T from './app-icons.types'

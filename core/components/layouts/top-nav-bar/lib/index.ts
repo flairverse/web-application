@@ -1,4 +1,4 @@
-export * as C from './components'
-export * as H from './hooks'
-export * as S from './styles'
-export * as T from './types'
+export * as C from './top-nav-bar.components'
+export * as H from './top-nav-bar.hooks'
+export * as S from './top-nav-bar.styles'
+export * as T from './top-nav-bar.types'
