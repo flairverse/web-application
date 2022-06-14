@@ -1,5 +1,5 @@
-import { DateDetail } from '@/helpers/dates/lib/dates.types'
-import { TitleRefs, TriadCountdownRefs } from '@/helpers/DOM/lib/DOM.types'
+import { DatesHelperLib } from '@/helpers/dates'
+import { DOMHelperLib } from '@/helpers/DOM'
 import { Range } from '@/types/enumerable'
 import { Topic } from '@/types/topics'
 import { RefObject } from 'react'
@@ -145,8 +145,8 @@ export namespace Elements {
     // day: number
     // hour: number
     // minute: number
-    minimumDate: Omit<DateDetail, 'seconds'>
-    maximumDate: Omit<DateDetail, 'seconds'>
+    minimumDate: Omit<DatesHelperLib.T.DateDetail, 'seconds'>
+    maximumDate: Omit<DatesHelperLib.T.DateDetail, 'seconds'>
   }
 
   export interface Image extends BaseElement {}
@@ -206,8 +206,8 @@ export type ItemsDOMStringComponents = {
 }
 
 export type ReminderNodesClassNames = {
-  counters: TriadCountdownRefs
-  titles: TitleRefs
+  counters: DOMHelperLib.T.TriadCountdownRefs
+  titles: DOMHelperLib.T.TitleRefs
 }
 export type ReminderStringNodeArgs = {
   classNames: ReminderNodesClassNames

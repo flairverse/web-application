@@ -1,4 +1,4 @@
-import { DateDetail } from '@/helpers/dates/lib/dates.types'
+import { DatesHelperLib } from '@/helpers/dates'
 import { RefObject } from 'react'
 
 export type Ref = RefObject<HTMLElement> | string // aliased
@@ -13,7 +13,7 @@ export type TriadCountdownRefs = [TriadCountdownRef, TriadCountdownRef, TriadCou
 export type TitleRefs = [Ref, Ref, Ref]
 
 export interface UseTriadCountdownArgs {
-  defaultValues: DateDetail
+  defaultValues: DatesHelperLib.T.DateDetail
   triadRefs: TriadCountdownRefs
   titleRefs: TitleRefs
   containerRef: Ref

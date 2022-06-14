@@ -1,4 +1,4 @@
-import { LONG_MONTHS } from '@/helpers/dates/lib/dates.constants'
+import { DatesHelperLib } from '@/helpers/dates'
 import { Str } from '@/helpers/string'
 import { Button } from 'antd'
 import { FC, Fragment } from 'react'
@@ -93,7 +93,7 @@ export const Months: FC<Lib.T.MonthsProps> = ({ storeKeys, maximumDate, dayEndIs
 
   return (
     <Lib.S.MonthsAndDays className="month">
-      {LONG_MONTHS.map((month, index) => (
+      {DatesHelperLib.CO.LONG_MONTHS.map((month, index) => (
         <Button key={index} type={index === selectedMonth ? 'primary' : 'default'} onClick={() => changeMonth(index)} disabled={isMonthDisabled(index)}>
           {month}
         </Button>

@@ -1,5 +1,5 @@
-import type { Font } from '@/hooks/use-font/lib/use-font.types'
+import type { UseFontHookLib } from '@/hooks/use-font'
 
 export const SETTINGS = {
-  defaultFont: <Font>'open-sans', // change CSS roots in "source/styles/_variables.scss" if you change this value
+  defaultFont: <UseFontHookLib.T.Font>'open-sans', // change CSS roots in "source/styles/_variables.scss" if you change this value
 }

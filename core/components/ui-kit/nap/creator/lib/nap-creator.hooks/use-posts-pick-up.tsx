@@ -1,4 +1,4 @@
-import { PickUpProps } from '@/components/ui-kit/pick-up/lib/pick-up.types'
+import { PickUpUIKitLib } from '@/components/ui-kit/pick-up'
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { useRef } from 'react'
 import { useSetRecoilState } from 'recoil'
@@ -24,7 +24,7 @@ export const usePostsPickUp = ({ boardRef }: Pick<Lib.T.PostsPickUpProps, 'board
     setPickUp(false)
   }
 
-  const { current: pickUpProps } = useRef<Omit<PickUpProps, 'visibility'>>({
+  const { current: pickUpProps } = useRef<Omit<PickUpUIKitLib.T.PickUpProps, 'visibility'>>({
     cancelButton: true,
     onClose: handlePickUpClose,
     searchBox: {

@@ -1,4 +1,4 @@
-import { Options } from '@/components/ui-kit/nap/creator/lib/nap-creator.types'
+import { NapCreatorUIKitLib } from '@/components/ui-kit/nap'
 import * as storeTypes from '@/constants/store-keys.constants'
 import { atom } from 'recoil'
 
@@ -7,7 +7,7 @@ export const showMoreOptions = atom<boolean>({
   default: false,
 })
 
-export const activeOption = atom<Options | 'none'>({
+export const activeOption = atom<NapCreatorUIKitLib.T.Options | 'none'>({
   key: storeTypes.PAGE__CREATE_NAP___ACTIVE_OPTION,
   default: 'none',
 })

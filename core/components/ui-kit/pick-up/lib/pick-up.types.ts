@@ -1,6 +1,6 @@
 import { StoreKeys } from '@/types/recoil.type'
 import { HTMLAttributes, ReactNode } from 'react'
-import { BackDropProps } from '../../back-drop/lib/back-drop.types'
+import { BackDropUIKitLib } from '../../back-drop'
 
 export interface PickUpProps extends HTMLAttributes<HTMLDivElement> {
   visibility: boolean
@@ -8,7 +8,7 @@ export interface PickUpProps extends HTMLAttributes<HTMLDivElement> {
   boxWidth?: string
   boxHeight?: string
   placeholder?: string
-  backdrop?: Omit<BackDropProps, 'visibility'>
+  backdrop?: Omit<BackDropUIKitLib.T.BackDropProps, 'visibility'>
   cancelButton?: boolean
   searchBox: {
     storeKey: StoreKeys

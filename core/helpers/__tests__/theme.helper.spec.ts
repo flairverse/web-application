@@ -6,8 +6,7 @@ import _darkDefault from 'public/themes/dark-default.json'
 import _darkHighContrast from 'public/themes/dark-high-contrast.json'
 import _darkOcean from 'public/themes/dark-ocean.json'
 import _lightDefault from 'public/themes/light-default.json'
-import { Theme } from '../theme'
-import { themes } from '../theme/lib/theme.constants'
+import { Theme, ThemeHelperLib } from '../theme'
 
 describe('Testing [helpers] => theme', () => {
   /**
@@ -28,7 +27,7 @@ describe('Testing [helpers] => theme', () => {
 
   it('should give a css root containing `color-scheme` keyword', () => {
     const theme = new Theme()
-    const CSSRoot = theme.makeCSSRoot(themes.dark)
+    const CSSRoot = theme.makeCSSRoot(ThemeHelperLib.CO.themes.dark)
     expect(CSSRoot).toContain('color-scheme')
   })
 

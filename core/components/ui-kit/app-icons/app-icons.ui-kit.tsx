@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import * as Lib from './lib/index'
+import * as Lib from './lib'
 
 export const Blog: FC = () => (
   <svg viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">

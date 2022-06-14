@@ -1,6 +1,6 @@
 import { LANGUAGES, LANGUAGES_NAME } from '@/constants/languages.constants'
 import { I18n } from '@/helpers/language'
-import { themeNames } from '@/helpers/theme/lib/theme.constants'
+import { ThemeHelperLib } from '@/helpers/theme'
 import { useFont } from '@/hooks/use-font'
 import { providerInternationalizationAtoms } from '@/store/atoms'
 import { Button } from 'antd'
@@ -65,7 +65,7 @@ export const ThemeDevtool: FC = () => {
   const { theme, setTheme } = useTheme()
   return (
     <Devtool testId="themeDevtool" position={[55, 10]} Icon={FaBrush} name="Theme" current={theme}>
-      {themeNames.map((theme, index) => (
+      {ThemeHelperLib.CO.themeNames.map((theme, index) => (
         <Button type="primary" key={index} onClick={() => setTheme(theme)}>
           {theme}
         </Button>

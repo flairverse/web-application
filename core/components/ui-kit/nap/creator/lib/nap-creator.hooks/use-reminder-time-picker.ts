@@ -1,4 +1,4 @@
-import { DateTimePickerProps } from '@/components/ui-kit/time-picker/lib/time-picker.types'
+import { TimePickerUIKitLib } from '@/components/ui-kit/time-picker'
 import { componentTimePickerAtoms } from '@/store/atomFamilies'
 import { RefObject, useMemo } from 'react'
 import { useRecoilValue } from 'recoil'
@@ -21,7 +21,7 @@ export const useReminderTimePicker = (boardRef: RefObject<HTMLDivElement>) => {
     })
   }
 
-  const createTimePickerProps = (): DateTimePickerProps => {
+  const createTimePickerProps = (): TimePickerUIKitLib.T.DateTimePickerProps => {
     const { maximumDate, minimumDate } = Lib.HE.getReminderInitialTime()
 
     return {
@@ -46,7 +46,7 @@ export const useReminderTimePicker = (boardRef: RefObject<HTMLDivElement>) => {
     }
   }
 
-  const timePickerProps = useMemo<DateTimePickerProps>(createTimePickerProps, [visibility])
+  const timePickerProps = useMemo<TimePickerUIKitLib.T.DateTimePickerProps>(createTimePickerProps, [visibility])
   return {
     get: { timePickerProps },
   }

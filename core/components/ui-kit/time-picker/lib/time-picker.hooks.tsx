@@ -1,5 +1,4 @@
-import { Dates } from '@/helpers/dates'
-import { NumeralMonth } from '@/helpers/dates/lib/dates.types'
+import { Dates, DatesHelperLib } from '@/helpers/dates'
 import { Num } from '@/helpers/number'
 import { useInterval } from '@/hooks/use-interval'
 import { componentLayeredAtoms, componentTimePickerAtoms } from '@/store/atomFamilies'
@@ -10,7 +9,7 @@ import { useEffect, useMemo, WheelEvent } from 'react'
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import * as Lib from '.'
-import { LayeredProps } from '../../layered/lib/layered.types'
+import { LayeredUIKitLib } from '../../layered'
 
 /**
  *
@@ -282,7 +281,7 @@ export const useDateTimePicker = ({ storeKeys, minimumDateProp, maximumDate, day
     [],
   )
 
-  const layeredProps = useMemo<LayeredProps>(
+  const layeredProps = useMemo<LayeredUIKitLib.T.LayeredProps>(
     () => ({
       className: 'content',
       storeKeys: {
@@ -394,7 +393,7 @@ export const useDatePickerItem = ({ target, storeKeys }: Lib.T.UseDatePickerItem
   const formattedValue = useMemo<string>(() => {
     switch (target) {
       case 'month': {
-        return Dates.getMonth(value as NumeralMonth, 'short') as string
+        return Dates.getMonth(value as DatesHelperLib.T.NumeralMonth, 'short') as string
       }
       case 'day': {
         return Dates.getWeekDay({ year, month, day, hour, minute })

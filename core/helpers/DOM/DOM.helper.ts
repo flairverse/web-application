@@ -1,6 +1,5 @@
 import moment, { Moment } from 'moment'
-import { Dates } from '../dates'
-import { TriadDistanceI18n, TriadDistanceReturn } from '../dates/lib/dates.types'
+import { Dates, DatesHelperLib } from '../dates'
 import * as Lib from './lib'
 
 /**
@@ -325,7 +324,7 @@ export class DOM {
       title3: findElement(title3Ref, container, prefixes?.titlesAndTriad),
     }
 
-    const triadDistanceIntl: TriadDistanceI18n = {
+    const triadDistanceIntl: DatesHelperLib.T.TriadDistanceI18n = {
       years: 'years',
       months: 'months',
       weeks: 'weeks',
@@ -361,7 +360,7 @@ export class DOM {
       }
     }
 
-    const updateDOM = (triadInfo: TriadDistanceReturn) => {
+    const updateDOM = (triadInfo: DatesHelperLib.T.TriadDistanceReturn) => {
       const [firstInfo, secondInfo, thirdInfo] = triadInfo
       const [value1Letter1, value1Letter2] = firstInfo.value.toString().padStart(2, '0').split('')
       const [value2Letter1, value2Letter2] = secondInfo.value.toString().padStart(2, '0').split('')

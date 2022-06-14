@@ -1,10 +1,10 @@
-import { MenuItem } from '@/components/ui-kit/menu/lib/menu.types'
+import { MenuUIKitLib } from '@/components/ui-kit/menu'
 import * as Lib from '.'
 
 export const useCard = () => {
   const onMenuItemsClick = (key: Lib.T.MenuItemKeys) => {}
 
-  const menuItems: MenuItem<Lib.T.MenuItemKeys>[] = [
+  const menuItems: MenuUIKitLib.T.MenuItem<Lib.T.MenuItemKeys>[] = [
     {
       title: 'Copy Link',
       key: 'copy-link',

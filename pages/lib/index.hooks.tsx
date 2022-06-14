@@ -1,4 +1,4 @@
-import { Tab } from '@/components/ui-kit/tabs/lib/tabs.types'
+import { TabsUIKitLib } from '@/components/ui-kit/tabs'
 import { layoutBottomNavbarAtoms } from '@/store/atoms'
 import { useEffect } from 'react'
 import { useSetRecoilState } from 'recoil'
@@ -11,7 +11,7 @@ export const useIndexPage = () => {
     setBottomNavbarActiveItem('home')
   }
 
-  const categories: Tab[] = [
+  const categories: TabsUIKitLib.T.Tab[] = [
     {
       content: <Lib.C.ForYouContent />,
       key: 'for-you',

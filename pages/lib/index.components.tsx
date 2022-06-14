@@ -1,7 +1,6 @@
 import { AppIcons } from '@/components/ui-kit/app-icons'
 import { CardMain } from '@/components/ui-kit/card'
-import { Horizontal } from '@/components/ui-kit/horizontal'
-import { HorizontalItemProps } from '@/components/ui-kit/horizontal/lib/horizontal.types'
+import { Horizontal, HorizontalUIKitLib } from '@/components/ui-kit/horizontal'
 import { NapProfile } from '@/components/ui-kit/nap'
 import { SuggestionBox } from '@/components/ui-kit/suggestion-box'
 import { Button } from 'antd'
@@ -66,7 +65,7 @@ export const RightAside: FC = () => {
 }
 
 export const NapsList: FC = () => {
-  const items: HorizontalItemProps[] = [
+  const items: HorizontalUIKitLib.T.HorizontalItemProps[] = [
     ...Array.from(Array(50)).map((item, index) => {
       return {
         id: index,

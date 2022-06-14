@@ -1,6 +1,6 @@
 import { Topic } from '@/types/topics'
 import { HTMLAttributes } from 'react'
-import { NapProfileProps } from '../../nap/profile/lib/nap-profile.types'
+import { NapProfileUIKitLib } from '../../nap/profile'
 
 export interface SuggestionBoxProps extends HTMLAttributes<HTMLDivElement> {
   topic: Topic
@@ -20,7 +20,7 @@ export type SuggestionItem = {
   }
 }
 
-export interface SuggestionFlair extends NapProfileProps {}
+export interface SuggestionFlair extends NapProfileUIKitLib.T.NapProfileProps {}
 
 export type SuggestionContent = {
   href: string

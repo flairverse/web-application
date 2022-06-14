@@ -1,5 +1,4 @@
-import { Dates } from '@/helpers/dates'
-import { TriadDistanceI18n, TriadDistanceReturn } from '@/helpers/dates/lib/dates.types'
+import { Dates, DatesHelperLib } from '@/helpers/dates'
 import moment, { Moment } from 'moment'
 import { useState } from 'react'
 import { useSSREffect } from '../use-ssr-effect'
@@ -53,7 +52,7 @@ export const useTriadCountdown = ({ defaultValues, triadRefs, titleRefs, contain
     })
   }
 
-  const triadDistanceIntl: TriadDistanceI18n = {
+  const triadDistanceIntl: DatesHelperLib.T.TriadDistanceI18n = {
     years: 'years',
     months: 'months',
     weeks: 'weeks',
@@ -76,7 +75,7 @@ export const useTriadCountdown = ({ defaultValues, triadRefs, titleRefs, contain
     }
   }
 
-  const updateDOM = (triadInfo: TriadDistanceReturn) => {
+  const updateDOM = (triadInfo: DatesHelperLib.T.TriadDistanceReturn) => {
     const [firstInfo, secondInfo, thirdInfo] = triadInfo
 
     if (!first1 || !first2 || !second1 || !second2 || !third1 || !third2 || !title1 || !title2 || !title3) {

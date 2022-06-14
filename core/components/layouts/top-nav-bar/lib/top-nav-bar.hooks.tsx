@@ -1,14 +1,13 @@
-import { MenuItem } from '@/components/ui-kit/menu/lib/menu.types'
+import { MenuUIKitLib } from '@/components/ui-kit/menu'
 import { layoutTopNavbarAtoms } from '@/store/atoms'
-import { useRecoilValue } from 'recoil'
-import * as Lib from '.'
-
 import { AiOutlineHeart, AiOutlineMessage } from 'react-icons/ai'
 import { BiMessageAlt } from 'react-icons/bi'
 import { BsEmojiSmile, BsFilePlus, BsPlusSquare, BsSignpost } from 'react-icons/bs'
 import { FiUser } from 'react-icons/fi'
 import { MdOutlineNearMe } from 'react-icons/md'
 import { RiBookmarkLine, RiGroupLine, RiSettingsLine } from 'react-icons/ri'
+import { useRecoilValue } from 'recoil'
+import * as Lib from '.'
 
 export const useNavbarLayout = () => {
   const onGapDBLClick = () => {
@@ -25,7 +24,7 @@ export const useNavbarSearchBox = () => {
 }
 
 export const useProfile = ({ username }: Pick<Lib.T.ProfileProps, 'username'>) => {
-  const menuItems: MenuItem<Lib.T.ProfileMenuKeys, void>[] = [
+  const menuItems: MenuUIKitLib.T.MenuItem<Lib.T.ProfileMenuKeys, void>[] = [
     {
       title: 'Your Profile',
       key: 'profile',

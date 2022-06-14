@@ -1,4 +1,7 @@
-import { AcceleratorsProvider, DevtoolsProvider, FontProvider, InternationalizationProvider } from '@/providers'
+import { AcceleratorsProvider } from '@/providers/accelerator'
+import { DevtoolsProvider } from '@/providers/devtools'
+import { FontProvider } from '@/providers/font'
+import { InternationalizationProvider } from '@/providers/internationalization'
 import { GlobalStyles } from '@/styles'
 import '@/styles/index.scss'
 import { NextComponent } from '@/types/next-page.type'
