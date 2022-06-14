@@ -1,7 +1,7 @@
-import { FC } from 'react'
-import * as Lib from '.'
 import { Button } from 'antd'
+import { FC } from 'react'
 import { HiOutlineChevronLeft } from 'react-icons/hi'
+import * as Lib from '.'
 
 export const Layer: FC<Lib.T.LayerProps> = ({ storeKeys, layers, withHeader }) => {
   const { activeLayer, closeLayer } = Lib.H.useLayer({ storeKeys })

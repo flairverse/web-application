@@ -1,7 +1,7 @@
+import { I18n } from '@/helpers/language.helper'
+import { providerInternationalizationAtoms } from '@/store/atoms'
 import { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
-import { providerInternationalizationAtoms } from '@/store/atoms'
-import { I18n } from '@/helpers/language.helper'
 
 /**
  * a provider to store current user's language into the recoil atom

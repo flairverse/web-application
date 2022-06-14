@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import * as Lib from './lib'
 import { NapProfile } from '../../nap'
+import * as Lib from './lib'
 
 export const CardPick: FC<Lib.T.CardPickProps> = ({ author, post, onSelect, ...rest }) => {
   const { id: postId, title, cover, slug } = post

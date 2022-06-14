@@ -1,5 +1,5 @@
-import { i18n } from 'next-i18next.config'
 import { LANGUAGES_TYPE } from '@/constants/languages.constants'
+import { i18n } from 'next-i18next.config'
 import { Cookie } from './cookie.helper'
 
 export class I18n {

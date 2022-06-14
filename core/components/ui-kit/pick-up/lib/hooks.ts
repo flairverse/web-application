@@ -1,7 +1,7 @@
+import { useDebounce } from '@/hooks/use-debounce'
 import { componentPickupAtoms } from '@/store/atomFamilies'
 import { FormEvent } from 'react'
 import { useSetRecoilState } from 'recoil'
-import { useDebounce } from '@/hooks/use-debounce'
 import * as Lib from '.'
 
 export const useSearchBox = ({ searchBox }: Pick<Lib.T.SearchBoxProps, 'searchBox'>) => {

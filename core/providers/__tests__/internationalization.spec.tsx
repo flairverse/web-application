@@ -1,9 +1,9 @@
+import { commonHookRenderer } from '@/constants/testing-hook.constants'
 import { render, screen } from '@testing-library/react'
+import { renderHook } from '@testing-library/react-hooks'
+import { RecoilRoot } from 'recoil'
 import { InternationalizationProvider } from '../internationalization'
 import { useInternationalization } from '../internationalization/lib/hooks'
-import { RecoilRoot } from 'recoil'
-import { renderHook } from '@testing-library/react-hooks'
-import { commonHookRenderer } from '@/constants/testing-hook.constants'
 
 describe('Testing [providers] => internationalization', () => {
   it("should store user's current language in it's atom", () => {

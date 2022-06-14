@@ -1,5 +1,5 @@
-import * as Lib from './lib'
 import { RegExes } from '@/constants/reg-exes'
+import * as Lib from './lib'
 
 export class Num {
   /**

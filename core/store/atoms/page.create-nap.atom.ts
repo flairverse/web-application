@@ -1,6 +1,6 @@
-import { atom } from 'recoil'
 import { Options } from '@/components/ui-kit/nap/creator/lib/types'
 import * as storeTypes from '@/constants/store-keys.constants'
+import { atom } from 'recoil'
 
 export const showMoreOptions = atom<boolean>({
   key: storeTypes.PAGE__CREATE_NAP___SHOW_MORE_OPTIONS,

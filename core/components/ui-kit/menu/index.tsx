@@ -1,5 +1,5 @@
 import { Link } from 'next-i18next.config'
-import { FC, PropsWithChildren } from 'react'
+import { PropsWithChildren } from 'react'
 import * as Lib from './lib'
 
 export function Menu<Keys = Lib.T.ItemKey, ClickReturn = void>({

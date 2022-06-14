@@ -1,7 +1,7 @@
 import styled, { keyframes } from 'styled-components'
 import * as Lib from '../'
+import { BASE_BOARD_HEIGHT } from '../constants'
 import * as textEffects from './text-effects'
-import { MIN_BOARD_WIDTH, BASE_BOARD_HEIGHT, BASE_BOARD_WIDTH } from '../constants'
 
 const TRANSITION = 'all 150ms ease-out'
 

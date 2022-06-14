@@ -1,4 +1,4 @@
-import { css, keyframes } from 'styled-components'
+import { css } from 'styled-components'
 
 const shadow = 'var(--layer-2-border)'
 

@@ -1,9 +1,9 @@
-import * as Lib from '../'
-import { IoAddCircleOutline, IoColorFilterOutline } from 'react-icons/io5'
+import { pageCreateNapAtoms } from '@/store/atoms'
 import { AiOutlineRotateRight } from 'react-icons/ai'
 import { FaRegLightbulb } from 'react-icons/fa'
+import { IoAddCircleOutline, IoColorFilterOutline } from 'react-icons/io5'
 import { useRecoilValue } from 'recoil'
-import { pageCreateNapAtoms } from '@/store/atoms'
+import * as Lib from '../'
 
 export const useToolsForQuizInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
   const Inserters = Lib.H.useInserters(boardRef)

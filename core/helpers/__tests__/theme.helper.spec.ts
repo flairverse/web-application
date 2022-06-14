@@ -3,9 +3,9 @@
  * imported modules with the _ prefix are referring to the theme JSON files in the public folder
  */
 import _darkDefault from 'public/themes/dark-default.json'
-import _lightDefault from 'public/themes/light-default.json'
 import _darkHighContrast from 'public/themes/dark-high-contrast.json'
 import _darkOcean from 'public/themes/dark-ocean.json'
+import _lightDefault from 'public/themes/light-default.json'
 import { Theme } from '../theme'
 import { themes } from '../theme/lib/constants'
 

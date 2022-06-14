@@ -1,14 +1,14 @@
-import { useRecoilValue } from 'recoil'
-import { layoutTopNavbarAtoms } from '@/store/atoms'
 import { MenuItem } from '@/components/ui-kit/menu/lib/types'
+import { layoutTopNavbarAtoms } from '@/store/atoms'
+import { useRecoilValue } from 'recoil'
 import * as Lib from '.'
 
-import { FiUser } from 'react-icons/fi'
 import { AiOutlineHeart, AiOutlineMessage } from 'react-icons/ai'
 import { BiMessageAlt } from 'react-icons/bi'
+import { BsEmojiSmile, BsFilePlus, BsPlusSquare, BsSignpost } from 'react-icons/bs'
+import { FiUser } from 'react-icons/fi'
 import { MdOutlineNearMe } from 'react-icons/md'
 import { RiBookmarkLine, RiGroupLine, RiSettingsLine } from 'react-icons/ri'
-import { BsFilePlus, BsPlusSquare, BsEmojiSmile, BsSignpost } from 'react-icons/bs'
 
 export const useNavbarLayout = () => {
   const onGapDBLClick = () => {

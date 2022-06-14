@@ -1,5 +1,5 @@
 import { DateDetail } from '@/helpers/dates/lib/types'
-import { TriadCountdownRefs, TitleRefs } from '@/helpers/DOM/lib/types'
+import { TitleRefs, TriadCountdownRefs } from '@/helpers/DOM/lib/types'
 import { Range } from '@/types/enumerable'
 import { Topic } from '@/types/topics'
 import { RefObject } from 'react'

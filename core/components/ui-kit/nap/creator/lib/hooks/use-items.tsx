@@ -1,13 +1,12 @@
-import * as Lib from '../'
-import { MdFormatColorText } from 'react-icons/md'
-import { BsFillImageFill, BsQuestionCircle, BsPlusSquare, BsChevronCompactLeft } from 'react-icons/bs'
-import { FiBell, FiLink2 } from 'react-icons/fi'
-import { HiOutlineChatAlt2 } from 'react-icons/hi'
-import { AiOutlineGif, AiOutlineMessage } from 'react-icons/ai'
-import { GoMention } from 'react-icons/go'
 import { pageCreateNapAtoms } from '@/store/atoms'
-import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil'
 import { useEffect } from 'react'
+import { AiOutlineGif, AiOutlineMessage } from 'react-icons/ai'
+import { BsChevronCompactLeft, BsFillImageFill, BsPlusSquare, BsQuestionCircle } from 'react-icons/bs'
+import { FiBell, FiLink2 } from 'react-icons/fi'
+import { GoMention } from 'react-icons/go'
+import { MdFormatColorText } from 'react-icons/md'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import * as Lib from '../'
 
 export const useItems = ({ onOptionsClick, boardRef }: Pick<Lib.T.ItemsProps, 'boardRef' | 'onOptionsClick'>) => {
   const showMoreOptions = useRecoilValue(pageCreateNapAtoms.showMoreOptions)

@@ -1,5 +1,5 @@
-import { atom } from 'recoil'
 import * as storeKeys from '@/constants/store-keys.constants'
+import { atom } from 'recoil'
 
 export const searchQuery = atom({
   key: storeKeys.LAYOUT__NAVBAR___SEARCH_QUERY,

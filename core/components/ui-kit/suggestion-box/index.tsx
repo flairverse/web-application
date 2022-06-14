@@ -1,8 +1,8 @@
-import { FC } from 'react'
-import * as Lib from './lib'
-import { NapProfile } from '../nap'
 import { Button } from 'antd'
 import Link from 'next/link'
+import { FC } from 'react'
+import { NapProfile } from '../nap'
+import * as Lib from './lib'
 
 export const SuggestionBox: FC<Lib.T.SuggestionBoxProps> = ({ topic, title, suggestionsItems, suggestionsFlairs, suggestionContent, ...rest }) => {
   return (

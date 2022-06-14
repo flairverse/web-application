@@ -1,4 +1,4 @@
-import { useState, DragEvent } from 'react'
+import { DragEvent, useState } from 'react'
 
 export const useHorizontal = (scale: boolean, speed: number) => {
   const [isDown, setIsDown] = useState<boolean>(false)

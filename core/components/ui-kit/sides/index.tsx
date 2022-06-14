@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import * as Lib from './lib'
 import StickyBox from 'react-sticky-box'
+import * as Lib from './lib'
 
 export const Sides: FC<Lib.T.SidesProps> = ({ children, left, right, offset, sizes, ...rest }) => {
   return (

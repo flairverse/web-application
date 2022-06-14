@@ -1,6 +1,6 @@
+import { Popover, Skeleton } from 'antd'
 import { FC } from 'react'
 import * as Lib from './lib'
-import { Popover, Skeleton } from 'antd'
 
 export const Information: FC<Lib.T.InformationProps> = ({ children, icon, colorTheme, popover, loading, ...rest }) => {
   return (

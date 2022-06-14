@@ -1,5 +1,5 @@
-import type { AuthPage } from '@/types/next-page.type'
 import { AuthWrapper } from '@/components/layouts/auth-wrapper'
+import type { AuthPage } from '@/types/next-page.type'
 import Link from 'next/link'
 
 const CreateAccount: AuthPage = () => {

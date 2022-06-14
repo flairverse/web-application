@@ -1,9 +1,9 @@
-import { FC } from 'react'
-import * as Lib from './lib'
-import { BackDrop } from '../back-drop'
-import { FiSearch } from 'react-icons/fi'
 import { Button } from 'antd'
+import { FC } from 'react'
+import { FiSearch } from 'react-icons/fi'
 import { IoClose } from 'react-icons/io5'
+import { BackDrop } from '../back-drop'
+import * as Lib from './lib'
 
 export const PickUp: FC<Lib.T.PickUpProps> = ({ visibility, onClose, boxHeight, boxWidth, filter, placeholder, children, backdrop, searchBox, cancelButton, ...rest }) => {
   return (

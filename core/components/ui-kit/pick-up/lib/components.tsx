@@ -1,8 +1,8 @@
+import { SlideUpAndDown } from '@/components/ui-kit/slide-up-and-down'
 import { componentPickupAtoms } from '@/store/atomFamilies'
 import { Button } from 'antd'
 import { FC } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
-import { SlideUpAndDown } from '@/components/ui-kit/slide-up-and-down'
 import * as Lib from '.'
 
 export const FilterButton: FC<Lib.T.FilterButtonProps> = ({ filtersCount, filter }) => {

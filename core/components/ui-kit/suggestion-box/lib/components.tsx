@@ -1,8 +1,7 @@
-import { FC } from 'react'
-import * as Lib from '.'
-import Link from 'next/link'
-import { MouseEvent } from 'react'
 import { Button } from 'antd'
+import Link from 'next/link'
+import { FC, MouseEvent } from 'react'
+import * as Lib from '.'
 
 export const Suggestion: FC<Lib.T.SuggestionItem & Lib.T.SuggestionItemExtraProps> = ({ href, title, index, topic, id, button }) => {
   const buttonHandler = (evt: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {

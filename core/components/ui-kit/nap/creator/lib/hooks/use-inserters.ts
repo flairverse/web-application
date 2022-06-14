@@ -1,8 +1,8 @@
-import * as Lib from '../'
+import { Str } from '@/helpers/string'
+import { pageCreateNapAtoms } from '@/store/atoms'
 import { RefObject } from 'react'
 import { useSetRecoilState } from 'recoil'
-import { pageCreateNapAtoms } from '@/store/atoms'
-import { Str } from '@/helpers/string'
+import * as Lib from '../'
 
 export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
   const { compileDown } = Lib.H.useBoardCompileDown('mainBoard')

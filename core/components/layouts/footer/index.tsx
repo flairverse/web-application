@@ -1,6 +1,6 @@
+import Link from 'next/link'
 import { FC } from 'react'
 import * as Lib from './lib'
-import Link from 'next/link'
 
 export const Footer: FC = () => {
   const { links } = Lib.H.useFooter()

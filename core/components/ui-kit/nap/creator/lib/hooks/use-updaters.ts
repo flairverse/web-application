@@ -1,5 +1,5 @@
-import * as Lib from '../'
 import { RefObject } from 'react'
+import * as Lib from '../'
 
 export const useUpdaters = (boardRef: RefObject<HTMLDivElement>) => {
   const Inserters = Lib.H.useInserters(boardRef)

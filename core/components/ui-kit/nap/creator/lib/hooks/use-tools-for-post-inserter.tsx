@@ -1,9 +1,9 @@
-import * as Lib from '..'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { AiOutlineRotateRight } from 'react-icons/ai'
-import { MdOutlineStyle } from 'react-icons/md'
 import { IoAddCircleOutline } from 'react-icons/io5'
+import { MdOutlineStyle } from 'react-icons/md'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
+import * as Lib from '..'
 
 export const useToolsForPostInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
   const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)

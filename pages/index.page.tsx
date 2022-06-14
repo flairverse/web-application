@@ -1,9 +1,9 @@
-import * as Lib from './lib'
 import { MainWrapper } from '@/components/layouts/main-wrapper'
-import type { MainPage } from '@/types/next-page.type'
 import { Sides } from '@/components/ui-kit/sides'
 import { Tabs } from '@/components/ui-kit/tabs'
 import { useBreakpoint } from '@/hooks/use-breakpoint'
+import type { MainPage } from '@/types/next-page.type'
+import * as Lib from './lib'
 
 const Homepage: MainPage = () => {
   const { get } = Lib.H.useIndexPage()

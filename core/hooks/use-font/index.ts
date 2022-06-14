@@ -1,9 +1,9 @@
-import * as Lib from './lib'
-import { useRecoilState } from 'recoil'
-import { hookFontAtoms } from '@/store/atoms'
-import { LocalStorage } from '@/helpers/localstorage.helper'
-import { useEffect } from 'react'
 import { SETTINGS } from '@/constants/settings.constant'
+import { LocalStorage } from '@/helpers/localstorage.helper'
+import { hookFontAtoms } from '@/store/atoms'
+import { useEffect } from 'react'
+import { useRecoilState } from 'recoil'
+import * as Lib from './lib'
 
 export const useFont = () => {
   const [font, setFont] = useRecoilState(hookFontAtoms.fontState)

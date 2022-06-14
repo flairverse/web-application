@@ -1,8 +1,8 @@
-import * as Lib from '.'
 import { Tab } from '@/components/ui-kit/tabs/lib/types'
 import { layoutBottomNavbarAtoms } from '@/store/atoms'
 import { useEffect } from 'react'
 import { useSetRecoilState } from 'recoil'
+import * as Lib from '.'
 
 export const useIndexPage = () => {
   const setBottomNavbarActiveItem = useSetRecoilState(layoutBottomNavbarAtoms.activeItem)

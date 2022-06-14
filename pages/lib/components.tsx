@@ -1,14 +1,14 @@
-import { FC, useState } from 'react'
-import * as Lib from '.'
-import Link from 'next/link'
 import { AppIcons } from '@/components/ui-kit/app-icons'
-import { SuggestionBox } from '@/components/ui-kit/suggestion-box'
-import { Horizontal } from '@/components/ui-kit/horizontal'
-import { NapProfile } from '@/components/ui-kit/nap'
-import * as mock from 'mock'
-import { HorizontalItemProps } from '@/components/ui-kit/horizontal/lib/types'
 import { CardMain } from '@/components/ui-kit/card'
+import { Horizontal } from '@/components/ui-kit/horizontal'
+import { HorizontalItemProps } from '@/components/ui-kit/horizontal/lib/types'
+import { NapProfile } from '@/components/ui-kit/nap'
+import { SuggestionBox } from '@/components/ui-kit/suggestion-box'
 import { Button } from 'antd'
+import * as mock from 'mock'
+import Link from 'next/link'
+import { FC } from 'react'
+import * as Lib from '.'
 
 export const Topic: FC<Lib.T.TopicProps> = ({ counter, title, TopicIcon, topic, href, ...rest }) => {
   return (

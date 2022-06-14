@@ -1,6 +1,6 @@
+import { AuthWrapper } from '@/components/layouts/auth-wrapper'
 import type { AuthPage } from '@/types/next-page.type'
 import Link from 'next/link'
-import { AuthWrapper } from '@/components/layouts/auth-wrapper'
 
 const SignIn: AuthPage = () => {
   return (

@@ -1,5 +1,5 @@
-import { atomFamily } from 'recoil'
 import { AtomFamilies } from '@/enums/store-families.enum'
+import { atomFamily } from 'recoil'
 
 export const pickUpFiltersVisibility = atomFamily({
   key: AtomFamilies.pickUpFiltersVisibility,

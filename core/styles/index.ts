@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components'
 import { Theme } from '@/helpers/theme'
+import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyles = createGlobalStyle`
   ${Theme.use()}

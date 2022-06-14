@@ -1,6 +1,6 @@
-import * as Lib from './lib'
-import { intervalToDuration, Duration, format as dateFNsFormat } from 'date-fns'
+import { Duration, format as dateFNsFormat, intervalToDuration } from 'date-fns'
 import moment, { Moment } from 'moment'
+import * as Lib from './lib'
 
 export class Dates {
   static getMonth(month: Lib.T.Month, target: Lib.T.MonthTypes = 'short'): string | number {
