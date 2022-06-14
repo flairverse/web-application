@@ -151,9 +151,8 @@ export const Mention: FC<Lib.T.MentionProps> = ({ id, username, profile, hasNap,
   )
 }
 
-export const ReminderTimePicker: FC = () => {
-  const { get } = Lib.H.useReminderTimePicker()
-
+export const ReminderTimePicker: FC<Lib.T.ReminderTimePickerProps> = ({ boardRef }) => {
+  const { get } = Lib.H.useReminderTimePicker(boardRef)
   return <DateTimePicker {...get.timePickerProps} />
 }
 

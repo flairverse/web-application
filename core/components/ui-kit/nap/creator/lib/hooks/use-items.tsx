@@ -20,32 +20,41 @@ export const useItems = ({ onOptionsClick, boardRef }: Pick<Lib.T.ItemsProps, 'b
     // new Insert(boardRef).newPost(0)
     // new Insert(boardRef).newMention(0)
     // new Insert(boardRef).newQuestion()
-    new Insert(boardRef).newReminder()
+    // new Insert(boardRef).newReminder()
   }, [])
 
   const addItem = () => {
     const insert = new Insert(boardRef)
 
-    if (activeOption !== 'none' && !Lib.HE.boardContains(activeOption, boardRef)) {
-      switch (activeOption) {
-        case 'text': {
-          insert.newText()
-          break
-        }
+    if (activeOption !== 'none') {
+      if (!Lib.HE.boardContains(activeOption, boardRef)) {
+        switch (activeOption) {
+          case 'text': {
+            insert.newText()
+            break
+          }
 
-        case 'question': {
-          insert.newQuestion()
-          break
-        }
+          case 'question': {
+            insert.newQuestion()
+            break
+          }
 
-        case 'quiz': {
-          insert.newQuiz()
-          break
-        }
+          case 'quiz': {
+            insert.newQuiz()
+            break
+          }
 
-        case 'reminder': {
-          insert.newReminder()
-          break
+          case 'reminder': {
+            insert.newReminder()
+            break
+          }
+        }
+      } else {
+        switch (activeOption) {
+          case 'reminder': {
+            Lib.HE.getFramesByType(boardRef, 'reminder')?.[0].focus()
+            break
+          }
         }
       }
     }

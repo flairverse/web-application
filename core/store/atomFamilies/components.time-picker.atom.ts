@@ -3,7 +3,7 @@ import { AtomFamilies } from '@/enums/store-families.enum'
 
 export const timePickerPopupVisibility = atomFamily({
   key: AtomFamilies.timePickerPopupVisibility,
-  default: true,
+  default: false,
 })
 
 // used in date time picker component to store: [minute, hour, day, month, year]

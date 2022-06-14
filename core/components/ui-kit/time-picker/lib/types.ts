@@ -1,4 +1,3 @@
-import { TriadCountdownRefs, TitleRefs } from '@/hooks/use-triad-countdown/lib/types'
 import { StoreKeys } from '@/types/recoil.type'
 
 export type TimeTarget = 'hour' | 'minute'
@@ -26,9 +25,11 @@ export interface DateTimePickerProps {
   onConfirm?: (confirmedValue: Date) => void
   closeOnConfirm?: boolean
   dayEndIsMax?: boolean
-  closeOnEarliest?: boolean
+  autoHideEarliest?: boolean
+  updateMinimumDateEveryMinutes?: boolean
+  onMinimumDateUpdate?: (newMinimumDate: Date) => void
 }
-export interface UseDateTimePickerArgs extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {
+export interface UseDateTimePickerArgs extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax' | 'updateMinimumDateEveryMinutes' | 'onMinimumDateUpdate'> {
   minimumDateProp: Date
 }
 
@@ -119,17 +120,5 @@ export interface UseDaysArgs extends Pick<DaysProps, 'storeKeys'> {}
  *
  * Actions
  */
-export interface Actions extends Pick<DateTimePickerProps, 'onConfirm' | 'closeOnConfirm' | 'storeKeys' | 'closeOnEarliest'> {}
-export interface UseActionsArgs extends Pick<Actions, 'onConfirm' | 'closeOnConfirm' | 'storeKeys' | 'closeOnEarliest'> {}
-
-/**
- *
- *
- *
- * Distance
- */
-export interface DistanceProps extends Pick<DateTimePickerProps, 'storeKeys'> {}
-export interface UseDistanceArgs extends Pick<DistanceProps, 'storeKeys'> {
-  triadRefs: TriadCountdownRefs
-  titleRefs: TitleRefs
-}
+export interface Actions extends Pick<DateTimePickerProps, 'onConfirm' | 'closeOnConfirm' | 'storeKeys' | 'autoHideEarliest'> {}
+export interface UseActionsArgs extends Pick<Actions, 'onConfirm' | 'closeOnConfirm' | 'storeKeys' | 'autoHideEarliest'> {}

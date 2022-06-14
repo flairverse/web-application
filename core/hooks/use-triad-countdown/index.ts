@@ -1,15 +1,57 @@
 import { Dates } from '@/helpers/dates'
-import { TriadDistance, TriadDistanceI18n, TriadDistanceReturn } from '@/helpers/dates/lib/types'
+import { TriadDistanceI18n, TriadDistanceReturn } from '@/helpers/dates/lib/types'
 import moment, { Moment } from 'moment'
-import { useEffect } from 'react'
+import { useState } from 'react'
+import { useSSREffect } from '../use-ssr-effect'
 import * as Lib from './lib'
 
-export const useTriadCountdown = ({ defaultValues, triadRefs, titleRefs }: Lib.T.UseTriadCountdownArgs) => {
+const initialRefsState: Lib.T.RefsState = {
+  first1: null,
+  first2: null,
+  second1: null,
+  second2: null,
+  third1: null,
+  third2: null,
+  title1: null,
+  title2: null,
+  title3: null,
+}
+
+export const useTriadCountdown = ({ defaultValues, triadRefs, titleRefs, containerRef }: Lib.T.UseTriadCountdownArgs) => {
   const [firstRef, secondRef, thirdRef] = triadRefs
   const [title1Ref, title2Ref, title3Ref] = titleRefs
   const { firstLetter: ref1Letter1, secondLetter: ref1Letter2 } = firstRef
   const { firstLetter: ref2Letter1, secondLetter: ref2Letter2 } = secondRef
   const { firstLetter: ref3Letter1, secondLetter: ref3Letter2 } = thirdRef
+  const [container, setContainer] = useState<HTMLElement | null>(null)
+  const [refs, setRefs] = useState<Lib.T.RefsState>(initialRefsState)
+  const { first1, first2, second1, second2, third1, third2, title1, title2, title3 } = refs
+
+  const findElement = (ref: Lib.T.Ref, parentContainer: HTMLElement | Document): HTMLElement | null => {
+    if (typeof ref === 'string') {
+      return parentContainer.querySelector(ref)
+    }
+    return ref.current
+  }
+
+  const findContainer = () => setContainer(findElement(containerRef, document))
+
+  const findElements = () => {
+    if (!container) {
+      return
+    }
+    setRefs({
+      first1: findElement(ref1Letter1, container),
+      first2: findElement(ref1Letter2, container),
+      second1: findElement(ref2Letter1, container),
+      second2: findElement(ref2Letter2, container),
+      third1: findElement(ref3Letter1, container),
+      third2: findElement(ref3Letter2, container),
+      title1: findElement(title1Ref, container),
+      title2: findElement(title2Ref, container),
+      title3: findElement(title3Ref, container),
+    })
+  }
 
   const triadDistanceIntl: TriadDistanceI18n = {
     years: 'years',
@@ -36,18 +78,8 @@ export const useTriadCountdown = ({ defaultValues, triadRefs, titleRefs }: Lib.T
 
   const updateDOM = (triadInfo: TriadDistanceReturn) => {
     const [firstInfo, secondInfo, thirdInfo] = triadInfo
-    const { current: first1 } = ref1Letter1
-    const { current: first2 } = ref1Letter2
-    const { current: second1 } = ref2Letter1
-    const { current: second2 } = ref2Letter2
-    const { current: third1 } = ref3Letter1
-    const { current: third2 } = ref3Letter2
-    const { current: title1 } = title1Ref
-    const { current: title2 } = title2Ref
-    const { current: title3 } = title3Ref
 
     if (!first1 || !first2 || !second1 || !second2 || !third1 || !third2 || !title1 || !title2 || !title3) {
-      console.log({ first1, first2, second1, second2, third1, third2, title1, title2, title3 })
       return
     }
 
@@ -89,5 +121,7 @@ export const useTriadCountdown = ({ defaultValues, triadRefs, titleRefs }: Lib.T
     }
   }
 
-  useEffect(startTimer, [defaultValues])
+  useSSREffect(findContainer, [])
+  useSSREffect(findElements, [container])
+  useSSREffect(startTimer, [defaultValues])
 }

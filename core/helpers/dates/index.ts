@@ -1,7 +1,6 @@
 import * as Lib from './lib'
 import { intervalToDuration, Duration, format as dateFNsFormat } from 'date-fns'
 import moment, { Moment } from 'moment'
-import { Str } from '../string'
 
 export class Dates {
   static getMonth(month: Lib.T.Month, target: Lib.T.MonthTypes = 'short'): string | number {
@@ -104,7 +103,6 @@ export class Dates {
     const FORMAT = 'YYYY.MM.DD/hh.mm'
     const date1 = moment1.format(FORMAT)
     const date2 = moment2.format(FORMAT)
-    console.log({ date1, date2 })
     return date1 === date2
   }
 

@@ -1,5 +1,5 @@
 import { ModalProps } from 'antd'
-import { useEffect, useMemo, WheelEvent } from 'react'
+import { useEffect, useMemo, useRef, WheelEvent } from 'react'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { FiChevronUp, FiChevronDown } from 'react-icons/fi'
 import * as Lib from '.'
@@ -9,9 +9,10 @@ import { componentTimePickerAtoms, componentLayeredAtoms } from '@/store/atomFam
 import { LayeredProps } from '../../layered/lib/types'
 import { StoreKeys } from '@/types/recoil.type'
 import { Num } from '@/helpers/number'
-import { useTriadCountdown } from '@/hooks/use-triad-countdown'
 import moment from 'moment'
 import { useInterval } from '@/hooks/use-interval'
+import { DOM } from '@/helpers/DOM'
+import { useSSREffect } from '@/hooks/use-ssr-effect'
 
 /**
  *
@@ -249,8 +250,6 @@ export const useFixWrongChosenDate = ({ storeKeys, dayEndIsMax, maximumDate }: L
     }
   }
 
-  const fixAllDisables = () => {}
-
   useEffect(fixHourAndMinute, [year, month, day])
   useEffect(fixDay, [year, month])
   useEffect(fixMonth, [year])
@@ -263,7 +262,7 @@ export const useFixWrongChosenDate = ({ storeKeys, dayEndIsMax, maximumDate }: L
  *
  * functionalities for the TimePicker component
  */
-export const useDateTimePicker = ({ storeKeys, minimumDateProp, maximumDate, dayEndIsMax }: Lib.T.UseDateTimePickerArgs) => {
+export const useDateTimePicker = ({ storeKeys, minimumDateProp, maximumDate, dayEndIsMax, updateMinimumDateEveryMinutes, onMinimumDateUpdate }: Lib.T.UseDateTimePickerArgs) => {
   useFixWrongChosenDate({ storeKeys, dayEndIsMax, maximumDate })
   const setVisibility = useSetRecoilState(componentTimePickerAtoms.timePickerPopupVisibility(storeKeys.visibility))
   const [minimumDate, setMinimumDate] = useRecoilState(componentTimePickerAtoms.timePickerMinimumDate(storeKeys.minimumDate))
@@ -308,6 +307,12 @@ export const useDateTimePicker = ({ storeKeys, minimumDateProp, maximumDate, day
     setMinute(minimumDateProp.getMinutes())
   }, [])
 
+  const returnObj = { modalProps, layeredProps }
+
+  if (!updateMinimumDateEveryMinutes) {
+    return returnObj
+  }
+
   useInterval(() => {
     const chosenDate = moment(new Date(year, month, day + 1, hour, minute))
     const oneMinLater = moment(chosenDate).add(1, 'minute').toDate()
@@ -320,9 +325,12 @@ export const useDateTimePicker = ({ storeKeys, minimumDateProp, maximumDate, day
       setMinute(oneMinLater.getMinutes())
     }
 
-    setMinimumDate(moment(minimumDate).add(1, 'minute').toDate())
+    const newMinimumDate = moment(minimumDate).add(1, 'minute').toDate()
+    setMinimumDate(newMinimumDate)
+    onMinimumDateUpdate?.(newMinimumDate)
   }, 1000 * 60)
-  return { modalProps, layeredProps }
+
+  return returnObj
 }
 
 /**
@@ -485,7 +493,7 @@ export const useDays = ({ storeKeys }: Lib.T.UseDaysArgs) => {
  *
  * functionalities of action buttons
  */
-export const useActions = ({ closeOnConfirm, onConfirm, storeKeys, closeOnEarliest }: Lib.T.UseActionsArgs) => {
+export const useActions = ({ closeOnConfirm, onConfirm, storeKeys, autoHideEarliest }: Lib.T.UseActionsArgs) => {
   const setVisibility = useSetRecoilState(componentTimePickerAtoms.timePickerPopupVisibility(storeKeys.visibility))
   const { minYear, minMonth, minDay, minHour, minMinute } = useMinimumValues({ storeKeys })
   const [year, setYear] = useNumeralTime(storeKeys.year)
@@ -493,6 +501,7 @@ export const useActions = ({ closeOnConfirm, onConfirm, storeKeys, closeOnEarlie
   const [day, setDay] = useNumeralTime(storeKeys.day)
   const [hour, setHour] = useNumeralTime(storeKeys.hour)
   const [minute, setMinute] = useNumeralTime(storeKeys.minute)
+  const isEarliestDisabled = year === minYear && month === minMonth && day + 1 === minDay && hour === minHour && minute === minMinute && autoHideEarliest
 
   const goToEarliestDate = () => {
     setYear(minYear)
@@ -500,51 +509,16 @@ export const useActions = ({ closeOnConfirm, onConfirm, storeKeys, closeOnEarlie
     setDay(minDay - 1)
     setHour(minHour)
     setMinute(minMinute)
+  }
 
-    if (closeOnEarliest) {
+  const discard = () => setVisibility(false)
+
+  const confirm = () => {
+    onConfirm?.(new Date(year, month, day + 1, hour, minute, 0, 0))
+    if (closeOnConfirm) {
       setVisibility(false)
     }
   }
 
-  const discard = () => {
-    setVisibility(false)
-  }
-
-  const confirm = () => {
-    if (onConfirm) {
-      onConfirm(new Date(year, month, day + 1, hour, minute, 0, 0))
-      if (closeOnConfirm) {
-        setVisibility(false)
-      }
-    }
-  }
-
-  return { goToEarliestDate, discard, confirm }
-}
-
-/**
- *
- *
- *
- *
- * functionalities for the distance component
- */
-export const useDistance = ({ storeKeys, triadRefs, titleRefs }: Lib.T.UseDistanceArgs) => {
-  const year = useNumeralTimeValue(storeKeys.year)
-  const month = useNumeralTimeValue(storeKeys.month)
-  const day = useNumeralTimeValue(storeKeys.day) + 1
-  const hour = useNumeralTimeValue(storeKeys.hour)
-  const minute = useNumeralTimeValue(storeKeys.minute)
-
-  useTriadCountdown({
-    triadRefs,
-    titleRefs,
-    defaultValues: {
-      year,
-      month,
-      day,
-      hour,
-      minute,
-    },
-  })
+  return { goToEarliestDate, discard, confirm, isEarliestDisabled }
 }

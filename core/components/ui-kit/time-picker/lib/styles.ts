@@ -28,14 +28,6 @@ export const DateTimePicker = styled(Modal)`
   }
 `
 
-export const Distance = styled.span`
-  color: var(--layer-2-text-2);
-  margin: 10px 0 20px 0;
-  display: block;
-  width: 100%;
-  text-align: center;
-`
-
 export const TimePicker = styled.div`
   width: 100%;
   height: auto;
@@ -183,6 +175,7 @@ export const Actions = styled.div`
   height: auto;
   display: flex;
   align-items: center;
+  margin: 25px 0 5px 0;
 
   > div {
     flex: 1;

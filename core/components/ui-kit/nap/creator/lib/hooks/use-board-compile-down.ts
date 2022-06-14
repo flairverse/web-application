@@ -1,6 +1,6 @@
 import * as Lib from '..'
 import { DOM } from '@/helpers/DOM'
-import { MakeElementDraggableSensitive } from '@/helpers/DOM/lib/types'
+import { MakeElementDraggableSensitive, TriadCountdownRefs, TitleRefs } from '@/helpers/DOM/lib/types'
 import { useSetRecoilState } from 'recoil'
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { componentTimePickerAtoms } from '@/store/atomFamilies'
@@ -219,8 +219,16 @@ export const useBoardCompileDown = (boardId: string) => {
    *
    * compiles a reminder object to actual element
    */
-  const compileReminderDown = ({ day, effect, hour, id, minute, month, position: { left, top }, reminderName, rotate, type, year }: Lib.T.Elements.Reminder): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.reminder({ day, hour, minute, month, reminderName, year }))
+  const compileReminderDown = ({ effect, id, position: { left, top }, reminderName, rotate, type, maximumDate, minimumDate }: Lib.T.Elements.Reminder): HTMLDivElement => {
+    const classNames: Lib.T.ReminderNodesClassNames = {
+      titles: ['title1', 'title2', 'title3'],
+      counters: [
+        { firstLetter: 'first1', secondLetter: 'first2' },
+        { firstLetter: 'second1', secondLetter: 'second2' },
+        { firstLetter: 'third1', secondLetter: 'third2' },
+      ],
+    }
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.reminder({ reminderName, classNames, maximumDate, minimumDate }))
     const element = addFrameTo(node, ['changeReminderValue'], 'reminder', id)
     DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
     element.id = id
@@ -228,6 +236,21 @@ export const useBoardCompileDown = (boardId: string) => {
     element.classList.add(effect)
     activateFrameByFocusingContentEditables(element)
     DOM.makeElementDraggable({ element, areaSensitive, blackList: ['reminderName'] })
+    setTimeout(() => {
+      DOM.createTriadCountdown({
+        containerRef: id,
+        defaultValues: {
+          year: minimumDate.year,
+          month: minimumDate.month,
+          day: minimumDate.day,
+          hour: minimumDate.hour,
+          minute: minimumDate.minute,
+        },
+        titleRefs: classNames.titles,
+        triadRefs: classNames.counters,
+        querySelectorPrefixes: { titlesAndTriad: '.', container: '#' },
+      })
+    }, 10)
     return element
   }
 
@@ -294,6 +317,7 @@ export const useBoardCompileDown = (boardId: string) => {
     static delete(evt: MouseEvent) {
       const element = Action.getElement(evt)
       setActiveItemID(null)
+      setActiveOption('none')
       element?.remove()
     }
 
@@ -325,7 +349,6 @@ export const useBoardCompileDown = (boardId: string) => {
     }
 
     static changeReminderValue(evt: MouseEvent) {
-      console.log(evt)
       setTimePickerVisibility(true)
     }
   }

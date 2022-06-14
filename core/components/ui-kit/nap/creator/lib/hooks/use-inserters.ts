@@ -17,6 +17,7 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
 
     appendItem(elementInfo: Lib.T.Elements.All) {
       if (!this.board) {
+        console.log('!this.board')
         return
       }
       const element = compileDown(elementInfo)
@@ -165,7 +166,8 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
      * makes new reminder item and passes it to the `appendItem`
      */
     newReminder(defaultValues?: Lib.T.Elements.Reminder) {
-      const now = new Date()
+      const { minimumDate, maximumDate } = Lib.HE.getReminderInitialTime()
+
       const reminder: Lib.T.Elements.Reminder = defaultValues || {
         type: 'reminder',
         effect: 'no-effect',
@@ -173,11 +175,20 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
         position: { left: '85px', top: '85px' },
         rotate: 0,
         reminderName: '',
-        year: now.getFullYear(),
-        month: now.getMonth(),
-        day: now.getDate(),
-        hour: now.getHours(),
-        minute: now.getMinutes(),
+        minimumDate: {
+          year: minimumDate.getFullYear(),
+          month: minimumDate.getMonth(),
+          day: minimumDate.getDate(),
+          hour: minimumDate.getHours(),
+          minute: minimumDate.getMinutes(),
+        },
+        maximumDate: {
+          year: maximumDate.getFullYear(),
+          month: maximumDate.getMonth(),
+          day: maximumDate.getDate(),
+          hour: maximumDate.getHours(),
+          minute: maximumDate.getMinutes(),
+        },
       }
       this.appendItem(reminder)
     }

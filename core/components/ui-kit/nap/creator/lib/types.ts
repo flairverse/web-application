@@ -1,3 +1,5 @@
+import { DateDetail } from '@/helpers/dates/lib/types'
+import { TriadCountdownRefs, TitleRefs } from '@/helpers/DOM/lib/types'
 import { Range } from '@/types/enumerable'
 import { Topic } from '@/types/topics'
 import { RefObject } from 'react'
@@ -16,6 +18,8 @@ export interface ItemsShadowingProps {
 export interface ToolsProps extends Pick<ItemsProps, 'boardRef'> {
   selectedOption: Options | 'none'
 }
+
+export interface ReminderTimePickerProps extends Pick<ItemsProps, 'boardRef'> {}
 
 export interface ToolsForInserters extends Pick<ItemsProps, 'boardRef'> {}
 
@@ -47,7 +51,7 @@ export type PostTools = 'add-post' | 'post-effect' | 'post-rotation'
 export type MentionTools = 'add-mention' | 'mention-effect' | 'mention-rotation'
 export type QuestionTools = 'add-question' | 'question-effect' | 'question-rotation' | 'question-hint'
 export type QuizTools = 'add-quiz' | 'quiz-effect' | 'quiz-rotation' | 'quiz-hint'
-export type ReminderTools = 'add-reminder' | 'reminder-effect' | 'reminder-rotation'
+export type ReminderTools = 'reminder-effect' | 'reminder-rotation'
 export type Tool = 'none' | TextTools | PostTools | MentionTools | QuestionTools | QuizTools | ReminderTools
 
 export type TextEffects = typeof Lib.CO.EFFECTS.TEXT[number]
@@ -136,11 +140,13 @@ export namespace Elements {
 
   export interface Reminder extends BaseElement<ReminderEffects, 'reminder'> {
     reminderName: string
-    year: number
-    month: number
-    day: number
-    hour: number
-    minute: number
+    // year: number
+    // month: number
+    // day: number
+    // hour: number
+    // minute: number
+    minimumDate: Omit<DateDetail, 'seconds'>
+    maximumDate: Omit<DateDetail, 'seconds'>
   }
 
   export interface Image extends BaseElement {}
@@ -199,13 +205,21 @@ export type ItemsDOMStringComponents = {
   profile: ({}: Pick<Elements.Mention, 'profile' | 'hasNap' | 'seen'> & { size?: Range<1, 11> }) => string
 }
 
+export type ReminderNodesClassNames = {
+  counters: TriadCountdownRefs
+  titles: TitleRefs
+}
+export type ReminderStringNodeArgs = {
+  classNames: ReminderNodesClassNames
+}
+
 export type ItemsDOMStringGenerators = {
   text: (innerText: string) => string
   post: (args: Pick<Elements.Post, 'post' | 'user'>) => string
   mention: (args: Pick<Elements.Mention, 'fullName' | 'job' | 'profile' | 'username' | 'userID' | 'hasNap' | 'seen' | 'followers' | 'subscribes'>) => string
   question: (args: Pick<Elements.Question, 'hint' | 'question' | 'questionerUser'>) => string
   quiz: (args: Pick<Elements.Quiz, 'answers' | 'correctAnswer' | 'hintText' | 'questionText' | 'questioner'>) => string
-  reminder: (args: Pick<Elements.Reminder, 'reminderName' | 'year' | 'month' | 'day' | 'hour' | 'minute'>) => string
+  reminder: (args: Pick<Elements.Reminder, 'reminderName' | 'minimumDate' | 'maximumDate'> & ReminderStringNodeArgs) => string
 }
 
 export interface MentionProps {

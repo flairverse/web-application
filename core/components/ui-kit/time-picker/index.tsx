@@ -10,20 +10,21 @@ export const DateTimePicker: FC<Lib.T.DateTimePickerProps> = ({
   maximumDate,
   onConfirm,
   dayEndIsMax,
-  closeOnEarliest,
+  autoHideEarliest,
+  onMinimumDateUpdate,
+  updateMinimumDateEveryMinutes,
   closeOnConfirm = true,
   minimumDate: minimumDateProp,
 }) => {
   const visibility = useRecoilValue(componentTimePickerAtoms.timePickerPopupVisibility(storeKeys.visibility))
-  const { modalProps, layeredProps } = Lib.H.useDateTimePicker({ storeKeys, minimumDateProp, maximumDate, dayEndIsMax })
+  const { modalProps, layeredProps } = Lib.H.useDateTimePicker({ storeKeys, minimumDateProp, maximumDate, dayEndIsMax, updateMinimumDateEveryMinutes, onMinimumDateUpdate })
 
   return (
     <Lib.S.DateTimePicker visible={visibility} {...modalProps}>
       <Layered {...layeredProps}>
         <Lib.C.TimePicker storeKeys={storeKeys} maximumDate={maximumDate} dayEndIsMax={dayEndIsMax} />
         <Lib.C.DatePicker storeKeys={storeKeys} maximumDate={maximumDate} dayEndIsMax={dayEndIsMax} />
-        <Lib.C.Distance storeKeys={storeKeys} />
-        <Lib.C.Actions closeOnConfirm={closeOnConfirm} onConfirm={onConfirm} storeKeys={storeKeys} closeOnEarliest={closeOnEarliest} />
+        <Lib.C.Actions closeOnConfirm={closeOnConfirm} onConfirm={onConfirm} storeKeys={storeKeys} autoHideEarliest={autoHideEarliest} />
       </Layered>
     </Lib.S.DateTimePicker>
   )

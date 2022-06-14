@@ -531,12 +531,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: var(--f-4);
+            font-size: 18pt;
             background-color: var(--layer-2);
             padding: 7px 0;
             border-radius: 5px;
             border: 1px solid var(--layer-2-border);
             transition: $counterTransaction;
+            line-height: 1;
           }
         }
 

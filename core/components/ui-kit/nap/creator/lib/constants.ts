@@ -403,8 +403,20 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
     </div>
   `,
 
-  reminder: ({ reminderName, year, month, day, hour, minute }) => `
-    <div class="napElement reminder no-effect">
+  reminder: ({
+    reminderName,
+    maximumDate: max,
+    minimumDate: min,
+    classNames: {
+      counters: [first, second, third],
+      titles: [title1, title2, title3],
+    },
+  }) => `
+    <div
+      class="napElement reminder no-effect"
+      data-min-date="${min.year}.${min.month}.${min.day}.${min.hour}.${min.minute}"
+      data-max-date="${max.year}.${max.month}.${max.day}.${max.hour}.${max.minute}"
+    >
       <p
         class="reminderName"
         data-ph="Ask me anything..."
@@ -414,30 +426,30 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
       <div class="countdown">
         <div>
           <p>
-            <span>99</span>
-            <span>99</span>
+            <span class="${first.firstLetter}"></span>
+            <span class="${first.secondLetter}"></span>
           </p>
-          <span>Years</span>
+          <span class="${title1}"></span>
         </div>
 
         <span>:</span>
 
         <div>
           <p>
-            <span>99</span>
-            <span>99</span>
+            <span class="${second.firstLetter}"></span>
+            <span class="${second.secondLetter}"></span>
           </p>
-          <span>Months</span>
+          <span class="${title2}"></span>
         </div>
 
         <span>:</span>
 
         <div>
           <p>
-            <span>99</span>
-            <span>99</span>
+            <span class="${third.firstLetter}"></span>
+            <span class="${third.secondLetter}"></span>
           </p>
-          <span>Days</span>
+          <span class="${title3}"></span>
         </div>
       </div>
     </div>

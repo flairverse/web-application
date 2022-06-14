@@ -1,15 +1,28 @@
 import { DateTimePickerProps } from '@/components/ui-kit/time-picker/lib/types'
-import { useMemo } from 'react'
-import moment from 'moment'
+import { componentTimePickerAtoms } from '@/store/atomFamilies'
+import { RefObject, useMemo } from 'react'
+import { useRecoilValue } from 'recoil'
 import * as Lib from '../'
 
-export const useReminderTimePicker = () => {
-  const timePickerProps = useMemo<DateTimePickerProps>(createTimePickerProps, [])
+export const useReminderTimePicker = (boardRef: RefObject<HTMLDivElement>) => {
+  const visibility = useRecoilValue(componentTimePickerAtoms.timePickerPopupVisibility('PAGE__CREATE_NAP___TIME_PICKER_POPUP'))
+  const Updater = Lib.H.useUpdaters(boardRef)
+  const updater = new Updater()
 
-  function createTimePickerProps(): DateTimePickerProps {
-    const now = new Date()
-    const nextYear = new Date()
-    nextYear.setFullYear(now.getFullYear() + 1)
+  function onReminderConfirm(confirmedValue: Date) {
+    updater.updateReminder({
+      minimumDate: {
+        year: confirmedValue.getFullYear(),
+        month: confirmedValue.getMonth(),
+        day: confirmedValue.getDate(),
+        hour: confirmedValue.getHours(),
+        minute: confirmedValue.getMinutes(),
+      },
+    })
+  }
+
+  const createTimePickerProps = (): DateTimePickerProps => {
+    const { maximumDate, minimumDate } = Lib.HE.getReminderInitialTime()
 
     return {
       storeKeys: {
@@ -22,14 +35,18 @@ export const useReminderTimePicker = () => {
         activeLayer: 'PAGE__CREATE_NAP___DATE_TIME_PICKER_ACTIVE_LAYER',
         minimumDate: 'PAGE__CREATE_NAO___DATE_TIME_PICKER_MINIMUM_DATE',
       },
-      minimumDate: moment().add('1', 'hour').toDate(),
-      maximumDate: nextYear,
-      onConfirm: console.log,
+      minimumDate,
+      maximumDate,
+      onConfirm: onReminderConfirm,
       dayEndIsMax: true,
       closeOnConfirm: true,
+      autoHideEarliest: true,
+      // onMinimumDateUpdate: onReminderConfirm,
+      // updateMinimumDateEveryMinutes: true,
     }
   }
 
+  const timePickerProps = useMemo<DateTimePickerProps>(createTimePickerProps, [visibility])
   return {
     get: { timePickerProps },
   }
