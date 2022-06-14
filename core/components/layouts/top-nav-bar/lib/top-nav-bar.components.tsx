@@ -37,7 +37,12 @@ export const Profile: FC<Lib.T.ProfileProps> = ({ username }) => {
 
   return (
     <div className="profile">
-      <Menu<Lib.T.ProfileMenuKeys, void> items={menuItems} minWidth="270px" position={['33px', '3px', 'unset', 'unset']} openMenuEffect="scale-out">
+      <Menu<Lib.T.ProfileMenuKeys, void>
+        items={menuItems}
+        minWidth="270px"
+        position={['33px', '3px', 'unset', 'unset']}
+        openMenuEffect="scale-out"
+      >
         <button>
           <img src="/removal/profile.jpg" alt="" />
         </button>
@@ -55,7 +60,9 @@ export const Profile: FC<Lib.T.ProfileProps> = ({ username }) => {
 export const SearchInput: FC = () => {
   Lib.H.useNavbarSearchBox()
   const setSearchQuery = useSetRecoilState(layoutTopNavbarAtoms.searchQuery)
-  const [searchBarFocused, setSearchBarFocused] = useRecoilState(layoutTopNavbarAtoms.searchBoxFocused)
+  const [searchBarFocused, setSearchBarFocused] = useRecoilState(
+    layoutTopNavbarAtoms.searchBoxFocused,
+  )
   const spinner = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
   return (
@@ -75,13 +82,20 @@ export const SearchInput: FC = () => {
         suffix={<BsSlashSquare color="var(--layer-2-text-1)" className="slashIcon" />}
       />
 
-      <div className={`suggestions ${searchBarFocused ? 'visible' : 'hidden'}`} data-testid="searchSuggestion">
+      <div
+        className={`suggestions ${searchBarFocused ? 'visible' : 'hidden'}`}
+        data-testid="searchSuggestion"
+      >
         {/* <Spin indicator={spinner} className="loading" /> */}
 
         <ul>
           <SearchSuggest actionType="article" href="/" text="Lorem ipsum dolor sit amet" />
           <SearchSuggest actionType="blog" href="/" text="Lorem ipsum" />
-          <SearchSuggest actionType="job" href="/" text="Lorem ipsum dolor sit amet Lorem ipsum Lorem ipsum dolor sit amet Lorem ipsum" />
+          <SearchSuggest
+            actionType="job"
+            href="/"
+            text="Lorem ipsum dolor sit amet Lorem ipsum Lorem ipsum dolor sit amet Lorem ipsum"
+          />
           <SearchSuggest actionType="podcast" href="/" text="Lorem ipsum dolor sit" />
           <SearchSuggest actionType="query" href="/" text="Lorem" />
         </ul>

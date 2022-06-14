@@ -2,7 +2,10 @@ import moment from 'moment'
 import { RefObject } from 'react'
 import * as Lib from '.'
 
-export const boardContains = (item: Lib.T.Options, boardRef: RefObject<HTMLDivElement | null>): boolean => {
+export const boardContains = (
+  item: Lib.T.Options,
+  boardRef: RefObject<HTMLDivElement | null>,
+): boolean => {
   const { current: board } = boardRef
   if (!board) {
     return false
@@ -11,7 +14,10 @@ export const boardContains = (item: Lib.T.Options, boardRef: RefObject<HTMLDivEl
   return board.querySelector(`.${item}`) !== null
 }
 
-export const getAllFrames = (boardRef: RefObject<HTMLDivElement | null>, loopAndDo?: (element: HTMLDivElement) => void) => {
+export const getAllFrames = (
+  boardRef: RefObject<HTMLDivElement | null>,
+  loopAndDo?: (element: HTMLDivElement) => void,
+) => {
   const { current: board } = boardRef
   if (!board) {
     return null
@@ -31,7 +37,10 @@ export const getAllFrames = (boardRef: RefObject<HTMLDivElement | null>, loopAnd
   return frames
 }
 
-export const getFramesByType = (boardRef: RefObject<HTMLDivElement | null>, type: Lib.T.Options) => {
+export const getFramesByType = (
+  boardRef: RefObject<HTMLDivElement | null>,
+  type: Lib.T.Options,
+) => {
   const { current: board } = boardRef
   if (!board) {
     return null
@@ -59,7 +68,10 @@ export const getFrameById = (boardRef: RefObject<HTMLDivElement | null>, id: str
   return frame
 }
 
-export const removeFramesByType = (boardRef: RefObject<HTMLDivElement | null>, type: Lib.T.Options) => {
+export const removeFramesByType = (
+  boardRef: RefObject<HTMLDivElement | null>,
+  type: Lib.T.Options,
+) => {
   const frames = getFramesByType(boardRef, type)
   if (!frames) {
     return
@@ -94,7 +106,10 @@ export const calculateFrameScale = (boardRef: RefObject<HTMLDivElement | null>) 
  *
  * finds all added frames and rescales them
  */
-export const changeFrameScale = (boardRef: RefObject<HTMLDivElement | null>, frame: HTMLDivElement) => {
+export const changeFrameScale = (
+  boardRef: RefObject<HTMLDivElement | null>,
+  frame: HTMLDivElement,
+) => {
   const scaled = calculateFrameScale(boardRef)
   if (!scaled) {
     return

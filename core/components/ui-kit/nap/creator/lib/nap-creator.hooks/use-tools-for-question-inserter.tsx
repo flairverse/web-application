@@ -7,15 +7,32 @@ import * as Lib from '..'
 
 export const useToolsForQuestionInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
   const Inserters = Lib.H.useInserters(boardRef)
-  const { getFocusedItem, changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({ boardRef })
+  const { getFocusedItem, changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({
+    boardRef,
+  })
   const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
   const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
 
   const tools: Pick<Lib.T.ToolProps, 'Icon' | 'type' | 'title' | 'disabled'>[] = [
     { Icon: IoAddCircleOutline, type: 'add-question', title: 'Add new', disabled: false },
-    { Icon: FaRegLightbulb, type: 'question-hint', title: 'Toggle hint', disabled: activeOption !== 'question' || activeItemID === null },
-    { Icon: IoColorFilterOutline, type: 'question-effect', title: 'Effect', disabled: activeOption !== 'question' || activeItemID === null },
-    { Icon: AiOutlineRotateRight, type: 'question-rotation', title: 'Rotate', disabled: activeOption !== 'question' || activeItemID === null },
+    {
+      Icon: FaRegLightbulb,
+      type: 'question-hint',
+      title: 'Toggle hint',
+      disabled: activeOption !== 'question' || activeItemID === null,
+    },
+    {
+      Icon: IoColorFilterOutline,
+      type: 'question-effect',
+      title: 'Effect',
+      disabled: activeOption !== 'question' || activeItemID === null,
+    },
+    {
+      Icon: AiOutlineRotateRight,
+      type: 'question-rotation',
+      title: 'Rotate',
+      disabled: activeOption !== 'question' || activeItemID === null,
+    },
   ]
 
   const toolClick = (type: Lib.T.Tool) => {

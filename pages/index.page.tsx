@@ -13,7 +13,10 @@ const Homepage: MainPage = () => {
     <Lib.S.Container>
       <Lib.C.Topics className="top" />
 
-      <Sides left={isGreaterThan768 ? <Lib.C.LeftAside /> : null} right={isGreaterThan768 ? <Lib.C.RightAside /> : null}>
+      <Sides
+        left={isGreaterThan768 ? <Lib.C.LeftAside /> : null}
+        right={isGreaterThan768 ? <Lib.C.RightAside /> : null}
+      >
         <Lib.S.NapListAndTopics>
           <Lib.C.Topics className="bottom" />
           <Lib.C.NapsList />

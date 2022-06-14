@@ -1,8 +1,11 @@
 import styled from 'styled-components'
 import * as Lib from '.'
 
-export const InformationContainer = styled.div<Pick<Lib.T.InformationProps, 'colorTheme' | 'icon' | 'loading'>>`
-  background: ${({ colorTheme }) => (colorTheme ? `var(--c-${colorTheme}-trans-2)` : 'var(--layer-1)')};
+export const InformationContainer = styled.div<
+  Pick<Lib.T.InformationProps, 'colorTheme' | 'icon' | 'loading'>
+>`
+  background: ${({ colorTheme }) =>
+    colorTheme ? `var(--c-${colorTheme}-trans-2)` : 'var(--layer-1)'};
   color: ${({ colorTheme }) => (colorTheme ? `var(--c-${colorTheme})` : 'var(--layer-2-text-2)')};
   display: inline-flex;
   width: auto;

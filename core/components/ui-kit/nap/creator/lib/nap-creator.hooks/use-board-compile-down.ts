@@ -7,7 +7,9 @@ import * as Lib from '..'
 export const useBoardCompileDown = (boardId: string) => {
   const setActiveOption = useSetRecoilState(pageCreateNapAtoms.activeOption)
   const setActiveItemID = useSetRecoilState(pageCreateNapAtoms.activeItemID)
-  const setTimePickerVisibility = useSetRecoilState(componentTimePickerAtoms.timePickerPopupVisibility('PAGE__CREATE_NAP___TIME_PICKER_POPUP'))
+  const setTimePickerVisibility = useSetRecoilState(
+    componentTimePickerAtoms.timePickerPopupVisibility('PAGE__CREATE_NAP___TIME_PICKER_POPUP'),
+  )
 
   // const areaSensitive: MakeElementDraggableSensitive = {
   //   target: `#${boardId}`,
@@ -24,7 +26,7 @@ export const useBoardCompileDown = (boardId: string) => {
    */
   const compileDown = (element: Lib.T.Elements.All): HTMLDivElement => {
     switch (element.type) {
-      default: // <<--------------------------------------------------------------------------------------------------[[temporary]]
+      default: // <<----------------------------------------------------------------[[temporary]]
       case 'text': {
         return compileTextDown(<Lib.T.Elements.Text>element)
       }
@@ -71,7 +73,15 @@ export const useBoardCompileDown = (boardId: string) => {
    *
    * compiles a text object to actual element
    */
-  const compileTextDown = ({ type, id, text, position: { left, top }, fontSize, effect, rotate }: Lib.T.Elements.Text): HTMLDivElement => {
+  const compileTextDown = ({
+    type,
+    id,
+    text,
+    position: { left, top },
+    fontSize,
+    effect,
+    rotate,
+  }: Lib.T.Elements.Text): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.text(text))
     node.addEventListener('keyup', () => node.setAttribute('data-text', node.innerText))
     const element = addFrameTo(node, ['editInnerText'], 'text', id)
@@ -89,7 +99,15 @@ export const useBoardCompileDown = (boardId: string) => {
    *
    * compiles a post object to actual element
    */
-  const compilePostDown = ({ id, position: { left, top }, rotate, type, user, post, effect }: Lib.T.Elements.Post): HTMLDivElement => {
+  const compilePostDown = ({
+    id,
+    position: { left, top },
+    rotate,
+    type,
+    user,
+    post,
+    effect,
+  }: Lib.T.Elements.Post): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.post({ user, post }))
     const element = addFrameTo(node, [], 'post', id)
     DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
@@ -122,7 +140,19 @@ export const useBoardCompileDown = (boardId: string) => {
     followers,
     subscribes,
   }: Lib.T.Elements.Mention): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.mention({ fullName, username, job, profile, userID, hasNap, seen, followers, subscribes }))
+    const node = DOM.DOMStringToNode(
+      Lib.CO.ITEMS_DOM_STRING.mention({
+        fullName,
+        username,
+        job,
+        profile,
+        userID,
+        hasNap,
+        seen,
+        followers,
+        subscribes,
+      }),
+    )
     const element = addFrameTo(node, [], 'mention', id)
     DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
     element.id = id
@@ -138,8 +168,19 @@ export const useBoardCompileDown = (boardId: string) => {
    *
    * compiles a question object to actual element
    */
-  const compileQuestionDown = ({ effect, hint, id, position: { left, top }, question, questionerUser, rotate, type }: Lib.T.Elements.Question): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.question({ hint, question, questionerUser }))
+  const compileQuestionDown = ({
+    effect,
+    hint,
+    id,
+    position: { left, top },
+    question,
+    questionerUser,
+    rotate,
+    type,
+  }: Lib.T.Elements.Question): HTMLDivElement => {
+    const node = DOM.DOMStringToNode(
+      Lib.CO.ITEMS_DOM_STRING.question({ hint, question, questionerUser }),
+    )
     const element = addFrameTo(node, [], 'question', id)
     DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
     element.id = id
@@ -156,21 +197,42 @@ export const useBoardCompileDown = (boardId: string) => {
    *
    * compiles a quiz object to actual element
    */
-  const compileQuizDown = ({ answers, correctAnswer, effect, hintText, id, position: { left, top }, questionText, questioner, rotate, type }: Lib.T.Elements.Quiz): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.quiz({ answers, correctAnswer, hintText, questionText, questioner }))
+  const compileQuizDown = ({
+    answers,
+    correctAnswer,
+    effect,
+    hintText,
+    id,
+    position: { left, top },
+    questionText,
+    questioner,
+    rotate,
+    type,
+  }: Lib.T.Elements.Quiz): HTMLDivElement => {
+    const node = DOM.DOMStringToNode(
+      Lib.CO.ITEMS_DOM_STRING.quiz({ answers, correctAnswer, hintText, questionText, questioner }),
+    )
     const element = addFrameTo(node, [], 'quiz', id)
     DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
     element.id = id
     element.classList.add(type)
     element.classList.add(effect)
     activateFrameByFocusingContentEditables(element)
-    DOM.makeElementDraggable({ element, areaSensitive, blackList: ['questionText', 'hintSection', 'answerText'] })
+    DOM.makeElementDraggable({
+      element,
+      areaSensitive,
+      blackList: ['questionText', 'hintSection', 'answerText'],
+    })
 
     const answerNumbers = <NodeListOf<HTMLDivElement>>element.querySelectorAll('.answer > span')
     const answerContents = <NodeListOf<HTMLDivElement>>element.querySelectorAll('.answer > p')
 
-    answerNumbers.forEach(answerNumber => answerNumber.addEventListener('click', () => switchCorrectAnswer(answerNumber)))
-    answerContents.forEach(answerContent => answerContent.addEventListener('input', evt => toggleNextAnswer(<InputEvent>evt)))
+    answerNumbers.forEach(answerNumber =>
+      answerNumber.addEventListener('click', () => switchCorrectAnswer(answerNumber)),
+    )
+    answerContents.forEach(answerContent =>
+      answerContent.addEventListener('input', evt => toggleNextAnswer(<InputEvent>evt)),
+    )
 
     function switchCorrectAnswer(answerNumber: HTMLDivElement) {
       const answerBox = <HTMLDivElement>answerNumber.parentNode!
@@ -218,7 +280,16 @@ export const useBoardCompileDown = (boardId: string) => {
    *
    * compiles a reminder object to actual element
    */
-  const compileReminderDown = ({ effect, id, position: { left, top }, reminderName, rotate, type, maximumDate, minimumDate }: Lib.T.Elements.Reminder): HTMLDivElement => {
+  const compileReminderDown = ({
+    effect,
+    id,
+    position: { left, top },
+    reminderName,
+    rotate,
+    type,
+    maximumDate,
+    minimumDate,
+  }: Lib.T.Elements.Reminder): HTMLDivElement => {
     const classNames: Lib.T.ReminderNodesClassNames = {
       titles: ['title1', 'title2', 'title3'],
       counters: [
@@ -227,7 +298,9 @@ export const useBoardCompileDown = (boardId: string) => {
         { firstLetter: 'third1', secondLetter: 'third2' },
       ],
     }
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.reminder({ reminderName, classNames, maximumDate, minimumDate }))
+    const node = DOM.DOMStringToNode(
+      Lib.CO.ITEMS_DOM_STRING.reminder({ reminderName, classNames, maximumDate, minimumDate }),
+    )
     const element = addFrameTo(node, ['changeReminderValue'], 'reminder', id)
     DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
     element.id = id
@@ -259,7 +332,12 @@ export const useBoardCompileDown = (boardId: string) => {
    *
    * adds frame with custom buttons to an element
    */
-  const addFrameTo = (element: HTMLElement, actions: Lib.T.ElementFrameActionTypes[], type: Lib.T.Options, id: string) => {
+  const addFrameTo = (
+    element: HTMLElement,
+    actions: Lib.T.ElementFrameActionTypes[],
+    type: Lib.T.Options,
+    id: string,
+  ) => {
     actions = [...actions, 'delete']
     const frame = document.createElement('div')
     frame.tabIndex = 0
@@ -292,7 +370,9 @@ export const useBoardCompileDown = (boardId: string) => {
     const type = <Lib.T.Options | null>element.getAttribute('data-type')
     const id = <string | null>element.id
 
-    if (!type || !id) return
+    if (!type || !id) {
+      return
+    }
 
     contentEditables.forEach(contentEditable =>
       contentEditable.addEventListener('focus', () => {

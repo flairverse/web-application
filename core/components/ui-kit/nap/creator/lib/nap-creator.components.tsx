@@ -58,7 +58,12 @@ export const Items: FC<Lib.T.ItemsProps> = ({ onOptionsClick, boardRef }) => {
       <Lib.S.ItemsContainer className={`${showMoreOptions ? 'showMore' : 'showLess'}`}>
         <ul>
           {get.items.map(({ Icon, title, key }, index) => (
-            <li key={index} title={showMoreOptions ? undefined : title} className={`${activeOption === key ? 'active' : ''}`} onClick={() => on.itemClicks(key)}>
+            <li
+              key={index}
+              title={showMoreOptions ? undefined : title}
+              className={`${activeOption === key ? 'active' : ''}`}
+              onClick={() => on.itemClicks(key)}
+            >
               <span>
                 <Icon color="var(--layer-2-text-3)" size={30} />
               </span>
@@ -145,7 +150,14 @@ export const Mention: FC<Lib.T.MentionProps> = ({ id, username, profile, hasNap,
   return (
     <Lib.S.Mention onClick={() => onClick?.(id)}>
       <div>
-        <NapProfile id={id} profile={profile} hasNap={hasNap} username={username} usernameWithAtSign size={0.8} />
+        <NapProfile
+          id={id}
+          profile={profile}
+          hasNap={hasNap}
+          username={username}
+          usernameWithAtSign
+          size={0.8}
+        />
       </div>
     </Lib.S.Mention>
   )

@@ -16,7 +16,12 @@ const initialRefsState: Lib.T.RefsState = {
   title3: null,
 }
 
-export const useTriadCountdown = ({ defaultValues, triadRefs, titleRefs, containerRef }: Lib.T.UseTriadCountdownArgs) => {
+export const useTriadCountdown = ({
+  defaultValues,
+  triadRefs,
+  titleRefs,
+  containerRef,
+}: Lib.T.UseTriadCountdownArgs) => {
   const [firstRef, secondRef, thirdRef] = triadRefs
   const [title1Ref, title2Ref, title3Ref] = titleRefs
   const { firstLetter: ref1Letter1, secondLetter: ref1Letter2 } = firstRef
@@ -26,7 +31,10 @@ export const useTriadCountdown = ({ defaultValues, triadRefs, titleRefs, contain
   const [refs, setRefs] = useState<Lib.T.RefsState>(initialRefsState)
   const { first1, first2, second1, second2, third1, third2, title1, title2, title3 } = refs
 
-  const findElement = (ref: Lib.T.Ref, parentContainer: HTMLElement | Document): HTMLElement | null => {
+  const findElement = (
+    ref: Lib.T.Ref,
+    parentContainer: HTMLElement | Document,
+  ): HTMLElement | null => {
     if (typeof ref === 'string') {
       return parentContainer.querySelector(ref)
     }
@@ -78,7 +86,17 @@ export const useTriadCountdown = ({ defaultValues, triadRefs, titleRefs, contain
   const updateDOM = (triadInfo: DatesHelperLib.T.TriadDistanceReturn) => {
     const [firstInfo, secondInfo, thirdInfo] = triadInfo
 
-    if (!first1 || !first2 || !second1 || !second2 || !third1 || !third2 || !title1 || !title2 || !title3) {
+    if (
+      !first1 ||
+      !first2 ||
+      !second1 ||
+      !second2 ||
+      !third1 ||
+      !third2 ||
+      !title1 ||
+      !title2 ||
+      !title3
+    ) {
       return
     }
 

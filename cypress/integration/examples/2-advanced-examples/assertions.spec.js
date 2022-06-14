@@ -40,7 +40,10 @@ context('Assertions', () => {
 
     it('.and() - chain multiple assertions together', () => {
       // https://on.cypress.io/and
-      cy.get('.assertions-link').should('have.class', 'active').and('have.attr', 'href').and('include', 'cypress.io')
+      cy.get('.assertions-link')
+        .should('have.class', 'active')
+        .and('have.attr', 'href')
+        .and('include', 'cypress.io')
     })
   })
 
@@ -79,7 +82,11 @@ context('Assertions', () => {
 
           // use second argument to expect(...) to provide clear
           // message with each assertion
-          expect(paragraphs, 'has expected text in each paragraph').to.deep.eq(['Some text from first p', 'More text from second p', 'And even more text from third p'])
+          expect(paragraphs, 'has expected text in each paragraph').to.deep.eq([
+            'Some text from first p',
+            'More text from second p',
+            'And even more text from third p',
+          ])
         })
     })
 

@@ -25,12 +25,27 @@ export const CardMain: FC<Lib.T.CardProps> = ({ post, user, loading }) => {
         <header>
           <Link href={userSlug}>
             <a>
-              <NapProfile profile={profile} loading={loading} id={userID} hasNap mode="horizontal" username={fullName} job={job} size={0.6} className="flairDetail" />
+              <NapProfile
+                profile={profile}
+                loading={loading}
+                id={userID}
+                hasNap
+                mode="horizontal"
+                username={fullName}
+                job={job}
+                size={0.6}
+                className="flairDetail"
+              />
             </a>
           </Link>
 
           <span>
-            <Menu<Lib.T.MenuItemKeys, void> items={menuItems} position={['35px', '-31px', 'unset', 'unset']} openMenuEffect="scale-out" compact>
+            <Menu<Lib.T.MenuItemKeys, void>
+              items={menuItems}
+              position={['35px', '-31px', 'unset', 'unset']}
+              openMenuEffect="scale-out"
+              compact
+            >
               <button>
                 <HiOutlineDotsHorizontal />
               </button>
@@ -74,9 +89,18 @@ export const CardMain: FC<Lib.T.CardProps> = ({ post, user, loading }) => {
             <a>
               <span />
 
-              <Information loading={loading} icon={<IoMdWallet />} colorTheme={topic} title="Payment Required" />
+              <Information
+                loading={loading}
+                icon={<IoMdWallet />}
+                colorTheme={topic}
+                title="Payment Required"
+              />
 
-              <Information loading={loading} icon={<AppIconByTopic topic={topic} transparent />} title={`An ${topic}`} />
+              <Information
+                loading={loading}
+                icon={<AppIconByTopic topic={topic} transparent />}
+                title={`An ${topic}`}
+              />
 
               <Information loading={loading} icon={<FaRegHeart />} title="Likes">
                 {Num.stringify(likes)}

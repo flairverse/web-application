@@ -2,7 +2,9 @@ import { pageCreateNapAtoms } from '@/store/atoms'
 import { useRecoilValue } from 'recoil'
 import * as Lib from '..'
 
-export const useToolsForAllInserters = ({ boardRef }: Pick<Lib.T.ToolsForInserters, 'boardRef'>) => {
+export const useToolsForAllInserters = ({
+  boardRef,
+}: Pick<Lib.T.ToolsForInserters, 'boardRef'>) => {
   const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
 
   /**
@@ -37,7 +39,9 @@ export const useToolsForAllInserters = ({ boardRef }: Pick<Lib.T.ToolsForInserte
       return
     }
 
-    const angle = <Lib.T.Elements.ElementRotation>parseFloat(focusedItem.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.ROTATION) || '0')
+    const angle = <Lib.T.Elements.ElementRotation>(
+      parseFloat(focusedItem.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.ROTATION) || '0')
+    )
     const scale = parseFloat(focusedItem.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.SCALE) || '1')
     const nextAngle = angle + 45
     focusedItem.style.transform = `rotate(${nextAngle}deg) scale(${scale})`
@@ -60,7 +64,9 @@ export const useToolsForAllInserters = ({ boardRef }: Pick<Lib.T.ToolsForInserte
       return
     }
 
-    const actualItem = <HTMLDivElement | null>(queried ? focusedItem.querySelector(queried) : focusedItem)
+    const actualItem = <HTMLDivElement | null>(
+      (queried ? focusedItem.querySelector(queried) : focusedItem)
+    )
     if (!actualItem) {
       return
     }
@@ -69,7 +75,10 @@ export const useToolsForAllInserters = ({ boardRef }: Pick<Lib.T.ToolsForInserte
     const effectsRange = [0, Lib.CO.EFFECTS[effectGroup].length - 1]
     const currentEffectIndex = Lib.CO.EFFECTS[effectGroup].indexOf(currentEffect)
     const nextEffectIndex = currentEffectIndex + 1
-    const nextEffect = nextEffectIndex > effectsRange[1] ? Lib.CO.EFFECTS[effectGroup][effectsRange[0]] : Lib.CO.EFFECTS[effectGroup][nextEffectIndex]
+    const nextEffect =
+      nextEffectIndex > effectsRange[1]
+        ? Lib.CO.EFFECTS[effectGroup][effectsRange[0]]
+        : Lib.CO.EFFECTS[effectGroup][nextEffectIndex]
     actualItem.classList.remove(currentEffect)
     actualItem.classList.add(nextEffect)
     actualItem.setAttribute(Lib.CO.FRAMES_DATA_ATTRS.EFFECT, nextEffect)

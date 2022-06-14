@@ -13,8 +13,18 @@ export const useToolsForMentionInserter = ({ boardRef }: Lib.T.ToolsForInserters
 
   const tools: Pick<Lib.T.ToolProps, 'Icon' | 'type' | 'title' | 'disabled'>[] = [
     { Icon: IoAddCircleOutline, type: 'add-mention', title: 'Add new', disabled: false },
-    { Icon: MdOutlineStyle, type: 'mention-effect', title: 'Style', disabled: activeOption !== 'mention' || activeItemID === null },
-    { Icon: AiOutlineRotateRight, type: 'mention-rotation', title: 'Rotate', disabled: activeOption !== 'mention' || activeItemID === null },
+    {
+      Icon: MdOutlineStyle,
+      type: 'mention-effect',
+      title: 'Style',
+      disabled: activeOption !== 'mention' || activeItemID === null,
+    },
+    {
+      Icon: AiOutlineRotateRight,
+      type: 'mention-rotation',
+      title: 'Rotate',
+      disabled: activeOption !== 'mention' || activeItemID === null,
+    },
   ]
 
   const toolClick = (type: Lib.T.Tool) => {

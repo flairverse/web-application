@@ -23,5 +23,6 @@ export interface LayeredProps extends HTMLAttributes<HTMLDivElement> {
  *
  * Layer
  */
-export interface LayerProps extends Pick<LayeredProps, 'storeKeys' | 'layers' | 'withHeader' | 'title'> {}
+export interface LayerProps
+  extends Pick<LayeredProps, 'storeKeys' | 'layers' | 'withHeader' | 'title'> {}
 export interface UseLayerArgs extends Pick<LayerProps, 'storeKeys'> {}

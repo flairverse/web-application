@@ -1,7 +1,14 @@
 import { FC } from 'react'
 import * as Lib from './lib'
 
-export const Popup: FC<Lib.T.PopupProps> = ({ onClose, visible, closable = true, children, header, ...rest }) => {
+export const Popup: FC<Lib.T.PopupProps> = ({
+  onClose,
+  visible,
+  closable = true,
+  children,
+  header,
+  ...rest
+}) => {
   return (
     <>
       <Lib.S.PopupBackdrop className={`${visible}`} onClick={() => closable && onClose()} />

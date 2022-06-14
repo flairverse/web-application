@@ -3,7 +3,13 @@ import { FC } from 'react'
 import { useRecoilValue } from 'recoil'
 import * as Lib from './lib'
 
-export const Layered: FC<Lib.T.LayeredProps> = ({ children, layers, storeKeys, withHeader = true, ...rest }) => {
+export const Layered: FC<Lib.T.LayeredProps> = ({
+  children,
+  layers,
+  storeKeys,
+  withHeader = true,
+  ...rest
+}) => {
   const activeLayer = useRecoilValue(componentLayeredAtoms.activeLayer(storeKeys.activeLayer))
 
   return (

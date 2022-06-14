@@ -1,7 +1,14 @@
 import { layoutBottomNavbarAtoms } from '@/store/atoms'
 import { IconBaseProps } from 'react-icons'
 import { BsChatSquare, BsChatSquareFill, BsPlusSquare, BsPlusSquareFill } from 'react-icons/bs'
-import { RiHomeSmile2Fill, RiHomeSmile2Line, RiSearch2Fill, RiSearch2Line, RiUserSmileFill, RiUserSmileLine } from 'react-icons/ri'
+import {
+  RiHomeSmile2Fill,
+  RiHomeSmile2Line,
+  RiSearch2Fill,
+  RiSearch2Line,
+  RiUserSmileFill,
+  RiUserSmileLine,
+} from 'react-icons/ri'
 import { useRecoilValue } from 'recoil'
 import * as Lib from '.'
 

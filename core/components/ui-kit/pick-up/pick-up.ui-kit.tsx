@@ -5,12 +5,30 @@ import { IoClose } from 'react-icons/io5'
 import { BackDrop } from '../back-drop'
 import * as Lib from './lib'
 
-export const PickUp: FC<Lib.T.PickUpProps> = ({ visibility, onClose, boxHeight, boxWidth, filter, placeholder, children, backdrop, searchBox, cancelButton, ...rest }) => {
+export const PickUp: FC<Lib.T.PickUpProps> = ({
+  visibility,
+  onClose,
+  boxHeight,
+  boxWidth,
+  filter,
+  placeholder,
+  children,
+  backdrop,
+  searchBox,
+  cancelButton,
+  ...rest
+}) => {
   return (
     <>
       <BackDrop {...backdrop} visibility={visibility} />
 
-      <Lib.S.PickUpContainer boxHeight={boxHeight} boxWidth={boxWidth} onClick={() => onClose?.()} {...rest} className={`${rest.className ? rest.className : ''} ${visibility}`}>
+      <Lib.S.PickUpContainer
+        boxHeight={boxHeight}
+        boxWidth={boxWidth}
+        onClick={() => onClose?.()}
+        {...rest}
+        className={`${rest.className ? rest.className : ''} ${visibility}`}
+      >
         <div onClick={evt => evt.stopPropagation()}>
           <div className="searchBox">
             <FiSearch color="var(--layer-2-text-2)" size={25} />

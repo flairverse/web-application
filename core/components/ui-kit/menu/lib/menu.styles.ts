@@ -21,7 +21,9 @@ export const MenuButton = styled.div`
   }
 `
 
-export const MenuContainer = styled.ul<Pick<Lib.T.MenuProps, 'position' | 'openMenuEffect' | 'minWidth' | 'compact'>>`
+export const MenuContainer = styled.ul<
+  Pick<Lib.T.MenuProps, 'position' | 'openMenuEffect' | 'minWidth' | 'compact'>
+>`
   top: ${({ position }) => (position ? position[0] : 'unset')};
   right: ${({ position }) => (position ? position[1] : 'unset')};
   bottom: ${({ position }) => (position ? position[2] : 'unset')};

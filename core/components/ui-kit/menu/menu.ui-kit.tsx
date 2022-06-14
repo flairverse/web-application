@@ -18,7 +18,14 @@ export function Menu<Keys = Lib.T.ItemKey, ClickReturn = void>({
 
         <Lib.S.MenuShadow className="menuShadow" />
 
-        <Lib.S.MenuContainer position={position} compact={compact} minWidth={minWidth} {...rest} className={`menuContainer ${rest.className}`} openMenuEffect={openMenuEffect}>
+        <Lib.S.MenuContainer
+          position={position}
+          compact={compact}
+          minWidth={minWidth}
+          {...rest}
+          className={`menuContainer ${rest.className}`}
+          openMenuEffect={openMenuEffect}
+        >
           {items.map(({ icon, title, key, onClick, href, breaker }, index) => (
             <li key={index}>
               {breaker && <div className="breaker" />}

@@ -1,7 +1,10 @@
 import * as Lib from './lib'
 
 export class Str {
-  static random(length: number = 5, includes: Lib.T.RandomStringIncludes = 'allCharacters'): string {
+  static random(
+    length: number = 5,
+    includes: Lib.T.RandomStringIncludes = 'allCharacters',
+  ): string {
     let result = ''
     const numeric = '123456789'
     const zero = '0'

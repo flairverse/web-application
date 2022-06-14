@@ -30,7 +30,10 @@ export class Num {
       }
     }
 
-    return (num / roundSymbols[i].value).toFixed(digits).replace(RegExes.round, '$1') + roundSymbols[i].symbol
+    return (
+      (num / roundSymbols[i].value).toFixed(digits).replace(RegExes.round, '$1') +
+      roundSymbols[i].symbol
+    )
   }
 
   static range(start: number, end: number, step = 1) {

@@ -1,7 +1,11 @@
 import { FC } from 'react'
 import * as Lib from '.'
 
-export const ItemContent: FC<Pick<Lib.T.MenuItem, 'icon' | 'title' | 'breaker'>> = ({ icon, title, breaker }) => {
+export const ItemContent: FC<Pick<Lib.T.MenuItem, 'icon' | 'title' | 'breaker'>> = ({
+  icon,
+  title,
+  breaker,
+}) => {
   return (
     <>
       {!breaker && (

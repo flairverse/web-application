@@ -12,5 +12,11 @@ export const REACT_QUERY_DEVTOOLS_SORT_FN = 'reactQueryDevtoolsSortFn'
  *
  * types
  */
-export const LOCAL_STORAGE_KEYS = [FONT, THEME, REACT_QUERY_DEVTOOLS_IS_OPEN, ALLY_SUPPORTS_CACHE, REACT_QUERY_DEVTOOLS_SORT_FN] as const
+export const LOCAL_STORAGE_KEYS = [
+  FONT,
+  THEME,
+  REACT_QUERY_DEVTOOLS_IS_OPEN,
+  ALLY_SUPPORTS_CACHE,
+  REACT_QUERY_DEVTOOLS_SORT_FN,
+] as const
 export type LocalStorageKeys = typeof LOCAL_STORAGE_KEYS[number]

@@ -6,7 +6,9 @@ import { useRecoilValue, useSetRecoilState } from 'recoil'
 import * as Lib from '.'
 
 export const FilterButton: FC<Lib.T.FilterButtonProps> = ({ filtersCount, filter }) => {
-  const setFiltersVisibility = useSetRecoilState(componentPickupAtoms.pickUpFiltersVisibility(filter.storeKey))
+  const setFiltersVisibility = useSetRecoilState(
+    componentPickupAtoms.pickUpFiltersVisibility(filter.storeKey),
+  )
 
   return (
     <Button type="primary" onClick={() => setFiltersVisibility(_ => !_)}>
@@ -16,7 +18,9 @@ export const FilterButton: FC<Lib.T.FilterButtonProps> = ({ filtersCount, filter
 }
 
 export const FiltersBox: FC<Lib.T.FiltersBoxProps> = ({ filter }) => {
-  const filtersVisibility = useRecoilValue(componentPickupAtoms.pickUpFiltersVisibility(filter.storeKey))
+  const filtersVisibility = useRecoilValue(
+    componentPickupAtoms.pickUpFiltersVisibility(filter.storeKey),
+  )
 
   return (
     <SlideUpAndDown visible={filtersVisibility}>
@@ -29,5 +33,13 @@ export const SearchBox: FC<Lib.T.SearchBoxProps> = ({ placeholder, searchBox }) 
   const query = useRecoilValue(componentPickupAtoms.pickUpSearchQuery(searchBox.storeKey))
   const { handleOnInput } = Lib.H.useSearchBox({ searchBox })
 
-  return <input type="text" value={query} onInput={handleOnInput} placeholder={placeholder || 'Search...'} autoFocus />
+  return (
+    <input
+      type="text"
+      value={query}
+      onInput={handleOnInput}
+      placeholder={placeholder || 'Search...'}
+      autoFocus
+    />
+  )
 }

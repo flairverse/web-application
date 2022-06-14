@@ -9,10 +9,22 @@ import Link from 'next/link'
 import { FC } from 'react'
 import * as Lib from '.'
 
-export const Topic: FC<Lib.T.TopicProps> = ({ counter, title, TopicIcon, topic, href, ...rest }) => {
+export const Topic: FC<Lib.T.TopicProps> = ({
+  counter,
+  title,
+  TopicIcon,
+  topic,
+  href,
+  ...rest
+}) => {
   return (
     <Link href={href}>
-      <Lib.S.Topic href={href} className="col-lg-3 col-md-3 col-sm-3 col-xs-6" backColor={`var(--c-${topic})`} {...rest}>
+      <Lib.S.Topic
+        href={href}
+        className="col-lg-3 col-md-3 col-sm-3 col-xs-6"
+        backColor={`var(--c-${topic})`}
+        {...rest}
+      >
         <div>
           <span>
             <TopicIcon />
@@ -32,9 +44,27 @@ export const Topic: FC<Lib.T.TopicProps> = ({ counter, title, TopicIcon, topic, 
 export const Topics: FC<Lib.T.TopicsProps> = ({ ...rest }) => {
   return (
     <Lib.S.Topics {...rest} className={`topics ${rest.className}`}>
-      <Topic title="Authors' Blogs" topic="blog" counter={1000} TopicIcon={AppIcons.Blog} href="/" />
-      <Topic title="Orators' Podcasts" topic="podcast" counter={1000} TopicIcon={AppIcons.Podcast} href="/" />
-      <Topic title="Scribers' Articles" topic="article" counter={1000} TopicIcon={AppIcons.Article} href="/" />
+      <Topic
+        title="Authors' Blogs"
+        topic="blog"
+        counter={1000}
+        TopicIcon={AppIcons.Blog}
+        href="/"
+      />
+      <Topic
+        title="Orators' Podcasts"
+        topic="podcast"
+        counter={1000}
+        TopicIcon={AppIcons.Podcast}
+        href="/"
+      />
+      <Topic
+        title="Scribers' Articles"
+        topic="article"
+        counter={1000}
+        TopicIcon={AppIcons.Article}
+        href="/"
+      />
       <Topic title="Companies' Jobs" topic="job" counter={1000} TopicIcon={AppIcons.Job} href="/" />
     </Lib.S.Topics>
   )
@@ -43,11 +73,27 @@ export const Topics: FC<Lib.T.TopicsProps> = ({ ...rest }) => {
 export const LeftAside: FC = () => {
   return (
     <Lib.S.TopThings>
-      <SuggestionBox topic="article" title="Top articles" suggestionsItems={mock.suggestionInBox1} />
-      <SuggestionBox topic="article" title="We are proud of your valuable articles and read them with interest." suggestionContent={{ href: '/', buttonText: 'Publish now' }} />
-      <SuggestionBox topic="podcast" title="Top podcast" suggestionsFlairs={mock.suggestionFlair2} />
+      <SuggestionBox
+        topic="article"
+        title="Top articles"
+        suggestionsItems={mock.suggestionInBox1}
+      />
+      <SuggestionBox
+        topic="article"
+        title="We are proud of your valuable articles and read them with interest."
+        suggestionContent={{ href: '/', buttonText: 'Publish now' }}
+      />
+      <SuggestionBox
+        topic="podcast"
+        title="Top podcast"
+        suggestionsFlairs={mock.suggestionFlair2}
+      />
       <SuggestionBox topic="blog" title="Top blog" suggestionsItems={mock.suggestionInBox2} />
-      <SuggestionBox topic="blog" title="We cant't wait to read what you write." suggestionContent={{ href: '/', buttonText: 'Write now' }} />
+      <SuggestionBox
+        topic="blog"
+        title="We cant't wait to read what you write."
+        suggestionContent={{ href: '/', buttonText: 'Write now' }}
+      />
     </Lib.S.TopThings>
   )
 }
@@ -56,10 +102,22 @@ export const RightAside: FC = () => {
   return (
     <Lib.S.TopThings>
       <SuggestionBox topic="job" title="Top job" suggestionsItems={mock.suggestionInBox2} />
-      <SuggestionBox topic="job" title="People with flair are waiting for your company jobs." suggestionContent={{ href: '/', buttonText: 'Make now' }} />
+      <SuggestionBox
+        topic="job"
+        title="People with flair are waiting for your company jobs."
+        suggestionContent={{ href: '/', buttonText: 'Make now' }}
+      />
       <SuggestionBox topic="podcast" title="Top podcast" suggestionsItems={mock.suggestionInBox1} />
-      <SuggestionBox topic="podcast" title="Do you have any amazing things to say? We listen to them." suggestionContent={{ href: '/', buttonText: 'Speak now' }} />
-      <SuggestionBox topic="podcast" title="Top podcast" suggestionsFlairs={mock.suggestionFlair1} />
+      <SuggestionBox
+        topic="podcast"
+        title="Do you have any amazing things to say? We listen to them."
+        suggestionContent={{ href: '/', buttonText: 'Speak now' }}
+      />
+      <SuggestionBox
+        topic="podcast"
+        title="Top podcast"
+        suggestionsFlairs={mock.suggestionFlair1}
+      />
     </Lib.S.TopThings>
   )
 }
@@ -71,7 +129,13 @@ export const NapsList: FC = () => {
         id: index,
         children: (
           <Lib.S.NapProfileContainer className="nap">
-            <NapProfile id={0} loading={false} username="tw4kt5hwpwxbffg33ckesrq78bmd3s" hasNap job="Computer Engineering" />
+            <NapProfile
+              id={0}
+              loading={false}
+              username="tw4kt5hwpwxbffg33ckesrq78bmd3s"
+              hasNap
+              job="Computer Engineering"
+            />
           </Lib.S.NapProfileContainer>
         ),
       }

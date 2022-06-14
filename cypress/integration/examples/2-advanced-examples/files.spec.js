@@ -30,7 +30,10 @@ context('Files', () => {
     // the button is clicked in scripts.js
     cy.get('.fixture-btn').click()
 
-    cy.wait('@getComment').its('response.body').should('have.property', 'name').and('include', 'Using fixtures to represent data')
+    cy.wait('@getComment')
+      .its('response.body')
+      .should('have.property', 'name')
+      .and('include', 'Using fixtures to represent data')
   })
 
   it('cy.fixture() or require - load a fixture', function () {

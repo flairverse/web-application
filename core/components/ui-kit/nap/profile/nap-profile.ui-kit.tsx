@@ -3,7 +3,22 @@ import Link from 'next/link'
 import { FC } from 'react'
 import * as Lib from './lib'
 
-export const NapProfile: FC<Lib.T.NapProfileProps> = ({ mode = 'vertical', username, usernameWithAtSign, hasNap, opening, loading, id, onClick, seen, profile, size = 1, job, linked, ...rest }) => {
+export const NapProfile: FC<Lib.T.NapProfileProps> = ({
+  mode = 'vertical',
+  username,
+  usernameWithAtSign,
+  hasNap,
+  opening,
+  loading,
+  id,
+  onClick,
+  seen,
+  profile,
+  size = 1,
+  job,
+  linked,
+  ...rest
+}) => {
   const clickHandler = () => {
     if (onClick) {
       onClick(id)
@@ -36,13 +51,28 @@ export const NapProfile: FC<Lib.T.NapProfileProps> = ({ mode = 'vertical', usern
           )
         )}
 
-        {mode === 'horizontal' ? loading ? <Skeleton.Button active className="job" /> : job && <span>{job}</span> : null}
+        {mode === 'horizontal' ? (
+          loading ? (
+            <Skeleton.Button active className="job" />
+          ) : (
+            job && <span>{job}</span>
+          )
+        ) : null}
       </p>
     </>
   )
 
   return (
-    <Lib.S.NapProfileContainer onClick={clickHandler} seen={seen} mode={mode} loading={loading} hasNap={hasNap} opening={opening} size={size} {...rest}>
+    <Lib.S.NapProfileContainer
+      onClick={clickHandler}
+      seen={seen}
+      mode={mode}
+      loading={loading}
+      hasNap={hasNap}
+      opening={opening}
+      size={size}
+      {...rest}
+    >
       {linked ? (
         <Link href={`/${username}`}>
           <a>{content}</a>

@@ -36,17 +36,30 @@ context('Actions', () => {
 
   it('.focus() - focus on a DOM element', () => {
     // https://on.cypress.io/focus
-    cy.get('.action-focus').focus().should('have.class', 'focus').prev().should('have.attr', 'style', 'color: orange;')
+    cy.get('.action-focus')
+      .focus()
+      .should('have.class', 'focus')
+      .prev()
+      .should('have.attr', 'style', 'color: orange;')
   })
 
   it('.blur() - blur off a DOM element', () => {
     // https://on.cypress.io/blur
-    cy.get('.action-blur').type('About to blur').blur().should('have.class', 'error').prev().should('have.attr', 'style', 'color: red;')
+    cy.get('.action-blur')
+      .type('About to blur')
+      .blur()
+      .should('have.class', 'error')
+      .prev()
+      .should('have.attr', 'style', 'color: red;')
   })
 
   it('.clear() - clears an input or textarea element', () => {
     // https://on.cypress.io/clear
-    cy.get('.action-clear').type('Clear this text').should('have.value', 'Clear this text').clear().should('have.value', '')
+    cy.get('.action-clear')
+      .type('Clear this text')
+      .should('have.value', 'Clear this text')
+      .clear()
+      .should('have.value', '')
   })
 
   it('.submit() - submit a form', () => {
@@ -135,7 +148,9 @@ context('Actions', () => {
     cy.get('.action-radios [type="radio"]').check('radio1').should('be.checked')
 
     // .check() accepts an array of values
-    cy.get('.action-multiple-checkboxes [type="checkbox"]').check(['checkbox1', 'checkbox2']).should('be.checked')
+    cy.get('.action-multiple-checkboxes [type="checkbox"]')
+      .check(['checkbox1', 'checkbox2'])
+      .should('be.checked')
 
     // Ignore error checking prior to checking
     cy.get('.action-checkboxes [disabled]').check({ force: true }).should('be.checked')
@@ -151,10 +166,16 @@ context('Actions', () => {
     cy.get('.action-check [type="checkbox"]').not('[disabled]').uncheck().should('not.be.checked')
 
     // .uncheck() accepts a value argument
-    cy.get('.action-check [type="checkbox"]').check('checkbox1').uncheck('checkbox1').should('not.be.checked')
+    cy.get('.action-check [type="checkbox"]')
+      .check('checkbox1')
+      .uncheck('checkbox1')
+      .should('not.be.checked')
 
     // .uncheck() accepts an array of values
-    cy.get('.action-check [type="checkbox"]').check(['checkbox1', 'checkbox3']).uncheck(['checkbox1', 'checkbox3']).should('not.be.checked')
+    cy.get('.action-check [type="checkbox"]')
+      .check(['checkbox1', 'checkbox3'])
+      .uncheck(['checkbox1', 'checkbox3'])
+      .should('not.be.checked')
 
     // Ignore error checking prior to unchecking
     cy.get('.action-check [disabled]').uncheck({ force: true }).should('not.be.checked')
@@ -184,7 +205,10 @@ context('Actions', () => {
       // can attach an assertion right away to the element
       .should('have.value', 'fr-bananas')
 
-    cy.get('.action-select-multiple').select(['fr-apples', 'fr-oranges', 'fr-bananas']).invoke('val').should('deep.equal', ['fr-apples', 'fr-oranges', 'fr-bananas'])
+    cy.get('.action-select-multiple')
+      .select(['fr-apples', 'fr-oranges', 'fr-bananas'])
+      .invoke('val')
+      .should('deep.equal', ['fr-apples', 'fr-oranges', 'fr-bananas'])
 
     // assert the selected values include oranges
     cy.get('.action-select-multiple').invoke('val').should('include', 'fr-oranges')
@@ -222,7 +246,12 @@ context('Actions', () => {
 
     // Here, we invoke jQuery's val() method to set
     // the value and trigger the 'change' event
-    cy.get('.trigger-input-range').invoke('val', 25).trigger('change').get('input[type=range]').siblings('p').should('have.text', '25')
+    cy.get('.trigger-input-range')
+      .invoke('val', 25)
+      .trigger('change')
+      .get('input[type=range]')
+      .siblings('p')
+      .should('have.text', '25')
   })
 
   it('cy.scrollTo() - scroll the window or element to a position', () => {

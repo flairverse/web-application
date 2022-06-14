@@ -119,7 +119,10 @@ export class Dates {
     return Dates.dateToMoment(date)
   }
 
-  static difference(startDate: Lib.T.DateDetail | 'now', endDate: Lib.T.DateDetail | 'now'): Duration {
+  static difference(
+    startDate: Lib.T.DateDetail | 'now',
+    endDate: Lib.T.DateDetail | 'now',
+  ): Duration {
     const start = Dates.dateDetailToDate(startDate)
     const end = Dates.dateDetailToDate(endDate)
     return intervalToDuration({ start, end })
@@ -127,7 +130,15 @@ export class Dates {
 
   static triadDistance({ duration, i18n }: Lib.T.TriadDistanceArgs): Lib.T.TriadDistanceReturn {
     const { years, months, weeks, days, hours, minutes, seconds } = duration
-    const { years: yearsI18n, months: monthsI18n, weeks: weeksI18n, days: daysI18n, hours: hoursI18n, minutes: minutesI18n, seconds: secondsI18n } = i18n
+    const {
+      years: yearsI18n,
+      months: monthsI18n,
+      weeks: weeksI18n,
+      days: daysI18n,
+      hours: hoursI18n,
+      minutes: minutesI18n,
+      seconds: secondsI18n,
+    } = i18n
     const triad: Partial<Lib.T.TriadDistanceReturn> = []
 
     if (years) {

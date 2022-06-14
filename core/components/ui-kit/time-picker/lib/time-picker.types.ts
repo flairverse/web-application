@@ -29,7 +29,15 @@ export interface DateTimePickerProps {
   updateMinimumDateEveryMinutes?: boolean
   onMinimumDateUpdate?: (newMinimumDate: Date) => void
 }
-export interface UseDateTimePickerArgs extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax' | 'updateMinimumDateEveryMinutes' | 'onMinimumDateUpdate'> {
+export interface UseDateTimePickerArgs
+  extends Pick<
+    DateTimePickerProps,
+    | 'storeKeys'
+    | 'maximumDate'
+    | 'dayEndIsMax'
+    | 'updateMinimumDateEveryMinutes'
+    | 'onMinimumDateUpdate'
+  > {
   minimumDateProp: Date
 }
 
@@ -38,47 +46,61 @@ export interface UseDateTimePickerArgs extends Pick<DateTimePickerProps, 'storeK
  *
  * TimePicker
  */
-export interface TimePickerProps extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
+export interface TimePickerProps
+  extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
 
 /**
  *
  *
  * TimePickerInput
  */
-export interface TimePickerInputProps extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {
+export interface TimePickerInputProps
+  extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {
   target: TimeTarget
 }
-export interface UseTimePickerInput extends Pick<TimePickerInputProps, 'storeKeys' | 'target' | 'maximumDate' | 'dayEndIsMax'> {}
+export interface UseTimePickerInput
+  extends Pick<TimePickerInputProps, 'storeKeys' | 'target' | 'maximumDate' | 'dayEndIsMax'> {}
 
 /**
  *
  *
  * TimePickerButton
  */
-export interface TimePickerButtonProps extends Pick<TimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {
+export interface TimePickerButtonProps
+  extends Pick<TimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {
   target: TimeTarget
   action: TimeAction
 }
-export interface UseTimePickerButtonArgs extends Pick<TimePickerButtonProps, 'target' | 'action' | 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
+export interface UseTimePickerButtonArgs
+  extends Pick<
+    TimePickerButtonProps,
+    'target' | 'action' | 'storeKeys' | 'maximumDate' | 'dayEndIsMax'
+  > {}
 
 /**
  *
  *
  * UseTimeValues
  */
-export interface UseCalculateTimeValueArgs extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
+export interface UseCalculateTimeValueArgs
+  extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
 export interface UseMinimumValues extends Pick<DateTimePickerProps, 'storeKeys'> {}
-export interface UseMaximumValues extends Pick<DateTimePickerProps, 'maximumDate' | 'dayEndIsMax'> {}
-export interface UseFixWrongChosenDate extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
-export interface UseDisabledDays extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
-export interface UseDisabledMonths extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
+export interface UseMaximumValues
+  extends Pick<DateTimePickerProps, 'maximumDate' | 'dayEndIsMax'> {}
+export interface UseFixWrongChosenDate
+  extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
+export interface UseDisabledDays
+  extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
+export interface UseDisabledMonths
+  extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
 
 /**
  *
  *
  * DatePicker
  */
-export interface DatePickerProps extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
+export interface DatePickerProps
+  extends Pick<DateTimePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
 
 /**
  *
@@ -103,7 +125,8 @@ export interface UseYearsArgs extends Pick<YearsProps, 'storeKeys' | 'maximumDat
  *
  * Months
  */
-export interface MonthsProps extends Pick<DatePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
+export interface MonthsProps
+  extends Pick<DatePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
 export interface UseMonthsArgs extends Pick<MonthsProps, 'storeKeys'> {}
 
 /**
@@ -111,7 +134,8 @@ export interface UseMonthsArgs extends Pick<MonthsProps, 'storeKeys'> {}
  *
  * Days
  */
-export interface DaysProps extends Pick<DatePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
+export interface DaysProps
+  extends Pick<DatePickerProps, 'storeKeys' | 'maximumDate' | 'dayEndIsMax'> {}
 export interface UseDaysArgs extends Pick<DaysProps, 'storeKeys'> {}
 
 /**
@@ -120,5 +144,10 @@ export interface UseDaysArgs extends Pick<DaysProps, 'storeKeys'> {}
  *
  * Actions
  */
-export interface Actions extends Pick<DateTimePickerProps, 'onConfirm' | 'closeOnConfirm' | 'storeKeys' | 'autoHideEarliest'> {}
-export interface UseActionsArgs extends Pick<Actions, 'onConfirm' | 'closeOnConfirm' | 'storeKeys' | 'autoHideEarliest'> {}
+export interface Actions
+  extends Pick<
+    DateTimePickerProps,
+    'onConfirm' | 'closeOnConfirm' | 'storeKeys' | 'autoHideEarliest'
+  > {}
+export interface UseActionsArgs
+  extends Pick<Actions, 'onConfirm' | 'closeOnConfirm' | 'storeKeys' | 'autoHideEarliest'> {}

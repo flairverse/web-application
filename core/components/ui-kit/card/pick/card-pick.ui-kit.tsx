@@ -10,7 +10,17 @@ export const CardPick: FC<Lib.T.CardPickProps> = ({ author, post, onSelect, ...r
     <Lib.S.CardPickContainer {...rest} onClick={() => onSelect?.(postId)}>
       <div className="detail">
         <div className="author">
-          <NapProfile linked hasNap usernameWithAtSign profile={profile} username={username} id={authorId} size={0.5} mode="horizontal" className="napProfile" />
+          <NapProfile
+            linked
+            hasNap
+            usernameWithAtSign
+            profile={profile}
+            username={username}
+            id={authorId}
+            size={0.5}
+            mode="horizontal"
+            className="napProfile"
+          />
 
           <ul>
             <li>•</li>

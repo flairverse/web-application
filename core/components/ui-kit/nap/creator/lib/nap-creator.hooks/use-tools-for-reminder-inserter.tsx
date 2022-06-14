@@ -11,8 +11,18 @@ export const useToolsForReminderInserter = ({ boardRef }: Lib.T.ToolsForInserter
   const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
 
   const tools: Pick<Lib.T.ToolProps, 'Icon' | 'type' | 'title' | 'disabled'>[] = [
-    { Icon: IoColorFilterOutline, type: 'reminder-effect', title: 'Effect', disabled: activeOption !== 'reminder' || activeItemID === null },
-    { Icon: AiOutlineRotateRight, type: 'reminder-rotation', title: 'Rotate', disabled: activeOption !== 'reminder' || activeItemID === null },
+    {
+      Icon: IoColorFilterOutline,
+      type: 'reminder-effect',
+      title: 'Effect',
+      disabled: activeOption !== 'reminder' || activeItemID === null,
+    },
+    {
+      Icon: AiOutlineRotateRight,
+      type: 'reminder-rotation',
+      title: 'Rotate',
+      disabled: activeOption !== 'reminder' || activeItemID === null,
+    },
   ]
 
   const toolClick = (type: Lib.T.Tool) => {

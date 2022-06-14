@@ -30,4 +30,6 @@ export interface FilterButtonProps extends Pick<Required<PickUpProps>, 'filter'>
 
 export interface FiltersBoxProps extends Pick<Required<PickUpProps>, 'filter'> {}
 
-export interface SearchBoxProps extends Pick<PickUpProps, 'placeholder'>, Pick<Required<PickUpProps>, 'searchBox'> {}
+export interface SearchBoxProps
+  extends Pick<PickUpProps, 'placeholder'>,
+    Pick<Required<PickUpProps>, 'searchBox'> {}
