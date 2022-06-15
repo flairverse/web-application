@@ -647,13 +647,7 @@
 
     &.hasNap {
       > div {
-        background: -webkit-linear-gradient(
-          45deg,
-          var(--c-blog),
-          var(--c-article),
-          var(--c-job),
-          var(--c-podcast)
-        );
+        background: -webkit-linear-gradient(45deg, var(--c-blog), var(--c-article), var(--c-job), var(--c-podcast));
       }
     }
   }

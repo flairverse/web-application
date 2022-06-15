@@ -49,8 +49,7 @@ export const useToolsForTextInserter = ({ boardRef }: Lib.T.ToolsForInserters) =
         if (focusedItem) {
           const currentFontSize = parseInt(window.getComputedStyle(focusedItem).fontSize)
           const nextFontSize = currentFontSize + fontSizeStep
-          focusedItem.style.fontSize =
-            (nextFontSize > fontSizeRange[1] ? fontSizeRange[0] : nextFontSize) + 'px'
+          focusedItem.style.fontSize = (nextFontSize > fontSizeRange[1] ? fontSizeRange[0] : nextFontSize) + 'px'
           focusedItem.focus()
         }
         break

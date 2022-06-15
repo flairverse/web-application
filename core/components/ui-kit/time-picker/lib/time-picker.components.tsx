@@ -6,32 +6,17 @@ import { FiChevronRight } from 'react-icons/fi'
 import * as Lib from '.'
 import { LongPress } from '../../long-press'
 
-const TimePickerInput: FC<Lib.T.TimePickerInputProps> = ({
-  target,
-  storeKeys,
-  maximumDate,
-  dayEndIsMax,
-}) => {
+const TimePickerInput: FC<Lib.T.TimePickerInputProps> = ({ target, storeKeys, maximumDate, dayEndIsMax }) => {
   const { value, handleInputChange } = Lib.H.useTimePickerInput({
     target,
     storeKeys,
     maximumDate,
     dayEndIsMax,
   })
-  return (
-    <Lib.S.TimePickerInput onWheel={handleInputChange}>
-      {value.toString().padStart(2, '0')}
-    </Lib.S.TimePickerInput>
-  )
+  return <Lib.S.TimePickerInput onWheel={handleInputChange}>{value.toString().padStart(2, '0')}</Lib.S.TimePickerInput>
 }
 
-const TimePickerButton: FC<Lib.T.TimePickerButtonProps> = ({
-  target,
-  action,
-  storeKeys,
-  maximumDate,
-  dayEndIsMax,
-}) => {
+const TimePickerButton: FC<Lib.T.TimePickerButtonProps> = ({ target, action, storeKeys, maximumDate, dayEndIsMax }) => {
   const { Icon, handleButtonClicks, shouldDisableAction, value } = Lib.H.useTimePickerButton({
     target,
     action,
@@ -41,11 +26,7 @@ const TimePickerButton: FC<Lib.T.TimePickerButtonProps> = ({
   })
   return (
     <Lib.S.TimePickerButton>
-      <LongPress
-        callback={handleButtonClicks}
-        disabled={shouldDisableAction(target, action, value)}
-        timeout={50}
-      >
+      <LongPress callback={handleButtonClicks} disabled={shouldDisableAction(target, action, value)} timeout={50}>
         <Icon color="var(--layer-2-text-2)" size={20} />
       </LongPress>
     </Lib.S.TimePickerButton>
@@ -56,53 +37,19 @@ export const TimePicker: FC<Lib.T.TimePickerProps> = ({ storeKeys, maximumDate, 
   return (
     <Lib.S.TimePicker>
       <div className="handles">
-        <TimePickerButton
-          target="hour"
-          action="increase"
-          storeKeys={storeKeys}
-          maximumDate={maximumDate}
-          dayEndIsMax={dayEndIsMax}
-        />
-        <TimePickerButton
-          target="minute"
-          action="increase"
-          storeKeys={storeKeys}
-          maximumDate={maximumDate}
-          dayEndIsMax={dayEndIsMax}
-        />
+        <TimePickerButton target="hour" action="increase" storeKeys={storeKeys} maximumDate={maximumDate} dayEndIsMax={dayEndIsMax} />
+        <TimePickerButton target="minute" action="increase" storeKeys={storeKeys} maximumDate={maximumDate} dayEndIsMax={dayEndIsMax} />
       </div>
 
       <div className="values">
-        <TimePickerInput
-          target="hour"
-          storeKeys={storeKeys}
-          maximumDate={maximumDate}
-          dayEndIsMax={dayEndIsMax}
-        />
+        <TimePickerInput target="hour" storeKeys={storeKeys} maximumDate={maximumDate} dayEndIsMax={dayEndIsMax} />
         <span>:</span>
-        <TimePickerInput
-          target="minute"
-          storeKeys={storeKeys}
-          maximumDate={maximumDate}
-          dayEndIsMax={dayEndIsMax}
-        />
+        <TimePickerInput target="minute" storeKeys={storeKeys} maximumDate={maximumDate} dayEndIsMax={dayEndIsMax} />
       </div>
 
       <div className="handles">
-        <TimePickerButton
-          target="hour"
-          action="decrease"
-          storeKeys={storeKeys}
-          maximumDate={maximumDate}
-          dayEndIsMax={dayEndIsMax}
-        />
-        <TimePickerButton
-          target="minute"
-          action="decrease"
-          storeKeys={storeKeys}
-          maximumDate={maximumDate}
-          dayEndIsMax={dayEndIsMax}
-        />
+        <TimePickerButton target="hour" action="decrease" storeKeys={storeKeys} maximumDate={maximumDate} dayEndIsMax={dayEndIsMax} />
+        <TimePickerButton target="minute" action="decrease" storeKeys={storeKeys} maximumDate={maximumDate} dayEndIsMax={dayEndIsMax} />
       </div>
     </Lib.S.TimePicker>
   )
@@ -143,11 +90,7 @@ const Years: FC<Lib.T.YearsProps> = ({ storeKeys, maximumDate }) => {
   return (
     <Fragment>
       {years.map((year, index) => (
-        <Button
-          key={index}
-          type={selectedYear === year ? 'primary' : 'default'}
-          onClick={() => changeYear(year)}
-        >
+        <Button key={index} type={selectedYear === year ? 'primary' : 'default'} onClick={() => changeYear(year)}>
           {year}
         </Button>
       ))}
@@ -182,12 +125,7 @@ export const Days: FC<Lib.T.DaysProps> = ({ storeKeys, maximumDate, dayEndIsMax 
   return (
     <Lib.S.MonthsAndDays className="day">
       {Array.from(Array(daysInMonth())).map((_, index) => (
-        <Button
-          key={index}
-          type={selectedDay === index ? 'primary' : 'default'}
-          onClick={() => changeDay(index)}
-          disabled={isDayDisabled(index)}
-        >
+        <Button key={index} type={selectedDay === index ? 'primary' : 'default'} onClick={() => changeDay(index)} disabled={isDayDisabled(index)}>
           {(index + 1).toString().padStart(2, '0')}
         </Button>
       ))}
@@ -195,12 +133,7 @@ export const Days: FC<Lib.T.DaysProps> = ({ storeKeys, maximumDate, dayEndIsMax 
   )
 }
 
-export const Actions: FC<Lib.T.Actions> = ({
-  closeOnConfirm,
-  onConfirm,
-  storeKeys,
-  autoHideEarliest,
-}) => {
+export const Actions: FC<Lib.T.Actions> = ({ closeOnConfirm, onConfirm, storeKeys, autoHideEarliest }) => {
   const { goToEarliestDate, discard, confirm, isEarliestDisabled } = Lib.H.useActions({
     closeOnConfirm,
     onConfirm,

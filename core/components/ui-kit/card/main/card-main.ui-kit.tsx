@@ -40,12 +40,7 @@ export const CardMain: FC<Lib.T.CardProps> = ({ post, user, loading }) => {
           </Link>
 
           <span>
-            <Menu<Lib.T.MenuItemKeys, void>
-              items={menuItems}
-              position={['35px', '-31px', 'unset', 'unset']}
-              openMenuEffect="scale-out"
-              compact
-            >
+            <Menu<Lib.T.MenuItemKeys, void> items={menuItems} position={['35px', '-31px', 'unset', 'unset']} openMenuEffect="scale-out" compact>
               <button>
                 <HiOutlineDotsHorizontal />
               </button>
@@ -89,18 +84,9 @@ export const CardMain: FC<Lib.T.CardProps> = ({ post, user, loading }) => {
             <a>
               <span />
 
-              <Information
-                loading={loading}
-                icon={<IoMdWallet />}
-                colorTheme={topic}
-                title="Payment Required"
-              />
+              <Information loading={loading} icon={<IoMdWallet />} colorTheme={topic} title="Payment Required" />
 
-              <Information
-                loading={loading}
-                icon={<AppIconByTopic topic={topic} transparent />}
-                title={`An ${topic}`}
-              />
+              <Information loading={loading} icon={<AppIconByTopic topic={topic} transparent />} title={`An ${topic}`} />
 
               <Information loading={loading} icon={<FaRegHeart />} title="Likes">
                 {Num.stringify(likes)}

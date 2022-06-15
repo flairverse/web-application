@@ -28,11 +28,7 @@ export class DOM {
    *
    * adds the draggable ability to an element
    */
-  static makeElementDraggable({
-    element,
-    areaSensitive,
-    blackList,
-  }: Lib.T.MakeElementDraggableArgs) {
+  static makeElementDraggable({ element, areaSensitive, blackList }: Lib.T.MakeElementDraggableArgs) {
     let pos1 = 0
     let pos2 = 0
     let pos3 = 0
@@ -58,9 +54,7 @@ export class DOM {
     }
 
     const setRestrictedPositions = () => {
-      const { clientWidth: areaWidth, clientHeight: areaHeight } = <HTMLDivElement>(
-        document.querySelector(areaSensitive!.target)!
-      )
+      const { clientWidth: areaWidth, clientHeight: areaHeight } = <HTMLDivElement>document.querySelector(areaSensitive!.target)!
       const { clientWidth: elementWidth, clientHeight: elementHeight } = element
       const maxLeft = areaWidth - elementWidth - 5
       const maxTop = areaHeight - elementHeight - 5
@@ -223,15 +217,10 @@ export class DOM {
    *
    * prevents the default scroll functionality and scrolls with specific step instead
    */
-  static scrollWithStep(
-    scrollable: HTMLElement,
-    steps: number,
-    callback?: (activeItemIndex: number) => void,
-  ) {
+  static scrollWithStep(scrollable: HTMLElement, steps: number, callback?: (activeItemIndex: number) => void) {
     scrollable.addEventListener('wheel', evt => {
       evt.preventDefault()
-      const nextScrollPosition =
-        (evt as any).wheelDelta > 0 ? scrollable.scrollTop - steps : scrollable.scrollTop + steps
+      const nextScrollPosition = (evt as any).wheelDelta > 0 ? scrollable.scrollTop - steps : scrollable.scrollTop + steps
       const activeItemIndex = nextScrollPosition / steps
       scrollable.scrollTop = nextScrollPosition
       callback?.(activeItemIndex + 1)
@@ -244,12 +233,7 @@ export class DOM {
    *
    * adds the ability of drag to scroll to an element
    */
-  static scrollByDrag({
-    scrollable,
-    type,
-    callback,
-    triggerCallbackOn = ['all'],
-  }: Lib.T.ScrollByDragArgs) {
+  static scrollByDrag({ scrollable, type, callback, triggerCallbackOn = ['all'] }: Lib.T.ScrollByDragArgs) {
     scrollable.style.cursor = 'grab'
     scrollable.style.touchAction = 'none'
 
@@ -358,17 +342,7 @@ export class DOM {
 
     const { first1, first2, second1, second2, third1, third2, title1, title2, title3 } = refs
 
-    if (
-      !first1 ||
-      !first2 ||
-      !second1 ||
-      !second2 ||
-      !third1 ||
-      !third2 ||
-      !title1 ||
-      !title2 ||
-      !title3
-    ) {
+    if (!first1 || !first2 || !second1 || !second2 || !third1 || !third2 || !title1 || !title2 || !title3) {
       return -1
     }
 

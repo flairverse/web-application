@@ -6,5 +6,4 @@ export interface LongPressProps extends HTMLAttributes<HTMLDivElement> {
   disabled?: boolean
 }
 
-export interface UseLongPressArgs
-  extends Pick<LongPressProps, 'timeout' | 'callback' | 'disabled'> {}
+export interface UseLongPressArgs extends Pick<LongPressProps, 'timeout' | 'callback' | 'disabled'> {}

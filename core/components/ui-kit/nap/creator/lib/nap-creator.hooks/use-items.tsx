@@ -1,22 +1,14 @@
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { useEffect } from 'react'
 import { AiOutlineGif, AiOutlineMessage } from 'react-icons/ai'
-import {
-  BsChevronCompactLeft,
-  BsFillImageFill,
-  BsPlusSquare,
-  BsQuestionCircle,
-} from 'react-icons/bs'
+import { BsChevronCompactLeft, BsFillImageFill, BsPlusSquare, BsQuestionCircle } from 'react-icons/bs'
 import { FiBell, FiLink2 } from 'react-icons/fi'
 import { GoMention } from 'react-icons/go'
 import { MdFormatColorText } from 'react-icons/md'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
-export const useItems = ({
-  onOptionsClick,
-  boardRef,
-}: Pick<Lib.T.ItemsProps, 'boardRef' | 'onOptionsClick'>) => {
+export const useItems = ({ onOptionsClick, boardRef }: Pick<Lib.T.ItemsProps, 'boardRef' | 'onOptionsClick'>) => {
   const showMoreOptions = useRecoilValue(pageCreateNapAtoms.showMoreOptions)
   const [activeOption, setActiveOptions] = useRecoilState(pageCreateNapAtoms.activeOption)
   const setActiveItemID = useSetRecoilState(pageCreateNapAtoms.activeItemID)

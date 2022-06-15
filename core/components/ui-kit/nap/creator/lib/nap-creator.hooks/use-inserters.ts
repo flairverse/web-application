@@ -69,14 +69,12 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
         },
         post: {
           id,
-          title:
-            'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+          title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
           cover: '/removal/1.jpg',
           day: '08',
           month: 'May',
           year: '2018',
-          summary:
-            'It may not possible to squeeze more time in the day without sacrificing sleep. So how do you achieve It',
+          summary: 'It may not possible to squeeze more time in the day without sacrificing sleep. So how do you achieve It',
           topic: 'article',
           timeToRead: 55,
           comments: 6545454564,

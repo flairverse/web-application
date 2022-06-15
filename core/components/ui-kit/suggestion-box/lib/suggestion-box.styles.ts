@@ -10,8 +10,7 @@ export const SuggestionsBoxContainer = styled.div<Pick<Lib.T.SuggestionBoxProps,
 
   > .suggestionContent {
     background-color: ${({ topic }) => `var(--c-${topic})`};
-    background: ${({ topic }) =>
-      `linear-gradient(180deg, var(--c-${topic}), var(--c-${topic}-dark-2))`};
+    background: ${({ topic }) => `linear-gradient(180deg, var(--c-${topic}), var(--c-${topic}-dark-2))`};
     color: white;
     font-family: var(--ff-2);
     text-align: center;
@@ -106,9 +105,7 @@ export const SuggestionsBoxContainer = styled.div<Pick<Lib.T.SuggestionBoxProps,
     }
   }
 `
-export const SuggestionContainer = styled.a<
-  Pick<Lib.T.SuggestionItemExtraProps & Lib.T.SuggestionItem, 'topic' | 'button'>
->`
+export const SuggestionContainer = styled.a<Pick<Lib.T.SuggestionItemExtraProps & Lib.T.SuggestionItem, 'topic' | 'button'>>`
   display: flex;
   align-items: flex-start;
   color: var(--layer-2-text-1);

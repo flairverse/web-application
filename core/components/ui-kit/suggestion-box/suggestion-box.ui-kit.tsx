@@ -4,14 +4,7 @@ import { FC } from 'react'
 import { NapProfile } from '../nap'
 import * as Lib from './lib'
 
-export const SuggestionBox: FC<Lib.T.SuggestionBoxProps> = ({
-  topic,
-  title,
-  suggestionsItems,
-  suggestionsFlairs,
-  suggestionContent,
-  ...rest
-}) => {
+export const SuggestionBox: FC<Lib.T.SuggestionBoxProps> = ({ topic, title, suggestionsItems, suggestionsFlairs, suggestionContent, ...rest }) => {
   return (
     <Lib.S.SuggestionsBoxContainer topic={topic} {...rest}>
       {suggestionContent && (
@@ -39,13 +32,7 @@ export const SuggestionBox: FC<Lib.T.SuggestionBoxProps> = ({
             ))}
 
             {suggestionsFlairs?.map((flair, index) => (
-              <NapProfile
-                key={index}
-                mode="horizontal"
-                {...flair}
-                className={`flair ${flair.className || ''}`}
-                linked
-              />
+              <NapProfile key={index} mode="horizontal" {...flair} className={`flair ${flair.className || ''}`} linked />
             ))}
           </div>
         </>

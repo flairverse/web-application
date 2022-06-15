@@ -21,9 +21,4 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   loading?: boolean
 }
 
-export type MenuItemKeys =
-  | 'copy-link'
-  | 'report-abuse'
-  | 'not-interested'
-  | 'send-to-friends'
-  | 'share-in-another-way'
+export type MenuItemKeys = 'copy-link' | 'report-abuse' | 'not-interested' | 'send-to-friends' | 'share-in-another-way'

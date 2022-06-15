@@ -1,15 +1,7 @@
 import { FC } from 'react'
 import * as Lib from './lib'
 
-export const Horizontal: FC<Lib.T.HorizontalProps> = ({
-  speed = 3,
-  scale = true,
-  central,
-  items,
-  onItemsClick,
-  itemProps,
-  ...rest
-}): JSX.Element => {
+export const Horizontal: FC<Lib.T.HorizontalProps> = ({ speed = 3, scale = true, central, items, onItemsClick, itemProps, ...rest }): JSX.Element => {
   const { on } = Lib.H.useHorizontal(scale, speed)
 
   const clickHandler = ({ id }: Pick<Lib.T.HorizontalItemProps, 'id'>) => {
@@ -28,24 +20,13 @@ export const Horizontal: FC<Lib.T.HorizontalProps> = ({
       {...rest}
     >
       {items.map((item, index) => (
-        <HorizontalItem
-          onClick={() => clickHandler({ id: item.id })}
-          key={index}
-          {...itemProps}
-          {...item}
-        />
+        <HorizontalItem onClick={() => clickHandler({ id: item.id })} key={index} {...itemProps} {...item} />
       ))}
     </Lib.S.items>
   )
 }
 
-const HorizontalItem: FC<Lib.T.HorizontalItemProps> = ({
-  children,
-  spaceX = '0',
-  spaceY = '0',
-  id,
-  ...rest
-}): JSX.Element => {
+const HorizontalItem: FC<Lib.T.HorizontalItemProps> = ({ children, spaceX = '0', spaceY = '0', id, ...rest }): JSX.Element => {
   return (
     <Lib.S.item spaceX={spaceX} spaceY={spaceY} {...rest}>
       {children}

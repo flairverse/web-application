@@ -19,23 +19,9 @@ export const FRAMES_DATA_ATTRS = {
 }
 
 export const EFFECTS = {
-  TEXT: [
-    'no-effect',
-    'animated-gradient',
-    'horror',
-    'shining',
-    'extreme-offset',
-    'bingo',
-    'floor',
-  ] as const,
+  TEXT: ['no-effect', 'animated-gradient', 'horror', 'shining', 'extreme-offset', 'bingo', 'floor'] as const,
   POST: ['no-effect', 'less-detail', 'no-cover'] as const,
-  MENTION: [
-    'no-effect',
-    'with-background',
-    'username-name-job',
-    'username-name-profile',
-    'username-name-job-followers-subscriptions',
-  ] as const,
+  MENTION: ['no-effect', 'with-background', 'username-name-job', 'username-name-profile', 'username-name-job-followers-subscriptions'] as const,
   QUESTION: ['no-effect', 'no-profile'] as const,
   QUIZ: ['no-effect', 'no-profile'] as const,
   REMINDER: ['no-effect', 'joint-backgrounds', 'no-background'] as const,
@@ -249,9 +235,7 @@ export const ITEMS_ICONS = {
 export const ITEMS_DOM_STRING_COMPONENTS: Lib.T.ItemsDOMStringComponents = {
   profile: ({ hasNap, seen, profile, size = 5 }) => `
     <div
-      class="napElementComponents profileComponent size${size} ${hasNap ? 'hasNap' : ''} ${
-    hasNap && seen ? 'seen' : ''
-  }"
+      class="napElementComponents profileComponent size${size} ${hasNap ? 'hasNap' : ''} ${hasNap && seen ? 'seen' : ''}"
       data-has-nap="${hasNap}"
       data-seen="${seen}"
     >
@@ -287,9 +271,7 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
       <div>
         <img src="${post.cover}" alt="cover photo" draggable="false" class="cover" />
 
-        <time data-time="${post.year}-${post.month}-${post.day}" style=" background: var(--c-${
-    post.topic
-  }-trans-1); color: var(--c-${post.topic})">
+        <time data-time="${post.year}-${post.month}-${post.day}" style=" background: var(--c-${post.topic}-trans-1); color: var(--c-${post.topic})">
           <span class="month">${post.month}</span>• <span class="day">${post.day}</span>•
           <span class="year">${post.year}</span>
         </time>
@@ -306,9 +288,7 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
           ${
             post.paymentRequired
               ? `
-                <div class="payment withEmptySpan" style="background: var(--c-${
-                  post.topic
-                }-trans-2)">
+                <div class="payment withEmptySpan" style="background: var(--c-${post.topic}-trans-2)">
                   ${ITEMS_ICONS.paymentRequired(post.topic)}
                   <span>0</span>
                 </div>
@@ -328,16 +308,12 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
 
           <div class="info">
             ${ITEMS_ICONS.message}
-            <span data-comments="${post.comments}" class="comments">${Num.stringify(
-    post.comments,
-  )}</span>
+            <span data-comments="${post.comments}" class="comments">${Num.stringify(post.comments)}</span>
           </div>
 
           <div class="info withEmptySVG">
             <svg></svg>
-            <span class="timeToRead" data-timeToRead="${post.timeToRead}">${
-    post.timeToRead
-  } "</span>
+            <span class="timeToRead" data-timeToRead="${post.timeToRead}">${post.timeToRead} "</span>
           </div>
         </div>
       </footer>
@@ -364,9 +340,7 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
 
         <div>
           ${ITEMS_ICONS.bell}
-          <span data-subscribes="${subscribes}" class="subscribes">${Num.stringify(
-    subscribes,
-  )}</span>
+          <span data-subscribes="${subscribes}" class="subscribes">${Num.stringify(subscribes)}</span>
         </div>
       </dib>
     </div>
@@ -394,13 +368,7 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
     </div>
   `,
 
-  quiz: ({
-    answers,
-    correctAnswer,
-    hintText,
-    questionText,
-    questioner: { hasNap, profile, seen },
-  }) => `
+  quiz: ({ answers, correctAnswer, hintText, questionText, questioner: { hasNap, profile, seen } }) => `
     <div class="napElement quiz no-effect">
       <div class="profileContainer">
         ${ITEMS_DOM_STRING_COMPONENTS.profile({ hasNap, seen, profile, size: 4 })}
@@ -421,9 +389,7 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
       <div class="answers">
         ${answers.map((answer, index) => {
           return `
-            <div class="answer ${correctAnswer === index}" data-activation="${
-            index === 0 || index === 1 ? 'active' : 'inactive'
-          }">
+            <div class="answer ${correctAnswer === index}" data-activation="${index === 0 || index === 1 ? 'active' : 'inactive'}">
               <span>
                 <span>${index + 1}</span>
                 ${ITEMS_ICONS.check}

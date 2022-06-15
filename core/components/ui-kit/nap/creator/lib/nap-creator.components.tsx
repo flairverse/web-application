@@ -150,14 +150,7 @@ export const Mention: FC<Lib.T.MentionProps> = ({ id, username, profile, hasNap,
   return (
     <Lib.S.Mention onClick={() => onClick?.(id)}>
       <div>
-        <NapProfile
-          id={id}
-          profile={profile}
-          hasNap={hasNap}
-          username={username}
-          usernameWithAtSign
-          size={0.8}
-        />
+        <NapProfile id={id} profile={profile} hasNap={hasNap} username={username} usernameWithAtSign size={0.8} />
       </div>
     </Lib.S.Mention>
   )

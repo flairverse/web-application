@@ -18,24 +18,12 @@ import * as Lib from '.'
  *
  * devtool component. all devtools will use this component to be placed in the document
  */
-export const Devtool: FC<Lib.T.DevtoolProps> = ({
-  children,
-  Icon,
-  position,
-  name,
-  current,
-  testId,
-}) => {
+export const Devtool: FC<Lib.T.DevtoolProps> = ({ children, Icon, position, name, current, testId }) => {
   const [showBox, setShowBox] = useState<boolean>(false)
 
   return (
     <>
-      <Lib.S.FloatButton
-        data-testid={testId}
-        position={position}
-        onClick={() => setShowBox(true)}
-        className="devtool"
-      >
+      <Lib.S.FloatButton data-testid={testId} position={position} onClick={() => setShowBox(true)} className="devtool">
         <Icon color="white" size={15} />
       </Lib.S.FloatButton>
 
@@ -125,13 +113,7 @@ export const FontDevtool: FC = () => {
   const { font, setFont, fonts } = useFont()
 
   return (
-    <Devtool
-      testId="fontDevtool"
-      position={[45, 45]}
-      Icon={AiOutlineFontColors}
-      name="Font"
-      current={font}
-    >
+    <Devtool testId="fontDevtool" position={[45, 45]} Icon={AiOutlineFontColors} name="Font" current={font}>
       {fonts.map((item, index) => (
         <Button type="primary" key={index} onClick={() => setFont(item)}>
           {item}

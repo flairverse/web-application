@@ -23,18 +23,7 @@ export interface ReminderTimePickerProps extends Pick<ItemsProps, 'boardRef'> {}
 
 export interface ToolsForInserters extends Pick<ItemsProps, 'boardRef'> {}
 
-export type Options =
-  | 'text'
-  | 'image'
-  | 'gif'
-  | 'question'
-  | 'reminder'
-  | 'quiz'
-  | 'post'
-  | 'mention'
-  | 'link'
-  | 'discussion'
-  | 'more|less'
+export type Options = 'text' | 'image' | 'gif' | 'question' | 'reminder' | 'quiz' | 'post' | 'mention' | 'link' | 'discussion' | 'more|less'
 
 export type Item = {
   Icon: IconType
@@ -60,21 +49,10 @@ export interface ToolProps {
 export type TextTools = 'add-text' | 'text-font-size' | 'text-effect' | 'text-rotation'
 export type PostTools = 'add-post' | 'post-effect' | 'post-rotation'
 export type MentionTools = 'add-mention' | 'mention-effect' | 'mention-rotation'
-export type QuestionTools =
-  | 'add-question'
-  | 'question-effect'
-  | 'question-rotation'
-  | 'question-hint'
+export type QuestionTools = 'add-question' | 'question-effect' | 'question-rotation' | 'question-hint'
 export type QuizTools = 'add-quiz' | 'quiz-effect' | 'quiz-rotation' | 'quiz-hint'
 export type ReminderTools = 'reminder-effect' | 'reminder-rotation'
-export type Tool =
-  | 'none'
-  | TextTools
-  | PostTools
-  | MentionTools
-  | QuestionTools
-  | QuizTools
-  | ReminderTools
+export type Tool = 'none' | TextTools | PostTools | MentionTools | QuestionTools | QuizTools | ReminderTools
 
 export type TextEffects = typeof Lib.CO.EFFECTS.TEXT[number]
 export type PostEffects = typeof Lib.CO.EFFECTS.POST[number]
@@ -82,19 +60,10 @@ export type MentionEffects = typeof Lib.CO.EFFECTS.MENTION[number]
 export type QuestionEffects = typeof Lib.CO.EFFECTS.QUESTION[number]
 export type QuizEffects = typeof Lib.CO.EFFECTS.QUIZ[number]
 export type ReminderEffects = typeof Lib.CO.EFFECTS.REMINDER[number]
-export type AllEffects =
-  | TextEffects
-  | PostEffects
-  | MentionEffects
-  | QuestionEffects
-  | QuizEffects
-  | ReminderEffects
+export type AllEffects = TextEffects | PostEffects | MentionEffects | QuestionEffects | QuizEffects | ReminderEffects
 
 export namespace Elements {
-  export interface BaseElement<
-    Effect extends AllEffects = AllEffects,
-    Type extends Options = Options,
-  > {
+  export interface BaseElement<Effect extends AllEffects = AllEffects, Type extends Options = Options> {
     type: Type
     id: string
     effect: Effect
@@ -250,30 +219,11 @@ export type ItemsDOMStringGenerators = {
   text: (innerText: string) => string
   post: (args: Pick<Elements.Post, 'post' | 'user'>) => string
   mention: (
-    args: Pick<
-      Elements.Mention,
-      | 'fullName'
-      | 'job'
-      | 'profile'
-      | 'username'
-      | 'userID'
-      | 'hasNap'
-      | 'seen'
-      | 'followers'
-      | 'subscribes'
-    >,
+    args: Pick<Elements.Mention, 'fullName' | 'job' | 'profile' | 'username' | 'userID' | 'hasNap' | 'seen' | 'followers' | 'subscribes'>,
   ) => string
   question: (args: Pick<Elements.Question, 'hint' | 'question' | 'questionerUser'>) => string
-  quiz: (
-    args: Pick<
-      Elements.Quiz,
-      'answers' | 'correctAnswer' | 'hintText' | 'questionText' | 'questioner'
-    >,
-  ) => string
-  reminder: (
-    args: Pick<Elements.Reminder, 'reminderName' | 'minimumDate' | 'maximumDate'> &
-      ReminderStringNodeArgs,
-  ) => string
+  quiz: (args: Pick<Elements.Quiz, 'answers' | 'correctAnswer' | 'hintText' | 'questionText' | 'questioner'>) => string
+  reminder: (args: Pick<Elements.Reminder, 'reminderName' | 'minimumDate' | 'maximumDate'> & ReminderStringNodeArgs) => string
 }
 
 export interface MentionProps {

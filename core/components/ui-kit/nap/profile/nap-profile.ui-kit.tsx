@@ -51,13 +51,7 @@ export const NapProfile: FC<Lib.T.NapProfileProps> = ({
           )
         )}
 
-        {mode === 'horizontal' ? (
-          loading ? (
-            <Skeleton.Button active className="job" />
-          ) : (
-            job && <span>{job}</span>
-          )
-        ) : null}
+        {mode === 'horizontal' ? loading ? <Skeleton.Button active className="job" /> : job && <span>{job}</span> : null}
       </p>
     </>
   )

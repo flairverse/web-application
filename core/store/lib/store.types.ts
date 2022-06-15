@@ -1,6 +1,1 @@
-export type BottomNavbarActiveItem =
-  | 'home'
-  | 'explore'
-  | 'create-new-post'
-  | 'messaging'
-  | 'profile'
+export type BottomNavbarActiveItem = 'home' | 'explore' | 'create-new-post' | 'messaging' | 'profile'

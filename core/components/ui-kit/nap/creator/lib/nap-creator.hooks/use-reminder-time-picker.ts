@@ -5,9 +5,7 @@ import { useRecoilValue } from 'recoil'
 import * as Lib from '..'
 
 export const useReminderTimePicker = (boardRef: RefObject<HTMLDivElement>) => {
-  const visibility = useRecoilValue(
-    componentTimePickerAtoms.timePickerPopupVisibility('PAGE__CREATE_NAP___TIME_PICKER_POPUP'),
-  )
+  const visibility = useRecoilValue(componentTimePickerAtoms.timePickerPopupVisibility('PAGE__CREATE_NAP___TIME_PICKER_POPUP'))
   const Updater = Lib.H.useUpdaters(boardRef)
   const updater = new Updater()
 
@@ -48,9 +46,7 @@ export const useReminderTimePicker = (boardRef: RefObject<HTMLDivElement>) => {
     }
   }
 
-  const timePickerProps = useMemo<TimePickerUIKitLib.T.DateTimePickerProps>(createTimePickerProps, [
-    visibility,
-  ])
+  const timePickerProps = useMemo<TimePickerUIKitLib.T.DateTimePickerProps>(createTimePickerProps, [visibility])
   return {
     get: { timePickerProps },
   }

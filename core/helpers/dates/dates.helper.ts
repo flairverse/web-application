@@ -119,10 +119,7 @@ export class Dates {
     return Dates.dateToMoment(date)
   }
 
-  static difference(
-    startDate: Lib.T.DateDetail | 'now',
-    endDate: Lib.T.DateDetail | 'now',
-  ): Duration {
+  static difference(startDate: Lib.T.DateDetail | 'now', endDate: Lib.T.DateDetail | 'now'): Duration {
     const start = Dates.dateDetailToDate(startDate)
     const end = Dates.dateDetailToDate(endDate)
     return intervalToDuration({ start, end })

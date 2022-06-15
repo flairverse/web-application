@@ -58,17 +58,13 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
    *
    * compiles all shared attributes of a frame
    */
-  const compileSharedUp = <Effect extends Lib.T.AllEffects>(
-    frame: HTMLDivElement,
-  ): Omit<Lib.T.Elements.BaseElement<Effect>, 'type'> => {
+  const compileSharedUp = <Effect extends Lib.T.AllEffects>(frame: HTMLDivElement): Omit<Lib.T.Elements.BaseElement<Effect>, 'type'> => {
     const id = frame.id
     const { left, top } = window.getComputedStyle(frame)
     const rotate: Lib.T.Elements.ElementRotation = <Lib.T.Elements.ElementRotation>(
       parseInt(frame.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.ROTATION) || '0')
     )
-    const effect = <Effect>(
-      (<Lib.T.AllEffects | null>frame.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.EFFECT) || 'no-effect')
-    )
+    const effect = <Effect>(<Lib.T.AllEffects | null>frame.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.EFFECT) || 'no-effect')
 
     return {
       position: { left, top },
@@ -117,24 +113,16 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
     const postId = parseInt(frame.querySelector('.napElement')!.getAttribute('data-post-id')!)
     const paymentRequired = !!frame.querySelector('.payment')
     const summary = frame.querySelector('summary')!.innerText
-    const timeToRead = parseInt(
-      frame.querySelector('.timeToRead')!.getAttribute('data-timeToRead')!,
-    )
+    const timeToRead = parseInt(frame.querySelector('.timeToRead')!.getAttribute('data-timeToRead')!)
     const title = (<HTMLHeadingElement>frame.querySelector('.title')).innerText
     const topic = <Topic>frame.querySelector('.topic')!.getAttribute('data-topic')!
     const fullName = (<HTMLSpanElement>frame.querySelector('.fullName')!).innerText
     const job = (<HTMLSpanElement>frame.querySelector('.job')!).innerText
     const profile = (<HTMLImageElement>frame.querySelector('.profile')!).src
-    const hasNap =
-      (<HTMLDivElement>frame.querySelector('.profileComponent')).getAttribute('data-has-nap')! ===
-      'true'
-    const seen =
-      (<HTMLDivElement>frame.querySelector('.profileComponent')).getAttribute('data-seen')! ===
-      'true'
+    const hasNap = (<HTMLDivElement>frame.querySelector('.profileComponent')).getAttribute('data-has-nap')! === 'true'
+    const seen = (<HTMLDivElement>frame.querySelector('.profileComponent')).getAttribute('data-seen')! === 'true'
     const effect: Lib.T.PostEffects =
-      <Lib.T.PostEffects | null>(
-        frame.querySelector('.napElement')!.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.EFFECT)
-      ) || 'no-effect'
+      <Lib.T.PostEffects | null>frame.querySelector('.napElement')!.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.EFFECT) || 'no-effect'
 
     return {
       type: 'post',

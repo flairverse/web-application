@@ -1,9 +1,7 @@
 import styled from 'styled-components'
 import * as Lib from '.'
 
-export const NapProfileContainer = styled.div<
-  Pick<Lib.T.NapProfileProps, 'mode' | 'hasNap' | 'opening' | 'seen' | 'size' | 'loading'>
->`
+export const NapProfileContainer = styled.div<Pick<Lib.T.NapProfileProps, 'mode' | 'hasNap' | 'opening' | 'seen' | 'size' | 'loading'>>`
   width: auto;
   height: auto;
   margin: 0 10px;
@@ -43,8 +41,7 @@ export const NapProfileContainer = styled.div<
         width: 100%;
         height: 100%;
         margin: 0 auto;
-        animation: ${({ opening }) =>
-          opening ? 'nap 2s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite' : 'none'};
+        animation: ${({ opening }) => (opening ? 'nap 2s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite' : 'none')};
         background: ${({ hasNap, loading }) =>
           !loading && hasNap
             ? `-webkit-linear-gradient(

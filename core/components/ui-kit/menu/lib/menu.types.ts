@@ -1,7 +1,6 @@
 import { HTMLAttributes, ReactNode } from 'react'
 
-export interface MenuProps<Keys = ItemKey, ClickReturn = void>
-  extends HTMLAttributes<HTMLUListElement> {
+export interface MenuProps<Keys = ItemKey, ClickReturn = void> extends HTMLAttributes<HTMLUListElement> {
   items: MenuItem<Keys, ClickReturn>[]
   position?: [string, string, string, string]
   openMenuEffect?: OpenMenuEffects
@@ -9,13 +8,7 @@ export interface MenuProps<Keys = ItemKey, ClickReturn = void>
   compact?: boolean
 }
 
-export type OpenMenuEffects =
-  | 'slide-up'
-  | 'slide-down'
-  | 'slide-left'
-  | 'slide-right'
-  | 'scale-in'
-  | 'scale-out'
+export type OpenMenuEffects = 'slide-up' | 'slide-down' | 'slide-left' | 'slide-right' | 'scale-in' | 'scale-out'
 
 export interface MenuItem<Keys = ItemKey, ClickReturn = void> {
   title?: string

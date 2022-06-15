@@ -27,12 +27,7 @@ export const Blog: FC = () => (
     </g>
     <defs>
       <clipPath id="clip0">
-        <rect
-          width="14"
-          height="14"
-          fill="white"
-          transform="translate(4.08606 7.5188) rotate(-22.056)"
-        />
+        <rect width="14" height="14" fill="white" transform="translate(4.08606 7.5188) rotate(-22.056)" />
       </clipPath>
     </defs>
   </svg>
@@ -94,12 +89,7 @@ export const Podcast: FC = () => (
     </g>
     <defs>
       <clipPath id="clip0">
-        <rect
-          width="16.7855"
-          height="16.7855"
-          fill="white"
-          transform="translate(2 5.72131) rotate(-19.9287)"
-        />
+        <rect width="16.7855" height="16.7855" fill="white" transform="translate(2 5.72131) rotate(-19.9287)" />
       </clipPath>
     </defs>
   </svg>
@@ -256,10 +246,7 @@ export const JobTransparent: FC<Lib.T.TransparentProps> = ({ fillColor }) => {
         fill={color}
         stroke={color}
       />
-      <path
-        d="M17 11.5L12.5 1L10.5 2L9 3L6.5 4.5L1 5.5L2 7.99998L5.5 16L6.5 15.5L9.5 15H11.5L14 13L17 11.5Z"
-        fill={color}
-      />
+      <path d="M17 11.5L12.5 1L10.5 2L9 3L6.5 4.5L1 5.5L2 7.99998L5.5 16L6.5 15.5L9.5 15H11.5L14 13L17 11.5Z" fill={color} />
     </svg>
   )
 }
