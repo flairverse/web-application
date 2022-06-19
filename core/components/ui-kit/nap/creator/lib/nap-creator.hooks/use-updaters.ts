@@ -17,7 +17,7 @@ export const useUpdaters = (boardRef: RefObject<HTMLDivElement>) => {
      *
      * updates an existing reminder
      */
-    updateReminder(newTime: Pick<Lib.T.Elements.Reminder, 'minimumDate'>) {
+    updateReminder(newTime: Pick<Lib.T.Elements.Reminder, 'endTime'>) {
       const insert = new Inserters(boardRef)
       const reminderFrame = Lib.HE.getFramesByType(boardRef, 'reminder')?.[0]
       if (!reminderFrame) {

@@ -1,5 +1,3 @@
-import { DatesHelperLib } from '@/helpers/dates'
-import { DOMHelperLib } from '@/helpers/DOM'
 import { Range } from '@/types/enumerable'
 import { Topic } from '@/types/topics'
 import { RefObject } from 'react'
@@ -140,13 +138,7 @@ export namespace Elements {
 
   export interface Reminder extends BaseElement<ReminderEffects, 'reminder'> {
     reminderName: string
-    // year: number
-    // month: number
-    // day: number
-    // hour: number
-    // minute: number
-    minimumDate: Omit<DatesHelperLib.T.DateDetail, 'seconds'>
-    maximumDate: Omit<DatesHelperLib.T.DateDetail, 'seconds'>
+    endTime: string
   }
 
   export interface Image extends BaseElement {}
@@ -207,14 +199,6 @@ export type ItemsDOMStringComponents = {
   }) => string
 }
 
-export type ReminderNodesClassNames = {
-  counters: DOMHelperLib.T.TriadCountdownRefs
-  titles: DOMHelperLib.T.TitleRefs
-}
-export type ReminderStringNodeArgs = {
-  classNames: ReminderNodesClassNames
-}
-
 export type ItemsDOMStringGenerators = {
   text: (innerText: string) => string
   post: (args: Pick<Elements.Post, 'post' | 'user'>) => string
@@ -223,7 +207,7 @@ export type ItemsDOMStringGenerators = {
   ) => string
   question: (args: Pick<Elements.Question, 'hint' | 'question' | 'questionerUser'>) => string
   quiz: (args: Pick<Elements.Quiz, 'answers' | 'correctAnswer' | 'hintText' | 'questionText' | 'questioner'>) => string
-  reminder: (args: Pick<Elements.Reminder, 'reminderName' | 'minimumDate' | 'maximumDate'> & ReminderStringNodeArgs) => string
+  reminder: (args: Pick<Elements.Reminder, 'endTime' | 'reminderName'>) => string
 }
 
 export interface MentionProps {

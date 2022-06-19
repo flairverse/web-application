@@ -10,15 +10,7 @@ export const useReminderTimePicker = (boardRef: RefObject<HTMLDivElement>) => {
   const updater = new Updater()
 
   function onReminderConfirm(confirmedValue: Date) {
-    updater.updateReminder({
-      minimumDate: {
-        year: confirmedValue.getFullYear(),
-        month: confirmedValue.getMonth(),
-        day: confirmedValue.getDate(),
-        hour: confirmedValue.getHours(),
-        minute: confirmedValue.getMinutes(),
-      },
-    })
+    updater.updateReminder({ endTime: confirmedValue.toISOString() })
   }
 
   const createTimePickerProps = (): TimePickerUIKitLib.T.DateTimePickerProps => {

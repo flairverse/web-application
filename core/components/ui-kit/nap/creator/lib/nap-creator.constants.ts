@@ -1,6 +1,8 @@
+import { Dates } from '@/helpers/dates'
 import { Num } from '@/helpers/number'
 import { Str } from '@/helpers/string'
 import { Topic } from '@/types/topics'
+import moment from 'moment'
 import * as Lib from '.'
 
 const ICON_COLORS = 'var(--layer-2)'
@@ -408,19 +410,10 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
     </div>
   `,
 
-  reminder: ({
-    reminderName,
-    maximumDate: max,
-    minimumDate: min,
-    classNames: {
-      counters: [first, second, third],
-      titles: [title1, title2, title3],
-    },
-  }) => `
+  reminder: ({ reminderName, endTime }) => `
     <div
       class="napElement reminder no-effect"
-      data-min-date="${min.year}.${min.month}.${min.day}.${min.hour}.${min.minute}"
-      data-max-date="${max.year}.${max.month}.${max.day}.${max.hour}.${max.minute}"
+      data-end-time="${endTime}"
     >
       <p
         class="reminderName"
@@ -428,34 +421,12 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
         contenteditable="true"
       >${reminderName}</p>
 
-      <div class="countdown">
-        <div>
-          <p>
-            <span class="${first.firstLetter}"></span>
-            <span class="${first.secondLetter}"></span>
-          </p>
-          <span class="${title1}"></span>
-        </div>
-
-        <span>:</span>
-
-        <div>
-          <p>
-            <span class="${second.firstLetter}"></span>
-            <span class="${second.secondLetter}"></span>
-          </p>
-          <span class="${title2}"></span>
-        </div>
-
-        <span>:</span>
-
-        <div>
-          <p>
-            <span class="${third.firstLetter}"></span>
-            <span class="${third.secondLetter}"></span>
-          </p>
-          <span class="${title3}"></span>
-        </div>
+      <div class="info">
+        <p>Ends on ${moment(endTime).format('MMMM D, YYYY')}</p>
+        <p>At ${moment(endTime).format('hh:mm a (Z)')}</p>
+        <p>new_york: ${moment(Dates.convertTimeZone(endTime, 'America/New_York')).format('YYYY/MM/DD hh:mm')}</p>
+        <p>tehran: ${moment(Dates.convertTimeZone(endTime, 'Asia/Tehran')).format('YYYY/MM/DD hh:mm')}</p>
+        <span>Remind me</span>
       </div>
     </div>
   `,

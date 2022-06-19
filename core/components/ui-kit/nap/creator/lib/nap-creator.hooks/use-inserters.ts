@@ -175,20 +175,7 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
         position: { left: '85px', top: '85px' },
         rotate: 0,
         reminderName: '',
-        minimumDate: {
-          year: minimumDate.getFullYear(),
-          month: minimumDate.getMonth(),
-          day: minimumDate.getDate(),
-          hour: minimumDate.getHours(),
-          minute: minimumDate.getMinutes(),
-        },
-        maximumDate: {
-          year: maximumDate.getFullYear(),
-          month: maximumDate.getMonth(),
-          day: maximumDate.getDate(),
-          hour: maximumDate.getHours(),
-          minute: maximumDate.getMinutes(),
-        },
+        endTime: new Date().toISOString(),
       }
       this.appendItem(reminder)
     }

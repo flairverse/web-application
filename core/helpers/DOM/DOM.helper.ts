@@ -1,5 +1,3 @@
-import moment, { Moment } from 'moment'
-import { Dates, DatesHelperLib } from '../dates'
 import * as Lib from './lib'
 
 /**
@@ -123,7 +121,7 @@ export class DOM {
    *
    * converts a DOM string to actual DOM
    */
-  static DOMStringToNode<T = HTMLElement>(DOMString: string) {
+  static DOMStringToNode<T = HTMLElement>(DOMString: string): T {
     const document = new DOMParser().parseFromString(DOMString, 'text/html')
     return <T>(<unknown>document.body.firstChild!)
   }
@@ -291,123 +289,5 @@ export class DOM {
 
     scrollable.onmousedown = evt => mouseDownHandler(evt.clientX, evt.clientY)
     scrollable.ontouchstart = evt => mouseDownHandler(evt.touches[0].pageX, evt.touches[0].pageY)
-  }
-
-  /**
-   *
-   *
-   *
-   *
-   * creates and starts a triad countdown
-   */
-  static createTriadCountdown({
-    containerRef,
-    defaultValues,
-    titleRefs,
-    triadRefs,
-    querySelectorPrefixes: prefixes,
-  }: Lib.T.CreateTriadCountdownArgs): number {
-    const [firstRef, secondRef, thirdRef] = triadRefs
-    const [title1Ref, title2Ref, title3Ref] = titleRefs
-    const { firstLetter: ref1Letter1, secondLetter: ref1Letter2 } = firstRef
-    const { firstLetter: ref2Letter1, secondLetter: ref2Letter2 } = secondRef
-    const { firstLetter: ref3Letter1, secondLetter: ref3Letter2 } = thirdRef
-    const container = findElement(containerRef, document, prefixes?.container)
-
-    if (!container) {
-      return -1
-    }
-
-    const refs = {
-      first1: findElement(ref1Letter1, container, prefixes?.titlesAndTriad),
-      first2: findElement(ref1Letter2, container, prefixes?.titlesAndTriad),
-      second1: findElement(ref2Letter1, container, prefixes?.titlesAndTriad),
-      second2: findElement(ref2Letter2, container, prefixes?.titlesAndTriad),
-      third1: findElement(ref3Letter1, container, prefixes?.titlesAndTriad),
-      third2: findElement(ref3Letter2, container, prefixes?.titlesAndTriad),
-      title1: findElement(title1Ref, container, prefixes?.titlesAndTriad),
-      title2: findElement(title2Ref, container, prefixes?.titlesAndTriad),
-      title3: findElement(title3Ref, container, prefixes?.titlesAndTriad),
-    }
-
-    const triadDistanceIntl: DatesHelperLib.T.TriadDistanceI18n = {
-      years: 'years',
-      months: 'months',
-      weeks: 'weeks',
-      days: 'days',
-      hours: 'hours',
-      minutes: 'minutes',
-      seconds: 'seconds',
-    }
-
-    const { first1, first2, second1, second2, third1, third2, title1, title2, title3 } = refs
-
-    if (!first1 || !first2 || !second1 || !second2 || !third1 || !third2 || !title1 || !title2 || !title3) {
-      return -1
-    }
-
-    function findElement(
-      ref: Lib.T.RefOrSelector,
-      parentContainer: HTMLElement | Document,
-      querySelectorPrefix?: Lib.T.QuerySelectorPrefix,
-    ): HTMLElement | null {
-      if (typeof ref === 'string') {
-        return parentContainer.querySelector((querySelectorPrefix || '') + ref)
-      }
-      return ref.current
-    }
-
-    function createDistance(time: Moment) {
-      const dateDetail = Dates.momentToDetail(time)
-      const difference = Dates.difference('now', dateDetail)
-      const distance = Dates.triadDistance({ duration: difference, i18n: triadDistanceIntl })
-      return distance
-    }
-
-    const updateNode = (element: HTMLElement, value: string) => {
-      if (element.innerHTML !== value) {
-        element.innerHTML = value
-      }
-    }
-
-    const updateDOM = (triadInfo: DatesHelperLib.T.TriadDistanceReturn) => {
-      const [firstInfo, secondInfo, thirdInfo] = triadInfo
-      const [value1Letter1, value1Letter2] = firstInfo.value.toString().padStart(2, '0').split('')
-      const [value2Letter1, value2Letter2] = secondInfo.value.toString().padStart(2, '0').split('')
-      const [value3Letter1, value3Letter2] = thirdInfo.value.toString().padStart(2, '0').split('')
-
-      updateNode(title1, firstInfo.title)
-      updateNode(title2, secondInfo.title)
-      updateNode(title3, thirdInfo.title)
-
-      updateNode(first1, value1Letter1)
-      updateNode(first2, value1Letter2)
-
-      updateNode(second1, value2Letter1)
-      updateNode(second2, value2Letter2)
-
-      updateNode(third1, value3Letter1)
-      updateNode(third2, value3Letter2)
-    }
-
-    const startTimer = () => {
-      const { year, month, day, hour, minute, second } = defaultValues
-      const time = moment(new Date(year, month, day, hour, minute, 0, 0))
-      const firstDistance = createDistance(time)
-      const { key: thirdInfoKey } = firstDistance[2]
-      const updateTimeout = Dates.dateKeyToMilliseconds(thirdInfoKey)
-
-      updateDOM(firstDistance)
-
-      const intervalID = window.setInterval(() => {
-        time.subtract(1, 'seconds')
-        const distance = createDistance(time)
-        updateDOM(distance)
-      }, updateTimeout)
-
-      return intervalID
-    }
-
-    return startTimer()
   }
 }

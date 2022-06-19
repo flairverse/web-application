@@ -19,7 +19,7 @@ export const useItems = ({ onOptionsClick, boardRef }: Pick<Lib.T.ItemsProps, 'b
     // new Insert(boardRef).newPost(0)
     // new Insert(boardRef).newMention(0)
     // new Insert(boardRef).newQuestion()
-    // new Insert(boardRef).newReminder()
+    new Insert(boardRef).newReminder()
   }, [])
 
   const addItem = () => {

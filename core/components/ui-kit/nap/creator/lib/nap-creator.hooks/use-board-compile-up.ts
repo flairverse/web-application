@@ -163,16 +163,7 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
   const compileReminderUp = (frame: HTMLDivElement): Lib.T.Elements.Reminder => {
     const { id, position, rotate, effect } = compileSharedUp<Lib.T.ReminderEffects>(frame)
     const reminderName = (<HTMLParagraphElement>frame.querySelector('.reminderName')!).innerText
-
-    const minDateInfo = (<HTMLDivElement>frame.querySelector('.reminder'))
-      .getAttribute('data-min-date')!
-      .split('.')
-      .map(item => parseInt(item))
-
-    const maxDateInfo = (<HTMLDivElement>frame.querySelector('.reminder'))
-      .getAttribute('data-max-date')!
-      .split('.')
-      .map(item => parseInt(item))
+    const endTime = (<HTMLDivElement>frame.querySelector('.reminder')).getAttribute('data-end-time')!
 
     return {
       id,
@@ -181,20 +172,7 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
       effect,
       reminderName,
       type: 'reminder',
-      minimumDate: {
-        year: minDateInfo[0],
-        month: minDateInfo[1],
-        day: minDateInfo[2],
-        hour: minDateInfo[3],
-        minute: minDateInfo[4],
-      },
-      maximumDate: {
-        year: maxDateInfo[0],
-        month: maxDateInfo[1],
-        day: maxDateInfo[2],
-        hour: maxDateInfo[3],
-        minute: maxDateInfo[4],
-      },
+      endTime,
     }
   }
 

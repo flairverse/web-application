@@ -1,4 +1,4 @@
-import { SETTINGS } from '@/constants/settings.constant'
+import { Setting } from '@/constants/settings.constant'
 import { LocalStorage } from '@/helpers/local-storage'
 import { hookFontAtoms } from '@/store/atoms'
 import { useEffect } from 'react'
@@ -25,7 +25,7 @@ export const useFont = () => {
   const onMount = () => {
     const storedFont = LocalStorage.get<Lib.T.Font | null>('FONT')
 
-    if (!storedFont || storedFont === SETTINGS.defaultFont) {
+    if (!storedFont || storedFont === Setting.use.defaultFont) {
       return
     }
 

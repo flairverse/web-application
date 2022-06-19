@@ -341,7 +341,7 @@ export const useDateTimePicker = ({
     const chosenDate = moment(new Date(year, month, day + 1, hour, minute))
     const oneMinLater = moment(chosenDate).add(1, 'minute').toDate()
 
-    if (Dates.isSameMomentNoSeconds(chosenDate, moment(minimumDate))) {
+    if (chosenDate.isSame(minimumDate, 'minute')) {
       setYear(oneMinLater.getFullYear())
       setMonth(oneMinLater.getMonth())
       setDay(oneMinLater.getDate() - 1)
@@ -427,7 +427,7 @@ export const useDatePickerItem = ({ target, storeKeys }: Lib.T.UseDatePickerItem
         return Dates.getMonth(value as DatesHelperLib.T.NumeralMonth, 'short') as string
       }
       case 'day': {
-        return Dates.getWeekDay({ year, month, day, hour, minute })
+        return moment({ year, month, day, hour, minute }).format('dddd')
       }
       default: {
         return ''
