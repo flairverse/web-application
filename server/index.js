@@ -8,6 +8,7 @@ const { client: clientPort, server: serverPort } = ports
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
+const open = process.platform == 'darwin' ? 'open' : process.platform == 'win32' ? 'start' : 'xdg-open'
 
 const afterServerPrepared = () => {
   const server = express()
@@ -26,7 +27,10 @@ const afterServerPrepared = () => {
 
   server.listen(clientPort, err => {
     if (err) throw err
-    console.log(`> Ready on http://localhost:${serverPort}`)
+    const url = ` http://localhost:${clientPort}`
+
+    console.log(`> Ready on${url}`)
+    require('child_process').exec(open + url)
   })
 }
 
