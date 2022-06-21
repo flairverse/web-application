@@ -79,7 +79,11 @@ context('Assertions', () => {
 
           // use second argument to expect(...) to provide clear
           // message with each assertion
-          expect(paragraphs, 'has expected text in each paragraph').to.deep.eq(['Some text from first p', 'More text from second p', 'And even more text from third p'])
+          expect(paragraphs, 'has expected text in each paragraph').to.deep.eq([
+            'Some text from first p',
+            'More text from second p',
+            'And even more text from third p',
+          ])
         })
     })
 

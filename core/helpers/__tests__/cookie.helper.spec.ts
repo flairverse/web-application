@@ -1,4 +1,4 @@
-import { Cookie } from '../cookie.helper'
+import { Cookie } from '../cookie'
 
 describe('Testing [helpers] => cookie', () => {
   it('should set new cookie in the browser', () => {

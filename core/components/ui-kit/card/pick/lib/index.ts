@@ -1,2 +1,2 @@
-export * as S from './styles'
-export * as T from './types'
+export * as S from './card-pick.styles'
+export * as T from './card-pick.types'

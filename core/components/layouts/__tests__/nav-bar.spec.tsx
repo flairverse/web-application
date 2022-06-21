@@ -1,6 +1,6 @@
-import * as Lib from '../top-nav-bar/lib'
-import { render, screen, act, fireEvent } from '@testing-library/react'
+import { act, fireEvent, render, screen } from '@testing-library/react'
 import { RecoilRoot } from 'recoil'
+import * as Lib from '../top-nav-bar/lib'
 
 describe('Testing [layouts] => nav-bar', () => {
   it('should verify that search box is inside the nav bar', () => {

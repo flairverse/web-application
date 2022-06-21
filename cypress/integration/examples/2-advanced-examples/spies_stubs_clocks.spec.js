@@ -182,7 +182,10 @@ context('Spies, Stubs, and Clock', () => {
     const isLessThan = limit => x => x < limit
 
     // you can combine several matchers using "and", "or"
-    expect(spy).to.be.calledWith(Cypress.sinon.match.number, Cypress.sinon.match(isGreaterThan(2), '> 2').and(Cypress.sinon.match(isLessThan(4), '< 4')))
+    expect(spy).to.be.calledWith(
+      Cypress.sinon.match.number,
+      Cypress.sinon.match(isGreaterThan(2), '> 2').and(Cypress.sinon.match(isLessThan(4), '< 4')),
+    )
 
     expect(spy).to.be.calledWith(Cypress.sinon.match.number, Cypress.sinon.match(isGreaterThan(200), '> 200').or(Cypress.sinon.match(3)))
 

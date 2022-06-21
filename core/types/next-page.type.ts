@@ -1,7 +1,7 @@
-import type { NextPage } from 'next'
-import type { MainWrapper } from '@/components/layouts/main-wrapper'
 import type { AuthWrapper } from '@/components/layouts/auth-wrapper'
 import type { ErrorWrapper } from '@/components/layouts/error-wrapper'
+import type { MainWrapper } from '@/components/layouts/main-wrapper'
+import type { NextPage } from 'next'
 
 export type MainPage<T = {}> = NextPage<T> & { layout: typeof MainWrapper }
 

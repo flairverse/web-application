@@ -1,0 +1,678 @@
+/* styles for elements used in naps */
+.napElement {
+  /**
+   *
+   *
+   *
+   * styles for post element
+   **/
+  &.post {
+    width: 300px;
+    background-color: var(--layer-1);
+    padding: 10px 7px;
+    border-radius: 15px;
+    color: var(--layer-2-text-2);
+    border: 1px solid var(--layer-2-border);
+
+    > header {
+      display: flex;
+
+      > .profilePicture {
+        > div {
+          width: 35px;
+          height: 35px;
+          min-width: 35px;
+        }
+      }
+
+      > .profileDetail {
+        margin: -1px 0 0 0;
+        display: flex;
+        flex-direction: column;
+        flex: 1 1;
+        padding: 0 0 0 7px;
+
+        > span {
+          font-size: 10pt;
+          width: 100%;
+
+          &:nth-child(2) {
+            font-size: 8pt;
+            margin: -2px 0 0 0;
+          }
+        }
+      }
+    }
+
+    > div {
+      width: 100%;
+      margin: 10px 0 0 0;
+
+      > img {
+        border-radius: 10px;
+        width: 100%;
+        max-height: 120px;
+        object-fit: cover;
+      }
+
+      > time {
+        display: inline-flex;
+        border-radius: 10px;
+        align-items: center;
+        line-height: 1.2;
+        padding: 4px;
+        margin: 8px 0 0 0;
+
+        > span {
+          font-size: 10pt;
+          margin: 0 2px;
+        }
+      }
+
+      > h2 {
+        font-size: 13pt;
+        color: var(--layer-2-text-3);
+        margin: 5px 0 0 0;
+        padding: 0 3px;
+      }
+
+      > summary {
+        list-style: none;
+        margin: 0 0 10px 0;
+        padding: 0 3px;
+      }
+    }
+
+    > footer {
+      width: 100%;
+
+      > span {
+        width: 100%;
+        padding: 0 0 10px 0;
+        display: block;
+        opacity: 0.3;
+
+        &::after {
+          content: '';
+          float: left;
+          width: 100%;
+          border: 1px dashed var(--layer-2-placeholder);
+        }
+      }
+
+      > div {
+        display: flex;
+
+        > div {
+          background: var(--layer-2);
+          color: var(--layer-2-text-2);
+          display: inline-flex;
+          width: auto;
+          align-items: center;
+          padding: 0 6px;
+          border-radius: 6px;
+          font-size: var(--f-2);
+          margin: 0 2px;
+          cursor: default;
+          user-select: none;
+
+          > span {
+            font-size: 9pt;
+            margin: 4px 1px 5px 4px;
+          }
+
+          &.withEmptySpan {
+            > span {
+              color: transparent;
+              width: 0;
+              margin: 4px 0 5px 0;
+            }
+          }
+
+          &.withEmptySVG {
+            > svg {
+              width: 0px;
+              height: 18px;
+              margin: 4px 1px 5px 1px;
+            }
+          }
+        }
+      }
+    }
+
+    // effects
+    &.less-detail {
+      time,
+      footer {
+        display: none;
+      }
+    }
+
+    &.no-cover {
+      time,
+      > div > img {
+        display: none;
+      }
+    }
+  }
+
+  /**
+   *
+   *
+   *
+   * styles for mention element
+   **/
+  &.mention {
+    background-color: var(--layer-1);
+    border: 1px solid var(--layer-2-border);
+    border-radius: 15px;
+    padding: 10px;
+
+    > .profileContainer {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    > p {
+      margin: 0;
+      color: var(--layer-2-text-2);
+      text-align: center;
+      font-size: 10pt;
+
+      &.username {
+        color: var(--layer-2-text-1);
+        opacity: 0.8;
+        margin: 5px 0 0 0;
+      }
+
+      &.name {
+        color: var(--layer-2-text-3);
+      }
+
+      &.job {
+        opacity: 0.9;
+      }
+    }
+
+    > .detail {
+      display: flex;
+      border-top: 1px dashed var(--layer-2-dash);
+      padding: 10px 0 0 0;
+      margin: 10px 0 0 0;
+
+      > div {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        > svg {
+          width: 10px;
+        }
+
+        > span {
+          color: var(--layer-2-text-1);
+          font-size: 10pt;
+          margin: 5px 0 0 0;
+        }
+      }
+    }
+
+    &.no-effect,
+    &.with-background {
+      padding: 5px 10px;
+
+      &:not(.with-background) {
+        padding: 0;
+        border-radius: 0;
+        border: none;
+        background-color: transparent;
+      }
+
+      > .profileContainer,
+      > .name,
+      > .job,
+      > .detail {
+        display: none;
+      }
+
+      > .username {
+        margin: 0;
+      }
+    }
+
+    &.username-name-profile {
+      > .job,
+      > .detail {
+        display: none;
+      }
+    }
+
+    &.username-name-job {
+      > .profileContainer,
+      > .detail {
+        display: none;
+      }
+    }
+  }
+
+  /**
+   *
+   *
+   *
+   * styles for question element
+   **/
+  &.question {
+    background-color: var(--layer-1);
+    border: 1px solid var(--layer-2-border);
+    border-radius: 15px;
+    padding: 10px;
+    width: 250px;
+
+    > .profileContainer {
+      margin: -30px 0 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    > .questionText {
+      color: var(--layer-2-text-1);
+      margin: 5px 0 10px 0;
+      font-family: var(--ff-2);
+      transition: all 150ms linear;
+      text-align: center;
+      word-break: break-all;
+      min-height: 30px;
+      outline: none;
+    }
+
+    > .hintSection {
+      border: 1px dashed var(--layer-2-border);
+      margin: 0 0 10px 0;
+      padding: 6px 5px 4px 5px;
+      border-radius: 7px;
+      position: relative;
+      transition: all 150ms linear;
+      color: var(--layer-2-text-2);
+      opacity: 0.7;
+      text-align: center;
+      min-height: 30px;
+      outline: none;
+      display: block;
+    }
+
+    > span {
+      width: 100%;
+      height: 35px;
+      display: flex;
+      background: var(--layer-2);
+      border-radius: 8px;
+      align-items: center;
+      justify-content: flex-start;
+      color: var(--layer-2-placeholder);
+      padding: 0 8px;
+      border: 1px solid var(--layer-2-border);
+      opacity: 0.5;
+    }
+
+    &.no-profile {
+      > .profileContainer {
+        display: none;
+      }
+
+      > .questionText {
+        margin-top: 0;
+      }
+    }
+  }
+
+  /**
+   *
+   *
+   *
+   * styles for quiz element
+   **/
+  &.quiz {
+    background-color: var(--layer-1);
+    color: var(--layer-1);
+    border: 1px solid var(--layer-2-border);
+    border-radius: 15px;
+    padding: 10px;
+    width: 250px;
+
+    > .profileContainer {
+      margin: -30px 0 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    > .questionText {
+      color: var(--layer-2-text-1);
+      margin: 5px 0 10px 0;
+      font-family: var(--ff-2);
+      transition: all 150ms linear;
+      text-align: center;
+      word-break: break-all;
+      min-height: 30px;
+      outline: none;
+    }
+
+    > .hintSection {
+      border: 1px dashed var(--layer-2-border);
+      margin: 0 0 10px 0;
+      padding: 6px 5px 4px 5px;
+      border-radius: 7px;
+      position: relative;
+      transition: all 150ms linear;
+      color: var(--layer-2-text-2);
+      opacity: 0.7;
+      text-align: center;
+      min-height: 30px;
+      outline: none;
+      display: block;
+    }
+
+    $answersTransition: all 100ms linear;
+
+    > .answers {
+      margin: 15px 0 0 0;
+
+      > .answer {
+        width: 100%;
+        height: auto;
+        display: flex;
+        background: var(--layer-2);
+        border-radius: 5px;
+        align-items: flex-start;
+        padding: 6px 8px;
+        transition: $answersTransition;
+        border: 1px solid transparent;
+
+        &:not(:last-child) {
+          margin: 0 0 -15px 0;
+        }
+
+        &:not(:nth-child(1), :nth-child(2)) {
+          display: none;
+        }
+
+        &[data-activation='inactive'] {
+          background: inherit;
+          border: 1px dashed var(--layer-2-dash);
+
+          > span {
+            pointer-events: none;
+            cursor: default;
+            background-color: inherit;
+            color: var(--layer-2-text-2);
+            opacity: 0.5;
+            border: 1px dashed var(--layer-2-dash);
+          }
+        }
+
+        > span {
+          border-radius: 50%;
+          display: inline-flex;
+          width: 30px;
+          height: 30px;
+          color: var(--layer-2);
+          align-items: center;
+          justify-content: center;
+          background-color: var(--layer-3);
+          cursor: pointer;
+          font-size: 15pt;
+          font-family: var(--ff-3);
+          transition: $answersTransition;
+
+          > svg {
+            display: none;
+          }
+        }
+
+        > p {
+          margin: 0;
+          color: var(--layer-2-text-2);
+          outline: none;
+          flex: 1 1;
+          max-width: calc(100% - 30px);
+          padding: 4px 0 0 8px;
+          word-break: break-all;
+          transition: $answersTransition;
+        }
+
+        &.true {
+          background-color: var(--c-podcast-trans-1);
+
+          > span {
+            background-color: var(--c-podcast);
+
+            > span {
+              display: none;
+            }
+
+            > svg {
+              display: block;
+            }
+          }
+
+          > p {
+            color: var(--c-podcast);
+
+            &::before {
+              color: var(--c-podcast-trans-4);
+            }
+          }
+        }
+      }
+    }
+
+    &.no-profile {
+      > .profileContainer {
+        display: none;
+      }
+
+      > .questionText {
+        margin-top: 0;
+      }
+    }
+  }
+
+  /**
+   *
+   *
+   *
+   * styles for reminder element
+   **/
+  &.reminder {
+    background-color: var(--layer-1);
+    color: var(--layer-1);
+    border: 1px solid var(--layer-2-border);
+    border-radius: 15px;
+    padding: 10px;
+    width: 250px;
+
+    > .reminderName {
+      color: var(--layer-2-text-1);
+      margin: 5px 0 10px 0;
+      font-family: var(--ff-2);
+      transition: all 150ms linear;
+      text-align: center;
+      word-break: break-all;
+      min-height: 30px;
+      outline: none;
+      text-align: center;
+    }
+
+    > .actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin: 20px 0 5px 0;
+
+      > .remindMe {
+        color: white;
+        background: var(--c-accent);
+        padding: 5px 10px;
+        display: inline-block;
+        border-radius: 2px;
+        transition: background 150ms linear;
+        font-family: var(--ff-2);
+      }
+    }
+
+    > .design {
+      display: none !important;
+    }
+
+    &.no-effect > .no-effect {
+      display: block !important;
+    }
+    &.separated > .separated {
+      display: block !important;
+    }
+
+    > .no-effect {
+      > .info {
+        color: var(--layer-2-text-2);
+
+        > p {
+          text-align: center;
+
+          &:first-child {
+            margin: 0;
+            font-size: var(--f-4);
+            font-family: var(--ff-3);
+          }
+
+          &:last-child {
+            margin: 2px 0 0 0;
+            font-size: var(--f-2);
+            font-family: var(--ff-1);
+          }
+        }
+      }
+    }
+
+    > .separated {
+      width: 100%;
+      color: var(--layer-2-text-2);
+      height: auto;
+
+      > p {
+        &.title {
+          margin: 0;
+          font-size: var(--f-3);
+          font-family: var(--ff-3);
+          padding: 0 0 3px 3px;
+        }
+        &.info {
+          margin: 7px 0 0 0;
+          text-align: center;
+          font-family: var(--ff-2);
+        }
+      }
+
+      > .items {
+        display: flex;
+        width: 100%;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+
+        > span,
+        i {
+          background-color: var(--layer-2);
+          padding: 10px 5px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 4px;
+          border: 1px solid var(--layer-2-border);
+          margin: 0 2px;
+          flex: 1;
+        }
+
+        > i {
+          font-style: normal;
+          padding: 0;
+          background-color: transparent;
+          border: none;
+        }
+      }
+    }
+  }
+
+  /**
+   *
+   *
+   *
+   * styles for gif element
+   **/
+  &.gif {
+    border-radius: 7px;
+    transition: width 150ms linear;
+    width: 200px;
+  }
+}
+
+/* styles for components used in nap elements */
+.napElementComponents {
+  /**
+   *
+   *
+   *
+   * styles for profile component
+   **/
+  &.profileComponent {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    position: relative;
+    border-radius: 40%;
+
+    @for $i from 1 through 10 {
+      &.size#{$i} {
+        width: #{$i * 10}px;
+        height: #{$i * 10}px;
+        min-width: #{$i * 10}px;
+      }
+    }
+
+    > div,
+    img {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      border-radius: inherit;
+      position: absolute;
+      margin: auto;
+    }
+
+    > div {
+      width: 100%;
+      height: 100%;
+    }
+
+    > img {
+      width: calc(100% - 6px);
+      height: calc(100% - 6px);
+      -webkit-user-drag: none;
+    }
+
+    &.seen {
+      filter: grayscale(1);
+    }
+
+    &.hasNap {
+      > div {
+        background: -webkit-linear-gradient(45deg, var(--c-blog), var(--c-article), var(--c-job), var(--c-podcast));
+      }
+    }
+  }
+}

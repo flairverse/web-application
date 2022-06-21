@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components'
 import { Theme } from '@/helpers/theme'
+import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyles = createGlobalStyle`
   ${Theme.use()}
@@ -31,6 +31,22 @@ export const GlobalStyles = createGlobalStyle`
     outline: 1px solid var(--layer-2-dash);
     padding: 4px 10px;
     border-radius: 4px;
+    cursor: text;
+
+    &:empty::before {
+      content: attr(data-ph);
+      color: var(--layer-2-placeholder);
+      font-style: italic;
+    }
+  }
+
+  .noScrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   /**
@@ -136,7 +152,81 @@ export const GlobalStyles = createGlobalStyle`
       &:hover {
         background-color: var(--layer-2-hover);
       }
+
+      &[disabled] {
+        opacity: .5;
+        pointer-events: none;
+      }
     }
+  }
+
+  .ant-picker-panel-container .ant-picker-panel-focused {
+    background-color: var(--layer-1);
+    color: var(--layer-2-text-1);
+    border: none;
+
+    * {
+      color: inherit;
+      border-color: var(--layer-1-border);
+      transition: none;
+    }
+  }
+
+  .ant-picker-time-panel {
+    color: var(--layer-2-text-1);
+
+    * {
+      color: inherit !important;
+      transition: none !important;
+    }
+  }
+
+  .ant-picker-cell-disabled,
+  .ant-picker-time-panel-cell-disabled {
+    opacity: .2;
+    pointer-events: none;
+
+    &::before {
+      background-color: transparent;
+    }
+  }
+
+  .ant-picker-time-panel-column > li.ant-picker-time-panel-cell-selected .ant-picker-time-panel-cell-inner {
+    background-color: var(--c-accent);
+    color: white !important;
+  }
+
+  .ant-picker-cell:hover:not(.ant-picker-cell-in-view) .ant-picker-cell-inner,
+  .ant-picker-cell:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end) .ant-picker-cell-inner,
+  .ant-picker-time-panel-column > li.ant-picker-time-panel-cell .ant-picker-time-panel-cell-inner:hover {
+    background-color: var(--layer-2-hover);
+  }
+
+  .ant-picker-panel-container {
+    border: none;
+    border-radius: 0;
+    background-color: var(--layer-1) !important;
+    box-shadow: none;
+  }
+
+  .ant-picker-dropdown.noFooter {
+    .ant-picker-footer {
+      display: none;
+    }
+  }
+
+  .ant-picker-time-panel-column {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .ant-picker-header > button:hover,
+  .ant-picker-header-view button:hover {
+    color: var(--layer-2-text-3);
   }
   /**
   * End -- Ant design customization

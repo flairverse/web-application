@@ -1,2 +1,2 @@
-export * as T from './types'
-export * as S from './styles'
+export * as S from './tabs.styles'
+export * as T from './tabs.types'

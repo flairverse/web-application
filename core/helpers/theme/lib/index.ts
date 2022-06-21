@@ -1,2 +1,2 @@
-export * as T from './types'
-export * as CO from './constants'
+export * as CO from './theme.constants'
+export * as T from './theme.types'

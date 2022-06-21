@@ -1,3 +1,3 @@
-export * as T from './types'
-export * as S from './styles'
-export * as HE from './helpers'
+export * as HE from './sides.helpers'
+export * as S from './sides.styles'
+export * as T from './sides.types'

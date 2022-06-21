@@ -1,1 +1,1 @@
-export * as S from './styles'
+export * as S from './main-wrapper.styles'

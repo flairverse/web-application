@@ -1,0 +1,141 @@
+import { pageCreateNapAtoms } from '@/store/atoms'
+import { useEffect } from 'react'
+import { AiOutlineGif, AiOutlineMessage } from 'react-icons/ai'
+import { BsChevronCompactLeft, BsFillImageFill, BsPlusSquare, BsQuestionCircle } from 'react-icons/bs'
+import { FiBell, FiLink2 } from 'react-icons/fi'
+import { GoMention } from 'react-icons/go'
+import { MdFormatColorText } from 'react-icons/md'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import * as Lib from '..'
+
+export const useItems = ({ onOptionsClick, boardRef }: Pick<Lib.T.ItemsProps, 'boardRef' | 'onOptionsClick'>) => {
+  const showMoreOptions = useRecoilValue(pageCreateNapAtoms.showMoreOptions)
+  const [activeOption, setActiveOptions] = useRecoilState(pageCreateNapAtoms.activeOption)
+  const setActiveItemID = useSetRecoilState(pageCreateNapAtoms.activeItemID)
+  const Insert = Lib.H.useInserters(boardRef)
+
+  useEffect(() => {
+    // new Insert(boardRef).newText()
+    // new Insert(boardRef).newPost(0)
+    // new Insert(boardRef).newMention(0)
+    // new Insert(boardRef).newQuestion()
+    // new Insert(boardRef).newReminder()
+  }, [])
+
+  const addItem = () => {
+    const insert = new Insert(boardRef)
+
+    if (activeOption !== 'none') {
+      if (!Lib.HE.boardContains(activeOption, boardRef)) {
+        switch (activeOption) {
+          case 'text': {
+            insert.newText()
+            break
+          }
+
+          case 'question': {
+            insert.newQuestion()
+            break
+          }
+
+          case 'quiz': {
+            insert.newQuiz()
+            break
+          }
+
+          case 'reminder': {
+            insert.newReminder()
+            break
+          }
+        }
+      } else {
+        switch (activeOption) {
+          case 'reminder': {
+            Lib.HE.getFramesByType(boardRef, 'reminder')?.[0].focus()
+            break
+          }
+        }
+      }
+    }
+
+    return () => {
+      setActiveItemID(null)
+    }
+  }
+
+  const itemClicks = (key: Lib.T.Options) => {
+    if (key === activeOption) {
+      setActiveOptions('none')
+    } else {
+      onOptionsClick(key)
+    }
+  }
+
+  const items: Lib.T.Item[] = [
+    {
+      Icon: MdFormatColorText,
+      title: 'Text',
+      key: 'text',
+    },
+    {
+      Icon: BsPlusSquare,
+      title: 'Post',
+      key: 'post',
+    },
+    {
+      Icon: GoMention,
+      title: 'Mention',
+      key: 'mention',
+    },
+    {
+      Icon: AiOutlineMessage,
+      title: 'Question',
+      key: 'question',
+    },
+    // {
+    //   Icon: HiOutlineChatAlt2,
+    //   title: 'Discussion',
+    //   key: 'discussion',
+    // },
+    {
+      Icon: BsQuestionCircle,
+      title: 'Quiz',
+      key: 'quiz',
+    },
+    {
+      Icon: FiBell,
+      title: 'Reminder',
+      key: 'reminder',
+    },
+    {
+      Icon: AiOutlineGif,
+      title: 'GIF',
+      key: 'gif',
+    },
+    {
+      Icon: BsFillImageFill,
+      title: 'Image',
+      key: 'image',
+    },
+    {
+      Icon: FiLink2,
+      title: 'Link',
+      key: 'link',
+    },
+    {
+      Icon: BsChevronCompactLeft,
+      title: showMoreOptions ? 'Less' : 'More',
+      key: 'more|less',
+    },
+  ]
+
+  useEffect(addItem, [activeOption])
+  return {
+    get: {
+      items,
+    },
+    on: {
+      itemClicks,
+    },
+  }
+}

@@ -184,7 +184,10 @@ context('Actions', () => {
       // can attach an assertion right away to the element
       .should('have.value', 'fr-bananas')
 
-    cy.get('.action-select-multiple').select(['fr-apples', 'fr-oranges', 'fr-bananas']).invoke('val').should('deep.equal', ['fr-apples', 'fr-oranges', 'fr-bananas'])
+    cy.get('.action-select-multiple')
+      .select(['fr-apples', 'fr-oranges', 'fr-bananas'])
+      .invoke('val')
+      .should('deep.equal', ['fr-apples', 'fr-oranges', 'fr-bananas'])
 
     // assert the selected values include oranges
     cy.get('.action-select-multiple').invoke('val').should('include', 'fr-oranges')

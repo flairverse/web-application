@@ -1,2 +1,2 @@
-export * as S from './styles'
-export * as T from './types'
+export * as S from './popup.styles'
+export * as T from './popup.types'

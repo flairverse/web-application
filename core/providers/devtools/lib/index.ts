@@ -1,3 +1,3 @@
-export * as S from './styles'
-export * as C from './components'
-export * as T from './types'
+export * as C from './devtools.components'
+export * as S from './devtools.styles'
+export * as T from './devtools.types'

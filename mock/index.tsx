@@ -1,9 +1,9 @@
-import { SuggestionItem, SuggestionFlair } from '@/components/ui-kit/suggestion-box/lib/types'
-import { CardProps } from '@/components/ui-kit/card/main/lib/types'
-import { MentionProps, PostCardProps } from '@/components/ui-kit/nap/creator/lib/types'
-import { CardPickProps } from '@/components/ui-kit/card/pick/lib/types'
+import { CardMainUIKitLib } from '@/components/ui-kit/card/main'
+import { CardPickUIKitLib } from '@/components/ui-kit/card/pick'
+import { NapCreatorUIKitLib } from '@/components/ui-kit/nap/creator'
+import { SuggestionBoxUIKitLib } from '@/components/ui-kit/suggestion-box'
 
-export const blog1: CardProps = {
+export const blog1: CardMainUIKitLib.T.CardProps = {
   post: {
     comments: 5165561,
     likes: 112154,
@@ -24,7 +24,7 @@ export const blog1: CardProps = {
   loading: false,
 }
 
-export const suggestionInBox1: SuggestionItem[] = [
+export const suggestionInBox1: SuggestionBoxUIKitLib.T.SuggestionItem[] = [
   {
     title: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem nam officia',
     href: '/',
@@ -37,7 +37,7 @@ export const suggestionInBox1: SuggestionItem[] = [
   },
 ]
 
-export const suggestionInBox2: SuggestionItem[] = [
+export const suggestionInBox2: SuggestionBoxUIKitLib.T.SuggestionItem[] = [
   {
     title: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem nam officia',
     href: '/auth/sign-in',
@@ -58,7 +58,7 @@ export const suggestionInBox2: SuggestionItem[] = [
   },
 ]
 
-export const suggestionFlair1: SuggestionFlair[] = [
+export const suggestionFlair1: SuggestionBoxUIKitLib.T.SuggestionFlair[] = [
   {
     id: 0,
     username: 'tw4kt5hwpwxbffg33ckesrq78bmd3s',
@@ -100,7 +100,7 @@ export const suggestionFlair1: SuggestionFlair[] = [
   },
 ]
 
-export const suggestionFlair2: SuggestionFlair[] = [
+export const suggestionFlair2: SuggestionBoxUIKitLib.T.SuggestionFlair[] = [
   {
     id: 0,
     username: 'tw4kt5hwpwxbffg33ckesrq78bmd3s',
@@ -142,199 +142,427 @@ export const suggestionFlair2: SuggestionFlair[] = [
   },
 ]
 
-export const napPosts: PostCardProps[] = [
+export const napPosts: NapCreatorUIKitLib.T.PostCardProps[] = [
   {
-    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
-    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0, cover: '/removal/1.jpg' },
-  },
-  {
-    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
-    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0, cover: '/removal/1.jpg' },
-  },
-  {
-    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
-    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0, cover: '/removal/1.jpg' },
-  },
-  {
-    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
-    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0 },
-  },
-  {
-    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
-    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0 },
-  },
-  {
-    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
-    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0, cover: '/removal/1.jpg' },
-  },
-  {
-    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
-    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0, cover: '/removal/1.jpg' },
-  },
-  {
-    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
-    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0, cover: '/removal/1.jpg' },
-  },
-  {
-    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
-    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0 },
-  },
-  {
-    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
-    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0, cover: '/removal/1.jpg' },
-  },
-  {
-    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
-    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0, cover: '/removal/1.jpg' },
-  },
-  {
-    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
-    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0 },
-  },
-  {
-    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
-    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0, cover: '/removal/1.jpg' },
-  },
-  {
-    author: { fullName: 'HamidReza Qafoori', profile: '/removal/profile.jpg', username: 'qafoori.hr' },
-    post: { title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?', id: 0, cover: '/removal/1.jpg' },
-  },
-]
-
-export const pickCard: CardPickProps[] = [
-  {
-    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori', profile: '/removal/profile.jpg' },
+    author: {
+      fullName: 'HamidReza Qafoori',
+      profile: '/removal/profile.jpg',
+      username: 'qafoori.hr',
+    },
     post: {
-      id: 12,
       title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      id: 0,
       cover: '/removal/1.jpg',
-      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
     },
   },
   {
-    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori' },
-    post: {
-      id: 12,
-      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
-      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    author: {
+      fullName: 'HamidReza Qafoori',
+      profile: '/removal/profile.jpg',
+      username: 'qafoori.hr',
     },
-  },
-  {
-    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori', profile: '/removal/profile.jpg' },
     post: {
-      id: 12,
       title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      id: 0,
       cover: '/removal/1.jpg',
-      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
     },
   },
   {
-    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori', profile: '/removal/profile.jpg' },
+    author: {
+      fullName: 'HamidReza Qafoori',
+      profile: '/removal/profile.jpg',
+      username: 'qafoori.hr',
+    },
     post: {
-      id: 12,
       title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      id: 0,
       cover: '/removal/1.jpg',
-      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
     },
   },
   {
-    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori' },
+    author: {
+      fullName: 'HamidReza Qafoori',
+      profile: '/removal/profile.jpg',
+      username: 'qafoori.hr',
+    },
     post: {
-      id: 12,
       title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      id: 0,
+    },
+  },
+  {
+    author: {
+      fullName: 'HamidReza Qafoori',
+      profile: '/removal/profile.jpg',
+      username: 'qafoori.hr',
+    },
+    post: {
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      id: 0,
+    },
+  },
+  {
+    author: {
+      fullName: 'HamidReza Qafoori',
+      profile: '/removal/profile.jpg',
+      username: 'qafoori.hr',
+    },
+    post: {
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      id: 0,
       cover: '/removal/1.jpg',
-      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
     },
   },
   {
-    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori', profile: '/removal/profile.jpg' },
-    post: {
-      id: 12,
-      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
-      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    author: {
+      fullName: 'HamidReza Qafoori',
+      profile: '/removal/profile.jpg',
+      username: 'qafoori.hr',
     },
-  },
-  {
-    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori', profile: '/removal/profile.jpg' },
     post: {
-      id: 12,
       title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
-      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
-    },
-  },
-  {
-    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori', profile: '/removal/profile.jpg' },
-    post: {
-      id: 12,
-      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      id: 0,
       cover: '/removal/1.jpg',
-      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
     },
   },
   {
-    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori', profile: '/removal/profile.jpg' },
+    author: {
+      fullName: 'HamidReza Qafoori',
+      profile: '/removal/profile.jpg',
+      username: 'qafoori.hr',
+    },
     post: {
-      id: 12,
       title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      id: 0,
       cover: '/removal/1.jpg',
-      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
     },
   },
   {
-    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori' },
+    author: {
+      fullName: 'HamidReza Qafoori',
+      profile: '/removal/profile.jpg',
+      username: 'qafoori.hr',
+    },
     post: {
-      id: 12,
       title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
-      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+      id: 0,
     },
   },
   {
-    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori', profile: '/removal/profile.jpg' },
+    author: {
+      fullName: 'HamidReza Qafoori',
+      profile: '/removal/profile.jpg',
+      username: 'qafoori.hr',
+    },
     post: {
-      id: 12,
       title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      id: 0,
       cover: '/removal/1.jpg',
-      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
     },
   },
   {
-    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori' },
+    author: {
+      fullName: 'HamidReza Qafoori',
+      profile: '/removal/profile.jpg',
+      username: 'qafoori.hr',
+    },
     post: {
-      id: 12,
       title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      id: 0,
       cover: '/removal/1.jpg',
-      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
     },
   },
   {
-    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori', profile: '/removal/profile.jpg' },
+    author: {
+      fullName: 'HamidReza Qafoori',
+      profile: '/removal/profile.jpg',
+      username: 'qafoori.hr',
+    },
     post: {
-      id: 12,
       title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
-      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+      id: 0,
+    },
+  },
+  {
+    author: {
+      fullName: 'HamidReza Qafoori',
+      profile: '/removal/profile.jpg',
+      username: 'qafoori.hr',
+    },
+    post: {
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      id: 0,
+      cover: '/removal/1.jpg',
+    },
+  },
+  {
+    author: {
+      fullName: 'HamidReza Qafoori',
+      profile: '/removal/profile.jpg',
+      username: 'qafoori.hr',
+    },
+    post: {
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      id: 0,
+      cover: '/removal/1.jpg',
     },
   },
 ]
 
-export const mentions: MentionProps[] = [
-  { id: 1, username: 'qafooriqafooriqafooriqafoori', hasNap: true, profile: '/removal/profile.jpg' },
-  { id: 2, username: 'qafooriqafooriqafooriqafoori', hasNap: false, profile: '/removal/profile.jpg' },
-  { id: 3, username: 'qafooriqafooriqafooriqafoori', hasNap: true, profile: '/removal/profile.jpg' },
-  { id: 4, username: 'qafooriqafooriqafooriqafoori', hasNap: true, profile: '/removal/profile.jpg' },
+export const pickCard: CardPickUIKitLib.T.CardPickProps[] = [
+  {
+    author: {
+      fullName: 'HamidReza Qafoori',
+      id: 5,
+      username: 'qafoori',
+      profile: '/removal/profile.jpg',
+    },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      cover: '/removal/1.jpg',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori' },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: {
+      fullName: 'HamidReza Qafoori',
+      id: 5,
+      username: 'qafoori',
+      profile: '/removal/profile.jpg',
+    },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      cover: '/removal/1.jpg',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: {
+      fullName: 'HamidReza Qafoori',
+      id: 5,
+      username: 'qafoori',
+      profile: '/removal/profile.jpg',
+    },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      cover: '/removal/1.jpg',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori' },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      cover: '/removal/1.jpg',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: {
+      fullName: 'HamidReza Qafoori',
+      id: 5,
+      username: 'qafoori',
+      profile: '/removal/profile.jpg',
+    },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: {
+      fullName: 'HamidReza Qafoori',
+      id: 5,
+      username: 'qafoori',
+      profile: '/removal/profile.jpg',
+    },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: {
+      fullName: 'HamidReza Qafoori',
+      id: 5,
+      username: 'qafoori',
+      profile: '/removal/profile.jpg',
+    },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      cover: '/removal/1.jpg',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: {
+      fullName: 'HamidReza Qafoori',
+      id: 5,
+      username: 'qafoori',
+      profile: '/removal/profile.jpg',
+    },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      cover: '/removal/1.jpg',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori' },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: {
+      fullName: 'HamidReza Qafoori',
+      id: 5,
+      username: 'qafoori',
+      profile: '/removal/profile.jpg',
+    },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      cover: '/removal/1.jpg',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: { fullName: 'HamidReza Qafoori', id: 5, username: 'qafoori' },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      cover: '/removal/1.jpg',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+  {
+    author: {
+      fullName: 'HamidReza Qafoori',
+      id: 5,
+      username: 'qafoori',
+      profile: '/removal/profile.jpg',
+    },
+    post: {
+      id: 12,
+      title: 'How To Manage You Time And Get More Done? Is It Really Helps You To be More Careful aAbout Times?',
+      slug: '/qafoori/1/how-to-manage-you-time-and-get-more-done-is-it-really-helps-you-to-be-more-careful-about-times',
+    },
+  },
+]
+
+export const mentions: NapCreatorUIKitLib.T.MentionProps[] = [
+  {
+    id: 1,
+    username: 'qafooriqafooriqafooriqafoori',
+    hasNap: true,
+    profile: '/removal/profile.jpg',
+  },
+  {
+    id: 2,
+    username: 'qafooriqafooriqafooriqafoori',
+    hasNap: false,
+    profile: '/removal/profile.jpg',
+  },
+  {
+    id: 3,
+    username: 'qafooriqafooriqafooriqafoori',
+    hasNap: true,
+    profile: '/removal/profile.jpg',
+  },
+  {
+    id: 4,
+    username: 'qafooriqafooriqafooriqafoori',
+    hasNap: true,
+    profile: '/removal/profile.jpg',
+  },
   { id: 5, username: 'qafooriqafooriqafooriqafoori', hasNap: false },
-  { id: 6, username: 'qafooriqafooriqafooriqafoori', hasNap: false, profile: '/removal/profile.jpg' },
-  { id: 7, username: 'qafooriqafooriqafooriqafoori', hasNap: true, profile: '/removal/profile.jpg' },
-  { id: 8, username: 'qafooriqafooriqafooriqafoori', hasNap: true, profile: '/removal/profile.jpg' },
-  { id: 9, username: 'qafooriqafooriqafooriqafoori', hasNap: true, profile: '/removal/profile.jpg' },
+  {
+    id: 6,
+    username: 'qafooriqafooriqafooriqafoori',
+    hasNap: false,
+    profile: '/removal/profile.jpg',
+  },
+  {
+    id: 7,
+    username: 'qafooriqafooriqafooriqafoori',
+    hasNap: true,
+    profile: '/removal/profile.jpg',
+  },
+  {
+    id: 8,
+    username: 'qafooriqafooriqafooriqafoori',
+    hasNap: true,
+    profile: '/removal/profile.jpg',
+  },
+  {
+    id: 9,
+    username: 'qafooriqafooriqafooriqafoori',
+    hasNap: true,
+    profile: '/removal/profile.jpg',
+  },
   { id: 10, username: 'qafooriqafooriqafooriqafoori', hasNap: true },
-  { id: 11, username: 'qafooriqafooriqafooriqafoori', hasNap: false, profile: '/removal/profile.jpg' },
+  {
+    id: 11,
+    username: 'qafooriqafooriqafooriqafoori',
+    hasNap: false,
+    profile: '/removal/profile.jpg',
+  },
   { id: 12, username: 'qafooriqafooriqafooriqafoori', hasNap: true },
-  { id: 13, username: 'qafooriqafooriqafooriqafoori', hasNap: true, profile: '/removal/profile.jpg' },
+  {
+    id: 13,
+    username: 'qafooriqafooriqafooriqafoori',
+    hasNap: true,
+    profile: '/removal/profile.jpg',
+  },
   { id: 14, username: 'qafooriqafooriqafooriqafoori', hasNap: false },
-  { id: 15, username: 'qafooriqafooriqafooriqafoori', hasNap: true, profile: '/removal/profile.jpg' },
-  { id: 16, username: 'qafooriqafooriqafooriqafoori', hasNap: true, profile: '/removal/profile.jpg' },
-  { id: 17, username: 'qafooriqafooriqafooriqafoori', hasNap: true, profile: '/removal/profile.jpg' },
+  {
+    id: 15,
+    username: 'qafooriqafooriqafooriqafoori',
+    hasNap: true,
+    profile: '/removal/profile.jpg',
+  },
+  {
+    id: 16,
+    username: 'qafooriqafooriqafooriqafoori',
+    hasNap: true,
+    profile: '/removal/profile.jpg',
+  },
+  {
+    id: 17,
+    username: 'qafooriqafooriqafooriqafoori',
+    hasNap: true,
+    profile: '/removal/profile.jpg',
+  },
   { id: 18, username: 'qafooriqafooriqafooriqafoori', hasNap: false },
-  { id: 19, username: 'qafooriqafooriqafooriqafoori', hasNap: true, profile: '/removal/profile.jpg' },
-  { id: 20, username: 'qafooriqafooriqafooriqafoori', hasNap: false, profile: '/removal/profile.jpg' },
+  {
+    id: 19,
+    username: 'qafooriqafooriqafooriqafoori',
+    hasNap: true,
+    profile: '/removal/profile.jpg',
+  },
+  {
+    id: 20,
+    username: 'qafooriqafooriqafooriqafoori',
+    hasNap: false,
+    profile: '/removal/profile.jpg',
+  },
 ]

@@ -1,3 +1,3 @@
-export * as S from './styles'
-export * as T from './types'
-export * as HE from './helpers'
+export * as HE from './nap-profile.helpers'
+export * as S from './nap-profile.styles'
+export * as T from './nap-profile.types'
