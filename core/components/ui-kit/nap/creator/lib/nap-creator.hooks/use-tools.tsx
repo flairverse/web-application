@@ -29,6 +29,10 @@ export const useTools = ({ selectedOption, boardRef }: Pick<Lib.T.ToolsProps, 's
         case 'reminder': {
           return <Lib.C.ToolsForReminderInserter boardRef={boardRef} />
         }
+
+        case 'gif': {
+          return <Lib.C.ToolsForGifInserter boardRef={boardRef} />
+        }
       }
     } else return null
   }

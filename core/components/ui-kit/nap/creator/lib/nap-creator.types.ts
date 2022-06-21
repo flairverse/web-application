@@ -50,7 +50,8 @@ export type MentionTools = 'add-mention' | 'mention-effect' | 'mention-rotation'
 export type QuestionTools = 'add-question' | 'question-effect' | 'question-rotation' | 'question-hint'
 export type QuizTools = 'add-quiz' | 'quiz-effect' | 'quiz-rotation' | 'quiz-hint'
 export type ReminderTools = 'reminder-effect' | 'reminder-rotation'
-export type Tool = 'none' | TextTools | PostTools | MentionTools | QuestionTools | QuizTools | ReminderTools
+export type GifTools = 'add-gif' | 'gif-rotation' | 'gif-size'
+export type Tool = 'none' | TextTools | PostTools | MentionTools | QuestionTools | QuizTools | ReminderTools | GifTools
 
 export type TextEffects = typeof Lib.CO.EFFECTS.TEXT[number]
 export type PostEffects = typeof Lib.CO.EFFECTS.POST[number]
@@ -141,9 +142,12 @@ export namespace Elements {
     endTime: string
   }
 
-  export interface Image extends BaseElement {}
+  export interface Gif extends BaseElement {
+    gifURL: string
+    gifWidth: string
+  }
 
-  export interface Gif extends BaseElement {}
+  export interface Image extends BaseElement {}
 
   export interface Link extends BaseElement {}
 
@@ -192,6 +196,9 @@ export interface PostsPickUpProps {
 export interface MentionPickUpProps {
   boardRef: RefObject<HTMLDivElement>
 }
+export interface GifPickUpProps {
+  boardRef: RefObject<HTMLDivElement>
+}
 
 export type ItemsDOMStringComponents = {
   profile: ({}: Pick<Elements.Mention, 'profile' | 'hasNap' | 'seen'> & {
@@ -208,6 +215,7 @@ export type ItemsDOMStringGenerators = {
   question: (args: Pick<Elements.Question, 'hint' | 'question' | 'questionerUser'>) => string
   quiz: (args: Pick<Elements.Quiz, 'answers' | 'correctAnswer' | 'hintText' | 'questionText' | 'questioner'>) => string
   reminder: (args: Pick<Elements.Reminder, 'endTime' | 'reminderName'>) => string
+  gif: (args: Pick<Elements.Gif, 'gifURL' | 'gifWidth'>) => string
 }
 
 export interface MentionProps {

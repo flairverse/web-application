@@ -476,6 +476,27 @@ export const Mentions = styled.div`
   width: 100%;
   padding: 10px;
 `
+export const GIFs = styled.div`
+  width: 100%;
+  padding: 10px;
+
+  .giphy-gif {
+    cursor: pointer;
+    transition: filter 150ms linear;
+
+    &:hover {
+      filter: brightness(1.2);
+    }
+  }
+
+  .notFound {
+    color: var(--layer-2-text-2);
+    text-align: center;
+    margin: 15px 0 0 0;
+    font-family: var(--ff-2);
+    font-size: 16pt;
+  }
+`
 
 export const Mention = styled.div`
   height: auto;

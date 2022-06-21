@@ -84,6 +84,7 @@ export const DevtoolBox = styled.div`
       > button {
         margin: 5px;
         color: white;
+        font-family: Arial, Helvetica, sans-serif !important;
       }
     }
   }

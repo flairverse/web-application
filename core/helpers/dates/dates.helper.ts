@@ -9,11 +9,6 @@ export class Dates {
         ? Lib.CO.NUMERAL_MONTHS.indexOf(<Lib.T.NumeralMonth>month)
         : Lib.CO.SHORT_MONTHS.indexOf(<Lib.T.ShortMonths>(<string>month).substring(0, 3))
 
-    const xxx = 1
-
-    function cccc() {}
-    cccc()
-
     switch (target) {
       case 'long': {
         const x = 54557564
@@ -40,5 +35,10 @@ export class Dates {
 
   static convertTimeZone(date: MomentInput, toTimeZone: Lib.T.TimeZone = Dates.getClientTimeZone()): Date {
     return new Date(moment(date).toDate().toLocaleString('en-US', { timeZone: toTimeZone }))
+  }
+
+  static getDateTimezone = (date: MomentInput): string => {
+    const givenDate = moment(date).toDate()
+    return givenDate.toTimeString().split('(')[1].split(')')[0]
   }
 }

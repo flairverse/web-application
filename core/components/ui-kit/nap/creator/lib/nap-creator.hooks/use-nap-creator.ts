@@ -8,6 +8,7 @@ export const useNapCreator = (boardRef: RefObject<HTMLDivElement | null>) => {
   const setActiveOption = useSetRecoilState(pageCreateNapAtoms.activeOption)
   const setPostPopupVisibility = useSetRecoilState(pageCreateNapAtoms.postsPickUp)
   const setMentionPopupVisibility = useSetRecoilState(pageCreateNapAtoms.mentionPickUp)
+  const setGifPopupVisibility = useSetRecoilState(pageCreateNapAtoms.giphyPickUp)
   Lib.H.useFramesScaling(boardRef)
 
   const optionsClick = (key: Lib.T.Options) => {
@@ -31,6 +32,13 @@ export const useNapCreator = (boardRef: RefObject<HTMLDivElement | null>) => {
       case 'mention': {
         if (!Lib.HE.boardContains('mention', boardRef)) {
           setMentionPopupVisibility(true)
+        }
+        break
+      }
+
+      case 'gif': {
+        if (!Lib.HE.boardContains('gif', boardRef)) {
+          setGifPopupVisibility(true)
         }
         break
       }

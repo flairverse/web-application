@@ -26,7 +26,7 @@ export const EFFECTS = {
   MENTION: ['no-effect', 'with-background', 'username-name-job', 'username-name-profile', 'username-name-job-followers-subscriptions'] as const,
   QUESTION: ['no-effect', 'no-profile'] as const,
   QUIZ: ['no-effect', 'no-profile'] as const,
-  REMINDER: ['no-effect', 'joint-backgrounds', 'no-background'] as const,
+  REMINDER: ['no-effect', 'separated'] as const,
 }
 
 export const ICONS: Lib.T.IconsObject = {
@@ -410,24 +410,48 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
     </div>
   `,
 
-  reminder: ({ reminderName, endTime }) => `
-    <div
-      class="napElement reminder no-effect"
-      data-end-time="${endTime}"
-    >
-      <p
-        class="reminderName"
-        data-ph="Ask me anything..."
-        contenteditable="true"
-      >${reminderName}</p>
+  reminder: ({ reminderName, endTime }) => {
+    const endsOn = moment(endTime)
+    const timeZone = Dates.getDateTimezone(endTime)
 
-      <div class="info">
-        <p>Ends on ${moment(endTime).format('MMMM D, YYYY')}</p>
-        <p>At ${moment(endTime).format('hh:mm a (Z)')}</p>
-        <p>new_york: ${moment(Dates.convertTimeZone(endTime, 'America/New_York')).format('YYYY/MM/DD hh:mm')}</p>
-        <p>tehran: ${moment(Dates.convertTimeZone(endTime, 'Asia/Tehran')).format('YYYY/MM/DD hh:mm')}</p>
-        <span>Remind me</span>
+    return `
+      <div
+        class="napElement reminder no-effect"
+        data-end-time="${endTime}"
+      >
+        <p
+          class="reminderName"
+          data-ph="Type Reminder Name..."
+          contenteditable="true"
+        >${reminderName}</p>
+
+        <div class="no-effect design">
+          <div class="info">
+            <p>Ends on ${endsOn.format('MMMM D, YYYY')}</p>
+            <p>At ${endsOn.format('hh:mm a')}, ${timeZone}</p>
+          </div>
+        </div>
+
+        <div class="separated design">
+          <p class="title">Ends on</p>
+          <div class="items">
+            <span>${endsOn.format('MMMM')}</span>
+            <span>${endsOn.format('D')}</span>
+            <span>${endsOn.format('YYYY')}</span>
+            <i>At</i>
+            <span>${endsOn.format('hh:mm')}</span>
+          </div>
+          <p class="info">12-hour (${endsOn.format('a').toUpperCase().split('').join('.')}), ${timeZone}</p>
+        </div>
+
+        <div class="actions">
+          <span class="remindMe">Remind me</span>
+        </div>
       </div>
-    </div>
+    `
+  },
+
+  gif: ({ gifURL }) => `
+    <img src="${gifURL}" draggable="false" class="napElement gif">
   `,
 }

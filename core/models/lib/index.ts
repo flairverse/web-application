@@ -1,2 +1,1 @@
-export * as T from './models.types';
-
+export * as T from './models.types'

@@ -2,6 +2,7 @@ import { CardPick } from '@/components/ui-kit/card'
 import { PickUp } from '@/components/ui-kit/pick-up'
 import { DateTimePicker } from '@/components/ui-kit/time-picker'
 import { pageCreateNapAtoms } from '@/store/atoms'
+import { Grid as GifList } from '@giphy/react-components'
 import { Button } from 'antd'
 import * as mock from 'mock'
 import { FC } from 'react'
@@ -146,6 +147,28 @@ export const MentionPickUp: FC<Lib.T.MentionPickUpProps> = ({ boardRef }) => {
   )
 }
 
+export const GiphyPickUp: FC<Lib.T.GifPickUpProps> = ({ boardRef }) => {
+  const { pickUpProps, gifFetcher, onGifClick, updateKey } = Lib.H.useGiphyPickUp({ boardRef })
+  const pickUp = useRecoilValue(pageCreateNapAtoms.giphyPickUp)
+
+  return (
+    <PickUp {...pickUpProps} visibility={pickUp}>
+      <Lib.S.GIFs>
+        <GifList
+          width={760}
+          columns={5}
+          fetchGifs={gifFetcher}
+          onGifClick={onGifClick}
+          noLink
+          key={updateKey}
+          hideAttribution
+          noResultsMessage={<p className="notFound">No Gifs found</p>}
+        />
+      </Lib.S.GIFs>
+    </PickUp>
+  )
+}
+
 export const Mention: FC<Lib.T.MentionProps> = ({ id, username, profile, hasNap, onClick }) => {
   return (
     <Lib.S.Mention onClick={() => onClick?.(id)}>
@@ -234,6 +257,17 @@ export const ToolsForQuizInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) 
 
 export const ToolsForReminderInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) => {
   const { get, on } = Lib.H.useToolsForReminderInserter({ boardRef })
+  return (
+    <>
+      {get.tools.map((tool, index) => (
+        <Tool {...tool} onClick={on.toolClick} key={index} index={index} />
+      ))}
+    </>
+  )
+}
+
+export const ToolsForGifInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) => {
+  const { get, on } = Lib.H.useToolsForGifInserter({ boardRef })
   return (
     <>
       {get.tools.map((tool, index) => (

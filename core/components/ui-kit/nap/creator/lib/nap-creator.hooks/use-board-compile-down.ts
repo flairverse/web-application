@@ -48,6 +48,10 @@ export const useBoardCompileDown = (boardId: string) => {
       case 'reminder': {
         return compileReminderDown(<Lib.T.Elements.Reminder>element)
       }
+
+      case 'gif': {
+        return compileGifDown(<Lib.T.Elements.Gif>element)
+      }
     }
   }
 
@@ -263,7 +267,6 @@ export const useBoardCompileDown = (boardId: string) => {
     type,
     endTime,
   }: Lib.T.Elements.Reminder): HTMLDivElement => {
-    console.log({endTime})
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.reminder({ reminderName, endTime }))
     const element = addFrameTo(node, ['changeReminderValue'], 'reminder', id)
     DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
@@ -272,6 +275,23 @@ export const useBoardCompileDown = (boardId: string) => {
     element.classList.add(effect)
     activateFrameByFocusingContentEditables(element)
     DOM.makeElementDraggable({ element, areaSensitive, blackList: ['reminderName'] })
+    return element
+  }
+
+  /**
+   *
+   *
+   *
+   * compiles a gif object to actual element
+   */
+  const compileGifDown = ({ effect, gifURL, id, position: { left, top }, rotate, type, gifWidth }: Lib.T.Elements.Gif): HTMLDivElement => {
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.gif({ gifURL, gifWidth }))
+    const element = addFrameTo(node, [], 'gif', id)
+    DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
+    element.id = id
+    element.classList.add(type)
+    element.classList.add(effect)
+    DOM.makeElementDraggable({ element, areaSensitive })
     return element
   }
 

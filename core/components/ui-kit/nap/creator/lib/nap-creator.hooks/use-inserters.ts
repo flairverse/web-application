@@ -7,6 +7,7 @@ import * as Lib from '..'
 export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
   const { compileDown } = Lib.H.useBoardCompileDown('mainBoard')
   const setShowMoreOptions = useSetRecoilState(pageCreateNapAtoms.showMoreOptions)
+  const setGifPickupVisibility = useSetRecoilState(pageCreateNapAtoms.giphyPickUp)
 
   return class Insert {
     board: HTMLDivElement | null = null
@@ -178,6 +179,26 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
         endTime: new Date().toISOString(),
       }
       this.appendItem(reminder)
+    }
+
+    /**
+     *
+     *
+     * makes new gif item and passes it to the `appendItem`
+     */
+    newGif(gifURL: string, defaultValues?: Lib.T.Elements.Gif) {
+      const gif: Lib.T.Elements.Gif = defaultValues || {
+        type: 'gif',
+        effect: 'no-effect',
+        id: this.makeID(),
+        position: { left: '85px', top: '85px' },
+        rotate: 0,
+        gifURL,
+        gifWidth: '200px',
+      }
+      this.appendItem(gif)
+      setShowMoreOptions(false)
+      setGifPickupVisibility(false)
     }
   }
 }

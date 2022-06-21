@@ -14,6 +14,8 @@ export const NapCreator: FC = () => {
 
       <Lib.C.MentionPickUp boardRef={mainBoardRef} />
 
+      <Lib.C.GiphyPickUp boardRef={mainBoardRef} />
+
       <Lib.S.NapCreatorContainer>
         <Lib.C.Toolbox active={true} boardRef={mainBoardRef} />
 
