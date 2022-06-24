@@ -13,7 +13,7 @@ import { useRecoilState, useRecoilValue } from 'recoil'
 import * as Lib from '.'
 import { NapProfile } from '../../profile'
 
-export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active, boardRef }) => {
+export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active, boardRef, imageInputRef }) => {
   const [activeOption, setActiveOption] = useRecoilState(pageCreateNapAtoms.activeOption)
 
   return (
@@ -28,7 +28,7 @@ export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active, boardRef }) => {
           <MdOutlineClose color="var(--layer-2-text-3)" size={22} />
         </span>
         <div className="tools">
-          <Tools selectedOption={activeOption} boardRef={boardRef} />
+          <Tools selectedOption={activeOption} boardRef={boardRef} imageInputRef={imageInputRef} />
         </div>
         <ToolBoxNextBtn boardRef={boardRef} />
       </div>
@@ -50,7 +50,8 @@ export const ToolBoxNextBtn: FC<Lib.T.ToolBoxNextBtnProps> = ({ boardRef }) => {
 export const Items: FC<Lib.T.ItemsProps> = ({ onOptionsClick, boardRef }) => {
   const showMoreOptions = useRecoilValue(pageCreateNapAtoms.showMoreOptions)
   const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
-  const { get, on } = Lib.H.useItems({ onOptionsClick, boardRef })
+  const { onItemClick } = Lib.H.useItems({ onOptionsClick, boardRef })
+  const items = Lib.H.useDefinedItems()
 
   return (
     <>
@@ -58,12 +59,12 @@ export const Items: FC<Lib.T.ItemsProps> = ({ onOptionsClick, boardRef }) => {
 
       <Lib.S.ItemsContainer className={`${showMoreOptions ? 'showMore' : 'showLess'}`}>
         <ul>
-          {get.items.map(({ Icon, title, key }, index) => (
+          {items.map(({ Icon, title, key }, index) => (
             <li
               key={index}
               title={showMoreOptions ? undefined : title}
               className={`${activeOption === key ? 'active' : ''}`}
-              onClick={() => on.itemClicks(key)}
+              onClick={() => onItemClick(key)}
             >
               <span>
                 <Icon color="var(--layer-2-text-3)" size={30} />
@@ -195,8 +196,8 @@ export const Tool: FC<Lib.T.ToolProps> = ({ disabled, Icon, type, onClick, title
   )
 }
 
-export const Tools: FC<Lib.T.ToolsProps> = ({ selectedOption, boardRef }) => {
-  const tools = Lib.H.useTools({ selectedOption, boardRef })
+export const Tools: FC<Lib.T.ToolsProps> = ({ selectedOption, boardRef, imageInputRef }) => {
+  const tools = Lib.H.useTools({ selectedOption, boardRef, imageInputRef })
   return <Lib.S.Tools>{tools}</Lib.S.Tools>
 }
 
@@ -268,6 +269,17 @@ export const ToolsForReminderInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef
 
 export const ToolsForGifInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) => {
   const { get, on } = Lib.H.useToolsForGifInserter({ boardRef })
+  return (
+    <>
+      {get.tools.map((tool, index) => (
+        <Tool {...tool} onClick={on.toolClick} key={index} index={index} />
+      ))}
+    </>
+  )
+}
+
+export const ToolsForImageInserter: FC<Lib.T.ToolsForImageInserter> = ({ boardRef, imageInputRef }) => {
+  const { get, on } = Lib.H.useToolsForImageInserter({ boardRef, imageInputRef })
   return (
     <>
       {get.tools.map((tool, index) => (

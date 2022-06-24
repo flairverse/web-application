@@ -3,12 +3,13 @@ import { RefObject } from 'react'
 import { useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
-export const useNapCreator = (boardRef: RefObject<HTMLDivElement | null>) => {
+export const useNapCreator = (boardRef: RefObject<HTMLDivElement | null>, imageInputRef: RefObject<HTMLInputElement>) => {
   const setShowMoreOptions = useSetRecoilState(pageCreateNapAtoms.showMoreOptions)
   const setActiveOption = useSetRecoilState(pageCreateNapAtoms.activeOption)
   const setPostPopupVisibility = useSetRecoilState(pageCreateNapAtoms.postsPickUp)
   const setMentionPopupVisibility = useSetRecoilState(pageCreateNapAtoms.mentionPickUp)
   const setGifPopupVisibility = useSetRecoilState(pageCreateNapAtoms.giphyPickUp)
+  const { pickImage } = Lib.H.useImagePicker({ imageInputRef })
   Lib.H.useFramesScaling(boardRef)
 
   const optionsClick = (key: Lib.T.Options) => {
@@ -22,16 +23,22 @@ export const useNapCreator = (boardRef: RefObject<HTMLDivElement | null>) => {
         break
       }
 
+      case 'mention':
       case 'post': {
-        if (!Lib.HE.boardContains('post', boardRef)) {
-          setPostPopupVisibility(true)
-        }
-        break
-      }
-
-      case 'mention': {
-        if (!Lib.HE.boardContains('mention', boardRef)) {
-          setMentionPopupVisibility(true)
+        const existItems = Lib.HE.getFramesByType(boardRef, key)
+        if (existItems) {
+          existItems[existItems.length - 1].focus()
+        } else {
+          switch (key) {
+            case 'mention': {
+              setMentionPopupVisibility(true)
+              break
+            }
+            case 'post': {
+              setPostPopupVisibility(true)
+              break
+            }
+          }
         }
         break
       }
@@ -39,6 +46,13 @@ export const useNapCreator = (boardRef: RefObject<HTMLDivElement | null>) => {
       case 'gif': {
         if (!Lib.HE.boardContains('gif', boardRef)) {
           setGifPopupVisibility(true)
+        }
+        break
+      }
+
+      case 'image': {
+        if (!Lib.HE.boardContains('image', boardRef)) {
+          pickImage()
         }
         break
       }

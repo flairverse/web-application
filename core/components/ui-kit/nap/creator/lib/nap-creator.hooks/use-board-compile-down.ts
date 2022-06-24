@@ -52,6 +52,10 @@ export const useBoardCompileDown = (boardId: string) => {
       case 'gif': {
         return compileGifDown(<Lib.T.Elements.Gif>element)
       }
+
+      case 'image': {
+        return compileImageDown(<Lib.T.Elements.Image>element)
+      }
     }
   }
 
@@ -285,8 +289,25 @@ export const useBoardCompileDown = (boardId: string) => {
    * compiles a gif object to actual element
    */
   const compileGifDown = ({ effect, gifURL, id, position: { left, top }, rotate, type, gifWidth }: Lib.T.Elements.Gif): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.gif({ gifURL, gifWidth }))
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.gif({ gifURL }))
     const element = addFrameTo(node, [], 'gif', id)
+    DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
+    element.id = id
+    element.classList.add(type)
+    element.classList.add(effect)
+    DOM.makeElementDraggable({ element, areaSensitive })
+    return element
+  }
+
+  /**
+   *
+   *
+   *
+   * compiles a gif object to actual element
+   */
+  const compileImageDown = ({ effect, imageURL, id, position: { left, top }, rotate, type, imageWidth }: Lib.T.Elements.Image): HTMLDivElement => {
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.image({ imageURL }))
+    const element = addFrameTo(node, [], 'image', id)
     DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
     element.id = id
     element.classList.add(type)

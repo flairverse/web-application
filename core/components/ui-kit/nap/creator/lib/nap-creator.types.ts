@@ -7,19 +7,21 @@ import * as Lib from '.'
 export interface ItemsProps {
   onOptionsClick: (key: Options) => void
   boardRef: RefObject<HTMLDivElement>
+  imageInputRef: RefObject<HTMLInputElement>
 }
 
 export interface ItemsShadowingProps {
   active: boolean
 }
 
-export interface ToolsProps extends Pick<ItemsProps, 'boardRef'> {
+export interface ToolsProps extends Pick<ItemsProps, 'boardRef' | 'imageInputRef'> {
   selectedOption: Options | 'none'
 }
 
 export interface ReminderTimePickerProps extends Pick<ItemsProps, 'boardRef'> {}
 
 export interface ToolsForInserters extends Pick<ItemsProps, 'boardRef'> {}
+export interface ToolsForImageInserter extends ToolsForInserters, Pick<ToolsProps, 'imageInputRef'> {}
 
 export type Options = 'text' | 'image' | 'gif' | 'question' | 'reminder' | 'quiz' | 'post' | 'mention' | 'link' | 'discussion' | 'more|less'
 
@@ -27,9 +29,12 @@ export type Item = {
   Icon: IconType
   title: string
   key: Options
+  limit: number
 }
 
-export interface ToolboxProps extends Pick<ItemsProps, 'boardRef'> {
+export interface UseImagePickerArgs extends Pick<ItemsProps, 'imageInputRef'> {}
+
+export interface ToolboxProps extends Pick<ItemsProps, 'boardRef' | 'imageInputRef'> {
   active?: boolean
 }
 
@@ -45,13 +50,14 @@ export interface ToolProps {
 }
 
 export type TextTools = 'add-text' | 'text-font-size' | 'text-effect' | 'text-rotation'
-export type PostTools = 'add-post' | 'post-effect' | 'post-rotation'
+export type PostTools = 'post-effect' | 'post-rotation'
 export type MentionTools = 'add-mention' | 'mention-effect' | 'mention-rotation'
-export type QuestionTools = 'add-question' | 'question-effect' | 'question-rotation' | 'question-hint'
-export type QuizTools = 'add-quiz' | 'quiz-effect' | 'quiz-rotation' | 'quiz-hint'
+export type QuestionTools = 'question-effect' | 'question-rotation' | 'question-hint'
+export type QuizTools = 'quiz-effect' | 'quiz-rotation' | 'quiz-hint'
 export type ReminderTools = 'reminder-effect' | 'reminder-rotation'
 export type GifTools = 'add-gif' | 'gif-rotation' | 'gif-size'
-export type Tool = 'none' | TextTools | PostTools | MentionTools | QuestionTools | QuizTools | ReminderTools | GifTools
+export type ImageTools = 'add-image' | 'image-effect' | 'image-size' | 'image-rotation'
+export type Tool = 'none' | TextTools | PostTools | MentionTools | QuestionTools | QuizTools | ReminderTools | GifTools | ImageTools
 
 export type TextEffects = typeof Lib.CO.EFFECTS.TEXT[number]
 export type PostEffects = typeof Lib.CO.EFFECTS.POST[number]
@@ -59,7 +65,8 @@ export type MentionEffects = typeof Lib.CO.EFFECTS.MENTION[number]
 export type QuestionEffects = typeof Lib.CO.EFFECTS.QUESTION[number]
 export type QuizEffects = typeof Lib.CO.EFFECTS.QUIZ[number]
 export type ReminderEffects = typeof Lib.CO.EFFECTS.REMINDER[number]
-export type AllEffects = TextEffects | PostEffects | MentionEffects | QuestionEffects | QuizEffects | ReminderEffects
+export type ImageEffects = typeof Lib.CO.EFFECTS.IMAGE[number]
+export type AllEffects = TextEffects | PostEffects | MentionEffects | QuestionEffects | QuizEffects | ReminderEffects | ImageEffects
 
 export namespace Elements {
   export interface BaseElement<Effect extends AllEffects = AllEffects, Type extends Options = Options> {
@@ -147,7 +154,10 @@ export namespace Elements {
     gifWidth: string
   }
 
-  export interface Image extends BaseElement {}
+  export interface Image extends BaseElement {
+    imageURL: string
+    imageWidth: string
+  }
 
   export interface Link extends BaseElement {}
 
@@ -215,7 +225,8 @@ export type ItemsDOMStringGenerators = {
   question: (args: Pick<Elements.Question, 'hint' | 'question' | 'questionerUser'>) => string
   quiz: (args: Pick<Elements.Quiz, 'answers' | 'correctAnswer' | 'hintText' | 'questionText' | 'questioner'>) => string
   reminder: (args: Pick<Elements.Reminder, 'endTime' | 'reminderName'>) => string
-  gif: (args: Pick<Elements.Gif, 'gifURL' | 'gifWidth'>) => string
+  gif: (args: Pick<Elements.Gif, 'gifURL'>) => string
+  image: (args: Pick<Elements.Image, 'imageURL'>) => string
 }
 
 export interface MentionProps {

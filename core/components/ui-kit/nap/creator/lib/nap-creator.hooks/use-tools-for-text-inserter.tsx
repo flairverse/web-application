@@ -6,7 +6,8 @@ import { useRecoilValue } from 'recoil'
 import * as Lib from '..'
 
 export const useToolsForTextInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
-  const Inserters = Lib.H.useInserters(boardRef)
+  const Inserter = Lib.H.useInserters(boardRef)
+  const insert = new Inserter(boardRef)
   const { getFocusedItem, changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({
     boardRef,
   })
@@ -16,7 +17,7 @@ export const useToolsForTextInserter = ({ boardRef }: Lib.T.ToolsForInserters) =
   const fontSizeStep = 10
 
   const tools: Pick<Lib.T.ToolProps, 'Icon' | 'type' | 'title' | 'disabled'>[] = [
-    { Icon: IoAddCircleOutline, type: 'add-text', title: 'Add new', disabled: false },
+    { Icon: IoAddCircleOutline, type: 'add-text', title: 'Add new', disabled: !insert.canInsert('text', false) },
     {
       Icon: GoTextSize,
       type: 'text-font-size',
@@ -40,7 +41,7 @@ export const useToolsForTextInserter = ({ boardRef }: Lib.T.ToolsForInserters) =
   const toolClick = (type: Lib.T.Tool) => {
     switch (type) {
       case 'add-text': {
-        new Inserters(boardRef).newText()
+        insert.newText()
         break
       }
 

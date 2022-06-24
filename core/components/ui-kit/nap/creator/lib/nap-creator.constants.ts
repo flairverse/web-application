@@ -27,6 +27,7 @@ export const EFFECTS = {
   QUESTION: ['no-effect', 'no-profile'] as const,
   QUIZ: ['no-effect', 'no-profile'] as const,
   REMINDER: ['no-effect', 'separated'] as const,
+  IMAGE: ['cloudy', 'grassy', 'folded', 'glitch'] as const,
 }
 
 export const ICONS: Lib.T.IconsObject = {
@@ -453,5 +454,40 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
 
   gif: ({ gifURL }) => `
     <img src="${gifURL}" draggable="false" class="napElement gif">
+  `,
+
+  image: ({ imageURL }) => `
+    <div 
+      class="napElement image no-effect"
+      data-image-url="${imageURL}"
+    >
+      <div class="cloudy">
+        <div>
+          <img src="${imageURL}" alt="">
+        </div>
+      </div>
+      
+      <div class="grassy">
+        <img src="${imageURL}" alt="">
+      </div>
+      
+      <div class="folded">
+        <span style="background-image: url("${imageURL}")"></span>
+        <span style="background-image: url("${imageURL}")"></span>
+        <span style="background-image: url("${imageURL}")"></span>
+        <span style="background-image: url("${imageURL}")"></span>
+        <span style="background-image: url("${imageURL}")"></span>
+      </div>
+
+      <div class="glitch">
+        <img src="${imageURL}">
+        <div>
+          <div style="background-image: url("${imageURL}")"></div>
+          <div style="background-image: url("${imageURL}")"></div>
+          <div style="background-image: url("${imageURL}")"></div>
+        </div>
+      </div>
+      
+    </div>
   `,
 }

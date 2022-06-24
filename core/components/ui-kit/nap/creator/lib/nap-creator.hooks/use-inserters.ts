@@ -8,6 +8,7 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
   const { compileDown } = Lib.H.useBoardCompileDown('mainBoard')
   const setShowMoreOptions = useSetRecoilState(pageCreateNapAtoms.showMoreOptions)
   const setGifPickupVisibility = useSetRecoilState(pageCreateNapAtoms.giphyPickUp)
+  const items = Lib.H.useDefinedItems()
 
   return class Insert {
     board: HTMLDivElement | null = null
@@ -16,6 +17,32 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
       this.board = _boardRef.current
     }
 
+    /**
+     *
+     *
+     *
+     * checks if a new item can be inserted or not (according to its limit)
+     */
+    canInsert(option: Lib.T.Options, focusLastWhenFalse: boolean = true): boolean {
+      const { limit } = items.filter(item => item.key === option)[0]
+      const existItems = Lib.HE.getFramesByType(boardRef, option)
+      if (!existItems) {
+        return true
+      }
+      const canInsert = existItems.length < limit
+
+      if (!canInsert && focusLastWhenFalse) {
+        existItems[existItems.length - 1].focus()
+      }
+      return canInsert
+    }
+
+    /**
+     *
+     *
+     *
+     * append the compiled item into the board
+     */
     appendItem(elementInfo: Lib.T.Elements.All) {
       if (!this.board) {
         console.log('!this.board')
@@ -27,6 +54,13 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
       element.focus()
     }
 
+    /**
+     *
+     *
+     *
+     * generates a new uniq id
+     * TODO: check if the new generated ID doest not already exists in the board
+     */
     makeID = (): string => {
       return Str.random(20, 'allLetters')
     }
@@ -37,6 +71,10 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
      * makes new text item and passes it to the `appendItem`
      */
     newText(defaultValues?: Lib.T.Elements.Text) {
+      if (!this.canInsert('text')) {
+        return
+      }
+
       const text: Lib.T.Elements.Text = defaultValues || {
         type: 'text',
         id: this.makeID(),
@@ -55,6 +93,10 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
      * makes new post item and passes it to the `appendItem`
      */
     newPost(id: number, defaultValues?: Lib.T.Elements.Post) {
+      if (!this.canInsert('post')) {
+        return
+      }
+
       const post: Lib.T.Elements.Post = defaultValues || {
         type: 'post',
         effect: 'no-effect',
@@ -93,6 +135,10 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
      * makes new mention item and passes it to the `appendItem`
      */
     newMention(id: number, defaultValues?: Lib.T.Elements.Mention) {
+      if (!this.canInsert('mention')) {
+        return
+      }
+
       const mention: Lib.T.Elements.Mention = defaultValues || {
         type: 'mention',
         effect: 'no-effect',
@@ -119,6 +165,10 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
      * makes new question item and passes it to the `appendItem`
      */
     newQuestion(defaultValues?: Lib.T.Elements.Question) {
+      if (!this.canInsert('question')) {
+        return
+      }
+
       const question: Lib.T.Elements.Question = defaultValues || {
         type: 'question',
         effect: 'no-effect',
@@ -142,6 +192,10 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
      * makes new quiz item and passes it to the `appendItem`
      */
     newQuiz(defaultValues?: Lib.T.Elements.Quiz) {
+      if (!this.canInsert('quiz')) {
+        return
+      }
+
       const quiz: Lib.T.Elements.Quiz = defaultValues || {
         type: 'quiz',
         effect: 'no-effect',
@@ -167,7 +221,9 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
      * makes new reminder item and passes it to the `appendItem`
      */
     newReminder(defaultValues?: Lib.T.Elements.Reminder) {
-      const { minimumDate, maximumDate } = Lib.HE.getReminderInitialTime()
+      if (!this.canInsert('reminder')) {
+        return
+      }
 
       const reminder: Lib.T.Elements.Reminder = defaultValues || {
         type: 'reminder',
@@ -187,6 +243,10 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
      * makes new gif item and passes it to the `appendItem`
      */
     newGif(gifURL: string, defaultValues?: Lib.T.Elements.Gif) {
+      if (!this.canInsert('gif')) {
+        return
+      }
+
       const gif: Lib.T.Elements.Gif = defaultValues || {
         type: 'gif',
         effect: 'no-effect',

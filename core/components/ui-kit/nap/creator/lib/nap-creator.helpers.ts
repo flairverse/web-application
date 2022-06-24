@@ -37,7 +37,7 @@ export const getFramesByType = (boardRef: RefObject<HTMLDivElement | null>, type
     return null
   }
 
-  const frames = <NodeListOf<HTMLDivElement>>board.querySelectorAll(`.${type}`)
+  const frames = <NodeListOf<HTMLDivElement>>board.querySelectorAll(`.frame.${type}`)
   if (frames.length <= 0) {
     return null
   }

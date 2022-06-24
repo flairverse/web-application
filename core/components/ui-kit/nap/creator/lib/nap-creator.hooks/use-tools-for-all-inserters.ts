@@ -65,7 +65,7 @@ export const useToolsForAllInserters = ({ boardRef }: Pick<Lib.T.ToolsForInserte
       return
     }
 
-    const currentEffect = actualItem.className.split(' ').pop() as any
+    const currentEffect = actualItem.className.split(' ').pop() as never
     const effectsRange = [0, Lib.CO.EFFECTS[effectGroup].length - 1]
     const currentEffectIndex = Lib.CO.EFFECTS[effectGroup].indexOf(currentEffect)
     const nextEffectIndex = currentEffectIndex + 1
