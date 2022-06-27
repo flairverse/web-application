@@ -70,10 +70,17 @@ export const useToolsForAllInserters = ({ boardRef }: Pick<Lib.T.ToolsForInserte
     const currentEffectIndex = Lib.CO.EFFECTS[effectGroup].indexOf(currentEffect)
     const nextEffectIndex = currentEffectIndex + 1
     const nextEffect = nextEffectIndex > effectsRange[1] ? Lib.CO.EFFECTS[effectGroup][effectsRange[0]] : Lib.CO.EFFECTS[effectGroup][nextEffectIndex]
+
     actualItem.classList.remove(currentEffect)
+    focusedItem.classList.remove(currentEffect)
+
     actualItem.classList.add(nextEffect)
+    focusedItem.classList.add(nextEffect)
+
     actualItem.setAttribute(Lib.CO.FRAMES_DATA_ATTRS.EFFECT, nextEffect)
-    actualItem.focus()
+    focusedItem.setAttribute(Lib.CO.FRAMES_DATA_ATTRS.EFFECT, nextEffect)
+
+    focusedItem.focus()
   }
 
   return {

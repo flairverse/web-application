@@ -32,7 +32,7 @@ export type Item = {
   limit: number
 }
 
-export interface UseImagePickerArgs extends Pick<ItemsProps, 'imageInputRef'> {}
+export interface UseImagePickerArgs extends Pick<ItemsProps, 'imageInputRef' | 'boardRef'> {}
 
 export interface ToolboxProps extends Pick<ItemsProps, 'boardRef' | 'imageInputRef'> {
   active?: boolean
@@ -55,9 +55,10 @@ export type MentionTools = 'add-mention' | 'mention-effect' | 'mention-rotation'
 export type QuestionTools = 'question-effect' | 'question-rotation' | 'question-hint'
 export type QuizTools = 'quiz-effect' | 'quiz-rotation' | 'quiz-hint'
 export type ReminderTools = 'reminder-effect' | 'reminder-rotation'
-export type GifTools = 'add-gif' | 'gif-rotation' | 'gif-size'
+export type GifTools = 'add-gif' | 'gif-effect' | 'gif-rotation' | 'gif-size'
 export type ImageTools = 'add-image' | 'image-effect' | 'image-size' | 'image-rotation'
-export type Tool = 'none' | TextTools | PostTools | MentionTools | QuestionTools | QuizTools | ReminderTools | GifTools | ImageTools
+export type LinkTools = 'add-link' | 'link-font-size' | 'link-effect' | 'link-rotation'
+export type Tool = 'none' | TextTools | PostTools | MentionTools | QuestionTools | QuizTools | ReminderTools | GifTools | ImageTools | LinkTools
 
 export type TextEffects = typeof Lib.CO.EFFECTS.TEXT[number]
 export type PostEffects = typeof Lib.CO.EFFECTS.POST[number]
@@ -66,7 +67,9 @@ export type QuestionEffects = typeof Lib.CO.EFFECTS.QUESTION[number]
 export type QuizEffects = typeof Lib.CO.EFFECTS.QUIZ[number]
 export type ReminderEffects = typeof Lib.CO.EFFECTS.REMINDER[number]
 export type ImageEffects = typeof Lib.CO.EFFECTS.IMAGE[number]
-export type AllEffects = TextEffects | PostEffects | MentionEffects | QuestionEffects | QuizEffects | ReminderEffects | ImageEffects
+export type GifEffects = typeof Lib.CO.EFFECTS.GIF[number]
+export type LinkEffects = typeof Lib.CO.EFFECTS.LINK[number]
+export type AllEffects = TextEffects | PostEffects | MentionEffects | QuestionEffects | QuizEffects | ReminderEffects | ImageEffects | LinkEffects
 
 export namespace Elements {
   export interface BaseElement<Effect extends AllEffects = AllEffects, Type extends Options = Options> {
@@ -149,17 +152,21 @@ export namespace Elements {
     endTime: string
   }
 
-  export interface Gif extends BaseElement {
+  export interface Gif extends BaseElement<GifEffects, 'gif'> {
     gifURL: string
     gifWidth: string
   }
 
-  export interface Image extends BaseElement {
+  export interface Image extends BaseElement<ImageEffects, 'image'> {
     imageURL: string
     imageWidth: string
   }
 
-  export interface Link extends BaseElement {}
+  export interface Link extends BaseElement<LinkEffects, 'link'> {
+    link: string
+    linkFontSize: string
+    href: string
+  }
 
   // prettier-ignore
   export type All = 
@@ -175,7 +182,7 @@ export namespace Elements {
     & Partial<Omit<Link, 'type' | 'effect'>>
 }
 
-export type ElementFrameActionTypes = 'delete' | 'editInnerText' | 'changeReminderValue'
+export type ElementFrameActionTypes = 'delete' | 'editInnerText' | 'changeReminderValue' | 'editLinkRef'
 
 export type ElementFrameActions = {
   type: ElementFrameActionTypes
@@ -214,6 +221,8 @@ export type ItemsDOMStringComponents = {
   profile: ({}: Pick<Elements.Mention, 'profile' | 'hasNap' | 'seen'> & {
     size?: Range<1, 11>
   }) => string
+
+  imageBaseItem: (args: { dataUrl: string }) => string
 }
 
 export type ItemsDOMStringGenerators = {
@@ -227,6 +236,7 @@ export type ItemsDOMStringGenerators = {
   reminder: (args: Pick<Elements.Reminder, 'endTime' | 'reminderName'>) => string
   gif: (args: Pick<Elements.Gif, 'gifURL'>) => string
   image: (args: Pick<Elements.Image, 'imageURL'>) => string
+  link: (innerText: string, href: string) => string
 }
 
 export interface MentionProps {

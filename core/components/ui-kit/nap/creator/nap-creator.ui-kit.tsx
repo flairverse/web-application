@@ -6,11 +6,11 @@ export const NapCreator: FC = () => {
   const mainBoardParentRef = useRef<HTMLDivElement>(null)
   const imageInputRef = useRef<HTMLInputElement>(null)
   const { on } = Lib.H.useNapCreator(mainBoardRef, imageInputRef)
-  const { onInputChange } = Lib.H.useImagePicker({ imageInputRef })
+  const { onInputChange } = Lib.H.useImagePicker({ imageInputRef, boardRef: mainBoardRef })
 
   return (
     <>
-      <input type="file" accept="image/*" ref={imageInputRef} onChange={onInputChange} />
+      <Lib.S.PickImageInput type="file" accept="image/*" ref={imageInputRef} onChange={onInputChange} />
 
       <Lib.C.ReminderTimePicker boardRef={mainBoardRef} />
 

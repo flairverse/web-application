@@ -48,6 +48,11 @@ export const useItems = ({ onOptionsClick, boardRef }: Pick<Lib.T.ItemsProps, 'b
             insert.newReminder()
             break
           }
+
+          case 'link': {
+            insert.newLink()
+            break
+          }
         }
       }
     }

@@ -19,6 +19,17 @@ export const shining = css`
       background-repeat: no-repeat;
       background-size: 80%;
       animation: ${animation} 2s linear infinite;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--layer-2), var(--layer-2-text-3), var(--layer-2));
+      }
     }
   }
 `

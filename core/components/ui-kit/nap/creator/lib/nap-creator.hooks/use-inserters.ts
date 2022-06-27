@@ -260,5 +260,51 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
       setShowMoreOptions(false)
       setGifPickupVisibility(false)
     }
+
+    /**
+     *
+     *
+     * makes new gif item and passes it to the `appendItem`
+     */
+    newImage(imageURL: string, defaultValues?: Lib.T.Elements.Image) {
+      if (!this.canInsert('image')) {
+        return
+      }
+
+      const image: Lib.T.Elements.Image = defaultValues || {
+        type: 'image',
+        effect: 'no-effect',
+        id: this.makeID(),
+        position: { left: '85px', top: '85px' },
+        rotate: 0,
+        imageURL,
+        imageWidth: '200px',
+      }
+      this.appendItem(image)
+      setShowMoreOptions(false)
+    }
+
+    /**
+     *
+     *
+     * makes new link item and passes it to the `appendItem`
+     */
+    newLink(defaultValues?: Lib.T.Elements.Link) {
+      if (!this.canInsert('link')) {
+        return
+      }
+
+      const link: Lib.T.Elements.Link = defaultValues || {
+        type: 'link',
+        id: this.makeID(),
+        link: 'Type link text here...',
+        position: { left: '85px', top: '85px' },
+        rotate: 0,
+        linkFontSize: '20px',
+        effect: 'no-effect',
+        href: 'https://example.com',
+      }
+      this.appendItem(link)
+    }
   }
 }

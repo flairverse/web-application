@@ -288,3 +288,14 @@ export const ToolsForImageInserter: FC<Lib.T.ToolsForImageInserter> = ({ boardRe
     </>
   )
 }
+
+export const ToolsForLinkInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) => {
+  const { get, on } = Lib.H.useToolsForLinkInserter({ boardRef })
+  return (
+    <>
+      {get.tools.map((tool, index) => (
+        <Tool {...tool} onClick={on.toolClick} key={index} index={index} />
+      ))}
+    </>
+  )
+}

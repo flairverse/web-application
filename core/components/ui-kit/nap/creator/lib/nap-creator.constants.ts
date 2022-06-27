@@ -27,7 +27,13 @@ export const EFFECTS = {
   QUESTION: ['no-effect', 'no-profile'] as const,
   QUIZ: ['no-effect', 'no-profile'] as const,
   REMINDER: ['no-effect', 'separated'] as const,
-  IMAGE: ['cloudy', 'grassy', 'folded', 'glitch'] as const,
+  IMAGE: ['no-effect', 'cloudy', 'grassy', 'glitch'] as const,
+  get GIF() {
+    return this.IMAGE
+  },
+  get LINK() {
+    return this.TEXT
+  },
 }
 
 export const ICONS: Lib.T.IconsObject = {
@@ -53,6 +59,15 @@ export const ICONS: Lib.T.IconsObject = {
   get changeReminderValue() {
     return this.editInnerText
   },
+
+  editLinkRef: `
+    <svg viewBox="0 0 41 41" fill="none">
+      <path
+        d="M23.5222 28.3421C23.4429 28.2636 23.3358 28.2195 23.2242 28.2195C23.1126 28.2195 23.0056 28.2636 22.9263 28.3421L16.7985 34.4698C13.9614 37.3069 9.17314 37.6075 6.04072 34.4698C2.90303 31.3321 3.20361 26.5491 6.04072 23.712L12.1685 17.5843C12.3319 17.4208 12.3319 17.1519 12.1685 16.9884L10.0696 14.8896C9.99034 14.811 9.88326 14.767 9.77168 14.767C9.6601 14.767 9.55302 14.811 9.47373 14.8896L3.346 21.0173C-1.11533 25.4786 -1.11533 32.6979 3.346 37.154C7.80732 41.6101 15.0267 41.6153 19.4827 37.154L25.6104 31.0263C25.7739 30.8628 25.7739 30.5938 25.6104 30.4304L23.5222 28.3421ZM37.1593 3.346C32.6979 -1.11533 25.4786 -1.11533 21.0226 3.346L14.8896 9.47373C14.811 9.55302 14.767 9.6601 14.767 9.77168C14.767 9.88326 14.811 9.99034 14.8896 10.0696L16.9831 12.1632C17.1466 12.3267 17.4155 12.3267 17.579 12.1632L23.7067 6.03545C26.5438 3.19834 31.3321 2.89775 34.4646 6.03545C37.6022 9.17314 37.3017 13.9562 34.4646 16.7933L28.3368 22.921C28.2583 23.0003 28.2143 23.1074 28.2143 23.2189C28.2143 23.3305 28.2583 23.4376 28.3368 23.5169L30.4356 25.6157C30.5991 25.7792 30.8681 25.7792 31.0315 25.6157L37.1593 19.488C41.6153 15.0267 41.6153 7.80732 37.1593 3.346V3.346ZM25.4259 12.8856C25.3466 12.8071 25.2395 12.7631 25.1279 12.7631C25.0163 12.7631 24.9093 12.8071 24.83 12.8856L12.8856 24.8247C12.8071 24.904 12.7631 25.0111 12.7631 25.1227C12.7631 25.2342 12.8071 25.3413 12.8856 25.4206L14.9739 27.5089C15.1374 27.6724 15.4063 27.6724 15.5698 27.5089L27.5089 15.5698C27.6724 15.4063 27.6724 15.1374 27.5089 14.9739L25.4259 12.8856Z"
+        fill="${ICON_COLORS}"
+      />
+    </svg>  
+  `,
 }
 
 export const ITEMS_ICONS = {
@@ -244,6 +259,39 @@ export const ITEMS_DOM_STRING_COMPONENTS: Lib.T.ItemsDOMStringComponents = {
     >
       <div></div>
       <img src="${profile}" class="profile" alt="user" draggable="false">
+    </div>
+  `,
+
+  imageBaseItem: ({ dataUrl }) => `
+    <div 
+      class="napElement image no-effect"
+      data-image-url="${dataUrl}"
+    >
+      <div class="variant no-effect">
+        <img src="${dataUrl}" alt="" draggable="false">
+      </div>
+
+      <div class="variant cloudy">
+        <div>
+          <img src="${dataUrl}" alt="" draggable="false">
+        </div>
+      </div>
+      
+      <div class="variant grassy">
+        <img src="${dataUrl}" alt="" draggable="false">
+      </div>
+
+      <div class="variant glitch">
+        <div>
+          <img src="${dataUrl}" draggable="false">
+          <div>
+            <div style="background-image: url(${dataUrl})"></div>
+            <div style="background-image: url(${dataUrl})"></div>
+            <div style="background-image: url(${dataUrl})"></div>
+          </div>
+        </div>
+      </div>
+      
     </div>
   `,
 }
@@ -452,42 +500,11 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
     `
   },
 
-  gif: ({ gifURL }) => `
-    <img src="${gifURL}" draggable="false" class="napElement gif">
-  `,
+  gif: ({ gifURL }) => ITEMS_DOM_STRING_COMPONENTS.imageBaseItem({ dataUrl: gifURL }),
 
-  image: ({ imageURL }) => `
-    <div 
-      class="napElement image no-effect"
-      data-image-url="${imageURL}"
-    >
-      <div class="cloudy">
-        <div>
-          <img src="${imageURL}" alt="">
-        </div>
-      </div>
-      
-      <div class="grassy">
-        <img src="${imageURL}" alt="">
-      </div>
-      
-      <div class="folded">
-        <span style="background-image: url("${imageURL}")"></span>
-        <span style="background-image: url("${imageURL}")"></span>
-        <span style="background-image: url("${imageURL}")"></span>
-        <span style="background-image: url("${imageURL}")"></span>
-        <span style="background-image: url("${imageURL}")"></span>
-      </div>
+  image: ({ imageURL }) => ITEMS_DOM_STRING_COMPONENTS.imageBaseItem({ dataUrl: imageURL }),
 
-      <div class="glitch">
-        <img src="${imageURL}">
-        <div>
-          <div style="background-image: url("${imageURL}")"></div>
-          <div style="background-image: url("${imageURL}")"></div>
-          <div style="background-image: url("${imageURL}")"></div>
-        </div>
-      </div>
-      
-    </div>
+  link: (innerText, href) => `
+    <p data-text="${innerText}" data-href="${href}">${innerText}</p>
   `,
 }

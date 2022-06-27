@@ -9,7 +9,6 @@ export const useTools = ({ selectedOption, boardRef, imageInputRef }: Pick<Lib.T
           return <Lib.C.ToolsForTextInserter boardRef={boardRef} />
         }
 
-        default: // <<--------------------------------------------------------------------------------------------------[[temporary]]
         case 'post': {
           return <Lib.C.ToolsForPostInserter boardRef={boardRef} />
         }
@@ -36,6 +35,19 @@ export const useTools = ({ selectedOption, boardRef, imageInputRef }: Pick<Lib.T
 
         case 'image': {
           return <Lib.C.ToolsForImageInserter boardRef={boardRef} imageInputRef={imageInputRef} />
+        }
+
+        case 'link': {
+          return <Lib.C.ToolsForLinkInserter boardRef={boardRef} />
+        }
+
+        case 'discussion': {
+          // TODO: implement later
+          return null
+        }
+
+        case 'more|less': {
+          return null
         }
       }
     } else return null

@@ -24,7 +24,6 @@ export const useBoardCompileDown = (boardId: string) => {
    */
   const compileDown = (element: Lib.T.Elements.All): HTMLDivElement => {
     switch (element.type) {
-      default: // <<----------------------------------------------------------------[[temporary]]
       case 'text': {
         return compileTextDown(<Lib.T.Elements.Text>element)
       }
@@ -55,6 +54,19 @@ export const useBoardCompileDown = (boardId: string) => {
 
       case 'image': {
         return compileImageDown(<Lib.T.Elements.Image>element)
+      }
+
+      case 'link': {
+        return compileLinkDown(<Lib.T.Elements.Link>element)
+      }
+
+      case 'discussion': {
+        // TODO: implement later
+        return document.createElement('div')
+      }
+
+      case 'more|less': {
+        return document.createElement('div')
       }
     }
   }
@@ -176,6 +188,24 @@ export const useBoardCompileDown = (boardId: string) => {
     element.classList.add(effect)
     activateFrameByFocusingContentEditables(element)
     DOM.makeElementDraggable({ element, areaSensitive, blackList: ['questionText', 'hintSection'] })
+    return element
+  }
+
+  /**
+   *
+   *
+   *
+   * compiles a link object to actual element
+   */
+  const compileLinkDown = ({ type, id, link, position: { left, top }, linkFontSize, effect, rotate, href }: Lib.T.Elements.Link): HTMLDivElement => {
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.link(link, href))
+    node.addEventListener('keyup', () => node.setAttribute('data-text', node.innerText))
+    const element = addFrameTo(node, ['editInnerText', 'editLinkRef'], 'link', id)
+    DOM.addStyles(element, { top, left, fontSize: linkFontSize, transform: `rotate(${rotate}deg)` })
+    element.id = id
+    element.classList.add(type)
+    element.classList.add(effect)
+    DOM.makeElementDraggable({ element, areaSensitive })
     return element
   }
 
@@ -412,8 +442,12 @@ export const useBoardCompileDown = (boardId: string) => {
       })
     }
 
-    static changeReminderValue(evt: MouseEvent) {
+    static changeReminderValue(_evt: MouseEvent) {
       setTimePickerVisibility(true)
+    }
+
+    static editLinkRef(evt: MouseEvent) {
+      console.log(evt, 'editLinkRef')
     }
   }
 

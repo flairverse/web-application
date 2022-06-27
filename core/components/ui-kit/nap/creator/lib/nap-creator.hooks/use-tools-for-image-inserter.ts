@@ -10,7 +10,7 @@ export const useToolsForImageInserter = ({ boardRef, imageInputRef }: Lib.T.Tool
   const { getFocusedItem, changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({ boardRef })
   const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
   const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
-  const { pickImage } = Lib.H.useImagePicker({ imageInputRef })
+  const { pickImage } = Lib.H.useImagePicker({ imageInputRef, boardRef })
   const widthSizeRange = [100, 300]
   const widthSizeStep = 50
 
@@ -45,8 +45,10 @@ export const useToolsForImageInserter = ({ boardRef, imageInputRef }: Lib.T.Tool
 
       case 'image-size': {
         const focusedItem = getFocusedItem()
+
         if (focusedItem) {
-          const image = focusedItem.querySelector('img')
+          const activeEffect: Lib.T.ImageEffects = <Lib.T.ImageEffects>focusedItem.getAttribute('data-effect') || 'no-effect'
+          const image = <HTMLImageElement | null>focusedItem.querySelector(`.variant.${activeEffect} img`)
           if (!image) {
             return
           }
@@ -60,7 +62,7 @@ export const useToolsForImageInserter = ({ boardRef, imageInputRef }: Lib.T.Tool
       }
 
       case 'image-effect': {
-        changeEffect('IMAGE')
+        changeEffect('IMAGE', '.image')
         break
       }
 

@@ -18,7 +18,6 @@ export const movingColor = css`
       background-clip: text;
       background-size: 400%;
       animation: ${animatedGradient} 5s ease infinite;
-      /* background-image: linear-gradient(68.7deg, rgba(29, 173, 235, 1) 13.2%, rgba(137, 149, 250, 1) 29.8%, rgba(229, 109, 212, 1) 48.9%, rgba(255, 68, 128, 1) 68.2%, rgba(255, 94, 0, 1) 86.4%); */
       background-image: linear-gradient(
         68.7deg,
         var(--c-blog) 13.2%,
@@ -28,6 +27,23 @@ export const movingColor = css`
         var(--c-accent) 86.4%
       );
       font-family: var(--ff-3);
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        background-image: linear-gradient(
+          68.7deg,
+          var(--c-blog) 13.2%,
+          var(--c-podcast) 29.8%,
+          var(--c-article) 48.9%,
+          var(--c-job) 68.2%,
+          var(--c-accent) 86.4%
+        );
+      }
     }
   }
 `

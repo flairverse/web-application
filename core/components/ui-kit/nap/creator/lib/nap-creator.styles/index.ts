@@ -458,7 +458,8 @@ export const MainBoard = styled.div`
       }
     }
 
-    &.text {
+    &.text,
+    &.link {
       p {
         margin: 0;
         transition: ${TRANSITION};
@@ -468,6 +469,12 @@ export const MainBoard = styled.div`
       }
 
       ${Object.values(textEffects).map(item => item)}
+    }
+
+    &.link {
+      p {
+        text-decoration: underline;
+      }
     }
   }
 `
@@ -545,4 +552,13 @@ export const Mention = styled.div`
   @media screen and (max-width: 300px) {
     width: calc(100% / 2);
   }
+`
+
+export const PickImageInput = styled.input`
+  width: 1px;
+  height: 1px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: -99;
 `

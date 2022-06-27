@@ -3,13 +3,13 @@ import { RefObject } from 'react'
 import { useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
-export const useNapCreator = (boardRef: RefObject<HTMLDivElement | null>, imageInputRef: RefObject<HTMLInputElement>) => {
+export const useNapCreator = (boardRef: RefObject<HTMLDivElement>, imageInputRef: RefObject<HTMLInputElement>) => {
   const setShowMoreOptions = useSetRecoilState(pageCreateNapAtoms.showMoreOptions)
   const setActiveOption = useSetRecoilState(pageCreateNapAtoms.activeOption)
   const setPostPopupVisibility = useSetRecoilState(pageCreateNapAtoms.postsPickUp)
   const setMentionPopupVisibility = useSetRecoilState(pageCreateNapAtoms.mentionPickUp)
   const setGifPopupVisibility = useSetRecoilState(pageCreateNapAtoms.giphyPickUp)
-  const { pickImage } = Lib.H.useImagePicker({ imageInputRef })
+  const { pickImage } = Lib.H.useImagePicker({ imageInputRef, boardRef })
   Lib.H.useFramesScaling(boardRef)
 
   const optionsClick = (key: Lib.T.Options) => {
