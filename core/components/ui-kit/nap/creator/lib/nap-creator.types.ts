@@ -180,6 +180,8 @@ export namespace Elements {
     & Partial<Omit<Post, 'type' | 'effect'>> 
     & Partial<Omit<Mention, 'type' | 'effect'>> 
     & Partial<Omit<Link, 'type' | 'effect'>>
+
+  export type AllOr = Text | Image | Gif | Question | Reminder | Quiz | Post | Mention | Link
 }
 
 export type ElementFrameActionTypes = 'delete' | 'editInnerText' | 'changeReminderValue' | 'editLinkRef'
@@ -222,7 +224,7 @@ export type ItemsDOMStringComponents = {
     size?: Range<1, 11>
   }) => string
 
-  imageBaseItem: (args: { dataUrl: string }) => string
+  imageBaseItem: (args: { dataUrl: string }, type: 'image' | 'gif') => string
 }
 
 export type ItemsDOMStringGenerators = {
@@ -246,3 +248,13 @@ export interface MentionProps {
   hasNap?: boolean
   onClick?: (id: number) => void
 }
+
+export interface UseInsertersArgs extends Pick<ItemsProps, 'boardRef'> {}
+
+export interface UseNapCreatorArgs extends Pick<ItemsProps, 'boardRef'>, Pick<ItemsProps, 'imageInputRef'> {}
+
+export interface UseUpdatersArgs extends Pick<ItemsProps, 'boardRef'> {}
+
+export interface UseReminderTimePicker extends Pick<ItemsProps, 'boardRef'> {}
+
+export interface EditLinkHrefPopupProps extends Pick<ItemsProps, 'boardRef'> {}

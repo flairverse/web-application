@@ -1,4 +1,5 @@
 import { CardPick } from '@/components/ui-kit/card'
+import { Input } from '@/components/ui-kit/input'
 import { PickUp } from '@/components/ui-kit/pick-up'
 import { DateTimePicker } from '@/components/ui-kit/time-picker'
 import { pageCreateNapAtoms } from '@/store/atoms'
@@ -47,7 +48,7 @@ export const ToolBoxNextBtn: FC<Lib.T.ToolBoxNextBtnProps> = ({ boardRef }) => {
   )
 }
 
-export const Items: FC<Lib.T.ItemsProps> = ({ onOptionsClick, boardRef }) => {
+export const Items: FC<Lib.T.ItemsProps> = ({ onOptionsClick, boardRef, imageInputRef }) => {
   const showMoreOptions = useRecoilValue(pageCreateNapAtoms.showMoreOptions)
   const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
   const { onItemClick } = Lib.H.useItems({ onOptionsClick, boardRef })
@@ -181,7 +182,7 @@ export const Mention: FC<Lib.T.MentionProps> = ({ id, username, profile, hasNap,
 }
 
 export const ReminderTimePicker: FC<Lib.T.ReminderTimePickerProps> = ({ boardRef }) => {
-  const { get } = Lib.H.useReminderTimePicker(boardRef)
+  const { get } = Lib.H.useReminderTimePicker({ boardRef })
   return <DateTimePicker {...get.timePickerProps} />
 }
 
@@ -193,6 +194,42 @@ export const Tool: FC<Lib.T.ToolProps> = ({ disabled, Icon, type, onClick, title
         <span>{title}</span>
       </Button>
     </Lib.S.Tool>
+  )
+}
+
+export const EditLinkHrefPopup: FC<Lib.T.EditLinkHrefPopupProps> = ({ boardRef }) => {
+  const { modalProps, inputID, isValidURL, onSubmit } = Lib.H.useEditLinkHref({ boardRef })
+  const [popupVisibility, setPopupVisibility] = useRecoilState(pageCreateNapAtoms.editLinkPopupVisibility)
+  const [{ ref, text }, setLinkAndRef] = useRecoilState(pageCreateNapAtoms.editLinkPopupLinkTextAndRef)
+
+  return (
+    <Lib.S.EditLinkHrefPopup {...modalProps} visible={popupVisibility}>
+      <div className="content">
+        <label htmlFor={inputID} className="linkTextHolder">
+          {text}
+        </label>
+
+        <form onSubmit={onSubmit}>
+          <Input
+            id={inputID}
+            value={ref}
+            onInput={({ currentTarget: { value } }) => setLinkAndRef(currVal => ({ ...currVal, ref: value }))}
+            className="linkRefHolder"
+            placeholder="Type your link here..."
+            error={!isValidURL ? 'Must be a valid URL containing https://, http:// or ftp://' : undefined}
+          />
+
+          <div className="actions">
+            <Button type="primary" htmlType="submit" disabled={!isValidURL}>
+              Done
+            </Button>
+            <Button type="link" onClick={() => setPopupVisibility(false)}>
+              Discard
+            </Button>
+          </div>
+        </form>
+      </div>
+    </Lib.S.EditLinkHrefPopup>
   )
 }
 

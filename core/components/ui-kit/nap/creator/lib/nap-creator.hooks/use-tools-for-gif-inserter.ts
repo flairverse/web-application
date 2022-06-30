@@ -43,15 +43,16 @@ export const useToolsForGifInserter = ({ boardRef }: Lib.T.ToolsForInserters) =>
 
       case 'gif-size': {
         const focusedItem = getFocusedItem()
+
         if (focusedItem) {
-          const gif = focusedItem.querySelector('img')
-          if (!gif) {
+          const gifs = <NodeListOf<HTMLImageElement>>focusedItem.querySelectorAll(`.variant img`)
+          if (!gifs || gifs.length === 0) {
             return
           }
 
-          const currentWidthSize = parseInt(window.getComputedStyle(gif).width)
+          const currentWidthSize = parseInt(window.getComputedStyle(gifs[0]).width)
           const nextWidthSize = currentWidthSize + widthSizeStep
-          gif.style.width = (nextWidthSize > widthSizeRange[1] ? widthSizeRange[0] : nextWidthSize) + 'px'
+          gifs.forEach(gif => (gif.style.width = (nextWidthSize > widthSizeRange[1] ? widthSizeRange[0] : nextWidthSize) + 'px'))
           focusedItem.focus()
         }
         break

@@ -4,10 +4,12 @@ import { pageCreateNapAtoms } from '@/store/atoms'
 import { useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
-export const useBoardCompileDown = (boardId: string) => {
+export const useBoardCompileDown = () => {
   const setActiveOption = useSetRecoilState(pageCreateNapAtoms.activeOption)
   const setActiveItemID = useSetRecoilState(pageCreateNapAtoms.activeItemID)
+  const setEditLinkPopupVisibility = useSetRecoilState(pageCreateNapAtoms.editLinkPopupVisibility)
   const setTimePickerVisibility = useSetRecoilState(componentTimePickerAtoms.timePickerPopupVisibility('PAGE__CREATE_NAP___TIME_PICKER_POPUP'))
+  const setEditLinkPopupLinkTextAndRef = useSetRecoilState(pageCreateNapAtoms.editLinkPopupLinkTextAndRef)
 
   // const areaSensitive: MakeElementDraggableSensitive = {
   //   target: `#${boardId}`,
@@ -404,19 +406,19 @@ export const useBoardCompileDown = (boardId: string) => {
    * Actions will be used on frame buttons
    */
   class Action {
-    static getElement(evt: MouseEvent) {
+    static getFrame(evt: MouseEvent) {
       return <HTMLDivElement | null>(<HTMLSpanElement>evt.currentTarget)?.parentNode?.parentNode
     }
 
     static delete(evt: MouseEvent) {
-      const element = Action.getElement(evt)
+      const frame = Action.getFrame(evt)
       setActiveItemID(null)
       setActiveOption('none')
-      element?.remove()
+      frame?.remove()
     }
 
     static editInnerText(evt: MouseEvent) {
-      const frame = Action.getElement(evt)
+      const frame = Action.getFrame(evt)
       if (!frame) return
 
       const paragraph = frame.getElementsByTagName('p')[0]
@@ -447,7 +449,22 @@ export const useBoardCompileDown = (boardId: string) => {
     }
 
     static editLinkRef(evt: MouseEvent) {
-      console.log(evt, 'editLinkRef')
+      const frame = Action.getFrame(evt)
+      if (!frame) {
+        return
+      }
+
+      const linkElement = <HTMLParagraphElement | null>frame.querySelector('p.link')
+      if (!linkElement) {
+        return
+      }
+
+      const linkText = linkElement.getAttribute('data-text') || ''
+      const linkRef = linkElement.getAttribute('data-href') || ''
+      const linkID = frame.id
+
+      setEditLinkPopupLinkTextAndRef({ ref: linkRef, text: linkText, frameID: linkID })
+      setEditLinkPopupVisibility(true)
     }
   }
 

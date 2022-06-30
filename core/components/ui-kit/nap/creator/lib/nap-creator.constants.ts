@@ -262,10 +262,10 @@ export const ITEMS_DOM_STRING_COMPONENTS: Lib.T.ItemsDOMStringComponents = {
     </div>
   `,
 
-  imageBaseItem: ({ dataUrl }) => `
+  imageBaseItem: ({ dataUrl }, type) => `
     <div 
-      class="napElement image no-effect"
-      data-image-url="${dataUrl}"
+      class="napElement ${type} no-effect"
+      data-${type}-url="${dataUrl}"
     >
       <div class="variant no-effect">
         <img src="${dataUrl}" alt="" draggable="false">
@@ -438,23 +438,25 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
       >${hintText}</p>
 
       <div class="answers">
-        ${answers.map((answer, index) => {
-          return `
-            <div class="answer ${correctAnswer === index}" data-activation="${index === 0 || index === 1 ? 'active' : 'inactive'}">
-              <span>
-                <span>${index + 1}</span>
-                ${ITEMS_ICONS.check}
-              </span>
+        ${answers
+          .map(
+            (answer, index) => `
+              <div class="answer ${correctAnswer === index}" data-activation="${index === 0 || index === 1 ? 'active' : 'inactive'}">
+                <span>
+                  <span>${index + 1}</span>
+                  ${ITEMS_ICONS.check}
+                </span>
 
-              <p 
-                class="answerText"
-                data-ph="Type the answer"
-                contenteditable="true"
-                data-index="${index}"
-              >${answer}</p>
-            </div>
-          `
-        })}
+                <p 
+                  class="answerText"
+                  data-ph="Type the answer"
+                  contenteditable="true"
+                  data-index="${index}"
+                >${answer}</p>
+              </div>
+          `,
+          )
+          .join('')}
       </div>
     </div>
   `,
@@ -500,11 +502,11 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
     `
   },
 
-  gif: ({ gifURL }) => ITEMS_DOM_STRING_COMPONENTS.imageBaseItem({ dataUrl: gifURL }),
+  gif: ({ gifURL }) => ITEMS_DOM_STRING_COMPONENTS.imageBaseItem({ dataUrl: gifURL }, 'gif'),
 
-  image: ({ imageURL }) => ITEMS_DOM_STRING_COMPONENTS.imageBaseItem({ dataUrl: imageURL }),
+  image: ({ imageURL }) => ITEMS_DOM_STRING_COMPONENTS.imageBaseItem({ dataUrl: imageURL }, 'image'),
 
   link: (innerText, href) => `
-    <p data-text="${innerText}" data-href="${href}">${innerText}</p>
+    <p data-text="${innerText}" class="link" data-href="${href}">${innerText}</p>
   `,
 }

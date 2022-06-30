@@ -228,6 +228,21 @@ export const GlobalStyles = createGlobalStyle`
   .ant-picker-header-view button:hover {
     color: var(--layer-2-text-3);
   }
+
+  .ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input,
+  .ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input:hover {
+    background-color: var(--layer-1);
+  }
+
+  .ant-btn-primary[disabled],
+  .ant-btn-primary[disabled]:hover,
+  .ant-btn-primary[disabled]:focus,
+  .ant-btn-primary[disabled]:active {
+    background-color: var(--c-accent);
+    border: none;
+    color: white;
+    opacity: .3;
+  }
   /**
   * End -- Ant design customization
   **/

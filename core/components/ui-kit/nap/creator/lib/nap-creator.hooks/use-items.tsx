@@ -6,7 +6,7 @@ import * as Lib from '..'
 export const useItems = ({ onOptionsClick, boardRef }: Pick<Lib.T.ItemsProps, 'boardRef' | 'onOptionsClick'>) => {
   const [activeOption, setActiveOptions] = useRecoilState(pageCreateNapAtoms.activeOption)
   const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
-  const Insert = Lib.H.useInserters(boardRef)
+  const Insert = Lib.H.useInserters({ boardRef })
 
   const focusActiveItem = (target?: Lib.T.Options) => {
     if (activeItemID) {
@@ -22,7 +22,7 @@ export const useItems = ({ onOptionsClick, boardRef }: Pick<Lib.T.ItemsProps, 'b
   }
 
   const addItem = () => {
-    const insert = new Insert(boardRef)
+    const insert = new Insert()
 
     if (activeOption !== 'none') {
       if (Lib.HE.boardContains(activeOption, boardRef)) {

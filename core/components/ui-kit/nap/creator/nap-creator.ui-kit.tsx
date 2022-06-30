@@ -5,7 +5,7 @@ export const NapCreator: FC = () => {
   const mainBoardRef = useRef<HTMLDivElement>(null)
   const mainBoardParentRef = useRef<HTMLDivElement>(null)
   const imageInputRef = useRef<HTMLInputElement>(null)
-  const { on } = Lib.H.useNapCreator(mainBoardRef, imageInputRef)
+  const { on } = Lib.H.useNapCreator({ imageInputRef, boardRef: mainBoardRef })
   const { onInputChange } = Lib.H.useImagePicker({ imageInputRef, boardRef: mainBoardRef })
 
   return (
@@ -19,6 +19,8 @@ export const NapCreator: FC = () => {
       <Lib.C.MentionPickUp boardRef={mainBoardRef} />
 
       <Lib.C.GiphyPickUp boardRef={mainBoardRef} />
+
+      <Lib.C.EditLinkHrefPopup boardRef={mainBoardRef} />
 
       <Lib.S.NapCreatorContainer>
         <Lib.C.Toolbox active={true} boardRef={mainBoardRef} imageInputRef={imageInputRef} />

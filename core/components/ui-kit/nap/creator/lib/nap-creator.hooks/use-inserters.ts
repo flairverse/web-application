@@ -1,11 +1,10 @@
 import { Str } from '@/helpers/string'
 import { pageCreateNapAtoms } from '@/store/atoms'
-import { RefObject } from 'react'
 import { useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
-export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
-  const { compileDown } = Lib.H.useBoardCompileDown('mainBoard')
+export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
+  const { compileDown } = Lib.H.useBoardCompileDown()
   const setShowMoreOptions = useSetRecoilState(pageCreateNapAtoms.showMoreOptions)
   const setGifPickupVisibility = useSetRecoilState(pageCreateNapAtoms.giphyPickUp)
   const items = Lib.H.useDefinedItems()
@@ -13,8 +12,8 @@ export const useInserters = (boardRef: RefObject<HTMLDivElement>) => {
   return class Insert {
     board: HTMLDivElement | null = null
 
-    constructor(_boardRef: RefObject<HTMLDivElement>) {
-      this.board = _boardRef.current
+    constructor() {
+      this.board = boardRef.current
     }
 
     /**

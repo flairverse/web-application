@@ -1,6 +1,7 @@
 import { NapCreatorUIKitLib } from '@/components/ui-kit/nap'
 import * as storeKeys from '@/constants/store-keys.constants'
 import { atom } from 'recoil'
+import * as Lib from '../lib'
 
 export const showMoreOptions = atom<boolean>({
   key: storeKeys.PAGE__CREATE_NAP___SHOW_MORE_OPTIONS,
@@ -34,4 +35,14 @@ export const giphyPickUp = atom<boolean>({
 export const mentionPopupVisibility = atom<boolean>({
   key: storeKeys.PAGE__CREATE_NAP___MENTION_POPUP_VISIBILITY,
   default: false,
+})
+
+export const editLinkPopupVisibility = atom<boolean>({
+  key: storeKeys.PAGE__CREATE_NAP___EDIT_LINK_POPUP_VISIBILITY,
+  default: false,
+})
+
+export const editLinkPopupLinkTextAndRef = atom<Lib.T.EditLinkPopupLinkTextAndRef>({
+  key: storeKeys.PAGE__CREATE_NAP___EDIT_LINK_POPUP_TEXT_AND_REF,
+  default: { text: '', ref: '', frameID: '' },
 })

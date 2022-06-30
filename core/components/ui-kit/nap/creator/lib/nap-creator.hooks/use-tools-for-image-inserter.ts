@@ -5,8 +5,8 @@ import { useRecoilValue } from 'recoil'
 import * as Lib from '..'
 
 export const useToolsForImageInserter = ({ boardRef, imageInputRef }: Lib.T.ToolsForImageInserter) => {
-  const Inserter = Lib.H.useInserters(boardRef)
-  const insert = new Inserter(boardRef)
+  const Inserter = Lib.H.useInserters({ boardRef })
+  const insert = new Inserter()
   const { getFocusedItem, changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({ boardRef })
   const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
   const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
@@ -47,15 +47,14 @@ export const useToolsForImageInserter = ({ boardRef, imageInputRef }: Lib.T.Tool
         const focusedItem = getFocusedItem()
 
         if (focusedItem) {
-          const activeEffect: Lib.T.ImageEffects = <Lib.T.ImageEffects>focusedItem.getAttribute('data-effect') || 'no-effect'
-          const image = <HTMLImageElement | null>focusedItem.querySelector(`.variant.${activeEffect} img`)
-          if (!image) {
+          const images = <NodeListOf<HTMLImageElement>>focusedItem.querySelectorAll(`.variant img`)
+          if (!images || images.length === 0) {
             return
           }
 
-          const currentWidthSize = parseInt(window.getComputedStyle(image).width)
+          const currentWidthSize = parseInt(window.getComputedStyle(images[0]).width)
           const nextWidthSize = currentWidthSize + widthSizeStep
-          image.style.width = (nextWidthSize > widthSizeRange[1] ? widthSizeRange[0] : nextWidthSize) + 'px'
+          images.forEach(image => (image.style.width = (nextWidthSize > widthSizeRange[1] ? widthSizeRange[0] : nextWidthSize) + 'px'))
           focusedItem.focus()
         }
         break

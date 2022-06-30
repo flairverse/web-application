@@ -3,8 +3,8 @@ import { ChangeEvent } from 'react'
 import * as Lib from '..'
 
 export const useImagePicker = ({ imageInputRef, boardRef }: Lib.T.UseImagePickerArgs) => {
-  const Inserter = Lib.H.useInserters(boardRef)
-  const insert = new Inserter(boardRef)
+  const Inserter = Lib.H.useInserters({ boardRef })
+  const insert = new Inserter()
 
   const pickImage = () => {
     const { current: imageInput } = imageInputRef

@@ -6,8 +6,8 @@ import { useRecoilValue } from 'recoil'
 import * as Lib from '..'
 
 export const useToolsForTextInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
-  const Inserter = Lib.H.useInserters(boardRef)
-  const insert = new Inserter(boardRef)
+  const Inserter = Lib.H.useInserters({ boardRef })
+  const insert = new Inserter()
   const { getFocusedItem, changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({
     boardRef,
   })

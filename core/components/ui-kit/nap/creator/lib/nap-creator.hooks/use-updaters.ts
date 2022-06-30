@@ -1,8 +1,7 @@
-import { RefObject } from 'react'
 import * as Lib from '..'
 
-export const useUpdaters = (boardRef: RefObject<HTMLDivElement>) => {
-  const Inserters = Lib.H.useInserters(boardRef)
+export const useUpdaters = ({ boardRef }: Lib.T.UseUpdatersArgs) => {
+  const Inserters = Lib.H.useInserters({ boardRef })
   const { compileUp } = Lib.H.useBoardCompileUp(boardRef)
 
   return class Updater {
@@ -18,7 +17,7 @@ export const useUpdaters = (boardRef: RefObject<HTMLDivElement>) => {
      * updates an existing reminder
      */
     updateReminder(newTime: Pick<Lib.T.Elements.Reminder, 'endTime'>) {
-      const insert = new Inserters(boardRef)
+      const insert = new Inserters()
       const reminderFrame = Lib.HE.getFramesByType(boardRef, 'reminder')?.[0]
       if (!reminderFrame) {
         return

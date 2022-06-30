@@ -1,3 +1,4 @@
+import { Modal } from 'antd'
 import styled, { keyframes } from 'styled-components'
 import * as Lib from '..'
 import { BASE_BOARD_HEIGHT } from '../nap-creator.constants'
@@ -561,4 +562,35 @@ export const PickImageInput = styled.input`
   left: 0;
   top: 0;
   z-index: -99;
+`
+
+export const EditLinkHrefPopup = styled(Modal)`
+  padding: 0;
+
+  .ant-modal-close {
+    display: none;
+  }
+
+  .ant-modal-body {
+    padding: 10px;
+    background-color: var(--layer-1);
+
+    > .content {
+      > label {
+        max-width: 100%;
+        text-overflow: ellipsis;
+        color: var(--layer-2-text-2);
+        white-space: nowrap;
+        overflow: hidden;
+        display: inline-block;
+        padding: 2px 4px 8px 4px;
+      }
+
+      > form {
+        > .actions {
+          padding: 20px 2px 0 2px;
+        }
+      }
+    }
+  }
 `

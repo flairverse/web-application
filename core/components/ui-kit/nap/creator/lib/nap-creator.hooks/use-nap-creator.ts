@@ -1,9 +1,8 @@
 import { pageCreateNapAtoms } from '@/store/atoms'
-import { RefObject } from 'react'
 import { useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
-export const useNapCreator = (boardRef: RefObject<HTMLDivElement>, imageInputRef: RefObject<HTMLInputElement>) => {
+export const useNapCreator = ({ boardRef, imageInputRef }: Lib.T.UseNapCreatorArgs) => {
   const setShowMoreOptions = useSetRecoilState(pageCreateNapAtoms.showMoreOptions)
   const setActiveOption = useSetRecoilState(pageCreateNapAtoms.activeOption)
   const setPostPopupVisibility = useSetRecoilState(pageCreateNapAtoms.postsPickUp)
