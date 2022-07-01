@@ -11,6 +11,7 @@ export const useToolsForQuestionInserter = ({ boardRef }: Lib.T.ToolsForInserter
   })
   const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
   const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
+  const NapStorage = Lib.H.useNapStorage(boardRef)
 
   const tools: Pick<Lib.T.ToolProps, 'Icon' | 'type' | 'title' | 'disabled'>[] = [
     {
@@ -48,7 +49,7 @@ export const useToolsForQuestionInserter = ({ boardRef }: Lib.T.ToolsForInserter
 
         const { display } = window.getComputedStyle(hint)
         hint.style.display = display === 'block' ? 'none' : 'block'
-
+        NapStorage.update(focusedItem)
         break
       }
 

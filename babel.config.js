@@ -1,7 +1,14 @@
 module.exports = {
   presets: ['next/babel'],
   plugins: [
-    ['import', { libraryName: 'antd', style: true }],
+    [
+      'import',
+      {
+        libraryName: 'antd',
+        style: true,
+      },
+    ],
+
     [
       'babel-plugin-styled-components',
       {
@@ -9,6 +16,13 @@ module.exports = {
         displayName: true,
         fileName: true,
         namespace: 'FLAIRVERSE',
+      },
+    ],
+
+    [
+      '@babel/plugin-proposal-decorators',
+      {
+        legacy: true,
       },
     ],
   ],

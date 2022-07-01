@@ -13,6 +13,9 @@ export const BASE_BOARD_HEIGHT = 722.14
 
 export const MIN_BOARD_WIDTH = 768
 
+export const ELEMENTAL_OPTIONS = ['text', 'image', 'gif', 'question', 'reminder', 'quiz', 'post', 'mention', 'link'] as const
+export const OPTIONS = [...ELEMENTAL_OPTIONS, 'more|less'] as const
+
 export const FRAMES_DATA_ATTRS = {
   ROTATION: 'data-rotation',
   SCALE: 'data-scale',

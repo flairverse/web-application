@@ -53,10 +53,6 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
         return compileLinkUp(frame)
       }
 
-      case 'discussion': {
-        return null
-      }
-
       case 'more|less': {
         return null
       }

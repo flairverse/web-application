@@ -5,6 +5,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
 export const useToolsForGifInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
+  const NapStorage = Lib.H.useNapStorage(boardRef)
   const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
   const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
   const setPickUp = useSetRecoilState(pageCreateNapAtoms.giphyPickUp)
@@ -54,6 +55,7 @@ export const useToolsForGifInserter = ({ boardRef }: Lib.T.ToolsForInserters) =>
           const nextWidthSize = currentWidthSize + widthSizeStep
           gifs.forEach(gif => (gif.style.width = (nextWidthSize > widthSizeRange[1] ? widthSizeRange[0] : nextWidthSize) + 'px'))
           focusedItem.focus()
+          NapStorage.update(focusedItem)
         }
         break
       }

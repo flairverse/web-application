@@ -1,13 +1,12 @@
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { AiOutlineRotateRight } from 'react-icons/ai'
 import { MdOutlineStyle } from 'react-icons/md'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import * as Lib from '..'
 
 export const useToolsForPostInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
   const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
   const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
-  const setPickUp = useSetRecoilState(pageCreateNapAtoms.postsPickUp)
   const { changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({ boardRef })
 
   const tools: Pick<Lib.T.ToolProps, 'Icon' | 'type' | 'title' | 'disabled'>[] = [

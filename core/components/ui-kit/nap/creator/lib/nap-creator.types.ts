@@ -23,7 +23,8 @@ export interface ReminderTimePickerProps extends Pick<ItemsProps, 'boardRef'> {}
 export interface ToolsForInserters extends Pick<ItemsProps, 'boardRef'> {}
 export interface ToolsForImageInserter extends ToolsForInserters, Pick<ToolsProps, 'imageInputRef'> {}
 
-export type Options = 'text' | 'image' | 'gif' | 'question' | 'reminder' | 'quiz' | 'post' | 'mention' | 'link' | 'discussion' | 'more|less'
+export type Options = typeof Lib.CO.OPTIONS[number]
+export type ElementalOptions = typeof Lib.CO.ELEMENTAL_OPTIONS[number]
 
 export type Item = {
   Icon: IconType

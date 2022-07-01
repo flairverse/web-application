@@ -4,6 +4,7 @@ import * as Lib from '..'
 
 export const useToolsForAllInserters = ({ boardRef }: Pick<Lib.T.ToolsForInserters, 'boardRef'>) => {
   const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
+  const NapStorage = Lib.H.useNapStorage(boardRef)
 
   /**
    *
@@ -43,6 +44,7 @@ export const useToolsForAllInserters = ({ boardRef }: Pick<Lib.T.ToolsForInserte
     focusedItem.style.transform = `rotate(${nextAngle}deg) scale(${scale})`
     focusedItem.setAttribute(Lib.CO.FRAMES_DATA_ATTRS.ROTATION, nextAngle.toString())
     focusedItem.focus()
+    NapStorage.update(focusedItem)
   }
 
   /**
@@ -81,6 +83,7 @@ export const useToolsForAllInserters = ({ boardRef }: Pick<Lib.T.ToolsForInserte
     focusedItem.setAttribute(Lib.CO.FRAMES_DATA_ATTRS.EFFECT, nextEffect)
 
     focusedItem.focus()
+    NapStorage.update(focusedItem)
   }
 
   return {

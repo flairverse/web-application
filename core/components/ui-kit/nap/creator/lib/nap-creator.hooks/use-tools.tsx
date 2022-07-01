@@ -41,11 +41,6 @@ export const useTools = ({ selectedOption, boardRef, imageInputRef }: Pick<Lib.T
           return <Lib.C.ToolsForLinkInserter boardRef={boardRef} />
         }
 
-        case 'discussion': {
-          // TODO: implement later
-          return null
-        }
-
         case 'more|less': {
           return null
         }

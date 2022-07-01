@@ -4,16 +4,87 @@ import { useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
 export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
-  const { compileDown } = Lib.H.useBoardCompileDown()
+  const { compileDown } = Lib.H.useBoardCompileDown(boardRef)
   const setShowMoreOptions = useSetRecoilState(pageCreateNapAtoms.showMoreOptions)
   const setGifPickupVisibility = useSetRecoilState(pageCreateNapAtoms.giphyPickUp)
   const items = Lib.H.useDefinedItems()
+  const NapStorage = Lib.H.useNapStorage(boardRef)
 
   return class Insert {
     board: HTMLDivElement | null = null
 
     constructor() {
       this.board = boardRef.current
+    }
+
+    /**
+     *
+     *
+     * insert an element of type of any options
+     */
+    newAny(element: Lib.T.Elements.All): void {
+      const insert = new Insert()
+
+      switch (element.type) {
+        case 'text': {
+          insert.newText(<Lib.T.Elements.Text>element, false)
+          break
+        }
+
+        case 'post': {
+          insert.newPost(-1, <Lib.T.Elements.Post>element, false)
+          break
+        }
+
+        case 'mention': {
+          insert.newMention(-1, <Lib.T.Elements.Mention>element, false)
+          break
+        }
+
+        case 'question': {
+          insert.newQuestion(<Lib.T.Elements.Question>element, false)
+          break
+        }
+
+        case 'quiz': {
+          insert.newQuiz(<Lib.T.Elements.Quiz>element, false)
+          break
+        }
+
+        case 'reminder': {
+          insert.newReminder(<Lib.T.Elements.Reminder>element, false)
+          break
+        }
+
+        case 'gif': {
+          insert.newGif('', <Lib.T.Elements.Gif>element, false)
+          break
+        }
+
+        case 'image': {
+          insert.newImage('', <Lib.T.Elements.Image>element, false)
+          break
+        }
+
+        case 'link': {
+          insert.newLink(<Lib.T.Elements.Link>element, false)
+          break
+        }
+
+        default: {
+          throw new Error('Case not implemented')
+        }
+      }
+    }
+
+    /**
+     *
+     *
+     *
+     * insert a bunch of any element
+     */
+    bulkNewAny(elements: Lib.T.Elements.All[]): void {
+      elements.forEach(this.newAny)
     }
 
     /**
@@ -42,15 +113,18 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
      *
      * append the compiled item into the board
      */
-    appendItem(elementInfo: Lib.T.Elements.All) {
+    appendItem(elementInfo: Lib.T.Elements.All, pushToDB = true) {
       if (!this.board) {
-        console.log('!this.board')
         return
       }
       const element = compileDown(elementInfo)
       this.board.appendChild(element)
       Lib.HE.changeFrameScale(boardRef, element)
       element.focus()
+
+      if (pushToDB) {
+        NapStorage.create(<Lib.T.ElementalOptions>elementInfo.type, elementInfo)
+      }
     }
 
     /**
@@ -69,7 +143,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
      *
      * makes new text item and passes it to the `appendItem`
      */
-    newText(defaultValues?: Lib.T.Elements.Text) {
+    newText(defaultValues?: Lib.T.Elements.Text, pushToDB = true) {
       if (!this.canInsert('text')) {
         return
       }
@@ -83,7 +157,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
         fontSize: '20px',
         effect: 'no-effect',
       }
-      this.appendItem(text)
+      this.appendItem(text, pushToDB)
     }
 
     /**
@@ -91,7 +165,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
      *
      * makes new post item and passes it to the `appendItem`
      */
-    newPost(id: number, defaultValues?: Lib.T.Elements.Post) {
+    newPost(id: number, defaultValues?: Lib.T.Elements.Post, pushToDB = true) {
       if (!this.canInsert('post')) {
         return
       }
@@ -125,7 +199,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
         },
       }
       setShowMoreOptions(false)
-      this.appendItem(post)
+      this.appendItem(post, pushToDB)
     }
 
     /**
@@ -133,7 +207,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
      *
      * makes new mention item and passes it to the `appendItem`
      */
-    newMention(id: number, defaultValues?: Lib.T.Elements.Mention) {
+    newMention(id: number, defaultValues?: Lib.T.Elements.Mention, pushToDB = true) {
       if (!this.canInsert('mention')) {
         return
       }
@@ -155,7 +229,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
         subscribes: 654654648678,
       }
       setShowMoreOptions(false)
-      this.appendItem(mention)
+      this.appendItem(mention, pushToDB)
     }
 
     /**
@@ -163,7 +237,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
      *
      * makes new question item and passes it to the `appendItem`
      */
-    newQuestion(defaultValues?: Lib.T.Elements.Question) {
+    newQuestion(defaultValues?: Lib.T.Elements.Question, pushToDB = true) {
       if (!this.canInsert('question')) {
         return
       }
@@ -182,7 +256,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
           seen: false,
         },
       }
-      this.appendItem(question)
+      this.appendItem(question, pushToDB)
     }
 
     /**
@@ -190,7 +264,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
      *
      * makes new quiz item and passes it to the `appendItem`
      */
-    newQuiz(defaultValues?: Lib.T.Elements.Quiz) {
+    newQuiz(defaultValues?: Lib.T.Elements.Quiz, pushToDB = true) {
       if (!this.canInsert('quiz')) {
         return
       }
@@ -211,7 +285,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
           seen: false,
         },
       }
-      this.appendItem(quiz)
+      this.appendItem(quiz, pushToDB)
     }
 
     /**
@@ -219,7 +293,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
      *
      * makes new reminder item and passes it to the `appendItem`
      */
-    newReminder(defaultValues?: Lib.T.Elements.Reminder) {
+    newReminder(defaultValues?: Lib.T.Elements.Reminder, pushToDB = true) {
       if (!this.canInsert('reminder')) {
         return
       }
@@ -233,7 +307,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
         reminderName: '',
         endTime: new Date().toISOString(),
       }
-      this.appendItem(reminder)
+      this.appendItem(reminder, pushToDB)
     }
 
     /**
@@ -241,7 +315,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
      *
      * makes new gif item and passes it to the `appendItem`
      */
-    newGif(gifURL: string, defaultValues?: Lib.T.Elements.Gif) {
+    newGif(gifURL: string, defaultValues?: Lib.T.Elements.Gif, pushToDB = true) {
       if (!this.canInsert('gif')) {
         return
       }
@@ -255,7 +329,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
         gifURL,
         gifWidth: '200px',
       }
-      this.appendItem(gif)
+      this.appendItem(gif, pushToDB)
       setShowMoreOptions(false)
       setGifPickupVisibility(false)
     }
@@ -265,7 +339,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
      *
      * makes new gif item and passes it to the `appendItem`
      */
-    newImage(imageURL: string, defaultValues?: Lib.T.Elements.Image) {
+    newImage(imageURL: string, defaultValues?: Lib.T.Elements.Image, pushToDB = true) {
       if (!this.canInsert('image')) {
         return
       }
@@ -279,7 +353,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
         imageURL,
         imageWidth: '200px',
       }
-      this.appendItem(image)
+      this.appendItem(image, pushToDB)
       setShowMoreOptions(false)
     }
 
@@ -288,7 +362,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
      *
      * makes new link item and passes it to the `appendItem`
      */
-    newLink(defaultValues?: Lib.T.Elements.Link) {
+    newLink(defaultValues?: Lib.T.Elements.Link, pushToDB = true) {
       if (!this.canInsert('link')) {
         return
       }
@@ -303,7 +377,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
         effect: 'no-effect',
         href: 'https://example.com',
       }
-      this.appendItem(link)
+      this.appendItem(link, pushToDB)
     }
   }
 }

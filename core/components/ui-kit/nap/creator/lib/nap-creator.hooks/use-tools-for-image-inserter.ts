@@ -6,6 +6,7 @@ import * as Lib from '..'
 
 export const useToolsForImageInserter = ({ boardRef, imageInputRef }: Lib.T.ToolsForImageInserter) => {
   const Inserter = Lib.H.useInserters({ boardRef })
+  const NapStorage = Lib.H.useNapStorage(boardRef)
   const insert = new Inserter()
   const { getFocusedItem, changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({ boardRef })
   const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
@@ -56,6 +57,7 @@ export const useToolsForImageInserter = ({ boardRef, imageInputRef }: Lib.T.Tool
           const nextWidthSize = currentWidthSize + widthSizeStep
           images.forEach(image => (image.style.width = (nextWidthSize > widthSizeRange[1] ? widthSizeRange[0] : nextWidthSize) + 'px'))
           focusedItem.focus()
+          NapStorage.update(focusedItem)
         }
         break
       }

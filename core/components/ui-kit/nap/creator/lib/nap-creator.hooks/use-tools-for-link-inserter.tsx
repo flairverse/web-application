@@ -7,6 +7,7 @@ import * as Lib from '..'
 
 export const useToolsForLinkInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
   const Inserter = Lib.H.useInserters({ boardRef })
+  const NapStorage = Lib.H.useNapStorage(boardRef)
   const insert = new Inserter()
   const { getFocusedItem, changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({
     boardRef,
@@ -52,6 +53,7 @@ export const useToolsForLinkInserter = ({ boardRef }: Lib.T.ToolsForInserters) =
           const nextFontSize = currentFontSize + fontSizeStep
           focusedItem.style.fontSize = (nextFontSize > fontSizeRange[1] ? fontSizeRange[0] : nextFontSize) + 'px'
           focusedItem.focus()
+          NapStorage.update(focusedItem)
         }
         break
       }

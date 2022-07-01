@@ -71,11 +71,6 @@ export const useDefinedItems = () => {
       key: 'more|less',
       limit: Infinity,
     },
-    // {
-    //   Icon: HiOutlineChatAlt2,
-    //   title: 'Discussion',
-    //   key: 'discussion',
-    // },
   ]
 
   return items

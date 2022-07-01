@@ -1,15 +1,18 @@
 import { pageCreateNapAtoms } from '@/store/atoms'
+import { useEffect } from 'react'
 import { useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
 export const useNapCreator = ({ boardRef, imageInputRef }: Lib.T.UseNapCreatorArgs) => {
+  Lib.H.useFramesScaling(boardRef)
   const setShowMoreOptions = useSetRecoilState(pageCreateNapAtoms.showMoreOptions)
   const setActiveOption = useSetRecoilState(pageCreateNapAtoms.activeOption)
   const setPostPopupVisibility = useSetRecoilState(pageCreateNapAtoms.postsPickUp)
   const setMentionPopupVisibility = useSetRecoilState(pageCreateNapAtoms.mentionPickUp)
   const setGifPopupVisibility = useSetRecoilState(pageCreateNapAtoms.giphyPickUp)
   const { pickImage } = Lib.H.useImagePicker({ imageInputRef, boardRef })
-  Lib.H.useFramesScaling(boardRef)
+  const NapStorage = Lib.H.useNapStorage(boardRef)
+  const Inserters = Lib.H.useInserters({ boardRef })
 
   const optionsClick = (key: Lib.T.Options) => {
     if (key !== 'more|less') {
@@ -61,6 +64,16 @@ export const useNapCreator = ({ boardRef, imageInputRef }: Lib.T.UseNapCreatorAr
       }
     }
   }
+
+  const insertStoredElements = () => {
+    NapStorage.readAll().then(elements => {
+      if (elements.length > 0) {
+        new Inserters().bulkNewAny(elements)
+      }
+    })
+  }
+
+  useEffect(insertStoredElements, [])
 
   return {
     on: {

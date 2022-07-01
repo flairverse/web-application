@@ -6,6 +6,7 @@ import { useRecoilValue } from 'recoil'
 import * as Lib from '..'
 
 export const useToolsForQuizInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
+  const NapStorage = Lib.H.useNapStorage(boardRef)
   const { getFocusedItem, changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({
     boardRef,
   })
@@ -48,7 +49,7 @@ export const useToolsForQuizInserter = ({ boardRef }: Lib.T.ToolsForInserters) =
 
         const { display } = window.getComputedStyle(hint)
         hint.style.display = display === 'block' ? 'none' : 'block'
-
+        NapStorage.update(focusedItem)
         break
       }
 

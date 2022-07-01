@@ -10,6 +10,7 @@ export const useEditLinkHref = ({ boardRef }: Pick<Lib.T.EditLinkHrefPopupProps,
   const setPopupVisibility = useSetRecoilState(pageCreateNapAtoms.editLinkPopupVisibility)
   const [{ ref, frameID }, setEditLinkPopupLinkTextAndRef] = useRecoilState(pageCreateNapAtoms.editLinkPopupLinkTextAndRef)
   const isValidURL = useMemo(() => RegExes.url.test(ref), [ref])
+  const NapStorage = Lib.H.useNapStorage(boardRef)
 
   const modalProps = useMemo<ModalProps>(
     () => ({
@@ -29,14 +30,16 @@ export const useEditLinkHref = ({ boardRef }: Pick<Lib.T.EditLinkHrefPopupProps,
       return
     }
 
-    const frameParagraph = Lib.HE.getFrameById(boardRef, frameID)?.querySelector('p.link')
-    if (!frameParagraph) {
+    const frame = Lib.HE.getFrameById(boardRef, frameID)
+    const frameParagraph = frame?.querySelector('p.link')
+    if (!frame || !frameParagraph) {
       return
     }
 
     frameParagraph.setAttribute('data-href', ref)
     setPopupVisibility(false)
     setEditLinkPopupLinkTextAndRef({ frameID: '', ref: '', text: '' })
+    NapStorage.update(frame)
   }
 
   const inputID = useMemo<string>(() => Str.random(10, 'allLetters'), [])
