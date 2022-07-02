@@ -9,11 +9,11 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
    *
    * decides which compiler to be used
    */
-  const compileUp = (frame: HTMLDivElement) => {
+  const compileUp = (frame: HTMLDivElement): Lib.T.Elements.AllOr | null => {
     const type = <Lib.T.Options | null>frame.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.TYPE)
 
     if (!type) {
-      return
+      return null
     }
 
     switch (type) {
@@ -25,8 +25,36 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
         return compilePostUp(frame)
       }
 
+      case 'mention': {
+        return compileMentionUp(frame)
+      }
+
+      case 'question': {
+        return compileQuestionUp(frame)
+      }
+
+      case 'quiz': {
+        return compileQuizUp(frame)
+      }
+
       case 'reminder': {
         return compileReminderUp(frame)
+      }
+
+      case 'gif': {
+        return compileGifUp(frame)
+      }
+
+      case 'image': {
+        return compileImageUp(frame)
+      }
+
+      case 'link': {
+        return compileLinkUp(frame)
+      }
+
+      case 'more|less': {
+        return null
       }
     }
   }
@@ -158,6 +186,133 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
    *
    *
    *
+   * compiles a mention frame to a JSON
+   */
+  const compileMentionUp = (frame: HTMLDivElement): Lib.T.Elements.Mention => {
+    const { id, position, rotate, effect } = compileSharedUp<Lib.T.MentionEffects>(frame)
+    const followers = parseInt((<HTMLSpanElement>frame.querySelector('.followers')!).getAttribute('data-followers') || '0')
+    const fullName = (<HTMLParagraphElement>frame.querySelector('.name')!).innerText || ''
+    const hasNap = (<HTMLDivElement>frame.querySelector('.profileContainer > div')!).getAttribute('data-has-nap') === 'true'
+    const seen = (<HTMLDivElement>frame.querySelector('.profileContainer > div')!).getAttribute('data-seen') === 'true'
+    const subscribes = parseInt((<HTMLSpanElement>frame.querySelector('.subscribes')!).getAttribute('data-subscribes') || '0')
+    const userID = parseInt((<HTMLDivElement>frame.querySelector('.mention')!).getAttribute('data-user-id') || '0')
+    const username = (<HTMLParagraphElement>frame.querySelector('.username')!).innerText.replace('@', '')
+    const job = (<HTMLParagraphElement>frame.querySelector('.job')!).innerText
+    const profile = (<HTMLImageElement>frame.querySelector('.profile')!).src
+
+    return {
+      id,
+      position,
+      rotate,
+      effect,
+      type: 'mention',
+      followers,
+      fullName,
+      hasNap,
+      seen,
+      subscribes,
+      userID,
+      username,
+      job,
+      profile,
+    }
+  }
+
+  /**
+   *
+   *
+   *
+   * compiles a question frame to a JSON
+   */
+  const compileQuestionUp = (frame: HTMLDivElement): Lib.T.Elements.Question => {
+    const { effect, id, position, rotate } = compileSharedUp<Lib.T.QuestionEffects>(frame)
+    const hint = (<HTMLParagraphElement>frame.querySelector('.hintSection')!).innerText || ''
+    const question = (<HTMLParagraphElement>frame.querySelector('.questionText')!).innerText || ''
+    const questionerUser = {
+      profile: (<HTMLImageElement>frame.querySelector('.profile')!).src,
+      hasNap: (<HTMLDivElement>frame.querySelector('.profileContainer > div')!).getAttribute('data-has-nap') === 'true',
+      seen: (<HTMLDivElement>frame.querySelector('.profileContainer > div')!).getAttribute('data-seen') === 'true',
+    }
+
+    return {
+      id,
+      position,
+      rotate,
+      effect,
+      hint,
+      question,
+      questionerUser,
+      type: 'question',
+    }
+  }
+
+  /**
+   *
+   *
+   *
+   * compiles a link frame to a JSON
+   */
+  const compileLinkUp = (frame: HTMLDivElement): Lib.T.Elements.Link => {
+    const { effect, id, position, rotate } = compileSharedUp<Lib.T.LinkEffects>(frame)
+    const { fontSize: linkFontSize } = window.getComputedStyle(frame)
+    const link = frame.innerText
+    const href = (<HTMLParagraphElement>frame.querySelector('p.link')!).getAttribute('data-href') || ''
+
+    return {
+      type: 'link',
+      id,
+      position,
+      rotate,
+      effect,
+      href,
+      link,
+      linkFontSize,
+    }
+  }
+
+  /**
+   *
+   *
+   *
+   * compiles a quiz frame to a JSON
+   */
+  const compileQuizUp = (frame: HTMLDivElement): Lib.T.Elements.Quiz => {
+    const { effect, id, position, rotate } = compileSharedUp<Lib.T.QuizEffects>(frame)
+    const hintText = (<HTMLParagraphElement>frame.querySelector('.hintSection')!).innerText
+    const questionText = (<HTMLParagraphElement>frame.querySelector('.questionText')!).innerText
+    const questioner = {
+      profile: (<HTMLImageElement>frame.querySelector('.profile')!).src,
+      hasNap: (<HTMLDivElement>frame.querySelector('.profileContainer > div')!).getAttribute('data-has-nap') === 'true',
+      seen: (<HTMLDivElement>frame.querySelector('.profileContainer > div')!).getAttribute('data-seen') === 'true',
+    }
+
+    let correctAnswer = 1
+    const answers: string[] = []
+    ;(<NodeListOf<HTMLDivElement>>frame.querySelectorAll('.answer')).forEach((answer, index) => {
+      answers.push((<HTMLParagraphElement>answer.querySelector('.answerText')!).innerText)
+      if (answer.classList.contains('true')) {
+        correctAnswer = index + 1
+      }
+    })
+
+    return {
+      type: 'quiz',
+      id,
+      position,
+      rotate,
+      effect,
+      answers,
+      correctAnswer,
+      hintText,
+      questioner,
+      questionText,
+    }
+  }
+
+  /**
+   *
+   *
+   *
    * compiles a reminder frame to a JSON
    */
   const compileReminderUp = (frame: HTMLDivElement): Lib.T.Elements.Reminder => {
@@ -173,6 +328,50 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
       reminderName,
       type: 'reminder',
       endTime,
+    }
+  }
+
+  /**
+   *
+   *
+   *
+   * compiles a gif frame to a JSON
+   */
+  const compileGifUp = (frame: HTMLDivElement): Lib.T.Elements.Gif => {
+    const { effect, id, position, rotate } = compileSharedUp<Lib.T.GifEffects>(frame)
+    const gifURL = (<HTMLDivElement>frame.querySelector('.gif')!).getAttribute('data-gif-url') || ''
+    const gifWidth = window.getComputedStyle(<HTMLDivElement>frame.querySelector('img')).width
+
+    return {
+      type: 'gif',
+      id,
+      position,
+      effect,
+      rotate,
+      gifURL,
+      gifWidth,
+    }
+  }
+
+  /**
+   *
+   *
+   *
+   * compiles a image frame to a JSON
+   */
+  const compileImageUp = (frame: HTMLDivElement): Lib.T.Elements.Image => {
+    const { effect, id, position, rotate } = compileSharedUp<Lib.T.ImageEffects>(frame)
+    const imageURL = (<HTMLDivElement>frame.querySelector('.image')!).getAttribute('data-image-url') || ''
+    const imageWidth = window.getComputedStyle(<HTMLDivElement>frame.querySelector('img')).width
+
+    return {
+      type: 'image',
+      id,
+      position,
+      effect,
+      rotate,
+      imageURL,
+      imageWidth,
     }
   }
 

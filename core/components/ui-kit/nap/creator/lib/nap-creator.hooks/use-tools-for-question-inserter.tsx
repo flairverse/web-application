@@ -1,20 +1,19 @@
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { AiOutlineRotateRight } from 'react-icons/ai'
 import { FaRegLightbulb } from 'react-icons/fa'
-import { IoAddCircleOutline, IoColorFilterOutline } from 'react-icons/io5'
+import { IoColorFilterOutline } from 'react-icons/io5'
 import { useRecoilValue } from 'recoil'
 import * as Lib from '..'
 
 export const useToolsForQuestionInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
-  const Inserters = Lib.H.useInserters(boardRef)
   const { getFocusedItem, changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({
     boardRef,
   })
   const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
   const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
+  const NapStorage = Lib.H.useNapStorage(boardRef)
 
   const tools: Pick<Lib.T.ToolProps, 'Icon' | 'type' | 'title' | 'disabled'>[] = [
-    { Icon: IoAddCircleOutline, type: 'add-question', title: 'Add new', disabled: false },
     {
       Icon: FaRegLightbulb,
       type: 'question-hint',
@@ -37,11 +36,6 @@ export const useToolsForQuestionInserter = ({ boardRef }: Lib.T.ToolsForInserter
 
   const toolClick = (type: Lib.T.Tool) => {
     switch (type) {
-      case 'add-question': {
-        new Inserters(boardRef).newQuestion()
-        break
-      }
-
       case 'question-hint': {
         const focusedItem = getFocusedItem()
         if (!focusedItem) {
@@ -55,7 +49,7 @@ export const useToolsForQuestionInserter = ({ boardRef }: Lib.T.ToolsForInserter
 
         const { display } = window.getComputedStyle(hint)
         hint.style.display = display === 'block' ? 'none' : 'block'
-
+        NapStorage.update(focusedItem)
         break
       }
 

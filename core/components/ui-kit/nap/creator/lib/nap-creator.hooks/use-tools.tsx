@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import * as Lib from '..'
 
-export const useTools = ({ selectedOption, boardRef }: Pick<Lib.T.ToolsProps, 'selectedOption' | 'boardRef'>) => {
+export const useTools = ({ selectedOption, boardRef, imageInputRef }: Pick<Lib.T.ToolsProps, 'selectedOption' | 'boardRef' | 'imageInputRef'>) => {
   const checkTools = (): JSX.Element | null => {
     if (selectedOption !== 'none') {
       switch (selectedOption) {
@@ -9,7 +9,6 @@ export const useTools = ({ selectedOption, boardRef }: Pick<Lib.T.ToolsProps, 's
           return <Lib.C.ToolsForTextInserter boardRef={boardRef} />
         }
 
-        default: // <<--------------------------------------------------------------------------------------------------[[temporary]]
         case 'post': {
           return <Lib.C.ToolsForPostInserter boardRef={boardRef} />
         }
@@ -32,6 +31,18 @@ export const useTools = ({ selectedOption, boardRef }: Pick<Lib.T.ToolsProps, 's
 
         case 'gif': {
           return <Lib.C.ToolsForGifInserter boardRef={boardRef} />
+        }
+
+        case 'image': {
+          return <Lib.C.ToolsForImageInserter boardRef={boardRef} imageInputRef={imageInputRef} />
+        }
+
+        case 'link': {
+          return <Lib.C.ToolsForLinkInserter boardRef={boardRef} />
+        }
+
+        case 'more|less': {
+          return null
         }
       }
     } else return null

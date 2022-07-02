@@ -1,5 +1,6 @@
 import { PickUpUIKitLib } from '@/components/ui-kit/pick-up'
 import { environments } from '@/constants/environments.constant'
+import * as storeKeys from '@/constants/store-keys.constants'
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { StoreKeys } from '@/types/recoil.type'
 import { GifsResult, GiphyFetch } from '@giphy/js-fetch-api'
@@ -9,11 +10,11 @@ import { useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
 export const useGiphyPickUp = ({ boardRef }: Pick<Lib.T.PostsPickUpProps, 'boardRef'>) => {
-  const searchQueryKey: StoreKeys = 'PAGE__CREATE_NAP___GIFS_PICKUP_SEARCH_QUERY'
+  const searchQueryKey: StoreKeys = storeKeys.PAGE__CREATE_NAP___GIFS_PICKUP_SEARCH_QUERY
   const setPickUp = useSetRecoilState(pageCreateNapAtoms.giphyPickUp)
   const setActiveOptions = useSetRecoilState(pageCreateNapAtoms.activeOption)
-  const Inserters = Lib.H.useInserters(boardRef)
-  const insert = new Inserters(boardRef)
+  const Inserters = Lib.H.useInserters({ boardRef })
+  const insert = new Inserters()
   const [searchQuery, setSearchQuery] = useState('')
   const [updateKey, setUpdateKey] = useState(0)
   const gf = new GiphyFetch(environments.giphyKey)

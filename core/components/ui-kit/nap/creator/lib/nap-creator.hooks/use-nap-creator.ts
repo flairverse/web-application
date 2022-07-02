@@ -1,15 +1,18 @@
 import { pageCreateNapAtoms } from '@/store/atoms'
-import { RefObject } from 'react'
+import { useEffect } from 'react'
 import { useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
-export const useNapCreator = (boardRef: RefObject<HTMLDivElement | null>) => {
+export const useNapCreator = ({ boardRef, imageInputRef }: Lib.T.UseNapCreatorArgs) => {
+  Lib.H.useFramesScaling(boardRef)
   const setShowMoreOptions = useSetRecoilState(pageCreateNapAtoms.showMoreOptions)
   const setActiveOption = useSetRecoilState(pageCreateNapAtoms.activeOption)
   const setPostPopupVisibility = useSetRecoilState(pageCreateNapAtoms.postsPickUp)
   const setMentionPopupVisibility = useSetRecoilState(pageCreateNapAtoms.mentionPickUp)
   const setGifPopupVisibility = useSetRecoilState(pageCreateNapAtoms.giphyPickUp)
-  Lib.H.useFramesScaling(boardRef)
+  const { pickImage } = Lib.H.useImagePicker({ imageInputRef, boardRef })
+  const NapStorage = Lib.H.useNapStorage(boardRef)
+  const Inserters = Lib.H.useInserters({ boardRef })
 
   const optionsClick = (key: Lib.T.Options) => {
     if (key !== 'more|less') {
@@ -22,16 +25,22 @@ export const useNapCreator = (boardRef: RefObject<HTMLDivElement | null>) => {
         break
       }
 
+      case 'mention':
       case 'post': {
-        if (!Lib.HE.boardContains('post', boardRef)) {
-          setPostPopupVisibility(true)
-        }
-        break
-      }
-
-      case 'mention': {
-        if (!Lib.HE.boardContains('mention', boardRef)) {
-          setMentionPopupVisibility(true)
+        const existItems = Lib.HE.getFramesByType(boardRef, key)
+        if (existItems) {
+          existItems[existItems.length - 1].focus()
+        } else {
+          switch (key) {
+            case 'mention': {
+              setMentionPopupVisibility(true)
+              break
+            }
+            case 'post': {
+              setPostPopupVisibility(true)
+              break
+            }
+          }
         }
         break
       }
@@ -43,11 +52,28 @@ export const useNapCreator = (boardRef: RefObject<HTMLDivElement | null>) => {
         break
       }
 
+      case 'image': {
+        if (!Lib.HE.boardContains('image', boardRef)) {
+          pickImage()
+        }
+        break
+      }
+
       default: {
         setShowMoreOptions(false)
       }
     }
   }
+
+  const insertStoredElements = () => {
+    NapStorage.readAll().then(elements => {
+      if (elements.length > 0) {
+        new Inserters().bulkNewAny(elements)
+      }
+    })
+  }
+
+  useEffect(insertStoredElements, [])
 
   return {
     on: {

@@ -1,4 +1,5 @@
 import { CardPick } from '@/components/ui-kit/card'
+import { Input } from '@/components/ui-kit/input'
 import { PickUp } from '@/components/ui-kit/pick-up'
 import { DateTimePicker } from '@/components/ui-kit/time-picker'
 import { pageCreateNapAtoms } from '@/store/atoms'
@@ -13,7 +14,7 @@ import { useRecoilState, useRecoilValue } from 'recoil'
 import * as Lib from '.'
 import { NapProfile } from '../../profile'
 
-export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active, boardRef }) => {
+export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active, boardRef, imageInputRef }) => {
   const [activeOption, setActiveOption] = useRecoilState(pageCreateNapAtoms.activeOption)
 
   return (
@@ -28,7 +29,7 @@ export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active, boardRef }) => {
           <MdOutlineClose color="var(--layer-2-text-3)" size={22} />
         </span>
         <div className="tools">
-          <Tools selectedOption={activeOption} boardRef={boardRef} />
+          <Tools selectedOption={activeOption} boardRef={boardRef} imageInputRef={imageInputRef} />
         </div>
         <ToolBoxNextBtn boardRef={boardRef} />
       </div>
@@ -47,10 +48,11 @@ export const ToolBoxNextBtn: FC<Lib.T.ToolBoxNextBtnProps> = ({ boardRef }) => {
   )
 }
 
-export const Items: FC<Lib.T.ItemsProps> = ({ onOptionsClick, boardRef }) => {
+export const Items: FC<Lib.T.ItemsProps> = ({ onOptionsClick, boardRef, imageInputRef }) => {
   const showMoreOptions = useRecoilValue(pageCreateNapAtoms.showMoreOptions)
   const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
-  const { get, on } = Lib.H.useItems({ onOptionsClick, boardRef })
+  const { onItemClick } = Lib.H.useItems({ onOptionsClick, boardRef })
+  const items = Lib.H.useDefinedItems()
 
   return (
     <>
@@ -58,12 +60,12 @@ export const Items: FC<Lib.T.ItemsProps> = ({ onOptionsClick, boardRef }) => {
 
       <Lib.S.ItemsContainer className={`${showMoreOptions ? 'showMore' : 'showLess'}`}>
         <ul>
-          {get.items.map(({ Icon, title, key }, index) => (
+          {items.map(({ Icon, title, key }, index) => (
             <li
               key={index}
               title={showMoreOptions ? undefined : title}
               className={`${activeOption === key ? 'active' : ''}`}
-              onClick={() => on.itemClicks(key)}
+              onClick={() => onItemClick(key)}
             >
               <span>
                 <Icon color="var(--layer-2-text-3)" size={30} />
@@ -180,7 +182,7 @@ export const Mention: FC<Lib.T.MentionProps> = ({ id, username, profile, hasNap,
 }
 
 export const ReminderTimePicker: FC<Lib.T.ReminderTimePickerProps> = ({ boardRef }) => {
-  const { get } = Lib.H.useReminderTimePicker(boardRef)
+  const { get } = Lib.H.useReminderTimePicker({ boardRef })
   return <DateTimePicker {...get.timePickerProps} />
 }
 
@@ -195,8 +197,44 @@ export const Tool: FC<Lib.T.ToolProps> = ({ disabled, Icon, type, onClick, title
   )
 }
 
-export const Tools: FC<Lib.T.ToolsProps> = ({ selectedOption, boardRef }) => {
-  const tools = Lib.H.useTools({ selectedOption, boardRef })
+export const EditLinkHrefPopup: FC<Lib.T.EditLinkHrefPopupProps> = ({ boardRef }) => {
+  const { modalProps, inputID, isValidURL, onSubmit } = Lib.H.useEditLinkHref({ boardRef })
+  const [popupVisibility, setPopupVisibility] = useRecoilState(pageCreateNapAtoms.editLinkPopupVisibility)
+  const [{ ref, text }, setLinkAndRef] = useRecoilState(pageCreateNapAtoms.editLinkPopupLinkTextAndRef)
+
+  return (
+    <Lib.S.EditLinkHrefPopup {...modalProps} visible={popupVisibility}>
+      <div className="content">
+        <label htmlFor={inputID} className="linkTextHolder">
+          {text}
+        </label>
+
+        <form onSubmit={onSubmit}>
+          <Input
+            id={inputID}
+            value={ref}
+            onInput={({ currentTarget: { value } }) => setLinkAndRef(currVal => ({ ...currVal, ref: value }))}
+            className="linkRefHolder"
+            placeholder="Type your link here..."
+            error={!isValidURL ? 'Must be a valid URL containing https://, http:// or ftp://' : undefined}
+          />
+
+          <div className="actions">
+            <Button type="primary" htmlType="submit" disabled={!isValidURL}>
+              Done
+            </Button>
+            <Button type="link" onClick={() => setPopupVisibility(false)}>
+              Discard
+            </Button>
+          </div>
+        </form>
+      </div>
+    </Lib.S.EditLinkHrefPopup>
+  )
+}
+
+export const Tools: FC<Lib.T.ToolsProps> = ({ selectedOption, boardRef, imageInputRef }) => {
+  const tools = Lib.H.useTools({ selectedOption, boardRef, imageInputRef })
   return <Lib.S.Tools>{tools}</Lib.S.Tools>
 }
 
@@ -268,6 +306,28 @@ export const ToolsForReminderInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef
 
 export const ToolsForGifInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) => {
   const { get, on } = Lib.H.useToolsForGifInserter({ boardRef })
+  return (
+    <>
+      {get.tools.map((tool, index) => (
+        <Tool {...tool} onClick={on.toolClick} key={index} index={index} />
+      ))}
+    </>
+  )
+}
+
+export const ToolsForImageInserter: FC<Lib.T.ToolsForImageInserter> = ({ boardRef, imageInputRef }) => {
+  const { get, on } = Lib.H.useToolsForImageInserter({ boardRef, imageInputRef })
+  return (
+    <>
+      {get.tools.map((tool, index) => (
+        <Tool {...tool} onClick={on.toolClick} key={index} index={index} />
+      ))}
+    </>
+  )
+}
+
+export const ToolsForLinkInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) => {
+  const { get, on } = Lib.H.useToolsForLinkInserter({ boardRef })
   return (
     <>
       {get.tools.map((tool, index) => (

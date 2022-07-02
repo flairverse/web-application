@@ -1,14 +1,15 @@
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { AiOutlineColumnWidth, AiOutlineRotateRight } from 'react-icons/ai'
-import { IoAddCircleOutline } from 'react-icons/io5'
+import { IoAddCircleOutline, IoColorFilterOutline } from 'react-icons/io5'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
 export const useToolsForGifInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
+  const NapStorage = Lib.H.useNapStorage(boardRef)
   const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
   const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
   const setPickUp = useSetRecoilState(pageCreateNapAtoms.giphyPickUp)
-  const { changeRotation, getFocusedItem } = Lib.H.useToolsForAllInserters({ boardRef })
+  const { changeRotation, getFocusedItem, changeEffect } = Lib.H.useToolsForAllInserters({ boardRef })
   const widthSizeRange = [100, 300]
   const widthSizeStep = 50
 
@@ -18,6 +19,12 @@ export const useToolsForGifInserter = ({ boardRef }: Lib.T.ToolsForInserters) =>
       Icon: AiOutlineColumnWidth,
       type: 'gif-size',
       title: 'Resize',
+      disabled: activeOption !== 'gif' || activeItemID === null,
+    },
+    {
+      Icon: IoColorFilterOutline,
+      type: 'gif-effect',
+      title: 'Effect',
       disabled: activeOption !== 'gif' || activeItemID === null,
     },
     {
@@ -37,17 +44,24 @@ export const useToolsForGifInserter = ({ boardRef }: Lib.T.ToolsForInserters) =>
 
       case 'gif-size': {
         const focusedItem = getFocusedItem()
+
         if (focusedItem) {
-          const image = focusedItem.querySelector('img')
-          if (!image) {
+          const gifs = <NodeListOf<HTMLImageElement>>focusedItem.querySelectorAll(`.variant img`)
+          if (!gifs || gifs.length === 0) {
             return
           }
 
-          const currentWidthSize = parseInt(window.getComputedStyle(image).width)
+          const currentWidthSize = parseInt(window.getComputedStyle(gifs[0]).width)
           const nextWidthSize = currentWidthSize + widthSizeStep
-          image.style.width = (nextWidthSize > widthSizeRange[1] ? widthSizeRange[0] : nextWidthSize) + 'px'
+          gifs.forEach(gif => (gif.style.width = (nextWidthSize > widthSizeRange[1] ? widthSizeRange[0] : nextWidthSize) + 'px'))
           focusedItem.focus()
+          NapStorage.update(focusedItem)
         }
+        break
+      }
+
+      case 'gif-effect': {
+        changeEffect('GIF', '.gif')
         break
       }
 

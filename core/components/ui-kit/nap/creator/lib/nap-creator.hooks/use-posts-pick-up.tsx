@@ -7,7 +7,7 @@ import * as Lib from '..'
 export const usePostsPickUp = ({ boardRef }: Pick<Lib.T.PostsPickUpProps, 'boardRef'>) => {
   const setPickUp = useSetRecoilState(pageCreateNapAtoms.postsPickUp)
   const setActiveOptions = useSetRecoilState(pageCreateNapAtoms.activeOption)
-  const Inserters = Lib.H.useInserters(boardRef)
+  const Inserters = Lib.H.useInserters({ boardRef })
 
   const handlePickUpClose = () => {
     const { current: board } = boardRef
@@ -20,7 +20,7 @@ export const usePostsPickUp = ({ boardRef }: Pick<Lib.T.PostsPickUpProps, 'board
   }
 
   const onPostSelect = (id: number) => {
-    new Inserters(boardRef).newPost(id)
+    new Inserters().newPost(id)
     setPickUp(false)
   }
 

@@ -1,9 +1,10 @@
-import { RefObject } from 'react'
 import * as Lib from '..'
 
-export const useUpdaters = (boardRef: RefObject<HTMLDivElement>) => {
-  const Inserters = Lib.H.useInserters(boardRef)
+export const useUpdaters = ({ boardRef }: Lib.T.UseUpdatersArgs) => {
+  const Inserters = Lib.H.useInserters({ boardRef })
   const { compileUp } = Lib.H.useBoardCompileUp(boardRef)
+  const NapStorage = Lib.H.useNapStorage(boardRef)
+  const { compileDown } = Lib.H.useBoardCompileDown(boardRef)
 
   return class Updater {
     board: HTMLDivElement | null = null
@@ -18,16 +19,18 @@ export const useUpdaters = (boardRef: RefObject<HTMLDivElement>) => {
      * updates an existing reminder
      */
     updateReminder(newTime: Pick<Lib.T.Elements.Reminder, 'endTime'>) {
-      const insert = new Inserters(boardRef)
+      const insert = new Inserters()
       const reminderFrame = Lib.HE.getFramesByType(boardRef, 'reminder')?.[0]
       if (!reminderFrame) {
         return
       }
 
       const compiledUpReminder = <Lib.T.Elements.Reminder>compileUp(reminderFrame)
-
       Lib.HE.removeFramesByType(boardRef, 'reminder')
-      insert.newReminder({ ...compiledUpReminder, ...newTime })
+      insert.newReminder({ ...compiledUpReminder, ...newTime }, false)
+
+      const compiledDown = compileDown({ ...compiledUpReminder, ...newTime })
+      NapStorage.update(compiledDown)
     }
   }
 }

@@ -1,19 +1,22 @@
 import { DOM } from '@/helpers/DOM'
 import { componentTimePickerAtoms } from '@/store/atomFamilies'
 import { pageCreateNapAtoms } from '@/store/atoms'
+import { RefObject } from 'react'
 import { useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
-export const useBoardCompileDown = (boardId: string) => {
+export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
   const setActiveOption = useSetRecoilState(pageCreateNapAtoms.activeOption)
   const setActiveItemID = useSetRecoilState(pageCreateNapAtoms.activeItemID)
+  const setEditLinkPopupVisibility = useSetRecoilState(pageCreateNapAtoms.editLinkPopupVisibility)
   const setTimePickerVisibility = useSetRecoilState(componentTimePickerAtoms.timePickerPopupVisibility('PAGE__CREATE_NAP___TIME_PICKER_POPUP'))
+  const setEditLinkPopupLinkTextAndRef = useSetRecoilState(pageCreateNapAtoms.editLinkPopupLinkTextAndRef)
+  const NapStorage = Lib.H.useNapStorage(boardRef)
 
   // const areaSensitive: MakeElementDraggableSensitive = {
   //   target: `#${boardId}`,
   //   sensitiveOnMove: true,
   // }
-
   const areaSensitive = undefined
 
   /**
@@ -24,7 +27,6 @@ export const useBoardCompileDown = (boardId: string) => {
    */
   const compileDown = (element: Lib.T.Elements.All): HTMLDivElement => {
     switch (element.type) {
-      default: // <<----------------------------------------------------------------[[temporary]]
       case 'text': {
         return compileTextDown(<Lib.T.Elements.Text>element)
       }
@@ -51,6 +53,18 @@ export const useBoardCompileDown = (boardId: string) => {
 
       case 'gif': {
         return compileGifDown(<Lib.T.Elements.Gif>element)
+      }
+
+      case 'image': {
+        return compileImageDown(<Lib.T.Elements.Image>element)
+      }
+
+      case 'link': {
+        return compileLinkDown(<Lib.T.Elements.Link>element)
+      }
+
+      case 'more|less': {
+        return document.createElement('div')
       }
     }
   }
@@ -79,11 +93,12 @@ export const useBoardCompileDown = (boardId: string) => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.text(text))
     node.addEventListener('keyup', () => node.setAttribute('data-text', node.innerText))
     const element = addFrameTo(node, ['editInnerText'], 'text', id)
+    node.addEventListener('blur', () => NapStorage.update(element), false)
     DOM.addStyles(element, { top, left, fontSize: fontSize, transform: `rotate(${rotate}deg)` })
     element.id = id
     element.classList.add(type)
     element.classList.add(effect)
-    DOM.makeElementDraggable({ element, areaSensitive })
+    DOM.makeElementDraggable({ element, areaSensitive, onDragEnd: () => NapStorage.update(element) })
     return element
   }
 
@@ -100,7 +115,7 @@ export const useBoardCompileDown = (boardId: string) => {
     element.id = id
     element.classList.add(type)
     element.classList.add(effect)
-    DOM.makeElementDraggable({ element, areaSensitive })
+    DOM.makeElementDraggable({ element, areaSensitive, onDragEnd: () => NapStorage.update(element) })
     return element
   }
 
@@ -144,7 +159,7 @@ export const useBoardCompileDown = (boardId: string) => {
     element.id = id
     element.classList.add(type)
     element.classList.add(effect)
-    DOM.makeElementDraggable({ element, areaSensitive })
+    DOM.makeElementDraggable({ element, areaSensitive, onDragEnd: () => NapStorage.update(element) })
     return element
   }
 
@@ -166,12 +181,33 @@ export const useBoardCompileDown = (boardId: string) => {
   }: Lib.T.Elements.Question): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.question({ hint, question, questionerUser }))
     const element = addFrameTo(node, [], 'question', id)
+    node.querySelector('.questionText')?.addEventListener('blur', () => NapStorage.update(element))
+    node.querySelector('.hintSection')?.addEventListener('blur', () => NapStorage.update(element))
     DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
     element.id = id
     element.classList.add(type)
     element.classList.add(effect)
     activateFrameByFocusingContentEditables(element)
-    DOM.makeElementDraggable({ element, areaSensitive, blackList: ['questionText', 'hintSection'] })
+    DOM.makeElementDraggable({ element, areaSensitive, blackList: ['questionText', 'hintSection'], onDragEnd: () => NapStorage.update(element) })
+    return element
+  }
+
+  /**
+   *
+   *
+   *
+   * compiles a link object to actual element
+   */
+  const compileLinkDown = ({ type, id, link, position: { left, top }, linkFontSize, effect, rotate, href }: Lib.T.Elements.Link): HTMLDivElement => {
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.link(link, href))
+    node.addEventListener('keyup', () => node.setAttribute('data-text', node.innerText))
+    const element = addFrameTo(node, ['editInnerText', 'editLinkRef'], 'link', id)
+    node.addEventListener('blur', () => NapStorage.update(element), false)
+    DOM.addStyles(element, { top, left, fontSize: linkFontSize, transform: `rotate(${rotate}deg)` })
+    element.id = id
+    element.classList.add(type)
+    element.classList.add(effect)
+    DOM.makeElementDraggable({ element, areaSensitive, onDragEnd: () => NapStorage.update(element) })
     return element
   }
 
@@ -195,6 +231,10 @@ export const useBoardCompileDown = (boardId: string) => {
   }: Lib.T.Elements.Quiz): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.quiz({ answers, correctAnswer, hintText, questionText, questioner }))
     const element = addFrameTo(node, [], 'quiz', id)
+
+    node.querySelector('.questionText')?.addEventListener('blur', () => NapStorage.update(element))
+    node.querySelector('.hintSection')?.addEventListener('blur', () => NapStorage.update(element))
+
     DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
     element.id = id
     element.classList.add(type)
@@ -204,13 +244,23 @@ export const useBoardCompileDown = (boardId: string) => {
       element,
       areaSensitive,
       blackList: ['questionText', 'hintSection', 'answerText'],
+      onDragEnd: () => NapStorage.update(element),
     })
 
     const answerNumbers = <NodeListOf<HTMLDivElement>>element.querySelectorAll('.answer > span')
     const answerContents = <NodeListOf<HTMLDivElement>>element.querySelectorAll('.answer > p')
 
-    answerNumbers.forEach(answerNumber => answerNumber.addEventListener('click', () => switchCorrectAnswer(answerNumber)))
-    answerContents.forEach(answerContent => answerContent.addEventListener('input', evt => toggleNextAnswer(<InputEvent>evt)))
+    answerNumbers.forEach(answerNumber =>
+      answerNumber.addEventListener('click', () => {
+        switchCorrectAnswer(answerNumber)
+        NapStorage.update(element)
+      }),
+    )
+
+    answerContents.forEach(answerContent => {
+      answerContent.addEventListener('input', evt => toggleNextAnswer(<InputEvent>evt))
+      answerContent.addEventListener('blur', evt => NapStorage.update(element))
+    })
 
     function switchCorrectAnswer(answerNumber: HTMLDivElement) {
       const answerBox = <HTMLDivElement>answerNumber.parentNode!
@@ -269,12 +319,13 @@ export const useBoardCompileDown = (boardId: string) => {
   }: Lib.T.Elements.Reminder): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.reminder({ reminderName, endTime }))
     const element = addFrameTo(node, ['changeReminderValue'], 'reminder', id)
+    node.querySelector('.reminderName')?.addEventListener('blur', () => NapStorage.update(element), false)
     DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
     element.id = id
     element.classList.add(type)
     element.classList.add(effect)
     activateFrameByFocusingContentEditables(element)
-    DOM.makeElementDraggable({ element, areaSensitive, blackList: ['reminderName'] })
+    DOM.makeElementDraggable({ element, areaSensitive, blackList: ['reminderName'], onDragEnd: () => NapStorage.update(element) })
     return element
   }
 
@@ -285,13 +336,30 @@ export const useBoardCompileDown = (boardId: string) => {
    * compiles a gif object to actual element
    */
   const compileGifDown = ({ effect, gifURL, id, position: { left, top }, rotate, type, gifWidth }: Lib.T.Elements.Gif): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.gif({ gifURL, gifWidth }))
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.gif({ gifURL }))
     const element = addFrameTo(node, [], 'gif', id)
     DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
     element.id = id
     element.classList.add(type)
     element.classList.add(effect)
-    DOM.makeElementDraggable({ element, areaSensitive })
+    DOM.makeElementDraggable({ element, areaSensitive, onDragEnd: () => NapStorage.update(element) })
+    return element
+  }
+
+  /**
+   *
+   *
+   *
+   * compiles a gif object to actual element
+   */
+  const compileImageDown = ({ effect, imageURL, id, position: { left, top }, rotate, type, imageWidth }: Lib.T.Elements.Image): HTMLDivElement => {
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.image({ imageURL }))
+    const element = addFrameTo(node, [], 'image', id)
+    DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
+    element.id = id
+    element.classList.add(type)
+    element.classList.add(effect)
+    DOM.makeElementDraggable({ element, areaSensitive, onDragEnd: () => NapStorage.update(element) })
     return element
   }
 
@@ -328,6 +396,14 @@ export const useBoardCompileDown = (boardId: string) => {
     return frame
   }
 
+  /**
+   *
+   *
+   *
+   * when you focus on element with the contentEditable attribute,
+   * it's not possible to focus to it's element (to activate it).
+   * so this function helps to do it under the hood.
+   */
   const activateFrameByFocusingContentEditables = (element: HTMLDivElement) => {
     const contentEditables = element.querySelectorAll('*[contenteditable="true"]')
 
@@ -353,19 +429,23 @@ export const useBoardCompileDown = (boardId: string) => {
    * Actions will be used on frame buttons
    */
   class Action {
-    static getElement(evt: MouseEvent) {
+    static getFrame(evt: MouseEvent) {
       return <HTMLDivElement | null>(<HTMLSpanElement>evt.currentTarget)?.parentNode?.parentNode
     }
 
     static delete(evt: MouseEvent) {
-      const element = Action.getElement(evt)
+      const frame = Action.getFrame(evt)
       setActiveItemID(null)
       setActiveOption('none')
-      element?.remove()
+      if (!frame) {
+        return
+      }
+      frame.remove()
+      NapStorage.delete(frame)
     }
 
     static editInnerText(evt: MouseEvent) {
-      const frame = Action.getElement(evt)
+      const frame = Action.getFrame(evt)
       if (!frame) return
 
       const paragraph = frame.getElementsByTagName('p')[0]
@@ -391,8 +471,27 @@ export const useBoardCompileDown = (boardId: string) => {
       })
     }
 
-    static changeReminderValue(evt: MouseEvent) {
+    static changeReminderValue(_evt: MouseEvent) {
       setTimePickerVisibility(true)
+    }
+
+    static editLinkRef(evt: MouseEvent) {
+      const frame = Action.getFrame(evt)
+      if (!frame) {
+        return
+      }
+
+      const linkElement = <HTMLParagraphElement | null>frame.querySelector('p.link')
+      if (!linkElement) {
+        return
+      }
+
+      const linkText = linkElement.getAttribute('data-text') || ''
+      const linkRef = linkElement.getAttribute('data-href') || ''
+      const linkID = frame.id
+
+      setEditLinkPopupLinkTextAndRef({ ref: linkRef, text: linkText, frameID: linkID })
+      setEditLinkPopupVisibility(true)
     }
   }
 

@@ -26,7 +26,7 @@ export class DOM {
    *
    * adds the draggable ability to an element
    */
-  static makeElementDraggable({ element, areaSensitive, blackList }: Lib.T.MakeElementDraggableArgs) {
+  static makeElementDraggable({ element, areaSensitive, blackList, onDragEnd }: Lib.T.MakeElementDraggableArgs) {
     let pos1 = 0
     let pos2 = 0
     let pos3 = 0
@@ -91,6 +91,8 @@ export class DOM {
       if (areaSensitive && areaSensitive.sensitiveOnMoveEnd) {
         setRestrictedPositions()
       }
+
+      onDragEnd?.(pos3, pos4)
     }
 
     element.onmousedown = evt => {

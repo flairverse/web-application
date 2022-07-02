@@ -7,7 +7,7 @@ import * as Lib from '..'
 export const useMentionPickUp = ({ boardRef }: Pick<Lib.T.MentionPickUpProps, 'boardRef'>) => {
   const setPickUp = useSetRecoilState(pageCreateNapAtoms.mentionPickUp)
   const setActiveOptions = useSetRecoilState(pageCreateNapAtoms.activeOption)
-  const Inserters = Lib.H.useInserters(boardRef)
+  const Inserters = Lib.H.useInserters({ boardRef })
 
   const handlePickUpClose = () => {
     const { current: board } = boardRef
@@ -20,7 +20,7 @@ export const useMentionPickUp = ({ boardRef }: Pick<Lib.T.MentionPickUpProps, 'b
   }
 
   const onUserSelect = (id: number) => {
-    new Inserters(boardRef).newMention(id)
+    new Inserters().newMention(id)
     setPickUp(false)
   }
 

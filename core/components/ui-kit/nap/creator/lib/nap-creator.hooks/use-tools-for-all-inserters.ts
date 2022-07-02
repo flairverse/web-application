@@ -4,6 +4,7 @@ import * as Lib from '..'
 
 export const useToolsForAllInserters = ({ boardRef }: Pick<Lib.T.ToolsForInserters, 'boardRef'>) => {
   const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
+  const NapStorage = Lib.H.useNapStorage(boardRef)
 
   /**
    *
@@ -43,6 +44,7 @@ export const useToolsForAllInserters = ({ boardRef }: Pick<Lib.T.ToolsForInserte
     focusedItem.style.transform = `rotate(${nextAngle}deg) scale(${scale})`
     focusedItem.setAttribute(Lib.CO.FRAMES_DATA_ATTRS.ROTATION, nextAngle.toString())
     focusedItem.focus()
+    NapStorage.update(focusedItem)
   }
 
   /**
@@ -65,15 +67,23 @@ export const useToolsForAllInserters = ({ boardRef }: Pick<Lib.T.ToolsForInserte
       return
     }
 
-    const currentEffect = actualItem.className.split(' ').pop() as any
+    const currentEffect = actualItem.className.split(' ').pop() as never
     const effectsRange = [0, Lib.CO.EFFECTS[effectGroup].length - 1]
     const currentEffectIndex = Lib.CO.EFFECTS[effectGroup].indexOf(currentEffect)
     const nextEffectIndex = currentEffectIndex + 1
     const nextEffect = nextEffectIndex > effectsRange[1] ? Lib.CO.EFFECTS[effectGroup][effectsRange[0]] : Lib.CO.EFFECTS[effectGroup][nextEffectIndex]
+
     actualItem.classList.remove(currentEffect)
+    focusedItem.classList.remove(currentEffect)
+
     actualItem.classList.add(nextEffect)
+    focusedItem.classList.add(nextEffect)
+
     actualItem.setAttribute(Lib.CO.FRAMES_DATA_ATTRS.EFFECT, nextEffect)
-    actualItem.focus()
+    focusedItem.setAttribute(Lib.CO.FRAMES_DATA_ATTRS.EFFECT, nextEffect)
+
+    focusedItem.focus()
+    NapStorage.update(focusedItem)
   }
 
   return {

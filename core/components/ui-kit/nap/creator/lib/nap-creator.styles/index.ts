@@ -1,3 +1,4 @@
+import { Modal } from 'antd'
 import styled, { keyframes } from 'styled-components'
 import * as Lib from '..'
 import { BASE_BOARD_HEIGHT } from '../nap-creator.constants'
@@ -458,7 +459,8 @@ export const MainBoard = styled.div`
       }
     }
 
-    &.text {
+    &.text,
+    &.link {
       p {
         margin: 0;
         transition: ${TRANSITION};
@@ -468,6 +470,12 @@ export const MainBoard = styled.div`
       }
 
       ${Object.values(textEffects).map(item => item)}
+    }
+
+    &.link {
+      p {
+        text-decoration: underline;
+      }
     }
   }
 `
@@ -544,5 +552,45 @@ export const Mention = styled.div`
 
   @media screen and (max-width: 300px) {
     width: calc(100% / 2);
+  }
+`
+
+export const PickImageInput = styled.input`
+  width: 1px;
+  height: 1px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: -99;
+`
+
+export const EditLinkHrefPopup = styled(Modal)`
+  padding: 0;
+
+  .ant-modal-close {
+    display: none;
+  }
+
+  .ant-modal-body {
+    padding: 10px;
+    background-color: var(--layer-1);
+
+    > .content {
+      > label {
+        max-width: 100%;
+        text-overflow: ellipsis;
+        color: var(--layer-2-text-2);
+        white-space: nowrap;
+        overflow: hidden;
+        display: inline-block;
+        padding: 2px 4px 8px 4px;
+      }
+
+      > form {
+        > .actions {
+          padding: 20px 2px 0 2px;
+        }
+      }
+    }
   }
 `
