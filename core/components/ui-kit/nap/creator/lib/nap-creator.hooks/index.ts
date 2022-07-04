@@ -1,6 +1,7 @@
 export * from './use-board-compile-down'
 export * from './use-board-compile-up'
 export * from './use-defined-items'
+export * from './use-draft-message'
 export * from './use-edit-link-href'
 export * from './use-frames-scaling'
 export * from './use-giphy-pickup'

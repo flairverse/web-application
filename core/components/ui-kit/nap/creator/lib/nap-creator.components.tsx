@@ -2,9 +2,10 @@ import { CardPick } from '@/components/ui-kit/card'
 import { Input } from '@/components/ui-kit/input'
 import { PickUp } from '@/components/ui-kit/pick-up'
 import { DateTimePicker } from '@/components/ui-kit/time-picker'
+import * as alertKeys from '@/constants/alert-keys.constant'
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { Grid as GifList } from '@giphy/react-components'
-import { Button } from 'antd'
+import { Alert, Button, Popconfirm } from 'antd'
 import * as mock from 'mock'
 import { FC } from 'react'
 import { FaEllipsisH, FaPause, FaShare } from 'react-icons/fa'
@@ -45,6 +46,39 @@ export const ToolBoxNextBtn: FC<Lib.T.ToolBoxNextBtnProps> = ({ boardRef }) => {
       <span>Next</span>
       <HiChevronRight color="var(--layer-2-text-3)" size={20} />
     </Button>
+  )
+}
+
+export const DraftMessage = () => {
+  const { onCloseMessage, onConfirmDisable, hasReadDraftAlert } = Lib.H.useDraftMessage()
+
+  return (
+    <Lib.S.DraftMessage>
+      {!hasReadDraftAlert && (
+        <Alert
+          message="Don't worry, the draft will be saved"
+          description="The draft is automatically saved. Don't worry about missing this page. If you don't like this feature, you can disable it now."
+          type="success"
+          closable
+          showIcon
+          onClose={onCloseMessage}
+          className={alertKeys.CREATE_NAP___DRAFTED_NAP_BOARD_ALERT}
+          action={
+            <Popconfirm
+              placement="bottomRight"
+              title="Are you sure to disable this feature?"
+              onConfirm={onConfirmDisable}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button size="small" type="text">
+                Disable it
+              </Button>
+            </Popconfirm>
+          }
+        />
+      )}
+    </Lib.S.DraftMessage>
   )
 }
 

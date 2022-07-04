@@ -1,5 +1,5 @@
 import { mix } from 'ts-mixer'
-import { NapMixin } from './mixins'
+import { AlertMixin, DraftSettingsMixin, NapMixin } from './mixins'
 
 /**
  *
@@ -8,8 +8,8 @@ import { NapMixin } from './mixins'
  * This is not an online DB
  * It uses IndexedDB to store users data asynchronously
  */
-interface AllMixins extends NapMixin {}
+interface AllMixins extends NapMixin, DraftSettingsMixin, AlertMixin {}
 
-@mix(NapMixin)
+@mix(NapMixin, DraftSettingsMixin, AlertMixin)
 export class DB implements AllMixins {}
 export interface DB extends AllMixins {}

@@ -25,6 +25,8 @@ export const NapCreator: FC = () => {
       <Lib.S.NapCreatorContainer>
         <Lib.C.Toolbox active={true} boardRef={mainBoardRef} imageInputRef={imageInputRef} />
 
+        <Lib.C.DraftMessage />
+
         <div className="board" ref={mainBoardParentRef}>
           <div className="initialContent">
             <Lib.C.GuidLines />

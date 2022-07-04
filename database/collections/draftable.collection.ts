@@ -1,5 +1,7 @@
 import Dexie, { Table } from 'dexie'
+import { CollectionNames } from '../enums'
 import {
+  DraftSettingsDBModel,
   NapGifsDBModel,
   NapImagesDBModel,
   NapLinksDBModel,
@@ -7,11 +9,11 @@ import {
   NapPostsDBModel,
   NapQuestionsDBModel,
   NapQuizzesDBModel,
-  NapRemindersDBModel,
   NapTextsDBModel,
 } from '../models'
 
 export class DraftableCollection extends Dexie {
+  draftSettings!: Table<DraftSettingsDBModel>
   napGifs!: Table<NapGifsDBModel>
   napImages!: Table<NapImagesDBModel>
   napLinks!: Table<NapLinksDBModel>
@@ -19,12 +21,12 @@ export class DraftableCollection extends Dexie {
   napPosts!: Table<NapPostsDBModel>
   napQuestions!: Table<NapQuestionsDBModel>
   napQuizzes!: Table<NapQuizzesDBModel>
-  napReminders!: Table<NapRemindersDBModel>
   napTexts!: Table<NapTextsDBModel>
 
   constructor() {
-    super('FlairVerseDraftable')
+    super(CollectionNames.draftable)
     this.version(1).stores({
+      draftSettings: '++id, draftedNapBoard',
       napGifs: '++id, &elementID',
       napImages: '++id, &elementID',
       napLinks: '++id, &elementID',
@@ -32,7 +34,6 @@ export class DraftableCollection extends Dexie {
       napPosts: '++id, &elementID',
       napQuestions: '++id, &elementID',
       napQuizzes: '++id, &elementID',
-      napReminders: '++id, &elementID',
       napTexts: '++id, &elementID',
     })
   }

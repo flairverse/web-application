@@ -1,3 +1,4 @@
+import { DOMHelperLib } from '@/helpers/DOM'
 import { Range } from '@/types/enumerable'
 import { Topic } from '@/types/topics'
 import { RefObject } from 'react'
@@ -129,6 +130,7 @@ export namespace Elements {
   export interface Question extends BaseElement<QuestionEffects, 'question'> {
     question: string
     hint: string
+    hintEnabled: boolean
     questionerUser: {
       profile: string
       hasNap: boolean
@@ -139,6 +141,7 @@ export namespace Elements {
   export interface Quiz extends BaseElement<QuizEffects, 'quiz'> {
     questionText: string
     hintText: string
+    hintTextEnabled: boolean
     answers: string[]
     correctAnswer: number
     questioner: {
@@ -185,7 +188,7 @@ export namespace Elements {
   export type AllOr = Text | Image | Gif | Question | Reminder | Quiz | Post | Mention | Link
 }
 
-export type ElementFrameActionTypes = 'delete' | 'editInnerText' | 'changeReminderValue' | 'editLinkRef'
+export type ElementFrameActionTypes = 'delete' | 'editInnerText' | 'changeReminderValue' | 'editLinkRef' | 'noSyncDelete'
 
 export type ElementFrameActions = {
   type: ElementFrameActionTypes
@@ -225,7 +228,7 @@ export type ItemsDOMStringComponents = {
     size?: Range<1, 11>
   }) => string
 
-  imageBaseItem: (args: { dataUrl: string }, type: 'image' | 'gif') => string
+  imageBaseItem: (args: { dataUrl: string; width: string }, type: 'image' | 'gif') => string
 }
 
 export type ItemsDOMStringGenerators = {
@@ -234,11 +237,11 @@ export type ItemsDOMStringGenerators = {
   mention: (
     args: Pick<Elements.Mention, 'fullName' | 'job' | 'profile' | 'username' | 'userID' | 'hasNap' | 'seen' | 'followers' | 'subscribes'>,
   ) => string
-  question: (args: Pick<Elements.Question, 'hint' | 'question' | 'questionerUser'>) => string
-  quiz: (args: Pick<Elements.Quiz, 'answers' | 'correctAnswer' | 'hintText' | 'questionText' | 'questioner'>) => string
+  question: (args: Pick<Elements.Question, 'hint' | 'question' | 'questionerUser' | 'hintEnabled'>) => string
+  quiz: (args: Pick<Elements.Quiz, 'answers' | 'correctAnswer' | 'hintText' | 'questionText' | 'questioner' | 'hintTextEnabled'>) => string
   reminder: (args: Pick<Elements.Reminder, 'endTime' | 'reminderName'>) => string
-  gif: (args: Pick<Elements.Gif, 'gifURL'>) => string
-  image: (args: Pick<Elements.Image, 'imageURL'>) => string
+  gif: (args: Pick<Elements.Gif, 'gifURL' | 'gifWidth'>) => string
+  image: (args: Pick<Elements.Image, 'imageURL' | 'imageWidth'>) => string
   link: (innerText: string, href: string) => string
 }
 
@@ -259,3 +262,10 @@ export interface UseUpdatersArgs extends Pick<ItemsProps, 'boardRef'> {}
 export interface UseReminderTimePicker extends Pick<ItemsProps, 'boardRef'> {}
 
 export interface EditLinkHrefPopupProps extends Pick<ItemsProps, 'boardRef'> {}
+
+export interface CompileSharedDwnArgs extends Elements.BaseElement, Pick<DOMHelperLib.T.MakeElementDraggableArgs, 'blackList'> {
+  node: HTMLElement
+  actionTypes?: ElementFrameActionTypes[]
+  effectHolders?: string[]
+  sync?: boolean
+}

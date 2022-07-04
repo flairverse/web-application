@@ -228,6 +228,7 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
     const { effect, id, position, rotate } = compileSharedUp<Lib.T.QuestionEffects>(frame)
     const hint = (<HTMLParagraphElement>frame.querySelector('.hintSection')!).innerText || ''
     const question = (<HTMLParagraphElement>frame.querySelector('.questionText')!).innerText || ''
+    const hintEnabled = (<HTMLDivElement>frame.querySelector('.napElement')!).getAttribute('data-hint-enabled') === 'true'
     const questionerUser = {
       profile: (<HTMLImageElement>frame.querySelector('.profile')!).src,
       hasNap: (<HTMLDivElement>frame.querySelector('.profileContainer > div')!).getAttribute('data-has-nap') === 'true',
@@ -243,6 +244,7 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
       question,
       questionerUser,
       type: 'question',
+      hintEnabled,
     }
   }
 
@@ -280,18 +282,20 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
     const { effect, id, position, rotate } = compileSharedUp<Lib.T.QuizEffects>(frame)
     const hintText = (<HTMLParagraphElement>frame.querySelector('.hintSection')!).innerText
     const questionText = (<HTMLParagraphElement>frame.querySelector('.questionText')!).innerText
+    const hintTextEnabled = (<HTMLDivElement>frame.querySelector('.napElement')!).getAttribute('data-hint-enabled') === 'true'
+    console.log(hintTextEnabled)
     const questioner = {
       profile: (<HTMLImageElement>frame.querySelector('.profile')!).src,
       hasNap: (<HTMLDivElement>frame.querySelector('.profileContainer > div')!).getAttribute('data-has-nap') === 'true',
       seen: (<HTMLDivElement>frame.querySelector('.profileContainer > div')!).getAttribute('data-seen') === 'true',
     }
 
-    let correctAnswer = 1
+    let correctAnswer = 0
     const answers: string[] = []
     ;(<NodeListOf<HTMLDivElement>>frame.querySelectorAll('.answer')).forEach((answer, index) => {
       answers.push((<HTMLParagraphElement>answer.querySelector('.answerText')!).innerText)
       if (answer.classList.contains('true')) {
-        correctAnswer = index + 1
+        correctAnswer = index
       }
     })
 
@@ -306,6 +310,7 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
       hintText,
       questioner,
       questionText,
+      hintTextEnabled,
     }
   }
 

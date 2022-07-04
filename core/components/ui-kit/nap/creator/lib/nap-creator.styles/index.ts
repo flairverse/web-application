@@ -594,3 +594,12 @@ export const EditLinkHrefPopup = styled(Modal)`
     }
   }
 `
+
+export const DraftMessage = styled.div`
+  display: block;
+  width: 100%;
+
+  > .ant-alert {
+    margin: 0 0 10px 0;
+  }
+`

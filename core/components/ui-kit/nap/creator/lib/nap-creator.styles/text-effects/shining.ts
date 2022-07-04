@@ -21,7 +21,7 @@ export const shining = css`
       animation: ${animation} 2s linear infinite;
       position: relative;
 
-      &::after {
+      &.link::after {
         content: '';
         position: absolute;
         left: 0;

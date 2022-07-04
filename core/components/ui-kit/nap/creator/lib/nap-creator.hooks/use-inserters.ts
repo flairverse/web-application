@@ -52,7 +52,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
         }
 
         case 'reminder': {
-          insert.newReminder(<Lib.T.Elements.Reminder>element, false)
+          insert.newReminder(<Lib.T.Elements.Reminder>element)
           break
         }
 
@@ -113,7 +113,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
      *
      * append the compiled item into the board
      */
-    appendItem(elementInfo: Lib.T.Elements.All, pushToDB = true) {
+    async appendItem(elementInfo: Lib.T.Elements.All, pushToDB = true) {
       if (!this.board) {
         return
       }
@@ -123,7 +123,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
       element.focus()
 
       if (pushToDB) {
-        NapStorage.create(<Lib.T.ElementalOptions>elementInfo.type, elementInfo)
+        await NapStorage.create(<Exclude<Lib.T.ElementalOptions, 'reminder'>>elementInfo.type, elementInfo)
       }
     }
 
@@ -250,6 +250,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
         rotate: 0,
         hint: '',
         question: '',
+        hintEnabled: true,
         questionerUser: {
           hasNap: true,
           profile: '/removal/profile.jpg',
@@ -279,6 +280,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
         questionText: '',
         answers: ['', '', '', ''],
         correctAnswer: 0,
+        hintTextEnabled: true,
         questioner: {
           hasNap: true,
           profile: '/removal/profile.jpg',
@@ -293,7 +295,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
      *
      * makes new reminder item and passes it to the `appendItem`
      */
-    newReminder(defaultValues?: Lib.T.Elements.Reminder, pushToDB = true) {
+    newReminder(defaultValues?: Lib.T.Elements.Reminder) {
       if (!this.canInsert('reminder')) {
         return
       }
@@ -307,7 +309,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
         reminderName: '',
         endTime: new Date().toISOString(),
       }
-      this.appendItem(reminder, pushToDB)
+      this.appendItem(reminder, false)
     }
 
     /**
