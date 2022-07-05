@@ -87,6 +87,7 @@ export class DOM {
     const closeDragElement = () => {
       document.onmouseup = null
       document.onmousemove = null
+      document.ontouchmove = null
 
       if (areaSensitive && areaSensitive.sensitiveOnMoveEnd) {
         setRestrictedPositions()

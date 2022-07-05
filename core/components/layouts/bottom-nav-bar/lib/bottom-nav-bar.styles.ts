@@ -1,3 +1,4 @@
+import { breakPoints } from '@/constants/style-variables.constant'
 import styled from 'styled-components'
 
 export const BottomNavBarContainer = styled.div`
@@ -35,7 +36,7 @@ export const BottomNavBarContainer = styled.div`
     }
   }
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: ${breakPoints.md}) {
     display: block;
   }
 `

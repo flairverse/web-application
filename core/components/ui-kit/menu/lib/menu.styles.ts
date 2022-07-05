@@ -1,3 +1,4 @@
+import { breakPoints } from '@/constants/style-variables.constant'
 import styled from 'styled-components'
 import * as Lib from '.'
 
@@ -85,7 +86,7 @@ export const MenuContainer = styled.ul<Pick<Lib.T.MenuProps, 'position' | 'openM
     }
   }
 
-  @media screen and (max-width: 1199px) {
+  @media screen and (max-width: ${breakPoints.xl}) {
     padding: ${({ compact }) => (compact ? '4px' : '5px')};
 
     > li {
@@ -103,7 +104,7 @@ export const MenuContainer = styled.ul<Pick<Lib.T.MenuProps, 'position' | 'openM
     }
   }
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: ${breakPoints.md}) {
     position: fixed;
     left: 0;
     right: 0;

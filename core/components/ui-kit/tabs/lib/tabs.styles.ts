@@ -1,3 +1,4 @@
+import { breakPoints } from '@/constants/style-variables.constant'
 import styled from 'styled-components'
 
 export const TabsContainer = styled.div`
@@ -5,7 +6,7 @@ export const TabsContainer = styled.div`
     font-size: var(--f-2);
   }
 
-  @media screen and (max-width: 991px) {
+  @media screen and (max-width: ${breakPoints.lg}) {
     .ant-tabs-tab-btn {
       font-size: var(--f-1);
     }

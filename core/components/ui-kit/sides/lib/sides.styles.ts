@@ -1,3 +1,4 @@
+import { breakPoints } from '@/constants/style-variables.constant'
 import styled from 'styled-components'
 import * as Lib from '.'
 
@@ -36,7 +37,7 @@ export const Container = styled.div<Pick<Lib.T.SidesProps, 'sizes' | 'left' | 'r
       })}px)`};
   }
 
-  @media screen and (max-width: 1199px) {
+  @media screen and (max-width: ${breakPoints.xl}) {
     > div > .aside {
       &.left {
         width: ${({ sizes }) => sizes?.left_1200 ?? DEFAULT_ASIDE_WIDTH_1200}px;
@@ -59,7 +60,7 @@ export const Container = styled.div<Pick<Lib.T.SidesProps, 'sizes' | 'left' | 'r
     }
   }
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: ${breakPoints.md}) {
     > div > .aside {
       display: none;
     }

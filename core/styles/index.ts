@@ -305,6 +305,21 @@ export const GlobalStyles = createGlobalStyle`
       }
     }
   }
+
+  .ant-popover-inner-content {
+    color: var(--layer-2-text-3);
+  }
+
+  .ant-popover-content {
+    .ant-popover-arrow-content {
+      --antd-arrow-background-color: var(--layer-1);
+    background-color: var(--layer-1);
+    }
+
+    .ant-popover-inner {
+      background-color: var(--layer-1);
+    }
+  }
   /**
   * End -- Ant design customization
   **/

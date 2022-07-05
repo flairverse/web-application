@@ -1,3 +1,4 @@
+import { breakPoints } from '@/constants/style-variables.constant'
 import styled from 'styled-components'
 
 export const FooterContainer = styled.footer`
@@ -41,13 +42,13 @@ export const FooterContainer = styled.footer`
     }
   }
 
-  @media screen and (max-width: 1199px) {
+  @media screen and (max-width: ${breakPoints.xl}) {
     > div {
       font-size: var(--f-2);
     }
   }
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: ${breakPoints.md}) {
     display: none;
   }
 `

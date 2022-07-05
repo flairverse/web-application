@@ -1,5 +1,6 @@
 import { CardPick } from '@/components/ui-kit/card'
 import { Input } from '@/components/ui-kit/input'
+import { LongTap } from '@/components/ui-kit/long-tap'
 import { PickUp } from '@/components/ui-kit/pick-up'
 import { DateTimePicker } from '@/components/ui-kit/time-picker'
 import * as alertKeys from '@/constants/alert-keys.constant'
@@ -222,11 +223,13 @@ export const ReminderTimePicker: FC<Lib.T.ReminderTimePickerProps> = ({ boardRef
 
 export const Tool: FC<Lib.T.ToolProps> = ({ disabled, Icon, type, onClick, title, index }) => {
   return (
-    <Lib.S.Tool index={index} onClick={() => onClick(type)} className={`${disabled && 'disabled'}`}>
-      <Button type="dashed">
-        <Icon color="var(--layer-2-text-2)" size={17} />
-        <span>{title}</span>
-      </Button>
+    <Lib.S.Tool index={index} className={`${disabled && 'disabled'}`}>
+      <LongTap popup={{ content: title, mobileOnly: true }}>
+        <Button type="dashed" onClick={() => onClick(type)}>
+          <Icon color="var(--layer-2-text-2)" size={17} />
+          <span>{title}</span>
+        </Button>
+      </LongTap>
     </Lib.S.Tool>
   )
 }

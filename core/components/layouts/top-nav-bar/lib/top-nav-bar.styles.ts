@@ -1,3 +1,4 @@
+import { breakPoints } from '@/constants/style-variables.constant'
 import styled from 'styled-components'
 
 const navbarGap = 10
@@ -119,7 +120,7 @@ export const TopNavBarContainer = styled.div`
     display: none;
   }
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: ${breakPoints.md}) {
     top: 0;
     border-radius: 0;
     width: 100%;

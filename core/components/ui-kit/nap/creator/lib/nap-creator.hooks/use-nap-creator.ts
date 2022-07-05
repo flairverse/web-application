@@ -2,6 +2,7 @@ import { pageCreateNapAtoms } from '@/store/atoms'
 import { useEffect } from 'react'
 import { useSetRecoilState } from 'recoil'
 import * as Lib from '..'
+import customs from './custom.json'
 
 export const useNapCreator = ({ boardRef, imageInputRef }: Lib.T.UseNapCreatorArgs) => {
   Lib.H.useFramesScaling(boardRef)
@@ -13,6 +14,14 @@ export const useNapCreator = ({ boardRef, imageInputRef }: Lib.T.UseNapCreatorAr
   const { pickImage } = Lib.H.useImagePicker({ imageInputRef, boardRef })
   const NapStorage = Lib.H.useNapStorage(boardRef)
   const Inserters = Lib.H.useInserters({ boardRef })
+
+  useEffect(() => {
+    const insert = new Inserters()
+    ;(window as any).insert = insert
+    ;(window as any).ic = () => {
+      insert.bulkNewAny(customs as any)
+    }
+  }, [])
 
   const optionsClick = (key: Lib.T.Options) => {
     if (key !== 'more|less') {
