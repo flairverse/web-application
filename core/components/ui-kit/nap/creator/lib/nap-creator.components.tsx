@@ -4,6 +4,8 @@ import { LongTap } from '@/components/ui-kit/long-tap'
 import { PickUp } from '@/components/ui-kit/pick-up'
 import { DateTimePicker } from '@/components/ui-kit/time-picker'
 import * as alertKeys from '@/constants/alert-keys.constant'
+import { numeralBreakpoints } from '@/constants/style-variables.constant'
+import { useGetAutoBreakpoint } from '@/hooks/use-auto-breakpoint'
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { Grid as GifList } from '@giphy/react-components'
 import { Alert, Button, Popconfirm } from 'antd'
@@ -159,11 +161,13 @@ export const GuidLines: FC = () => {
 export const PostsPickUp: FC<Lib.T.PostsPickUpProps> = ({ boardRef }) => {
   const { pickUpProps, onPostSelect } = Lib.H.usePostsPickUp({ boardRef })
   const pickUp = useRecoilValue(pageCreateNapAtoms.postsPickUp)
+  const { breakpoint } = useGetAutoBreakpoint()
+  const napProfileScale = breakpoint <= numeralBreakpoints.md ? 0.35 : 0.5
 
   return (
     <PickUp {...pickUpProps} visibility={pickUp}>
       {Array.from(Array(mock.pickCard.length)).map((_, index) => {
-        return <CardPick key={index} {...mock.pickCard[index]} onSelect={onPostSelect} />
+        return <CardPick key={index} {...mock.pickCard[index]} onSelect={onPostSelect} napProfileScale={napProfileScale} />
       })}
     </PickUp>
   )
@@ -185,15 +189,15 @@ export const MentionPickUp: FC<Lib.T.MentionPickUpProps> = ({ boardRef }) => {
 }
 
 export const GiphyPickUp: FC<Lib.T.GifPickUpProps> = ({ boardRef }) => {
-  const { pickUpProps, gifFetcher, onGifClick, updateKey } = Lib.H.useGiphyPickUp({ boardRef })
+  const { pickUpProps, gifFetcher, onGifClick, updateKey, windowWidth, giphyColumns } = Lib.H.useGiphyPickUp({ boardRef })
   const pickUp = useRecoilValue(pageCreateNapAtoms.giphyPickUp)
 
   return (
     <PickUp {...pickUpProps} visibility={pickUp}>
       <Lib.S.GIFs>
         <GifList
-          width={760}
-          columns={5}
+          width={windowWidth >= 760 ? 760 : windowWidth - 35}
+          columns={giphyColumns()}
           fetchGifs={gifFetcher}
           onGifClick={onGifClick}
           noLink

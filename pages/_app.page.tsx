@@ -1,6 +1,7 @@
 import { AcceleratorsProvider } from '@/providers/accelerator'
 import { DevtoolsProvider } from '@/providers/devtools'
 import { FontProvider } from '@/providers/font'
+import { GlobalHooksProvider } from '@/providers/global-hooks'
 import { InternationalizationProvider } from '@/providers/internationalization'
 import { GlobalStyles } from '@/styles'
 import '@/styles/index.scss'
@@ -25,7 +26,9 @@ const FlairVerse: NextComponent = ({ Component, pageProps }) => {
             <InternationalizationProvider>
               <AcceleratorsProvider>
                 <Layout>
-                  <Component {...pageProps} />
+                  <GlobalHooksProvider>
+                    <Component {...pageProps} />
+                  </GlobalHooksProvider>
                 </Layout>
               </AcceleratorsProvider>
             </InternationalizationProvider>

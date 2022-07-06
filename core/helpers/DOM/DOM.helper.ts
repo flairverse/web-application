@@ -293,4 +293,19 @@ export class DOM {
     scrollable.onmousedown = evt => mouseDownHandler(evt.clientX, evt.clientY)
     scrollable.ontouchstart = evt => mouseDownHandler(evt.touches[0].pageX, evt.touches[0].pageY)
   }
+
+  /**
+   *
+   *
+   *
+   * forcedly convert text to plain text when pasting copied text to a contentEditable element
+   * the contentEditable param can be the actual element with contentEditable attribute itself, or any of its parents
+   */
+  static forcePlainTextForContentEditables = (contentEditable: HTMLElement) => {
+    contentEditable.addEventListener('paste', evt => {
+      evt.preventDefault()
+      const text = (evt.originalEvent || evt).clipboardData?.getData('text/plain')
+      document.execCommand('insertHTML', false, text)
+    })
+  }
 }

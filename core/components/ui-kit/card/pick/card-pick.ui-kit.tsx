@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { NapProfile } from '../../nap'
 import * as Lib from './lib'
 
-export const CardPick: FC<Lib.T.CardPickProps> = ({ author, post, onSelect, ...rest }) => {
+export const CardPick: FC<Lib.T.CardPickProps> = ({ author, post, onSelect, napProfileScale, ...rest }) => {
   const { id: postId, title, cover, slug } = post
   const { fullName, id: authorId, username, profile } = author
 
@@ -17,7 +17,7 @@ export const CardPick: FC<Lib.T.CardPickProps> = ({ author, post, onSelect, ...r
             profile={profile}
             username={username}
             id={authorId}
-            size={0.5}
+            size={napProfileScale || 0.5}
             mode="horizontal"
             className="napProfile"
           />

@@ -97,7 +97,7 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
     blackList,
     effectHolders,
     sync = true,
-  }: Lib.T.CompileSharedDwnArgs): HTMLDivElement => {
+  }: Lib.T.CompileSharedDownArgs): HTMLDivElement => {
     const { left, top } = position
     const element = addFrameTo(node, actionTypes || [], type, id)
     DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
@@ -122,14 +122,52 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    *
    *
    *
+   * compiles all text based attributes of an item object (like text and link)
+   */
+  const compileTextBasedDown = ({ node, effect, id, position, rotate, type, additionalActionTypes, fontSize }: Lib.T.CompileTextBasedDownArgs) => {
+    const actionTypes: Lib.T.ElementFrameActionTypes[] = ['editInnerText']
+    if (additionalActionTypes) {
+      actionTypes.push(...additionalActionTypes)
+    }
+
+    const element = compileSharedDown({ actionTypes, effect, id, node, position, rotate, type })
+
+    DOM.addStyles(element, { fontSize })
+    DOM.forcePlainTextForContentEditables(node)
+
+    node.addEventListener('keyup', () => node.setAttribute('data-text', node.innerText))
+    node.addEventListener('blur', () => {
+      NapStorage.update(element)
+
+      if (!node.innerText.trim()) {
+        node.innerText = 'Type Something here...'
+      }
+    })
+
+    return element
+  }
+
+  /**
+   *
+   *
+   *
    * compiles a text object to actual element
    */
   const compileTextDown = ({ type, id, text, position, fontSize, effect, rotate }: Lib.T.Elements.Text): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.text(text))
-    node.addEventListener('keyup', () => node.setAttribute('data-text', node.innerText))
-    node.addEventListener('blur', () => NapStorage.update(element), false)
-    const element = compileSharedDown({ actionTypes: ['editInnerText'], effect, id, node, position, rotate, type })
-    DOM.addStyles(element, { fontSize })
+    const element = compileTextBasedDown({ node, effect, id, position, rotate, type, fontSize })
+    return element
+  }
+
+  /**
+   *
+   *
+   *
+   * compiles a link object to actual element
+   */
+  const compileLinkDown = ({ type, id, link, position, linkFontSize, effect, rotate, href }: Lib.T.Elements.Link): HTMLDivElement => {
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.link(link, href))
+    const element = compileTextBasedDown({ node, effect, id, position, rotate, type, fontSize: linkFontSize, additionalActionTypes: ['editLinkRef'] })
     return element
   }
 
@@ -177,22 +215,8 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
       blackList: ['questionText', 'hintSection'],
       effectHolders: ['.napElement'],
     })
+    DOM.forcePlainTextForContentEditables(node)
     activateFrameByFocusingContentEditables(element)
-    return element
-  }
-
-  /**
-   *
-   *
-   *
-   * compiles a link object to actual element
-   */
-  const compileLinkDown = ({ type, id, link, position, linkFontSize, effect, rotate, href }: Lib.T.Elements.Link): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.link(link, href))
-    node.addEventListener('keyup', () => node.setAttribute('data-text', node.innerText))
-    node.addEventListener('blur', () => NapStorage.update(element), false)
-    const element = compileSharedDown({ effect, id, node, position, rotate, type, actionTypes: ['editInnerText', 'editLinkRef'] })
-    DOM.addStyles(element, { fontSize: linkFontSize })
     return element
   }
 
@@ -216,6 +240,7 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
     })
     node.querySelector('.questionText')?.addEventListener('blur', () => NapStorage.update(element))
     node.querySelector('.hintSection')?.addEventListener('blur', () => NapStorage.update(element))
+    DOM.forcePlainTextForContentEditables(node)
     activateFrameByFocusingContentEditables(element)
 
     const answerNumbers = <NodeListOf<HTMLDivElement>>element.querySelectorAll('.answer > span')
@@ -281,7 +306,6 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    */
   const compileReminderDown = ({ effect, id, position, reminderName, rotate, type, endTime }: Lib.T.Elements.Reminder): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.reminder({ reminderName, endTime }))
-    node.querySelector('.reminderName')?.addEventListener('blur', () => NapStorage.update(element), false)
     const element = compileSharedDown({
       effect,
       id,
@@ -293,6 +317,7 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
       blackList: ['reminderName'],
       sync: false,
     })
+    DOM.forcePlainTextForContentEditables(node)
     activateFrameByFocusingContentEditables(element)
     return element
   }

@@ -263,9 +263,14 @@ export interface UseReminderTimePicker extends Pick<ItemsProps, 'boardRef'> {}
 
 export interface EditLinkHrefPopupProps extends Pick<ItemsProps, 'boardRef'> {}
 
-export interface CompileSharedDwnArgs extends Elements.BaseElement, Pick<DOMHelperLib.T.MakeElementDraggableArgs, 'blackList'> {
+export interface CompileSharedDownArgs extends Elements.BaseElement, Pick<DOMHelperLib.T.MakeElementDraggableArgs, 'blackList'> {
   node: HTMLElement
   actionTypes?: ElementFrameActionTypes[]
   effectHolders?: string[]
   sync?: boolean
+}
+
+export interface CompileTextBasedDownArgs extends Omit<CompileSharedDownArgs, 'actionTypes' | 'effectHolders' | 'sync' | 'blackList'> {
+  additionalActionTypes?: ElementFrameActionTypes[]
+  fontSize: string
 }

@@ -13,7 +13,6 @@ export const useBreakpoint = (breakpoint: number, equality: boolean = true): [bo
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const { innerWidth } = window
-      console.log({ innerWidth, breakpoint })
 
       if (equality) {
         setLessThan(innerWidth <= breakpoint)
