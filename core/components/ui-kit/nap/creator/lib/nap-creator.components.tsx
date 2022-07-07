@@ -42,10 +42,10 @@ export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active, boardRef, imageInputRe
 }
 
 export const ToolBoxNextBtn: FC<Lib.T.ToolBoxNextBtnProps> = ({ boardRef }) => {
-  const { compileAllUp } = Lib.H.useBoardCompileUp(boardRef)
+  const { compileAndValidateAll } = Lib.H.useBoardCompileUp(boardRef)
 
   return (
-    <Button type="primary" onClick={compileAllUp} className="nextBtn">
+    <Button type="primary" onClick={() => compileAndValidateAll()} className="nextBtn">
       <span>Next</span>
       <HiChevronRight color="var(--layer-2-text-3)" size={20} />
     </Button>
@@ -95,7 +95,7 @@ export const Items: FC<Lib.T.ItemsProps> = ({ onOptionsClick, boardRef, imageInp
     <>
       <Lib.S.ItemsShadowing active={showMoreOptions} />
 
-      <Lib.S.ItemsContainer className={`${showMoreOptions ? 'showMore' : 'showLess'}`}>
+      <Lib.S.ItemsContainer className={`itemsContainer ${showMoreOptions ? 'showMore' : 'showLess'}`}>
         <ul>
           {items.map(({ Icon, title, key }, index) => (
             <li

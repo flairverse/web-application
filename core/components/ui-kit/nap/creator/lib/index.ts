@@ -1,5 +1,6 @@
 export * as C from './nap-creator.components'
 export * as CO from './nap-creator.constants'
+export * as E from './nap-creator.enum'
 export * as HE from './nap-creator.helpers'
 export * as H from './nap-creator.hooks'
 export * as S from './nap-creator.styles'

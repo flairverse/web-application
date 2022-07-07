@@ -1,3 +1,4 @@
+import { Str } from '@/helpers/string'
 import moment from 'moment'
 import { RefObject } from 'react'
 import * as Lib from '.'
@@ -11,7 +12,7 @@ export const boardContains = (item: Lib.T.Options, boardRef: RefObject<HTMLDivEl
   return board.querySelector(`.${item}`) !== null
 }
 
-export const getAllFrames = (boardRef: RefObject<HTMLDivElement | null>, loopAndDo?: (element: HTMLDivElement) => void) => {
+export const getAllFrames = (boardRef: RefObject<HTMLDivElement | null>, loopAndDo?: (element: HTMLDivElement, index: number) => void) => {
   const { current: board } = boardRef
   if (!board) {
     return null
@@ -27,7 +28,7 @@ export const getAllFrames = (boardRef: RefObject<HTMLDivElement | null>, loopAnd
     return frames
   }
 
-  Array.from(frames).forEach(loopAndDo)
+  Array.from(frames).forEach((element, index) => loopAndDo(element, index))
   return frames
 }
 
@@ -121,4 +122,8 @@ export const getReminderInitialTime = (defaults?: { now: Date; future: Date }) =
     minimumDate: moment().add('1', 'hour').toDate(),
     maximumDate: nextYear,
   }
+}
+
+export const makeElementID = (): string => {
+  return Str.random(Lib.CO.ELEMENTS_ID_LENGTHS, 'allLetters')
 }

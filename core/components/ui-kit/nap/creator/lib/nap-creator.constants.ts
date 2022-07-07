@@ -15,6 +15,10 @@ export const MIN_BOARD_WIDTH = 768
 
 export const MINIMUM_SCALE = 0.7
 
+export const ELEMENT_ROTATIONS = [0, 45, 90, 135, 180, 225, 270, 315] as const
+
+export const ELEMENTS_ID_LENGTHS = 20
+
 export const ELEMENTAL_OPTIONS = ['text', 'image', 'gif', 'question', 'reminder', 'quiz', 'post', 'mention', 'link'] as const
 export const OPTIONS = [...ELEMENTAL_OPTIONS, 'more|less'] as const
 
@@ -23,6 +27,7 @@ export const FRAMES_DATA_ATTRS = {
   SCALE: 'data-scale',
   TYPE: 'data-type',
   EFFECT: 'data-effect',
+  FONT_SIZE: 'data-font-size',
 }
 
 export const EFFECTS = {
@@ -306,11 +311,11 @@ export const ITEMS_DOM_STRING_COMPONENTS: Lib.T.ItemsDOMStringComponents = {
 }
 
 export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
-  text: innerText => `
+  text: (innerText, _dummyTexts) => `
     <p data-text="${innerText}">${innerText}</p>
   `,
 
-  post: ({ post, user }) => `
+  post: ({ post, user }, _dummyTexts) => `
     <article class="napElement post" data-post-id="${post.id}">
       <header>
         <div class="profilePicture">
@@ -380,7 +385,7 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
     </article>
   `,
 
-  mention: ({ fullName, username, job, profile, userID, hasNap, seen, followers, subscribes }) => `
+  mention: ({ fullName, username, job, profile, userID, hasNap, seen, followers, subscribes }, _dummyTexts) => `
     <div class="napElement mention" data-user-id="${userID}">
       <div class="profileContainer">
         ${ITEMS_DOM_STRING_COMPONENTS.profile({ hasNap, seen, profile, size: 6 })}
@@ -406,7 +411,7 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
     </div>
   `,
 
-  question: ({ hint, question, questionerUser: { hasNap, profile, seen }, hintEnabled }) => `
+  question: ({ hint, question, questionerUser: { hasNap, profile, seen }, hintEnabled }, dummyTexts) => `
     <div
       class="napElement question"
       data-hint-enabled=${hintEnabled}
@@ -417,22 +422,22 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
       
       <p
         class="questionText"
-        data-ph="Ask me anything..."
+        data-ph="${dummyTexts.question.questionText}"
         contenteditable="true"
       >${question}</p>
       
       <p
         class="hintSection"
-        data-ph="Hint (optional)"
+        data-ph="${dummyTexts.question.hint}"
         contenteditable="true"
         style="display: ${hintEnabled ? 'block' : 'none'}"
       >${hint}</p>
 
-      <span>Type something here</span>
+      <span>${dummyTexts.question.replyButton}</span>
     </div>
   `,
 
-  quiz: ({ answers, correctAnswer, hintText, questionText, questioner: { hasNap, profile, seen }, hintTextEnabled }) => `
+  quiz: ({ answers, correctAnswer, hintText, questionText, questioner: { hasNap, profile, seen }, hintTextEnabled }, dummyTexts) => `
     <div
       class="napElement quiz"
       data-hint-enabled=${hintTextEnabled}
@@ -443,13 +448,13 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
 
       <p
         class="questionText"
-        data-ph="Ask me anything..."
+        data-ph="${dummyTexts.quiz.questionText}"
         contenteditable="true"
       >${questionText}</p>
 
       <p
         class="hintSection"
-        data-ph="Hint (optional)"
+        data-ph="${dummyTexts.quiz.hint}"
         contenteditable="true"
         style="display: ${hintTextEnabled ? 'block' : 'none'}"
       >${hintText}</p>
@@ -470,7 +475,7 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
 
                 <p 
                   class="answerText"
-                  data-ph="Type the answer"
+                  data-ph="${dummyTexts.quiz.answersPlaceholder}"
                   contenteditable="true"
                   data-index="${index}"
                 >${answer}</p>
@@ -482,7 +487,7 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
     </div>
   `,
 
-  reminder: ({ reminderName, endTime }) => {
+  reminder: ({ reminderName, endTime }, dummyTexts) => {
     const endsOn = moment(endTime)
     const timeZone = Dates.getDateTimezone(endTime)
 
@@ -493,31 +498,31 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
       >
         <p
           class="reminderName"
-          data-ph="Type Reminder Name..."
+          data-ph="${dummyTexts.reminder.name}"
           contenteditable="true"
         >${reminderName}</p>
 
         <div class="no-effect design">
           <div class="info">
-            <p>Ends on ${endsOn.format('MMMM D, YYYY')}</p>
+            <p>${dummyTexts.reminder.endsOn} ${endsOn.format('MMMM D, YYYY')}</p>
             <p>At ${endsOn.format('hh:mm a')}, ${timeZone}</p>
           </div>
         </div>
 
         <div class="separated design">
-          <p class="title">Ends on</p>
+          <p class="title">${dummyTexts.reminder.endsOn}</p>
           <div class="items">
             <span>${endsOn.format('MMMM')}</span>
             <span>${endsOn.format('D')}</span>
             <span>${endsOn.format('YYYY')}</span>
-            <i>At</i>
+            <i>${dummyTexts.reminder.at}</i>
             <span>${endsOn.format('hh:mm')}</span>
           </div>
-          <p class="info">12-hour (${endsOn.format('a').toUpperCase().split('').join('.')}), ${timeZone}</p>
+          <p class="info">${dummyTexts.reminder.twelveHour} (${endsOn.format('a').toUpperCase().split('').join('.')}), ${timeZone}</p>
         </div>
 
         <div class="actions">
-          <span class="remindMe">Remind me</span>
+          <span class="remindMe">${dummyTexts.reminder.remindMe}</span>
         </div>
       </div>
     `

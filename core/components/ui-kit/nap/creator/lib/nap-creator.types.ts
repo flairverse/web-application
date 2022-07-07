@@ -84,7 +84,7 @@ export namespace Elements {
       left: string
     }
   }
-  export type ElementRotation = 0 | 45 | 90 | 135 | 180 | 225 | 270 | 315
+  export type ElementRotation = typeof Lib.CO.ELEMENT_ROTATIONS[number]
 
   export interface Text extends BaseElement<TextEffects, 'text'> {
     text: string
@@ -231,18 +231,24 @@ export type ItemsDOMStringComponents = {
   imageBaseItem: (args: { dataUrl: string; width: string }, type: 'image' | 'gif') => string
 }
 
+export type DummyTexts = ReturnType<typeof Lib.H.useDummyTexts>
+
 export type ItemsDOMStringGenerators = {
-  text: (innerText: string) => string
-  post: (args: Pick<Elements.Post, 'post' | 'user'>) => string
+  text: (innerText: string, dummyTexts: DummyTexts) => string
+  post: (args: Pick<Elements.Post, 'post' | 'user'>, dummyTexts: DummyTexts) => string
   mention: (
     args: Pick<Elements.Mention, 'fullName' | 'job' | 'profile' | 'username' | 'userID' | 'hasNap' | 'seen' | 'followers' | 'subscribes'>,
+    dummyTexts: DummyTexts,
   ) => string
-  question: (args: Pick<Elements.Question, 'hint' | 'question' | 'questionerUser' | 'hintEnabled'>) => string
-  quiz: (args: Pick<Elements.Quiz, 'answers' | 'correctAnswer' | 'hintText' | 'questionText' | 'questioner' | 'hintTextEnabled'>) => string
-  reminder: (args: Pick<Elements.Reminder, 'endTime' | 'reminderName'>) => string
-  gif: (args: Pick<Elements.Gif, 'gifURL' | 'gifWidth'>) => string
-  image: (args: Pick<Elements.Image, 'imageURL' | 'imageWidth'>) => string
-  link: (innerText: string, href: string) => string
+  question: (args: Pick<Elements.Question, 'hint' | 'question' | 'questionerUser' | 'hintEnabled'>, dummyTexts: DummyTexts) => string
+  quiz: (
+    args: Pick<Elements.Quiz, 'answers' | 'correctAnswer' | 'hintText' | 'questionText' | 'questioner' | 'hintTextEnabled'>,
+    dummyTexts: DummyTexts,
+  ) => string
+  reminder: (args: Pick<Elements.Reminder, 'endTime' | 'reminderName'>, dummyTexts: DummyTexts) => string
+  gif: (args: Pick<Elements.Gif, 'gifURL' | 'gifWidth'>, dummyTexts: DummyTexts) => string
+  image: (args: Pick<Elements.Image, 'imageURL' | 'imageWidth'>, dummyTexts: DummyTexts) => string
+  link: (innerText: string, href: string, dummyTexts: DummyTexts) => string
 }
 
 export interface MentionProps {
@@ -273,4 +279,14 @@ export interface CompileSharedDownArgs extends Elements.BaseElement, Pick<DOMHel
 export interface CompileTextBasedDownArgs extends Omit<CompileSharedDownArgs, 'actionTypes' | 'effectHolders' | 'sync' | 'blackList'> {
   additionalActionTypes?: ElementFrameActionTypes[]
   fontSize: string
+}
+
+export interface ValidatorResult {
+  isValid: boolean
+  reasons: ValidatorResultReason[]
+}
+
+export type ValidatorResultReason = {
+  error: Lib.E.ValidatorErrorEnum
+  elementID: string
 }

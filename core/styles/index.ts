@@ -320,6 +320,18 @@ export const GlobalStyles = createGlobalStyle`
       background-color: var(--layer-1);
     }
   }
+
+  .ant-message-notice-content {
+    background-color: var(--layer-1);
+
+    svg {
+      opacity: .5;
+    }
+
+    span {
+      color: var(--layer-2-text-1);
+    }
+  }
   /**
   * End -- Ant design customization
   **/

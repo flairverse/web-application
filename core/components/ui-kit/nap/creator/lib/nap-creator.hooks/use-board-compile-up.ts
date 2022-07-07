@@ -3,6 +3,10 @@ import { RefObject } from 'react'
 import * as Lib from '..'
 
 export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
+  const { validate } = Lib.H.useBoardValidate()
+  const { mapErrors } = Lib.H.useShowErrors(boardRef)
+  const { fix } = Lib.H.useBoardFixers()
+
   /**
    *
    *
@@ -63,7 +67,7 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
    *
    *
    *
-   * compiles ell existing frames on the board to a json file
+   * compiles all existing frames on the board to a json file
    */
   const compileAllUp = () => {
     const allObjects: Lib.T.Elements.All[] = []
@@ -78,6 +82,41 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
     console.log(allObjects)
     console.log(JSON.stringify(allObjects))
     return allObjects
+  }
+
+  /**
+   *
+   *
+   *
+   * compiles and validates all existing frames on the board
+   */
+  const compileAndValidateAll = (showErrors = true) => {
+    const allItems: Lib.T.Elements.All[] = []
+    const allValidations: Lib.T.ValidatorResult[] = []
+
+    Lib.HE.getAllFrames(boardRef, frame => {
+      const item = <Lib.T.Elements.All>compileUp(frame)
+
+      if (item) {
+        const fixed = fix(item) || item
+        const { isValid, reasons } = validate(fixed)
+
+        allItems.push(fixed)
+
+        if (!isValid) {
+          allValidations.push({ isValid, reasons })
+        }
+      }
+    })
+
+    if (allValidations.length > 0 && showErrors) {
+      mapErrors(allValidations)
+    }
+
+    console.table(allItems)
+    console.table(allValidations)
+    console.log(JSON.stringify(allItems))
+    return allItems
   }
 
   /**
@@ -110,7 +149,7 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
    */
   const compileTextUp = (frame: HTMLDivElement): Lib.T.Elements.Text => {
     const { id, position, rotate, effect } = compileSharedUp<Lib.T.TextEffects>(frame)
-    const { fontSize } = window.getComputedStyle(frame)
+    const fontSize = frame.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.FONT_SIZE) || '20px'
     const text = frame.innerText
 
     return {
@@ -121,6 +160,30 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
       fontSize,
       text,
       type: 'text',
+    }
+  }
+
+  /**
+   *
+   *
+   *
+   * compiles a link frame to a JSON
+   */
+  const compileLinkUp = (frame: HTMLDivElement): Lib.T.Elements.Link => {
+    const { effect, id, position, rotate } = compileSharedUp<Lib.T.LinkEffects>(frame)
+    const linkFontSize = frame.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.FONT_SIZE) || '20px'
+    const link = frame.innerText
+    const href = (<HTMLParagraphElement>frame.querySelector('p.link')!).getAttribute('data-href') || ''
+
+    return {
+      type: 'link',
+      id,
+      position,
+      rotate,
+      effect,
+      href,
+      link,
+      linkFontSize,
     }
   }
 
@@ -252,30 +315,6 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
    *
    *
    *
-   * compiles a link frame to a JSON
-   */
-  const compileLinkUp = (frame: HTMLDivElement): Lib.T.Elements.Link => {
-    const { effect, id, position, rotate } = compileSharedUp<Lib.T.LinkEffects>(frame)
-    const { fontSize: linkFontSize } = window.getComputedStyle(frame)
-    const link = frame.innerText
-    const href = (<HTMLParagraphElement>frame.querySelector('p.link')!).getAttribute('data-href') || ''
-
-    return {
-      type: 'link',
-      id,
-      position,
-      rotate,
-      effect,
-      href,
-      link,
-      linkFontSize,
-    }
-  }
-
-  /**
-   *
-   *
-   *
    * compiles a quiz frame to a JSON
    */
   const compileQuizUp = (frame: HTMLDivElement): Lib.T.Elements.Quiz => {
@@ -283,7 +322,6 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
     const hintText = (<HTMLParagraphElement>frame.querySelector('.hintSection')!).innerText
     const questionText = (<HTMLParagraphElement>frame.querySelector('.questionText')!).innerText
     const hintTextEnabled = (<HTMLDivElement>frame.querySelector('.napElement')!).getAttribute('data-hint-enabled') === 'true'
-    console.log(hintTextEnabled)
     const questioner = {
       profile: (<HTMLImageElement>frame.querySelector('.profile')!).src,
       hasNap: (<HTMLDivElement>frame.querySelector('.profileContainer > div')!).getAttribute('data-has-nap') === 'true',
@@ -380,5 +418,5 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
     }
   }
 
-  return { compileUp, compileAllUp }
+  return { compileUp, compileAllUp, compileAndValidateAll }
 }

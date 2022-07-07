@@ -327,6 +327,45 @@ export const GuideLines = styled.div`
       border-radius: 20px;
     }
   }
+
+  @media screen and (max-width: ${breakPoints.md}) {
+    padding: 5px 6px 8px 6px;
+
+    > .left {
+      > .top {
+        > .profile {
+          width: 25px;
+          height: 25px;
+        }
+
+        > .name {
+          > .username {
+            width: 50px;
+            height: 5px;
+          }
+
+          > .job {
+            width: 80px;
+            height: 3px;
+          }
+        }
+
+        > .action svg {
+          width: 15px;
+          height: 15px;
+        }
+      }
+      > .bottom > .input {
+        border-width: 2px;
+        height: 27px;
+        font-size: 8pt;
+      }
+    }
+
+    > .right {
+      width: 3px;
+    }
+  }
 `
 
 export const Tools = styled.div`

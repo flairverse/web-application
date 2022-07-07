@@ -49,9 +49,11 @@ export const useToolsForLinkInserter = ({ boardRef }: Lib.T.ToolsForInserters) =
       case 'link-font-size': {
         const focusedItem = getFocusedItem()
         if (focusedItem) {
-          const currentFontSize = parseInt(window.getComputedStyle(focusedItem).fontSize)
+          const currentFontSize = parseInt(focusedItem.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.FONT_SIZE) || '20px')
           const nextFontSize = currentFontSize + fontSizeStep
-          focusedItem.style.fontSize = (nextFontSize > fontSizeRange[1] ? fontSizeRange[0] : nextFontSize) + 'px'
+          const newFontSize = (nextFontSize > fontSizeRange[1] ? fontSizeRange[0] : nextFontSize) + 'px'
+          focusedItem.style.fontSize = newFontSize
+          focusedItem.setAttribute(Lib.CO.FRAMES_DATA_ATTRS.FONT_SIZE, newFontSize)
           focusedItem.focus()
           NapStorage.update(focusedItem)
         }

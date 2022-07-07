@@ -15,6 +15,7 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
   )
   const setEditLinkPopupLinkTextAndRef = useSetRecoilState(pageCreateNapAtoms.editLinkPopupLinkTextAndRef)
   const NapStorage = Lib.H.useNapStorage(boardRef)
+  const dummyTexts = Lib.H.useDummyTexts()
 
   /**
    *
@@ -140,7 +141,11 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
       NapStorage.update(element)
 
       if (!node.innerText.trim()) {
-        node.innerText = 'Type Something here...'
+        if (type === 'link') {
+          node.innerText = dummyTexts.link.defaultText
+        } else if (type === 'text') {
+          node.innerText = dummyTexts.text.defaultText
+        }
       }
     })
 
@@ -154,7 +159,7 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    * compiles a text object to actual element
    */
   const compileTextDown = ({ type, id, text, position, fontSize, effect, rotate }: Lib.T.Elements.Text): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.text(text))
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.text(text, dummyTexts))
     const element = compileTextBasedDown({ node, effect, id, position, rotate, type, fontSize })
     return element
   }
@@ -166,7 +171,7 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    * compiles a link object to actual element
    */
   const compileLinkDown = ({ type, id, link, position, linkFontSize, effect, rotate, href }: Lib.T.Elements.Link): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.link(link, href))
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.link(link, href, dummyTexts))
     const element = compileTextBasedDown({ node, effect, id, position, rotate, type, fontSize: linkFontSize, additionalActionTypes: ['editLinkRef'] })
     return element
   }
@@ -178,7 +183,7 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    * compiles a post object to actual element
    */
   const compilePostDown = ({ id, position, rotate, type, effect, ...rest }: Lib.T.Elements.Post): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.post(rest))
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.post(rest, dummyTexts))
     const element = compileSharedDown({ effect, id, node, position, rotate, type, effectHolders: ['.napElement'] })
     return element
   }
@@ -190,7 +195,7 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    * compiles a mention object to actual element
    */
   const compileMentionDown = ({ effect, id, position, rotate, type, ...rest }: Lib.T.Elements.Mention): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.mention(rest))
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.mention(rest, dummyTexts))
     const element = compileSharedDown({ effect, id, node, position, rotate, type, effectHolders: ['.napElement'] })
     return element
   }
@@ -202,7 +207,7 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    * compiles a question object to actual element
    */
   const compileQuestionDown = ({ effect, id, position, rotate, type, ...rest }: Lib.T.Elements.Question): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.question(rest))
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.question(rest, dummyTexts))
     node.querySelector('.questionText')?.addEventListener('blur', () => NapStorage.update(element))
     node.querySelector('.hintSection')?.addEventListener('blur', () => NapStorage.update(element))
     const element = compileSharedDown({
@@ -227,7 +232,7 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    * compiles a quiz object to actual element
    */
   const compileQuizDown = ({ effect, id, position, rotate, type, ...rest }: Lib.T.Elements.Quiz): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.quiz(rest))
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.quiz(rest, dummyTexts))
     const element = compileSharedDown({
       effect,
       id,
@@ -305,7 +310,7 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    * compiles a reminder object to actual element
    */
   const compileReminderDown = ({ effect, id, position, reminderName, rotate, type, endTime }: Lib.T.Elements.Reminder): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.reminder({ reminderName, endTime }))
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.reminder({ reminderName, endTime }, dummyTexts))
     const element = compileSharedDown({
       effect,
       id,
@@ -329,7 +334,7 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    * compiles a gif object to actual element
    */
   const compileGifDown = ({ effect, gifURL, id, position, rotate, type, gifWidth }: Lib.T.Elements.Gif): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.gif({ gifURL, gifWidth }))
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.gif({ gifURL, gifWidth }, dummyTexts))
     const element = compileSharedDown({ effect, id, node, position, rotate, type, effectHolders: ['.napElement'] })
     return element
   }
@@ -341,7 +346,7 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    * compiles a gif object to actual element
    */
   const compileImageDown = ({ effect, imageURL, id, position, rotate, type, imageWidth }: Lib.T.Elements.Image): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.image({ imageURL, imageWidth }))
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.image({ imageURL, imageWidth }, dummyTexts))
     const element = compileSharedDown({ effect, id, node, position, rotate, type, effectHolders: ['.napElement'] })
     return element
   }

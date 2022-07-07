@@ -1,4 +1,3 @@
-import { Str } from '@/helpers/string'
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { useSetRecoilState } from 'recoil'
 import * as Lib from '..'
@@ -9,6 +8,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
   const setGifPickupVisibility = useSetRecoilState(pageCreateNapAtoms.giphyPickUp)
   const items = Lib.H.useDefinedItems()
   const NapStorage = Lib.H.useNapStorage(boardRef)
+  const dummyTexts = Lib.H.useDummyTexts()
 
   return class Insert {
     board: HTMLDivElement | null = null
@@ -135,7 +135,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
      * TODO: check if the new generated ID doest not already exists in the board
      */
     makeID = (): string => {
-      return Str.random(20, 'allLetters')
+      return Lib.HE.makeElementID()
     }
 
     /**
@@ -151,7 +151,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
       const text: Lib.T.Elements.Text = defaultValues || {
         type: 'text',
         id: this.makeID(),
-        text: 'Type Something here...',
+        text: dummyTexts.text.defaultText,
         position: { left: '85px', top: '85px' },
         rotate: 0,
         fontSize: '20px',
@@ -372,12 +372,12 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
       const link: Lib.T.Elements.Link = defaultValues || {
         type: 'link',
         id: this.makeID(),
-        link: 'Type link text here...',
+        link: dummyTexts.link.defaultText,
         position: { left: '85px', top: '85px' },
         rotate: 0,
         linkFontSize: '20px',
         effect: 'no-effect',
-        href: 'https://example.com',
+        href: dummyTexts.link.defaultLink,
       }
       this.appendItem(link, pushToDB)
     }
