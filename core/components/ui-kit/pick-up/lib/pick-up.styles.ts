@@ -1,3 +1,4 @@
+import { breakPoints } from '@/constants/style-variables.constant'
 import styled from 'styled-components'
 import * as Lib from '.'
 
@@ -78,6 +79,27 @@ export const PickUpContainer = styled.div<Pick<Lib.T.PickUpProps, 'boxHeight' | 
           display: flex;
           align-items: center;
           justify-content: center;
+        }
+      }
+
+      @media screen and (max-width: ${breakPoints.md}) {
+        padding: 0 10px;
+
+        > input {
+          height: 40px;
+          padding: 0 5px;
+          font-size: var(--f-1);
+        }
+
+        > button {
+          &.cancel {
+            width: 25px;
+            height: 25px;
+          }
+        }
+
+        > svg {
+          width: 20px;
         }
       }
     }

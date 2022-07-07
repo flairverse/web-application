@@ -8,15 +8,24 @@ export const useNapStorage = (boardRef: RefObject<HTMLDivElement>) => {
 
   // CRUD API for the nap storage
   return class NapStorage {
-    static create(type: Lib.T.ElementalOptions, elementInfo: Lib.T.Elements.All) {
-      db.addNewNapElement(type, elementInfo)
+    static async create(type: Exclude<Lib.T.ElementalOptions, 'reminder'>, elementInfo: Lib.T.Elements.All) {
+      if (!(await db.getDraftedNapBoard())) {
+        return
+      }
+      await db.addNewNapElement(type, elementInfo)
     }
 
     static async readAll() {
+      if (!(await db.getDraftedNapBoard())) {
+        return []
+      }
       return await db.readAllNapElements()
     }
 
     static async update(element: HTMLDivElement) {
+      if (!(await db.getDraftedNapBoard())) {
+        return
+      }
       const compiledElement = compileUp(element)
       if (!compiledElement) {
         return
@@ -25,6 +34,9 @@ export const useNapStorage = (boardRef: RefObject<HTMLDivElement>) => {
     }
 
     static async delete(element: HTMLDivElement) {
+      if (!(await db.getDraftedNapBoard())) {
+        return
+      }
       const compiledElement = compileUp(element)
       if (!compiledElement) {
         return

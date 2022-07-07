@@ -1,6 +1,8 @@
 import { PickUpUIKitLib } from '@/components/ui-kit/pick-up'
 import { environments } from '@/constants/environments.constant'
 import * as storeKeys from '@/constants/store-keys.constants'
+import { numeralBreakpoints } from '@/constants/style-variables.constant'
+import { useGetAutoBreakpoint } from '@/hooks/use-auto-breakpoint'
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { StoreKeys } from '@/types/recoil.type'
 import { GifsResult, GiphyFetch } from '@giphy/js-fetch-api'
@@ -18,6 +20,7 @@ export const useGiphyPickUp = ({ boardRef }: Pick<Lib.T.PostsPickUpProps, 'board
   const [searchQuery, setSearchQuery] = useState('')
   const [updateKey, setUpdateKey] = useState(0)
   const gf = new GiphyFetch(environments.giphyKey)
+  const { windowWidth, breakpoint } = useGetAutoBreakpoint()
 
   const gifFetcher = (offset: number): Promise<GifsResult> => {
     if (searchQuery) {
@@ -56,5 +59,17 @@ export const useGiphyPickUp = ({ boardRef }: Pick<Lib.T.PostsPickUpProps, 'board
     insert.newGif(fixed_height.url)
   }
 
-  return { pickUpProps, gifFetcher, onGifClick, updateKey }
+  const giphyColumns = (): number => {
+    if (breakpoint > numeralBreakpoints.md) {
+      return 5
+    } else if (breakpoint <= numeralBreakpoints.md && breakpoint > numeralBreakpoints.sm) {
+      return 4
+    } else if (breakpoint <= numeralBreakpoints.sm && breakpoint > numeralBreakpoints.xs) {
+      return 3
+    } else {
+      return 2
+    }
+  }
+
+  return { pickUpProps, gifFetcher, onGifClick, updateKey, windowWidth, giphyColumns }
 }

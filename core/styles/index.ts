@@ -243,6 +243,95 @@ export const GlobalStyles = createGlobalStyle`
     color: white;
     opacity: .3;
   }
+
+  .ant-alert-success {
+    background-color: var(--c-success-trans-1);
+    border: 1px solid var(--c-success-trans-2);
+    color: var(--c-success);
+
+    .ant-alert-message {
+      color: inherit;
+    }
+
+    > button {
+      padding: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 150ms linear;
+      
+      &:hover {
+        background: var(--c-success-trans-1);
+      }
+      
+      path {
+        fill: var(--c-success);
+      }
+    }
+
+    > .ant-alert-action {
+      > button {
+        &.ant-btn-text {
+          color: var(--c-success);
+          background: var(--c-success-trans-1);
+        }
+      }
+    }
+  }
+
+  .ant-popover-inner {
+    background-color: var(--layer-2);
+
+    .ant-popover-message-title {
+      color: var(--layer-2-text-1);
+    }
+  }
+
+  .ant-popover-arrow-content {
+    --antd-arrow-background-color: var(--layer-2);
+    background-color: var(--layer-2);
+  }
+
+  .ant-notification-notice {
+    background-color: var(--layer-2);
+
+    .ant-notification-notice-message,
+    .ant-notification-notice-description {
+      color: var(--layer-2-text-1);
+    }
+
+    .anticon-close {
+      path {
+        fill: var(--layer-2-text-1);
+      }
+    }
+  }
+
+  .ant-popover-inner-content {
+    color: var(--layer-2-text-3);
+  }
+
+  .ant-popover-content {
+    .ant-popover-arrow-content {
+      --antd-arrow-background-color: var(--layer-1);
+    background-color: var(--layer-1);
+    }
+
+    .ant-popover-inner {
+      background-color: var(--layer-1);
+    }
+  }
+
+  .ant-message-notice-content {
+    background-color: var(--layer-1);
+
+    svg {
+      opacity: .5;
+    }
+
+    span {
+      color: var(--layer-2-text-1);
+    }
+  }
   /**
   * End -- Ant design customization
   **/

@@ -2,6 +2,7 @@ import { HTMLAttributes } from 'react'
 
 export interface CardPickProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> {
   onSelect?: (postId: number) => void
+  napProfileScale?: number
   post: {
     cover?: string
     id: number

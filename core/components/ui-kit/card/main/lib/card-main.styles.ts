@@ -1,3 +1,4 @@
+import { breakPoints } from '@/constants/style-variables.constant'
 import styled from 'styled-components'
 import * as Lib from '.'
 
@@ -221,7 +222,7 @@ export const CardContainer = styled.article<Pick<Lib.T.CardProps, 'loading'>>`
     }
   }
 
-  @media screen and (max-width: 1199px) {
+  @media screen and (max-width: ${breakPoints.xl}) {
     > data {
       > header {
         > a {

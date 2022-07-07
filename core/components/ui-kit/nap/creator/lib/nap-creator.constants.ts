@@ -13,6 +13,12 @@ export const BASE_BOARD_HEIGHT = 722.14
 
 export const MIN_BOARD_WIDTH = 768
 
+export const MINIMUM_SCALE = 0.7
+
+export const ELEMENT_ROTATIONS = [0, 45, 90, 135, 180, 225, 270, 315] as const
+
+export const ELEMENTS_ID_LENGTHS = 20
+
 export const ELEMENTAL_OPTIONS = ['text', 'image', 'gif', 'question', 'reminder', 'quiz', 'post', 'mention', 'link'] as const
 export const OPTIONS = [...ELEMENTAL_OPTIONS, 'more|less'] as const
 
@@ -21,6 +27,7 @@ export const FRAMES_DATA_ATTRS = {
   SCALE: 'data-scale',
   TYPE: 'data-type',
   EFFECT: 'data-effect',
+  FONT_SIZE: 'data-font-size',
 }
 
 export const EFFECTS = {
@@ -58,6 +65,10 @@ export const ICONS: Lib.T.IconsObject = {
       />
     </svg>
   `,
+
+  get noSyncDelete() {
+    return this.delete
+  },
 
   get changeReminderValue() {
     return this.editInnerText
@@ -265,28 +276,28 @@ export const ITEMS_DOM_STRING_COMPONENTS: Lib.T.ItemsDOMStringComponents = {
     </div>
   `,
 
-  imageBaseItem: ({ dataUrl }, type) => `
+  imageBaseItem: ({ dataUrl, width }, type) => `
     <div 
-      class="napElement ${type} no-effect"
+      class="napElement ${type}"
       data-${type}-url="${dataUrl}"
     >
       <div class="variant no-effect">
-        <img src="${dataUrl}" alt="" draggable="false">
+        <img src="${dataUrl}" alt="" draggable="false" style="width: ${width}">
       </div>
 
       <div class="variant cloudy">
         <div>
-          <img src="${dataUrl}" alt="" draggable="false">
+          <img src="${dataUrl}" alt="" draggable="false" style="width: ${width}">
         </div>
       </div>
       
       <div class="variant grassy">
-        <img src="${dataUrl}" alt="" draggable="false">
+        <img src="${dataUrl}" alt="" draggable="false" style="width: ${width}">
       </div>
 
       <div class="variant glitch">
         <div>
-          <img src="${dataUrl}" draggable="false">
+          <img src="${dataUrl}" draggable="false" style="width: ${width}">
           <div>
             <div style="background-image: url(${dataUrl})"></div>
             <div style="background-image: url(${dataUrl})"></div>
@@ -300,12 +311,12 @@ export const ITEMS_DOM_STRING_COMPONENTS: Lib.T.ItemsDOMStringComponents = {
 }
 
 export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
-  text: innerText => `
+  text: (innerText, _dummyTexts) => `
     <p data-text="${innerText}">${innerText}</p>
   `,
 
-  post: ({ post, user }) => `
-    <article class="napElement post no-effect" data-post-id="${post.id}">
+  post: ({ post, user }, _dummyTexts) => `
+    <article class="napElement post" data-post-id="${post.id}">
       <header>
         <div class="profilePicture">
           ${ITEMS_DOM_STRING_COMPONENTS.profile({
@@ -374,8 +385,8 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
     </article>
   `,
 
-  mention: ({ fullName, username, job, profile, userID, hasNap, seen, followers, subscribes }) => `
-    <div class="napElement mention no-effect" data-user-id="${userID}">
+  mention: ({ fullName, username, job, profile, userID, hasNap, seen, followers, subscribes }, _dummyTexts) => `
+    <div class="napElement mention" data-user-id="${userID}">
       <div class="profileContainer">
         ${ITEMS_DOM_STRING_COMPONENTS.profile({ hasNap, seen, profile, size: 6 })}
       </div>
@@ -400,51 +411,63 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
     </div>
   `,
 
-  question: ({ hint, question, questionerUser: { hasNap, profile, seen } }) => `
-    <div class="napElement question no-effect">
+  question: ({ hint, question, questionerUser: { hasNap, profile, seen }, hintEnabled }, dummyTexts) => `
+    <div
+      class="napElement question"
+      data-hint-enabled=${hintEnabled}
+    >
       <div class="profileContainer">
         ${ITEMS_DOM_STRING_COMPONENTS.profile({ hasNap, seen, profile, size: 4 })}
       </div>
       
       <p
         class="questionText"
-        data-ph="Ask me anything..."
+        data-ph="${dummyTexts.question.questionText}"
         contenteditable="true"
       >${question}</p>
       
       <p
         class="hintSection"
-        data-ph="Hint (optional)"
+        data-ph="${dummyTexts.question.hint}"
         contenteditable="true"
+        style="display: ${hintEnabled ? 'block' : 'none'}"
       >${hint}</p>
 
-      <span>Type something here</span>
+      <span>${dummyTexts.question.replyButton}</span>
     </div>
   `,
 
-  quiz: ({ answers, correctAnswer, hintText, questionText, questioner: { hasNap, profile, seen } }) => `
-    <div class="napElement quiz no-effect">
+  quiz: ({ answers, correctAnswer, hintText, questionText, questioner: { hasNap, profile, seen }, hintTextEnabled }, dummyTexts) => `
+    <div
+      class="napElement quiz"
+      data-hint-enabled=${hintTextEnabled}
+    >
       <div class="profileContainer">
         ${ITEMS_DOM_STRING_COMPONENTS.profile({ hasNap, seen, profile, size: 4 })}
       </div>
 
       <p
         class="questionText"
-        data-ph="Ask me anything..."
+        data-ph="${dummyTexts.quiz.questionText}"
         contenteditable="true"
       >${questionText}</p>
 
       <p
         class="hintSection"
-        data-ph="Hint (optional)"
+        data-ph="${dummyTexts.quiz.hint}"
         contenteditable="true"
+        style="display: ${hintTextEnabled ? 'block' : 'none'}"
       >${hintText}</p>
 
       <div class="answers">
         ${answers
           .map(
             (answer, index) => `
-              <div class="answer ${correctAnswer === index}" data-activation="${index === 0 || index === 1 ? 'active' : 'inactive'}">
+              <div
+                class="answer ${correctAnswer === index}"
+                data-activation="${index === 0 || index === 1 || answer ? 'active' : 'inactive'}"
+                style="display: ${index === 0 || index === 1 || answer || answers[index - 1] ? 'flex' : 'none'}"
+              >
                 <span>
                   <span>${index + 1}</span>
                   ${ITEMS_ICONS.check}
@@ -452,7 +475,7 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
 
                 <p 
                   class="answerText"
-                  data-ph="Type the answer"
+                  data-ph="${dummyTexts.quiz.answersPlaceholder}"
                   contenteditable="true"
                   data-index="${index}"
                 >${answer}</p>
@@ -464,7 +487,7 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
     </div>
   `,
 
-  reminder: ({ reminderName, endTime }) => {
+  reminder: ({ reminderName, endTime }, dummyTexts) => {
     const endsOn = moment(endTime)
     const timeZone = Dates.getDateTimezone(endTime)
 
@@ -475,39 +498,39 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
       >
         <p
           class="reminderName"
-          data-ph="Type Reminder Name..."
+          data-ph="${dummyTexts.reminder.name}"
           contenteditable="true"
         >${reminderName}</p>
 
         <div class="no-effect design">
           <div class="info">
-            <p>Ends on ${endsOn.format('MMMM D, YYYY')}</p>
+            <p>${dummyTexts.reminder.endsOn} ${endsOn.format('MMMM D, YYYY')}</p>
             <p>At ${endsOn.format('hh:mm a')}, ${timeZone}</p>
           </div>
         </div>
 
         <div class="separated design">
-          <p class="title">Ends on</p>
+          <p class="title">${dummyTexts.reminder.endsOn}</p>
           <div class="items">
             <span>${endsOn.format('MMMM')}</span>
             <span>${endsOn.format('D')}</span>
             <span>${endsOn.format('YYYY')}</span>
-            <i>At</i>
+            <i>${dummyTexts.reminder.at}</i>
             <span>${endsOn.format('hh:mm')}</span>
           </div>
-          <p class="info">12-hour (${endsOn.format('a').toUpperCase().split('').join('.')}), ${timeZone}</p>
+          <p class="info">${dummyTexts.reminder.twelveHour} (${endsOn.format('a').toUpperCase().split('').join('.')}), ${timeZone}</p>
         </div>
 
         <div class="actions">
-          <span class="remindMe">Remind me</span>
+          <span class="remindMe">${dummyTexts.reminder.remindMe}</span>
         </div>
       </div>
     `
   },
 
-  gif: ({ gifURL }) => ITEMS_DOM_STRING_COMPONENTS.imageBaseItem({ dataUrl: gifURL }, 'gif'),
+  gif: ({ gifURL, gifWidth: width }) => ITEMS_DOM_STRING_COMPONENTS.imageBaseItem({ dataUrl: gifURL, width }, 'gif'),
 
-  image: ({ imageURL }) => ITEMS_DOM_STRING_COMPONENTS.imageBaseItem({ dataUrl: imageURL }, 'image'),
+  image: ({ imageURL, imageWidth: width }) => ITEMS_DOM_STRING_COMPONENTS.imageBaseItem({ dataUrl: imageURL, width }, 'image'),
 
   link: (innerText, href) => `
     <p data-text="${innerText}" class="link" data-href="${href}">${innerText}</p>

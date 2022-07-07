@@ -1,10 +1,14 @@
 import { CardPick } from '@/components/ui-kit/card'
 import { Input } from '@/components/ui-kit/input'
+import { LongTap } from '@/components/ui-kit/long-tap'
 import { PickUp } from '@/components/ui-kit/pick-up'
 import { DateTimePicker } from '@/components/ui-kit/time-picker'
+import * as alertKeys from '@/constants/alert-keys.constant'
+import { numeralBreakpoints } from '@/constants/style-variables.constant'
+import { useGetAutoBreakpoint } from '@/hooks/use-auto-breakpoint'
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { Grid as GifList } from '@giphy/react-components'
-import { Button } from 'antd'
+import { Alert, Button, Popconfirm } from 'antd'
 import * as mock from 'mock'
 import { FC } from 'react'
 import { FaEllipsisH, FaPause, FaShare } from 'react-icons/fa'
@@ -38,13 +42,46 @@ export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active, boardRef, imageInputRe
 }
 
 export const ToolBoxNextBtn: FC<Lib.T.ToolBoxNextBtnProps> = ({ boardRef }) => {
-  const { compileAllUp } = Lib.H.useBoardCompileUp(boardRef)
+  const { compileAndValidateAll } = Lib.H.useBoardCompileUp(boardRef)
 
   return (
-    <Button type="primary" onClick={compileAllUp} className="nextBtn">
+    <Button type="primary" onClick={() => compileAndValidateAll()} className="nextBtn">
       <span>Next</span>
       <HiChevronRight color="var(--layer-2-text-3)" size={20} />
     </Button>
+  )
+}
+
+export const DraftMessage = () => {
+  const { onCloseMessage, onConfirmDisable, hasReadDraftAlert } = Lib.H.useDraftMessage()
+
+  return (
+    <Lib.S.DraftMessage>
+      {!hasReadDraftAlert && (
+        <Alert
+          message="Don't worry, the draft will be saved"
+          description="The draft is automatically saved. Don't worry about missing this page. If you don't like this feature, you can disable it now."
+          type="success"
+          closable
+          showIcon
+          onClose={onCloseMessage}
+          className={alertKeys.CREATE_NAP___DRAFTED_NAP_BOARD_ALERT}
+          action={
+            <Popconfirm
+              placement="bottomRight"
+              title="Are you sure to disable this feature?"
+              onConfirm={onConfirmDisable}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button size="small" type="text">
+                Disable it
+              </Button>
+            </Popconfirm>
+          }
+        />
+      )}
+    </Lib.S.DraftMessage>
   )
 }
 
@@ -58,7 +95,7 @@ export const Items: FC<Lib.T.ItemsProps> = ({ onOptionsClick, boardRef, imageInp
     <>
       <Lib.S.ItemsShadowing active={showMoreOptions} />
 
-      <Lib.S.ItemsContainer className={`${showMoreOptions ? 'showMore' : 'showLess'}`}>
+      <Lib.S.ItemsContainer className={`itemsContainer ${showMoreOptions ? 'showMore' : 'showLess'}`}>
         <ul>
           {items.map(({ Icon, title, key }, index) => (
             <li
@@ -124,11 +161,13 @@ export const GuidLines: FC = () => {
 export const PostsPickUp: FC<Lib.T.PostsPickUpProps> = ({ boardRef }) => {
   const { pickUpProps, onPostSelect } = Lib.H.usePostsPickUp({ boardRef })
   const pickUp = useRecoilValue(pageCreateNapAtoms.postsPickUp)
+  const { breakpoint } = useGetAutoBreakpoint()
+  const napProfileScale = breakpoint <= numeralBreakpoints.md ? 0.35 : 0.5
 
   return (
     <PickUp {...pickUpProps} visibility={pickUp}>
       {Array.from(Array(mock.pickCard.length)).map((_, index) => {
-        return <CardPick key={index} {...mock.pickCard[index]} onSelect={onPostSelect} />
+        return <CardPick key={index} {...mock.pickCard[index]} onSelect={onPostSelect} napProfileScale={napProfileScale} />
       })}
     </PickUp>
   )
@@ -150,15 +189,15 @@ export const MentionPickUp: FC<Lib.T.MentionPickUpProps> = ({ boardRef }) => {
 }
 
 export const GiphyPickUp: FC<Lib.T.GifPickUpProps> = ({ boardRef }) => {
-  const { pickUpProps, gifFetcher, onGifClick, updateKey } = Lib.H.useGiphyPickUp({ boardRef })
+  const { pickUpProps, gifFetcher, onGifClick, updateKey, windowWidth, giphyColumns } = Lib.H.useGiphyPickUp({ boardRef })
   const pickUp = useRecoilValue(pageCreateNapAtoms.giphyPickUp)
 
   return (
     <PickUp {...pickUpProps} visibility={pickUp}>
       <Lib.S.GIFs>
         <GifList
-          width={760}
-          columns={5}
+          width={windowWidth >= 760 ? 760 : windowWidth - 35}
+          columns={giphyColumns()}
           fetchGifs={gifFetcher}
           onGifClick={onGifClick}
           noLink
@@ -188,11 +227,13 @@ export const ReminderTimePicker: FC<Lib.T.ReminderTimePickerProps> = ({ boardRef
 
 export const Tool: FC<Lib.T.ToolProps> = ({ disabled, Icon, type, onClick, title, index }) => {
   return (
-    <Lib.S.Tool index={index} onClick={() => onClick(type)} className={`${disabled && 'disabled'}`}>
-      <Button type="dashed">
-        <Icon color="var(--layer-2-text-2)" size={17} />
-        <span>{title}</span>
-      </Button>
+    <Lib.S.Tool index={index} className={`${disabled && 'disabled'}`}>
+      <LongTap popup={{ content: title, mobileOnly: true }}>
+        <Button type="dashed" onClick={() => onClick(type)}>
+          <Icon color="var(--layer-2-text-2)" size={17} />
+          <span>{title}</span>
+        </Button>
+      </LongTap>
     </Lib.S.Tool>
   )
 }

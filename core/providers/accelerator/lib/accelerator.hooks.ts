@@ -6,6 +6,7 @@ import * as Lib from '.'
 export const useAcceleratorsProvider = () => {
   const setPostsPickUpInCreateNapPage = useSetRecoilState(pageCreateNapAtoms.postsPickUp)
   const setMentionPickUpInCreateNapPage = useSetRecoilState(pageCreateNapAtoms.mentionPickUp)
+  const setGiphyPickUpInCreateNapPage = useSetRecoilState(pageCreateNapAtoms.giphyPickUp)
   const setActiveOptionInCreateNapPage = useSetRecoilState(pageCreateNapAtoms.activeOption)
 
   /**
@@ -49,6 +50,7 @@ export const useAcceleratorsProvider = () => {
   const closeOpenedPickUps = () => {
     setPostsPickUpInCreateNapPage(false)
     setMentionPickUpInCreateNapPage(false)
+    setGiphyPickUpInCreateNapPage(false)
   }
 
   /**

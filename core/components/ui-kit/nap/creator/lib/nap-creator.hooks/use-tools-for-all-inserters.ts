@@ -32,7 +32,7 @@ export const useToolsForAllInserters = ({ boardRef }: Pick<Lib.T.ToolsForInserte
    * its one of the global tools for all inserters
    *  changes the focused item rotation
    */
-  const changeRotation = () => {
+  const changeRotation = (sync = true) => {
     const focusedItem = getFocusedItem()
     if (!focusedItem) {
       return
@@ -44,7 +44,10 @@ export const useToolsForAllInserters = ({ boardRef }: Pick<Lib.T.ToolsForInserte
     focusedItem.style.transform = `rotate(${nextAngle}deg) scale(${scale})`
     focusedItem.setAttribute(Lib.CO.FRAMES_DATA_ATTRS.ROTATION, nextAngle.toString())
     focusedItem.focus()
-    NapStorage.update(focusedItem)
+
+    if (sync) {
+      NapStorage.update(focusedItem)
+    }
   }
 
   /**
@@ -56,7 +59,7 @@ export const useToolsForAllInserters = ({ boardRef }: Pick<Lib.T.ToolsForInserte
    * @param effectGroup group name of effects
    * @param queried sometimes we need to query the found focused item to achieve the actual element that has the effect className
    */
-  const changeEffect = (effectGroup: keyof typeof Lib.CO.EFFECTS, queried?: string) => {
+  const changeEffect = (effectGroup: keyof typeof Lib.CO.EFFECTS, queried?: string, sync = true) => {
     const focusedItem = getFocusedItem()
     if (!focusedItem) {
       return
@@ -83,7 +86,10 @@ export const useToolsForAllInserters = ({ boardRef }: Pick<Lib.T.ToolsForInserte
     focusedItem.setAttribute(Lib.CO.FRAMES_DATA_ATTRS.EFFECT, nextEffect)
 
     focusedItem.focus()
-    NapStorage.update(focusedItem)
+
+    if (sync) {
+      NapStorage.update(focusedItem)
+    }
   }
 
   return {

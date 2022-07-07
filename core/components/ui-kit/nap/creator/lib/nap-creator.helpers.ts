@@ -1,3 +1,4 @@
+import { Str } from '@/helpers/string'
 import moment from 'moment'
 import { RefObject } from 'react'
 import * as Lib from '.'
@@ -11,7 +12,7 @@ export const boardContains = (item: Lib.T.Options, boardRef: RefObject<HTMLDivEl
   return board.querySelector(`.${item}`) !== null
 }
 
-export const getAllFrames = (boardRef: RefObject<HTMLDivElement | null>, loopAndDo?: (element: HTMLDivElement) => void) => {
+export const getAllFrames = (boardRef: RefObject<HTMLDivElement | null>, loopAndDo?: (element: HTMLDivElement, index: number) => void) => {
   const { current: board } = boardRef
   if (!board) {
     return null
@@ -27,7 +28,7 @@ export const getAllFrames = (boardRef: RefObject<HTMLDivElement | null>, loopAnd
     return frames
   }
 
-  Array.from(frames).forEach(loopAndDo)
+  Array.from(frames).forEach((element, index) => loopAndDo(element, index))
   return frames
 }
 
@@ -85,7 +86,7 @@ export const calculateFrameScale = (boardRef: RefObject<HTMLDivElement | null>) 
 
   const boardWidth = board.clientWidth
   const scaled = boardWidth / Lib.CO.BASE_BOARD_WIDTH
-  return scaled < 0.5 ? 0.5 : scaled
+  return scaled < Lib.CO.MINIMUM_SCALE ? Lib.CO.MINIMUM_SCALE : scaled
 }
 
 /**
@@ -96,11 +97,13 @@ export const calculateFrameScale = (boardRef: RefObject<HTMLDivElement | null>) 
  */
 export const changeFrameScale = (boardRef: RefObject<HTMLDivElement | null>, frame: HTMLDivElement) => {
   const scaled = calculateFrameScale(boardRef)
+  const minScale = Lib.CO.MINIMUM_SCALE
+
   if (!scaled) {
     return
   }
 
-  const scale = scaled < 0.5 ? 0.5 : scaled
+  const scale = scaled < Lib.CO.MINIMUM_SCALE ? Lib.CO.MINIMUM_SCALE : scaled
   const angle = parseFloat(frame.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.ROTATION) || '0')
 
   frame.style.transform = `rotate(${angle}deg) scale(${scale})`
@@ -119,4 +122,8 @@ export const getReminderInitialTime = (defaults?: { now: Date; future: Date }) =
     minimumDate: moment().add('1', 'hour').toDate(),
     maximumDate: nextYear,
   }
+}
+
+export const makeElementID = (): string => {
+  return Str.random(Lib.CO.ELEMENTS_ID_LENGTHS, 'allLetters')
 }

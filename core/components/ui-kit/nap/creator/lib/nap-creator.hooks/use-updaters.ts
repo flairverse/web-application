@@ -3,9 +3,6 @@ import * as Lib from '..'
 export const useUpdaters = ({ boardRef }: Lib.T.UseUpdatersArgs) => {
   const Inserters = Lib.H.useInserters({ boardRef })
   const { compileUp } = Lib.H.useBoardCompileUp(boardRef)
-  const NapStorage = Lib.H.useNapStorage(boardRef)
-  const { compileDown } = Lib.H.useBoardCompileDown(boardRef)
-
   return class Updater {
     board: HTMLDivElement | null = null
 
@@ -27,10 +24,7 @@ export const useUpdaters = ({ boardRef }: Lib.T.UseUpdatersArgs) => {
 
       const compiledUpReminder = <Lib.T.Elements.Reminder>compileUp(reminderFrame)
       Lib.HE.removeFramesByType(boardRef, 'reminder')
-      insert.newReminder({ ...compiledUpReminder, ...newTime }, false)
-
-      const compiledDown = compileDown({ ...compiledUpReminder, ...newTime })
-      NapStorage.update(compiledDown)
+      insert.newReminder({ ...compiledUpReminder, ...newTime })
     }
   }
 }

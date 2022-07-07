@@ -5,4 +5,5 @@ export enum AtomFamilies {
   timePickerNumeralTimes = 'TIME_PICKER_NUMERAL_TIMES',
   activeLayer = 'activeLayer',
   timePickerMinimumDate = 'timePickerMinimumDate',
+  currentWindowBreakpoint = 'currentWindowBreakpoint',
 }

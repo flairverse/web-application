@@ -1,3 +1,4 @@
+import { NapCreatorUIKitLib } from '@/components/ui-kit/nap'
 import {
   NapGifsDBModel,
   NapImagesDBModel,
@@ -6,7 +7,6 @@ import {
   NapPostsDBModel,
   NapQuestionsDBModel,
   NapQuizzesDBModel,
-  NapRemindersDBModel,
   NapTextsDBModel,
 } from 'database/models'
 
@@ -18,5 +18,6 @@ export type AllNapDBModels =
   | NapPostsDBModel
   | NapQuestionsDBModel
   | NapQuizzesDBModel
-  | NapRemindersDBModel
   | NapTextsDBModel
+
+export type ElementType = Exclude<NapCreatorUIKitLib.T.ElementalOptions, 'reminder'>

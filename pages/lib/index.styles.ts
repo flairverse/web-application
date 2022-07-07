@@ -1,3 +1,4 @@
+import { breakPoints } from '@/constants/style-variables.constant'
 import styled from 'styled-components'
 
 export const Container = styled.div`
@@ -25,7 +26,7 @@ export const Container = styled.div`
 `
 
 export const NapProfileContainer = styled.div`
-  @media screen and (max-width: 1199px) {
+  @media screen and (max-width: ${breakPoints.xl}) {
     > div {
       margin: 0 4px;
 
@@ -90,7 +91,7 @@ export const Topic = styled.a<{ backColor: string }>`
     }
   }
 
-  @media screen and (max-width: 1199px) {
+  @media screen and (max-width: ${breakPoints.xl}) {
     > div {
       > span {
         width: 40px;
@@ -110,7 +111,8 @@ export const Topic = styled.a<{ backColor: string }>`
     }
   }
 
-  @media screen and (max-width: 991px) and (min-width: 768px) {
+  /* @media screen and (max-width: 991px) and (min-width: 768px) { */
+  @media screen and (max-width: ${breakPoints.lg}) and (min-width: ${breakPoints.md}) {
     > div {
       flex-direction: column;
       align-items: center;
@@ -134,7 +136,7 @@ export const Topic = styled.a<{ backColor: string }>`
     }
   }
 
-  @media screen and (max-width: 575px) {
+  @media screen and (max-width: ${breakPoints.sm}) {
     > div {
       flex-direction: column;
       align-items: center;
@@ -176,7 +178,7 @@ export const NapsList = styled.div`
   border: 1px solid var(--layer-2-border);
   padding: 10px 0 3px 0;
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: ${breakPoints.md}) {
     background-color: transparent;
     padding: 0;
     border-radius: 0;
@@ -192,7 +194,7 @@ export const Topics = styled.div`
     display: block;
   }
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: ${breakPoints.md}) {
     &.top {
       display: none;
     }
@@ -219,7 +221,7 @@ export const CardsContainer = styled.div`
     margin-bottom: 5px;
   }
 
-  @media screen and (max-width: 991px) {
+  @media screen and (max-width: ${breakPoints.lg}) {
     columns: auto 1;
   }
 `
@@ -235,19 +237,19 @@ export const LoadMore = styled.div`
     height: unset;
   }
 
-  @media screen and (max-width: 1199px) {
+  @media screen and (max-width: ${breakPoints.xl}) {
     > button {
       font-size: var(--f-3);
     }
   }
 
-  @media screen and (max-width: 991px) {
+  @media screen and (max-width: ${breakPoints.lg}) {
     > button {
       font-size: var(--f-2);
     }
   }
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: ${breakPoints.md}) {
     > button {
       font-size: var(--f-1);
     }

@@ -43,12 +43,17 @@ export const useToolsForQuizInserter = ({ boardRef }: Lib.T.ToolsForInserters) =
         }
 
         const hint = focusedItem.querySelector('.hintSection') as HTMLParagraphElement | null
-        if (!hint) {
+        const napElement = focusedItem.querySelector('.napElement') as HTMLDivElement | null
+        if (!hint || !napElement) {
           return
         }
 
         const { display } = window.getComputedStyle(hint)
-        hint.style.display = display === 'block' ? 'none' : 'block'
+        const isEnabled = display === 'block'
+
+        hint.style.display = isEnabled ? 'none' : 'block'
+        napElement.setAttribute('data-hint-enabled', isEnabled ? 'false' : 'true')
+
         NapStorage.update(focusedItem)
         break
       }

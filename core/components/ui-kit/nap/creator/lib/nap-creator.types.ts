@@ -1,3 +1,4 @@
+import { DOMHelperLib } from '@/helpers/DOM'
 import { Range } from '@/types/enumerable'
 import { Topic } from '@/types/topics'
 import { RefObject } from 'react'
@@ -83,7 +84,7 @@ export namespace Elements {
       left: string
     }
   }
-  export type ElementRotation = 0 | 45 | 90 | 135 | 180 | 225 | 270 | 315
+  export type ElementRotation = typeof Lib.CO.ELEMENT_ROTATIONS[number]
 
   export interface Text extends BaseElement<TextEffects, 'text'> {
     text: string
@@ -129,6 +130,7 @@ export namespace Elements {
   export interface Question extends BaseElement<QuestionEffects, 'question'> {
     question: string
     hint: string
+    hintEnabled: boolean
     questionerUser: {
       profile: string
       hasNap: boolean
@@ -139,6 +141,7 @@ export namespace Elements {
   export interface Quiz extends BaseElement<QuizEffects, 'quiz'> {
     questionText: string
     hintText: string
+    hintTextEnabled: boolean
     answers: string[]
     correctAnswer: number
     questioner: {
@@ -185,7 +188,7 @@ export namespace Elements {
   export type AllOr = Text | Image | Gif | Question | Reminder | Quiz | Post | Mention | Link
 }
 
-export type ElementFrameActionTypes = 'delete' | 'editInnerText' | 'changeReminderValue' | 'editLinkRef'
+export type ElementFrameActionTypes = 'delete' | 'editInnerText' | 'changeReminderValue' | 'editLinkRef' | 'noSyncDelete'
 
 export type ElementFrameActions = {
   type: ElementFrameActionTypes
@@ -225,21 +228,27 @@ export type ItemsDOMStringComponents = {
     size?: Range<1, 11>
   }) => string
 
-  imageBaseItem: (args: { dataUrl: string }, type: 'image' | 'gif') => string
+  imageBaseItem: (args: { dataUrl: string; width: string }, type: 'image' | 'gif') => string
 }
 
+export type DummyTexts = ReturnType<typeof Lib.H.useDummyTexts>
+
 export type ItemsDOMStringGenerators = {
-  text: (innerText: string) => string
-  post: (args: Pick<Elements.Post, 'post' | 'user'>) => string
+  text: (innerText: string, dummyTexts: DummyTexts) => string
+  post: (args: Pick<Elements.Post, 'post' | 'user'>, dummyTexts: DummyTexts) => string
   mention: (
     args: Pick<Elements.Mention, 'fullName' | 'job' | 'profile' | 'username' | 'userID' | 'hasNap' | 'seen' | 'followers' | 'subscribes'>,
+    dummyTexts: DummyTexts,
   ) => string
-  question: (args: Pick<Elements.Question, 'hint' | 'question' | 'questionerUser'>) => string
-  quiz: (args: Pick<Elements.Quiz, 'answers' | 'correctAnswer' | 'hintText' | 'questionText' | 'questioner'>) => string
-  reminder: (args: Pick<Elements.Reminder, 'endTime' | 'reminderName'>) => string
-  gif: (args: Pick<Elements.Gif, 'gifURL'>) => string
-  image: (args: Pick<Elements.Image, 'imageURL'>) => string
-  link: (innerText: string, href: string) => string
+  question: (args: Pick<Elements.Question, 'hint' | 'question' | 'questionerUser' | 'hintEnabled'>, dummyTexts: DummyTexts) => string
+  quiz: (
+    args: Pick<Elements.Quiz, 'answers' | 'correctAnswer' | 'hintText' | 'questionText' | 'questioner' | 'hintTextEnabled'>,
+    dummyTexts: DummyTexts,
+  ) => string
+  reminder: (args: Pick<Elements.Reminder, 'endTime' | 'reminderName'>, dummyTexts: DummyTexts) => string
+  gif: (args: Pick<Elements.Gif, 'gifURL' | 'gifWidth'>, dummyTexts: DummyTexts) => string
+  image: (args: Pick<Elements.Image, 'imageURL' | 'imageWidth'>, dummyTexts: DummyTexts) => string
+  link: (innerText: string, href: string, dummyTexts: DummyTexts) => string
 }
 
 export interface MentionProps {
@@ -259,3 +268,25 @@ export interface UseUpdatersArgs extends Pick<ItemsProps, 'boardRef'> {}
 export interface UseReminderTimePicker extends Pick<ItemsProps, 'boardRef'> {}
 
 export interface EditLinkHrefPopupProps extends Pick<ItemsProps, 'boardRef'> {}
+
+export interface CompileSharedDownArgs extends Elements.BaseElement, Pick<DOMHelperLib.T.MakeElementDraggableArgs, 'blackList'> {
+  node: HTMLElement
+  actionTypes?: ElementFrameActionTypes[]
+  effectHolders?: string[]
+  sync?: boolean
+}
+
+export interface CompileTextBasedDownArgs extends Omit<CompileSharedDownArgs, 'actionTypes' | 'effectHolders' | 'sync' | 'blackList'> {
+  additionalActionTypes?: ElementFrameActionTypes[]
+  fontSize: string
+}
+
+export interface ValidatorResult {
+  isValid: boolean
+  reasons: ValidatorResultReason[]
+}
+
+export type ValidatorResultReason = {
+  error: Lib.E.ValidatorErrorEnum
+  elementID: string
+}

@@ -8,7 +8,6 @@ import {
   NapPostsDBModel,
   NapQuestionsDBModel,
   NapQuizzesDBModel,
-  NapRemindersDBModel,
   NapTextsDBModel,
 } from 'database/models'
 import { IndexableType, Table } from 'dexie'
@@ -24,7 +23,6 @@ export class NapMixin {
   post: Table<NapPostsDBModel, IndexableType> = draftableCollection.napPosts
   question: Table<NapQuestionsDBModel, IndexableType> = draftableCollection.napQuestions
   quiz: Table<NapQuizzesDBModel, IndexableType> = draftableCollection.napQuizzes
-  reminder: Table<NapRemindersDBModel, IndexableType> = draftableCollection.napReminders
   text: Table<NapTextsDBModel, IndexableType> = draftableCollection.napTexts
 
   /**
@@ -76,7 +74,7 @@ export class NapMixin {
    *
    * insert new nap element into the nap storage
    */
-  async addNewNapElement(elementType: NapCreatorUIKitLib.T.ElementalOptions, element: NapCreatorUIKitLib.T.Elements.All): Promise<this> {
+  async addNewNapElement(elementType: Lib.T.ElementType, element: NapCreatorUIKitLib.T.Elements.All): Promise<this> {
     const _element = this.prepareNapElementToInsert(element)
     await (<typeof this.text>this[elementType]).add(_element)
     return this
@@ -92,7 +90,7 @@ export class NapMixin {
   //   return await this[elementType].where('elementID').equals(elementID).distinct().first()
   // }
   async findNapElementInStorage(element: NapCreatorUIKitLib.T.Elements.All) {
-    return await this[<NapCreatorUIKitLib.T.ElementalOptions>element.type].where('elementID').equals(element.id!).distinct().first()
+    return await this[<Lib.T.ElementType>element.type].where('elementID').equals(element.id!).distinct().first()
   }
 
   /**
@@ -103,7 +101,7 @@ export class NapMixin {
    */
   async editExistingNapElement(element: NapCreatorUIKitLib.T.Elements.All): Promise<this> {
     const { text } = this
-    const elementType = <NapCreatorUIKitLib.T.ElementalOptions>element.type
+    const elementType = <Lib.T.ElementType>element.type
 
     const foundElement = await this.findNapElementInStorage(element)
     if (!foundElement) {
@@ -142,7 +140,9 @@ export class NapMixin {
     const elements: NapCreatorUIKitLib.T.Elements.All[] = []
 
     for (const option of NapCreatorUIKitLib.CO.ELEMENTAL_OPTIONS) {
-      await this[option].each(element => elements.push(this.prepareStoredNapElementToRead(element)))
+      if (option !== 'reminder') {
+        await this[option].each(element => elements.push(this.prepareStoredNapElementToRead(element)))
+      }
     }
 
     return elements

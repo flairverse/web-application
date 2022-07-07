@@ -28,7 +28,7 @@ export const movingColor = css`
       );
       font-family: var(--ff-3);
 
-      &::after {
+      &.link::after {
         content: '';
         position: absolute;
         left: 0;

@@ -27,12 +27,12 @@ export const useToolsForReminderInserter = ({ boardRef }: Lib.T.ToolsForInserter
   const toolClick = (type: Lib.T.Tool) => {
     switch (type) {
       case 'reminder-effect': {
-        changeEffect('REMINDER', '.reminder')
+        changeEffect('REMINDER', '.reminder', false)
         break
       }
 
       case 'reminder-rotation': {
-        changeRotation()
+        changeRotation(false)
         break
       }
     }

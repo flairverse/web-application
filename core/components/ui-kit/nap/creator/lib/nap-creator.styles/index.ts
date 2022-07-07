@@ -1,3 +1,4 @@
+import { breakPoints } from '@/constants/style-variables.constant'
 import { Modal } from 'antd'
 import styled, { keyframes } from 'styled-components'
 import * as Lib from '..'
@@ -218,8 +219,9 @@ export const ItemsShadowing = styled.span<Lib.T.ItemsShadowingProps>`
   background: var(--layer-1);
   border-radius: 0 100% 100% 0;
   filter: blur(60px);
-  z-index: 0;
-  opacity: ${({ active }) => (active ? 0.4 : 0)};
+  z-index: 1;
+  opacity: ${({ active }) => (active ? 1 : 0)};
+  pointer-events: none;
 `
 
 export const GUIDE_LINES_COLOR = 'var(--layer-2-dash)'
@@ -325,6 +327,45 @@ export const GuideLines = styled.div`
       border-radius: 20px;
     }
   }
+
+  @media screen and (max-width: ${breakPoints.md}) {
+    padding: 5px 6px 8px 6px;
+
+    > .left {
+      > .top {
+        > .profile {
+          width: 25px;
+          height: 25px;
+        }
+
+        > .name {
+          > .username {
+            width: 50px;
+            height: 5px;
+          }
+
+          > .job {
+            width: 80px;
+            height: 3px;
+          }
+        }
+
+        > .action svg {
+          width: 15px;
+          height: 15px;
+        }
+      }
+      > .bottom > .input {
+        border-width: 2px;
+        height: 27px;
+        font-size: 8pt;
+      }
+    }
+
+    > .right {
+      width: 3px;
+    }
+  }
 `
 
 export const Tools = styled.div`
@@ -358,27 +399,33 @@ export const Tool = styled.div<Pick<Lib.T.ToolProps, 'index'>>`
     }
   }
 
-  > button {
-    height: auto;
-    padding: 3px 10px;
-    display: flex;
-    align-items: center;
-    margin: 0 3px;
-    background-color: transparent;
-    border-color: var(--layer-2-dash);
-    color: var(--layer-2-text-2);
-
-    &:hover,
-    &:focus,
-    &:active {
-      color: var(--layer-2-text-2);
-      background-color: var(--layer-1);
+  > div {
+    > button {
+      height: auto;
+      padding: 3px 10px;
+      display: flex;
+      align-items: center;
+      margin: 0 3px;
+      background-color: transparent;
       border-color: var(--layer-2-dash);
-    }
+      color: var(--layer-2-text-2);
 
-    > span {
-      font-size: var(--f-2);
-      margin: 0 0 0 5px;
+      &:hover,
+      &:focus,
+      &:active {
+        color: var(--layer-2-text-2);
+        background-color: var(--layer-1);
+        border-color: var(--layer-2-dash);
+      }
+
+      > span {
+        font-size: var(--f-2);
+        margin: 0 0 0 5px;
+
+        @media screen and (max-width: ${breakPoints.sm}) {
+          display: none;
+        }
+      }
     }
   }
 `
@@ -538,11 +585,11 @@ export const Mention = styled.div`
     }
   }
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: ${breakPoints.md}) {
     width: calc(100% / 5);
   }
 
-  @media screen and (max-width: 575px) {
+  @media screen and (max-width: ${breakPoints.sm}) {
     width: calc(100% / 4);
   }
 
@@ -550,7 +597,7 @@ export const Mention = styled.div`
     width: calc(100% / 3);
   }
 
-  @media screen and (max-width: 300px) {
+  @media screen and (max-width: ${breakPoints.xs}) {
     width: calc(100% / 2);
   }
 `
@@ -592,5 +639,14 @@ export const EditLinkHrefPopup = styled(Modal)`
         }
       }
     }
+  }
+`
+
+export const DraftMessage = styled.div`
+  display: block;
+  width: 100%;
+
+  > .ant-alert {
+    margin: 0 0 10px 0;
   }
 `

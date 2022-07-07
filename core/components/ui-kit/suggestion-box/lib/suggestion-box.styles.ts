@@ -1,3 +1,4 @@
+import { breakPoints } from '@/constants/style-variables.constant'
 import styled from 'styled-components'
 import * as Lib from '.'
 
@@ -61,7 +62,7 @@ export const SuggestionsBoxContainer = styled.div<Pick<Lib.T.SuggestionBoxProps,
     }
   }
 
-  @media screen and (max-width: 1199px) {
+  @media screen and (max-width: ${breakPoints.xl}) {
     > .suggestionContent {
       > p {
         font-size: var(--f-2);
@@ -147,7 +148,7 @@ export const SuggestionContainer = styled.a<Pick<Lib.T.SuggestionItemExtraProps 
     height: auto;
   }
 
-  @media screen and (max-width: 1199px) {
+  @media screen and (max-width: ${breakPoints.xl}) {
     padding: 0 5px;
 
     > span {

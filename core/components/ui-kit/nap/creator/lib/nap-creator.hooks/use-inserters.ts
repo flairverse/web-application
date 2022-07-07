@@ -1,4 +1,3 @@
-import { Str } from '@/helpers/string'
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { useSetRecoilState } from 'recoil'
 import * as Lib from '..'
@@ -9,6 +8,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
   const setGifPickupVisibility = useSetRecoilState(pageCreateNapAtoms.giphyPickUp)
   const items = Lib.H.useDefinedItems()
   const NapStorage = Lib.H.useNapStorage(boardRef)
+  const dummyTexts = Lib.H.useDummyTexts()
 
   return class Insert {
     board: HTMLDivElement | null = null
@@ -52,7 +52,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
         }
 
         case 'reminder': {
-          insert.newReminder(<Lib.T.Elements.Reminder>element, false)
+          insert.newReminder(<Lib.T.Elements.Reminder>element)
           break
         }
 
@@ -113,7 +113,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
      *
      * append the compiled item into the board
      */
-    appendItem(elementInfo: Lib.T.Elements.All, pushToDB = true) {
+    async appendItem(elementInfo: Lib.T.Elements.All, pushToDB = true) {
       if (!this.board) {
         return
       }
@@ -123,7 +123,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
       element.focus()
 
       if (pushToDB) {
-        NapStorage.create(<Lib.T.ElementalOptions>elementInfo.type, elementInfo)
+        await NapStorage.create(<Exclude<Lib.T.ElementalOptions, 'reminder'>>elementInfo.type, elementInfo)
       }
     }
 
@@ -135,7 +135,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
      * TODO: check if the new generated ID doest not already exists in the board
      */
     makeID = (): string => {
-      return Str.random(20, 'allLetters')
+      return Lib.HE.makeElementID()
     }
 
     /**
@@ -151,7 +151,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
       const text: Lib.T.Elements.Text = defaultValues || {
         type: 'text',
         id: this.makeID(),
-        text: 'Type Something here...',
+        text: dummyTexts.text.defaultText,
         position: { left: '85px', top: '85px' },
         rotate: 0,
         fontSize: '20px',
@@ -250,6 +250,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
         rotate: 0,
         hint: '',
         question: '',
+        hintEnabled: true,
         questionerUser: {
           hasNap: true,
           profile: '/removal/profile.jpg',
@@ -279,6 +280,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
         questionText: '',
         answers: ['', '', '', ''],
         correctAnswer: 0,
+        hintTextEnabled: true,
         questioner: {
           hasNap: true,
           profile: '/removal/profile.jpg',
@@ -293,7 +295,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
      *
      * makes new reminder item and passes it to the `appendItem`
      */
-    newReminder(defaultValues?: Lib.T.Elements.Reminder, pushToDB = true) {
+    newReminder(defaultValues?: Lib.T.Elements.Reminder) {
       if (!this.canInsert('reminder')) {
         return
       }
@@ -307,7 +309,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
         reminderName: '',
         endTime: new Date().toISOString(),
       }
-      this.appendItem(reminder, pushToDB)
+      this.appendItem(reminder, false)
     }
 
     /**
@@ -370,12 +372,12 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
       const link: Lib.T.Elements.Link = defaultValues || {
         type: 'link',
         id: this.makeID(),
-        link: 'Type link text here...',
+        link: dummyTexts.link.defaultText,
         position: { left: '85px', top: '85px' },
         rotate: 0,
         linkFontSize: '20px',
         effect: 'no-effect',
-        href: 'https://example.com',
+        href: dummyTexts.link.defaultLink,
       }
       this.appendItem(link, pushToDB)
     }
