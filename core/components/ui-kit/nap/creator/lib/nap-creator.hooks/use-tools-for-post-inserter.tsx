@@ -1,6 +1,6 @@
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { AiOutlineRotateRight } from 'react-icons/ai'
-import { MdOutlineStyle } from 'react-icons/md'
+import { BiPalette } from 'react-icons/bi'
 import { useRecoilValue } from 'recoil'
 import * as Lib from '..'
 
@@ -11,7 +11,7 @@ export const useToolsForPostInserter = ({ boardRef }: Lib.T.ToolsForInserters) =
 
   const tools: Pick<Lib.T.ToolProps, 'Icon' | 'type' | 'title' | 'disabled'>[] = [
     {
-      Icon: MdOutlineStyle,
+      Icon: BiPalette,
       type: 'post-effect',
       title: 'Style',
       disabled: activeOption !== 'post' || activeItemID === null,

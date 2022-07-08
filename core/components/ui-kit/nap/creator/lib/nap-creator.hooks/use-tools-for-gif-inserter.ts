@@ -1,6 +1,7 @@
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { AiOutlineColumnWidth, AiOutlineRotateRight } from 'react-icons/ai'
-import { IoAddCircleOutline, IoColorFilterOutline } from 'react-icons/io5'
+import { BiPalette } from 'react-icons/bi'
+import { IoAddCircleOutline } from 'react-icons/io5'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
@@ -22,7 +23,7 @@ export const useToolsForGifInserter = ({ boardRef }: Lib.T.ToolsForInserters) =>
       disabled: activeOption !== 'gif' || activeItemID === null,
     },
     {
-      Icon: IoColorFilterOutline,
+      Icon: BiPalette,
       type: 'gif-effect',
       title: 'Effect',
       disabled: activeOption !== 'gif' || activeItemID === null,

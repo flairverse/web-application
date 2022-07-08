@@ -1,6 +1,6 @@
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { AiOutlineRotateRight } from 'react-icons/ai'
-import { IoColorFilterOutline } from 'react-icons/io5'
+import { BiPalette } from 'react-icons/bi'
 import { useRecoilValue } from 'recoil'
 import * as Lib from '..'
 
@@ -11,7 +11,7 @@ export const useToolsForReminderInserter = ({ boardRef }: Lib.T.ToolsForInserter
 
   const tools: Pick<Lib.T.ToolProps, 'Icon' | 'type' | 'title' | 'disabled'>[] = [
     {
-      Icon: IoColorFilterOutline,
+      Icon: BiPalette,
       type: 'reminder-effect',
       title: 'Effect',
       disabled: activeOption !== 'reminder' || activeItemID === null,

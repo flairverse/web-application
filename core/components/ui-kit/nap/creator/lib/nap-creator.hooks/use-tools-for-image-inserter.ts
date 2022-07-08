@@ -1,6 +1,7 @@
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { AiOutlineColumnWidth, AiOutlineRotateRight } from 'react-icons/ai'
-import { IoAddCircleOutline, IoColorFilterOutline } from 'react-icons/io5'
+import { BiPalette } from 'react-icons/bi'
+import { IoAddCircleOutline } from 'react-icons/io5'
 import { useRecoilValue } from 'recoil'
 import * as Lib from '..'
 
@@ -24,7 +25,7 @@ export const useToolsForImageInserter = ({ boardRef, imageInputRef }: Lib.T.Tool
       disabled: activeOption !== 'image' || activeItemID === null,
     },
     {
-      Icon: IoColorFilterOutline,
+      Icon: BiPalette,
       type: 'image-effect',
       title: 'Effect',
       disabled: activeOption !== 'image' || activeItemID === null,

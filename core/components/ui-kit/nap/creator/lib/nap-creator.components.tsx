@@ -230,7 +230,7 @@ export const Tool: FC<Lib.T.ToolProps> = ({ disabled, Icon, type, onClick, title
     <Lib.S.Tool index={index} className={`${disabled && 'disabled'}`}>
       <LongTap popup={{ content: title, mobileOnly: true }}>
         <Button type="dashed" onClick={() => onClick(type)}>
-          <Icon color="var(--layer-2-text-2)" size={17} />
+          <Icon color="var(--layer-2-text-2)" size={20} />
           <span>{title}</span>
         </Button>
       </LongTap>

@@ -1,7 +1,7 @@
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { AiOutlineRotateRight } from 'react-icons/ai'
+import { BiPalette } from 'react-icons/bi'
 import { IoAddCircleOutline } from 'react-icons/io5'
-import { MdOutlineStyle } from 'react-icons/md'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
@@ -16,7 +16,7 @@ export const useToolsForMentionInserter = ({ boardRef }: Lib.T.ToolsForInserters
   const tools: Pick<Lib.T.ToolProps, 'Icon' | 'type' | 'title' | 'disabled'>[] = [
     { Icon: IoAddCircleOutline, type: 'add-mention', title: 'Add new', disabled: !insert.canInsert('mention', false) },
     {
-      Icon: MdOutlineStyle,
+      Icon: BiPalette,
       type: 'mention-effect',
       title: 'Style',
       disabled: activeOption !== 'mention' || activeItemID === null,
