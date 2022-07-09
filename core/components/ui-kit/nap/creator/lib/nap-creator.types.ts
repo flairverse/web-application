@@ -290,3 +290,8 @@ export type ValidatorResultReason = {
   error: Lib.E.ValidatorErrorEnum
   elementID: string
 }
+
+export type BoardSize = {
+  width: number
+  height: number
+}

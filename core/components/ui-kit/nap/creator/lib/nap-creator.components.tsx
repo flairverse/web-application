@@ -42,10 +42,10 @@ export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active, boardRef, imageInputRe
 }
 
 export const ToolBoxNextBtn: FC<Lib.T.ToolBoxNextBtnProps> = ({ boardRef }) => {
-  const { compileAndValidateAll } = Lib.H.useBoardCompileUp(boardRef)
+  const { finalizeBoard } = Lib.H.useToolBoxNextBtn({ boardRef })
 
   return (
-    <Button type="primary" onClick={() => compileAndValidateAll()} className="nextBtn">
+    <Button type="primary" onClick={finalizeBoard} className="nextBtn">
       <span>Next</span>
       <HiChevronRight color="var(--layer-2-text-3)" size={20} />
     </Button>

@@ -1,3 +1,4 @@
+import { Num } from '@/helpers/number'
 import { Str } from '@/helpers/string'
 import moment from 'moment'
 import { RefObject } from 'react'
@@ -87,6 +88,23 @@ export const calculateFrameScale = (boardRef: RefObject<HTMLDivElement | null>) 
   const boardWidth = board.clientWidth
   const scaled = boardWidth / Lib.CO.BASE_BOARD_WIDTH
   return scaled < Lib.CO.MINIMUM_SCALE ? Lib.CO.MINIMUM_SCALE : scaled
+}
+
+export const getBoardSize = (boardRef: RefObject<HTMLDivElement | null>): Lib.T.BoardSize => {
+  const { current: board } = boardRef
+  if (!board) {
+    return {
+      width: Lib.CO.BASE_BOARD_WIDTH,
+      height: Lib.CO.BASE_BOARD_HEIGHT,
+    }
+  }
+
+  const { width, height } = window.getComputedStyle(board)
+
+  return {
+    width: Num.extract(width, true)[0],
+    height: Num.extract(height, true)[0]!,
+  }
 }
 
 /**

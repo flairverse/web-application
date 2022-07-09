@@ -113,9 +113,6 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
       mapErrors(allValidations)
     }
 
-    console.table(allItems)
-    console.table(allValidations)
-    console.log(JSON.stringify(allItems))
     return allItems
   }
 

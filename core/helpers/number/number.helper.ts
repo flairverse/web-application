@@ -58,8 +58,7 @@ export class Num {
     }
   }
 
-  static extract(string: string, parse?: boolean) {
-    const result = string.match(/\d+/g)?.join('') || ''
-    return parse ? parseInt(result) : result
+  static extract<ReturnType extends string[] | number[] = number[]>(string: string, parse = true): ReturnType {
+    return <ReturnType>string.match(RegExes.digits)?.map(item => (parse ? parseFloat(item) : item)) || []
   }
 }

@@ -16,8 +16,6 @@ export class Img {
     return `https://picsum.photos/${w}/${h}`
   }
 
-  static thisisanothertest() {}
-
   /**
    *
    *
