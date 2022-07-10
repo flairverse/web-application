@@ -126,7 +126,7 @@ export const useBoardCompileUp = (boardRef: RefObject<HTMLDivElement>) => {
     const id = frame.id
     const { left, top } = window.getComputedStyle(frame)
     const rotate: Lib.T.Elements.ElementRotation = <Lib.T.Elements.ElementRotation>(
-      parseInt(frame.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.ROTATION) || '0')
+      Math.abs(parseInt(frame.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.ROTATION) || '0') % 360)
     )
     const effect = <Effect>(<Lib.T.AllEffects | null>frame.getAttribute(Lib.CO.FRAMES_DATA_ATTRS.EFFECT) || 'no-effect')
 

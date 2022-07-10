@@ -9,7 +9,7 @@ import { useGetAutoBreakpoint } from '@/hooks/use-auto-breakpoint'
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { Grid as GifList } from '@giphy/react-components'
 import { Alert, Button, Popconfirm } from 'antd'
-import * as mock from 'mock'
+import * as staticMocks from 'mock/static'
 import { FC } from 'react'
 import { FaEllipsisH, FaPause, FaShare } from 'react-icons/fa'
 import { HiChevronRight } from 'react-icons/hi'
@@ -166,8 +166,8 @@ export const PostsPickUp: FC<Lib.T.PostsPickUpProps> = ({ boardRef }) => {
 
   return (
     <PickUp {...pickUpProps} visibility={pickUp}>
-      {Array.from(Array(mock.pickCard.length)).map((_, index) => {
-        return <CardPick key={index} {...mock.pickCard[index]} onSelect={onPostSelect} napProfileScale={napProfileScale} />
+      {Array.from(Array(staticMocks.pickCard.length)).map((_, index) => {
+        return <CardPick key={index} {...staticMocks.pickCard[index]} onSelect={onPostSelect} napProfileScale={napProfileScale} />
       })}
     </PickUp>
   )
@@ -180,8 +180,8 @@ export const MentionPickUp: FC<Lib.T.MentionPickUpProps> = ({ boardRef }) => {
   return (
     <PickUp {...pickUpProps} visibility={pickUp}>
       <Lib.S.Mentions>
-        {Array.from(Array(mock.mentions.length)).map((_, index) => (
-          <Mention key={index} {...mock.mentions[index]} onClick={onUserSelect} />
+        {Array.from(Array(staticMocks.mentions.length)).map((_, index) => (
+          <Mention key={index} {...staticMocks.mentions[index]} onClick={onUserSelect} />
         ))}
       </Lib.S.Mentions>
     </PickUp>

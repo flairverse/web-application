@@ -1,4 +1,5 @@
 import { UserModel } from '@/models/user.model'
+import { NapMockLib } from 'mock/nap'
 import * as Lib from './lib'
 
 export const mockedUsers: UserModel[] = [
@@ -7,21 +8,21 @@ export const mockedUsers: UserModel[] = [
   Lib.HE.randomUsers({
     length: 1,
     args: {
-      naps: [],
+      naps: NapMockLib.HE.randomNaps({ length: 4 }),
     },
   })[0],
 
   Lib.HE.randomUsers({
     length: 1,
     args: {
-      naps: [],
+      naps: NapMockLib.HE.randomNaps({ length: 4 }),
     },
   })[0],
 
   Lib.HE.randomUsers({
     length: 1,
     args: {
-      naps: [],
+      naps: NapMockLib.HE.randomNaps({ length: 4 }),
     },
   })[0],
 
@@ -30,14 +31,14 @@ export const mockedUsers: UserModel[] = [
   Lib.HE.randomUsers({
     length: 1,
     args: {
-      naps: [],
+      naps: NapMockLib.HE.randomNaps({ length: 4 }),
     },
   })[0],
 
   Lib.HE.randomUsers({
     length: 1,
     args: {
-      naps: [],
+      naps: NapMockLib.HE.randomNaps({ length: 4 }),
     },
   })[0],
 
@@ -46,7 +47,7 @@ export const mockedUsers: UserModel[] = [
   Lib.HE.randomUsers({
     length: 1,
     args: {
-      naps: [],
+      naps: NapMockLib.HE.randomNaps({ length: 4 }),
     },
   })[0],
 
