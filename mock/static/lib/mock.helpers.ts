@@ -29,7 +29,7 @@ export const randomStatic = <ReturnType extends Lib.T.StaticRandomReturnType = s
     }
     default: {
       const array = Lib.CO.RANDOMS[type]
-      return <ReturnType>array[Num.random(0, array.length)]
+      return <ReturnType>array[Num.random(0, array.length - 1)]
     }
   }
 }

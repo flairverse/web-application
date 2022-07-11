@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": ["dom", "dom.iterable", "esnext", "es5"],
     "allowJs": true,
     "sourceMap": true,
     "declaration": true,
@@ -22,6 +22,7 @@
     "downlevelIteration": true,
     "jsx": "preserve",
     "baseUrl": ".",
+    "types": ["cypress", "node"],
     "paths": {
       "@/*": ["core/*"]
     },

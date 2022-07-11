@@ -73,8 +73,10 @@ export const DraftMessage = () => {
               onConfirm={onConfirmDisable}
               okText="Yes"
               cancelText="No"
+              className="cy-disable-db-popup"
+              cancelButtonProps={{ className: 'cy-close-db-popup' }}
             >
-              <Button size="small" type="text">
+              <Button size="small" type="text" className="cy-disable-db">
                 Disable it
               </Button>
             </Popconfirm>
