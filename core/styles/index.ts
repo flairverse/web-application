@@ -313,7 +313,7 @@ export const GlobalStyles = createGlobalStyle`
   .ant-popover-content {
     .ant-popover-arrow-content {
       --antd-arrow-background-color: var(--layer-1);
-    background-color: var(--layer-1);
+      background-color: var(--layer-1);
     }
 
     .ant-popover-inner {
@@ -331,6 +331,14 @@ export const GlobalStyles = createGlobalStyle`
     span {
       color: var(--layer-2-text-1);
     }
+  }
+
+  .ant-modal-wrap {
+    overflow-x: hidden;
+  }
+
+  .ant-mentions-dropdown-menu-item-active {
+    background-color: var(--layer-2);
   }
   /**
   * End -- Ant design customization

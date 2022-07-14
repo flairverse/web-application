@@ -10,4 +10,9 @@ export interface NapGroupProps {
 export interface NavigateButtonProps {
   role: 'forward' | 'backward'
   onClick: () => void
+  enabled: boolean
+}
+
+export interface NapProps extends NapModel {
+  shouldRender: boolean
 }

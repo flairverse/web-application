@@ -1,7 +1,6 @@
 import { useClassNames } from '@/hooks/use-class-names'
 import { componentNapViewerAtoms } from '@/store'
-import { ModalProps } from 'antd'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { useRecoilState } from 'recoil'
 import * as Lib from '.'
 
@@ -12,18 +11,6 @@ export const useNapViewer = () => {
   const close = () => {
     setViewer(false)
   }
-
-  const modalProps = useMemo<ModalProps>(
-    () => ({
-      destroyOnClose: false,
-      title: null,
-      footer: null,
-      closable: false,
-      width: '100%',
-      mask: false,
-    }),
-    [],
-  )
 
   const forward = () => {
     setIndex(currentVal => (currentVal + 1 < 10 ? currentVal + 1 : currentVal))
@@ -36,7 +23,6 @@ export const useNapViewer = () => {
   return {
     close,
     viewerVisibility,
-    modalProps,
     forward,
     backward,
     index,
@@ -45,8 +31,15 @@ export const useNapViewer = () => {
 
 export const useNapGroup = ({ active, afterActive, beforeActive, naps }: Lib.T.NapGroupProps) => {
   const { createClass } = useClassNames()
-
   const classNames = createClass('', { active, afterActive, beforeActive })
+  return { classNames }
+}
+
+export const useNavigateButton = ({ enabled, role }: Pick<Lib.T.NavigateButtonProps, 'enabled' | 'role'>) => {
+  const { createClass } = useClassNames()
+  const classNames = createClass(role, {
+    enabled,
+  })
 
   return { classNames }
 }

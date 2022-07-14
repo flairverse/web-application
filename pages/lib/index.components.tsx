@@ -3,10 +3,12 @@ import { CardMain } from '@/components/ui-kit/card'
 import { Horizontal, HorizontalUIKitLib } from '@/components/ui-kit/horizontal'
 import { NapProfile } from '@/components/ui-kit/nap'
 import { SuggestionBox } from '@/components/ui-kit/suggestion-box'
+import { napViewerVisibility } from '@/store/atoms/component.nap-viewer'
 import { Button } from 'antd'
 import * as staticMocks from 'mock/static'
 import Link from 'next/link'
 import { FC } from 'react'
+import { useSetRecoilState } from 'recoil'
 import * as Lib from '.'
 
 export const Topic: FC<Lib.T.TopicProps> = ({ counter, title, TopicIcon, topic, href, ...rest }) => {
@@ -77,6 +79,8 @@ export const RightAside: FC = () => {
 }
 
 export const NapsList: FC = () => {
+  const xxx = useSetRecoilState(napViewerVisibility)
+
   const items: HorizontalUIKitLib.T.HorizontalItemProps[] = [
     ...Array.from(Array(50)).map((item, index) => {
       return {
@@ -92,7 +96,7 @@ export const NapsList: FC = () => {
 
   return (
     <Lib.S.NapsList className="napList">
-      <Horizontal speed={2} items={items} onItemsClick={id => alert(id * 2)} />
+      <Horizontal speed={2} items={items} onItemsClick={id => xxx(true)} />
     </Lib.S.NapsList>
   )
 }
