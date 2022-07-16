@@ -1,10 +1,10 @@
-import { componentLayeredAtoms } from '@/store/atomFamilies'
+import { componentLayeredAtomFamilies } from '@/store/atomFamilies'
 import { FC } from 'react'
 import { useRecoilValue } from 'recoil'
 import * as Lib from './lib'
 
 export const Layered: FC<Lib.T.LayeredProps> = ({ children, layers, storeKeys, withHeader = true, ...rest }) => {
-  const activeLayer = useRecoilValue(componentLayeredAtoms.activeLayer(storeKeys.activeLayer))
+  const activeLayer = useRecoilValue(componentLayeredAtomFamilies.activeLayer(storeKeys.activeLayer))
 
   return (
     <Lib.S.LayeredContainer {...rest}>

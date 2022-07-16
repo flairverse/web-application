@@ -1,11 +1,11 @@
 import { TimePickerUIKitLib } from '@/components/ui-kit/time-picker'
-import { componentTimePickerAtoms } from '@/store/atomFamilies'
+import { componentTimePickerAtomFamilies } from '@/store/atomFamilies'
 import { useMemo } from 'react'
 import { useRecoilValue } from 'recoil'
 import * as Lib from '..'
 
 export const useReminderTimePicker = ({ boardRef }: Lib.T.UseReminderTimePicker) => {
-  const visibility = useRecoilValue(componentTimePickerAtoms.timePickerPopupVisibility('PAGE__CREATE_NAP___TIME_PICKER_POPUP'))
+  const visibility = useRecoilValue(componentTimePickerAtomFamilies.timePickerPopupVisibility('PAGE__CREATE_NAP___TIME_PICKER_POPUP'))
   const Updater = Lib.H.useUpdaters({ boardRef })
   const updater = new Updater()
 

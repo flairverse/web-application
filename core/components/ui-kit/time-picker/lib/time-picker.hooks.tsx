@@ -1,7 +1,7 @@
 import { Dates, DatesHelperLib } from '@/helpers/dates'
 import { Num } from '@/helpers/number'
 import { useInterval } from '@/hooks/use-interval'
-import { componentLayeredAtoms, componentTimePickerAtoms } from '@/store/atomFamilies'
+import { componentLayeredAtomFamilies, componentTimePickerAtomFamilies } from '@/store/atomFamilies'
 import { StoreKeys } from '@/types/recoil.type'
 import { ModalProps } from 'antd'
 import moment from 'moment'
@@ -18,7 +18,7 @@ import { LayeredUIKitLib } from '../../layered'
  *
  * makes it easy to get and set numeral time values
  */
-const useNumeralTime = (storeKey: StoreKeys) => useRecoilState(componentTimePickerAtoms.timePickerNumeralTimes(storeKey))
+const useNumeralTime = (storeKey: StoreKeys) => useRecoilState(componentTimePickerAtomFamilies.timePickerNumeralTimes(storeKey))
 
 /**
  *
@@ -27,7 +27,7 @@ const useNumeralTime = (storeKey: StoreKeys) => useRecoilState(componentTimePick
  *
  * makes it easy to get numeral time values
  */
-const useNumeralTimeValue = (storeKey: StoreKeys) => useRecoilValue(componentTimePickerAtoms.timePickerNumeralTimes(storeKey))
+const useNumeralTimeValue = (storeKey: StoreKeys) => useRecoilValue(componentTimePickerAtomFamilies.timePickerNumeralTimes(storeKey))
 
 /**
  *
@@ -74,7 +74,7 @@ export const useDisabledMonths = ({ maximumDate, storeKeys, dayEndIsMax }: Lib.T
  * returns all information about minimum date values
  */
 export const useMinimumValues = ({ storeKeys }: Lib.T.UseMinimumValues) => {
-  const minimumDate = useRecoilValue(componentTimePickerAtoms.timePickerMinimumDate(storeKeys.minimumDate))
+  const minimumDate = useRecoilValue(componentTimePickerAtomFamilies.timePickerMinimumDate(storeKeys.minimumDate))
   const minYear = minimumDate.getFullYear()
   const minMonth = minimumDate.getMonth()
   const minDay = minimumDate.getDate()
@@ -282,8 +282,8 @@ export const useDateTimePicker = ({
   onMinimumDateUpdate,
 }: Lib.T.UseDateTimePickerArgs) => {
   useFixWrongChosenDate({ storeKeys, dayEndIsMax, maximumDate })
-  const setVisibility = useSetRecoilState(componentTimePickerAtoms.timePickerPopupVisibility(storeKeys.visibility))
-  const [minimumDate, setMinimumDate] = useRecoilState(componentTimePickerAtoms.timePickerMinimumDate(storeKeys.minimumDate))
+  const setVisibility = useSetRecoilState(componentTimePickerAtomFamilies.timePickerPopupVisibility(storeKeys.visibility))
+  const [minimumDate, setMinimumDate] = useRecoilState(componentTimePickerAtomFamilies.timePickerMinimumDate(storeKeys.minimumDate))
   const [year, setYear] = useNumeralTime(storeKeys.year)
   const [month, setMonth] = useNumeralTime(storeKeys.month)
   const [day, setDay] = useNumeralTime(storeKeys.day)
@@ -413,7 +413,7 @@ export const useTimePickerButton = ({ target, action, storeKeys, maximumDate, da
  * handles layer changing and formatted values for year, month and day
  */
 export const useDatePickerItem = ({ target, storeKeys }: Lib.T.UseDatePickerItemsArgs) => {
-  const setLayer = useSetRecoilState(componentLayeredAtoms.activeLayer(storeKeys.activeLayer))
+  const setLayer = useSetRecoilState(componentLayeredAtomFamilies.activeLayer(storeKeys.activeLayer))
   const value = useNumeralTimeValue(storeKeys[target]) // can be one of the next three lines, but that's fine
   const year = useNumeralTimeValue(storeKeys.year)
   const month = useNumeralTimeValue(storeKeys.month)
@@ -464,7 +464,7 @@ export const useDatePickerItem = ({ target, storeKeys }: Lib.T.UseDatePickerItem
  */
 export const useYears = ({ storeKeys, maximumDate }: Lib.T.UseYearsArgs) => {
   const [selectedYear, setYear] = useNumeralTime(storeKeys.year)
-  const minimumDate = useRecoilValue(componentTimePickerAtoms.timePickerMinimumDate(storeKeys.minimumDate))
+  const minimumDate = useRecoilValue(componentTimePickerAtomFamilies.timePickerMinimumDate(storeKeys.minimumDate))
   const minimumYear = minimumDate.getFullYear()
   const maximumYear = maximumDate.getFullYear()
 
@@ -485,7 +485,7 @@ export const useYears = ({ storeKeys, maximumDate }: Lib.T.UseYearsArgs) => {
  * generates possible months
  */
 export const useMonths = ({ storeKeys }: Lib.T.UseMonthsArgs) => {
-  const setLayer = useSetRecoilState(componentLayeredAtoms.activeLayer(storeKeys.activeLayer))
+  const setLayer = useSetRecoilState(componentLayeredAtomFamilies.activeLayer(storeKeys.activeLayer))
   const [selectedMonth, setMonth] = useNumeralTime(storeKeys.month)
   const changeMonth = (month: number) => {
     setMonth(month)
@@ -503,7 +503,7 @@ export const useMonths = ({ storeKeys }: Lib.T.UseMonthsArgs) => {
  */
 export const useDays = ({ storeKeys }: Lib.T.UseDaysArgs) => {
   const [selectedDay, setDay] = useNumeralTime(storeKeys.day)
-  const setLayer = useSetRecoilState(componentLayeredAtoms.activeLayer(storeKeys.activeLayer))
+  const setLayer = useSetRecoilState(componentLayeredAtomFamilies.activeLayer(storeKeys.activeLayer))
   const year = useNumeralTimeValue(storeKeys.year)
   const month = useNumeralTimeValue(storeKeys.month)
   const changeDay = (day: number) => {
@@ -522,7 +522,7 @@ export const useDays = ({ storeKeys }: Lib.T.UseDaysArgs) => {
  * functionalities of action buttons
  */
 export const useActions = ({ closeOnConfirm, onConfirm, storeKeys, autoHideEarliest }: Lib.T.UseActionsArgs) => {
-  const setVisibility = useSetRecoilState(componentTimePickerAtoms.timePickerPopupVisibility(storeKeys.visibility))
+  const setVisibility = useSetRecoilState(componentTimePickerAtomFamilies.timePickerPopupVisibility(storeKeys.visibility))
   const { minYear, minMonth, minDay, minHour, minMinute } = useMinimumValues({ storeKeys })
   const [year, setYear] = useNumeralTime(storeKeys.year)
   const [month, setMonth] = useNumeralTime(storeKeys.month)

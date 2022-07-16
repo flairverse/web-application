@@ -1,6 +1,6 @@
 import * as storeKeys from '@/constants/store-keys.constants'
 import { DOM } from '@/helpers/DOM'
-import { componentTimePickerAtoms } from '@/store/atomFamilies'
+import { componentTimePickerAtomFamilies } from '@/store/atomFamilies'
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { RefObject } from 'react'
 import { useSetRecoilState } from 'recoil'
@@ -11,7 +11,7 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
   const setActiveItemID = useSetRecoilState(pageCreateNapAtoms.activeItemID)
   const setEditLinkPopupVisibility = useSetRecoilState(pageCreateNapAtoms.editLinkPopupVisibility)
   const setTimePickerVisibility = useSetRecoilState(
-    componentTimePickerAtoms.timePickerPopupVisibility(storeKeys.PAGE__CREATE_NAP___TIME_PICKER_POPUP),
+    componentTimePickerAtomFamilies.timePickerPopupVisibility(storeKeys.PAGE__CREATE_NAP___TIME_PICKER_POPUP),
   )
   const setEditLinkPopupLinkTextAndRef = useSetRecoilState(pageCreateNapAtoms.editLinkPopupLinkTextAndRef)
   const NapStorage = Lib.H.useNapStorage(boardRef)
@@ -23,42 +23,42 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    *
    * decides which compiler to be used
    */
-  const compileDown = (element: Lib.T.Elements.All): HTMLDivElement => {
+  const compileDown = (element: Lib.T.Elements.All, readOnly = false): HTMLDivElement => {
     switch (element.type) {
       case 'text': {
-        return compileTextDown(<Lib.T.Elements.Text>element)
+        return compileTextDown(<Lib.T.Elements.Text>element, readOnly)
       }
 
       case 'post': {
-        return compilePostDown(<Lib.T.Elements.Post>element)
+        return compilePostDown(<Lib.T.Elements.Post>element, readOnly)
       }
 
       case 'mention': {
-        return compileMentionDown(<Lib.T.Elements.Mention>element)
+        return compileMentionDown(<Lib.T.Elements.Mention>element, readOnly)
       }
 
       case 'question': {
-        return compileQuestionDown(<Lib.T.Elements.Question>element)
+        return compileQuestionDown(<Lib.T.Elements.Question>element, readOnly)
       }
 
       case 'quiz': {
-        return compileQuizDown(<Lib.T.Elements.Quiz>element)
+        return compileQuizDown(<Lib.T.Elements.Quiz>element, readOnly)
       }
 
       case 'reminder': {
-        return compileReminderDown(<Lib.T.Elements.Reminder>element)
+        return compileReminderDown(<Lib.T.Elements.Reminder>element, readOnly)
       }
 
       case 'gif': {
-        return compileGifDown(<Lib.T.Elements.Gif>element)
+        return compileGifDown(<Lib.T.Elements.Gif>element, readOnly)
       }
 
       case 'image': {
-        return compileImageDown(<Lib.T.Elements.Image>element)
+        return compileImageDown(<Lib.T.Elements.Image>element, readOnly)
       }
 
       case 'link': {
-        return compileLinkDown(<Lib.T.Elements.Link>element)
+        return compileLinkDown(<Lib.T.Elements.Link>element, readOnly)
       }
 
       case 'more|less': {
@@ -87,20 +87,12 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    *
    * compiles all shared attributes of an item object
    */
-  const compileSharedDown = ({
-    effect,
-    id,
-    rotate,
-    type,
-    node,
-    actionTypes,
-    position,
-    blackList,
-    effectHolders,
-    sync = true,
-  }: Lib.T.CompileSharedDownArgs): HTMLDivElement => {
+  const compileSharedDown = (
+    { effect, id, rotate, type, node, actionTypes, position, blackList, effectHolders, sync = true }: Lib.T.CompileSharedDownArgs,
+    readOnly = false,
+  ): HTMLDivElement => {
     const { left, top } = position
-    const element = addFrameTo(node, actionTypes || [], type, id)
+    const element = readOnly ? addReadOnlyFrameTo(node, type) : addFrameTo(node, actionTypes || [], type, id)
     DOM.addStyles(element, { top, left, transform: `rotate(${rotate}deg)` })
 
     element.setAttribute(Lib.CO.FRAMES_DATA_ATTRS.ROTATION, rotate.toString())
@@ -115,7 +107,11 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
     element.id = id
     element.classList.add(type)
     element.classList.add(effect)
-    DOM.makeElementDraggable({ element, onDragEnd: () => sync && NapStorage.update(element), blackList })
+
+    if (!readOnly) {
+      DOM.makeElementDraggable({ element, onDragEnd: () => sync && NapStorage.update(element), blackList })
+    }
+
     return element
   }
 
@@ -125,13 +121,16 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    *
    * compiles all text based attributes of an item object (like text and link)
    */
-  const compileTextBasedDown = ({ node, effect, id, position, rotate, type, additionalActionTypes, fontSize }: Lib.T.CompileTextBasedDownArgs) => {
+  const compileTextBasedDown = (
+    { node, effect, id, position, rotate, type, additionalActionTypes, fontSize }: Lib.T.CompileTextBasedDownArgs,
+    readOnly = false,
+  ) => {
     const actionTypes: Lib.T.ElementFrameActionTypes[] = ['editInnerText']
     if (additionalActionTypes) {
       actionTypes.push(...additionalActionTypes)
     }
 
-    const element = compileSharedDown({ actionTypes, effect, id, node, position, rotate, type })
+    const element = compileSharedDown({ actionTypes, effect, id, node, position, rotate, type }, readOnly)
 
     DOM.addStyles(element, { fontSize })
     DOM.forcePlainTextForContentEditables(node)
@@ -158,9 +157,9 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    *
    * compiles a text object to actual element
    */
-  const compileTextDown = ({ type, id, text, position, fontSize, effect, rotate }: Lib.T.Elements.Text): HTMLDivElement => {
+  const compileTextDown = ({ type, id, text, position, fontSize, effect, rotate }: Lib.T.Elements.Text, readOnly = false): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.text(text, dummyTexts))
-    const element = compileTextBasedDown({ node, effect, id, position, rotate, type, fontSize })
+    const element = compileTextBasedDown({ node, effect, id, position, rotate, type, fontSize }, readOnly)
     return element
   }
 
@@ -170,9 +169,15 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    *
    * compiles a link object to actual element
    */
-  const compileLinkDown = ({ type, id, link, position, linkFontSize, effect, rotate, href }: Lib.T.Elements.Link): HTMLDivElement => {
+  const compileLinkDown = (
+    { type, id, link, position, linkFontSize, effect, rotate, href }: Lib.T.Elements.Link,
+    readOnly = false,
+  ): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.link(link, href, dummyTexts))
-    const element = compileTextBasedDown({ node, effect, id, position, rotate, type, fontSize: linkFontSize, additionalActionTypes: ['editLinkRef'] })
+    const element = compileTextBasedDown(
+      { node, effect, id, position, rotate, type, fontSize: linkFontSize, additionalActionTypes: ['editLinkRef'] },
+      readOnly,
+    )
     return element
   }
 
@@ -182,9 +187,9 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    *
    * compiles a post object to actual element
    */
-  const compilePostDown = ({ id, position, rotate, type, effect, ...rest }: Lib.T.Elements.Post): HTMLDivElement => {
+  const compilePostDown = ({ id, position, rotate, type, effect, ...rest }: Lib.T.Elements.Post, readOnly = false): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.post(rest, dummyTexts))
-    const element = compileSharedDown({ effect, id, node, position, rotate, type, effectHolders: ['.napElement'] })
+    const element = compileSharedDown({ effect, id, node, position, rotate, type, effectHolders: ['.napElement'] }, readOnly)
     return element
   }
 
@@ -194,9 +199,9 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    *
    * compiles a mention object to actual element
    */
-  const compileMentionDown = ({ effect, id, position, rotate, type, ...rest }: Lib.T.Elements.Mention): HTMLDivElement => {
+  const compileMentionDown = ({ effect, id, position, rotate, type, ...rest }: Lib.T.Elements.Mention, readOnly = false): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.mention(rest, dummyTexts))
-    const element = compileSharedDown({ effect, id, node, position, rotate, type, effectHolders: ['.napElement'] })
+    const element = compileSharedDown({ effect, id, node, position, rotate, type, effectHolders: ['.napElement'] }, readOnly)
     return element
   }
 
@@ -206,20 +211,23 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    *
    * compiles a question object to actual element
    */
-  const compileQuestionDown = ({ effect, id, position, rotate, type, ...rest }: Lib.T.Elements.Question): HTMLDivElement => {
+  const compileQuestionDown = ({ effect, id, position, rotate, type, ...rest }: Lib.T.Elements.Question, readOnly = false): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.question(rest, dummyTexts))
     node.querySelector('.questionText')?.addEventListener('blur', () => NapStorage.update(element))
     node.querySelector('.hintSection')?.addEventListener('blur', () => NapStorage.update(element))
-    const element = compileSharedDown({
-      effect,
-      id,
-      node,
-      position,
-      rotate,
-      type,
-      blackList: ['questionText', 'hintSection'],
-      effectHolders: ['.napElement'],
-    })
+    const element = compileSharedDown(
+      {
+        effect,
+        id,
+        node,
+        position,
+        rotate,
+        type,
+        blackList: ['questionText', 'hintSection'],
+        effectHolders: ['.napElement'],
+      },
+      readOnly,
+    )
     DOM.forcePlainTextForContentEditables(node)
     activateFrameByFocusingContentEditables(element)
     return element
@@ -231,18 +239,21 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    *
    * compiles a quiz object to actual element
    */
-  const compileQuizDown = ({ effect, id, position, rotate, type, ...rest }: Lib.T.Elements.Quiz): HTMLDivElement => {
+  const compileQuizDown = ({ effect, id, position, rotate, type, ...rest }: Lib.T.Elements.Quiz, readOnly = false): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.quiz(rest, dummyTexts))
-    const element = compileSharedDown({
-      effect,
-      id,
-      node,
-      position,
-      rotate,
-      type,
-      blackList: ['questionText', 'hintSection', 'answerText'],
-      effectHolders: ['.napElement'],
-    })
+    const element = compileSharedDown(
+      {
+        effect,
+        id,
+        node,
+        position,
+        rotate,
+        type,
+        blackList: ['questionText', 'hintSection', 'answerText'],
+        effectHolders: ['.napElement'],
+      },
+      readOnly,
+    )
     node.querySelector('.questionText')?.addEventListener('blur', () => NapStorage.update(element))
     node.querySelector('.hintSection')?.addEventListener('blur', () => NapStorage.update(element))
     DOM.forcePlainTextForContentEditables(node)
@@ -309,19 +320,25 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    *
    * compiles a reminder object to actual element
    */
-  const compileReminderDown = ({ effect, id, position, reminderName, rotate, type, endTime }: Lib.T.Elements.Reminder): HTMLDivElement => {
+  const compileReminderDown = (
+    { effect, id, position, reminderName, rotate, type, endTime }: Lib.T.Elements.Reminder,
+    readOnly = false,
+  ): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.reminder({ reminderName, endTime }, dummyTexts))
-    const element = compileSharedDown({
-      effect,
-      id,
-      node,
-      position,
-      rotate,
-      type,
-      actionTypes: ['changeReminderValue', 'noSyncDelete'],
-      blackList: ['reminderName'],
-      sync: false,
-    })
+    const element = compileSharedDown(
+      {
+        effect,
+        id,
+        node,
+        position,
+        rotate,
+        type,
+        actionTypes: ['changeReminderValue', 'noSyncDelete'],
+        blackList: ['reminderName'],
+        sync: false,
+      },
+      readOnly,
+    )
     DOM.forcePlainTextForContentEditables(node)
     activateFrameByFocusingContentEditables(element)
     return element
@@ -333,9 +350,9 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    *
    * compiles a gif object to actual element
    */
-  const compileGifDown = ({ effect, gifURL, id, position, rotate, type, gifWidth }: Lib.T.Elements.Gif): HTMLDivElement => {
+  const compileGifDown = ({ effect, gifURL, id, position, rotate, type, gifWidth }: Lib.T.Elements.Gif, readOnly = false): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.gif({ gifURL, gifWidth }, dummyTexts))
-    const element = compileSharedDown({ effect, id, node, position, rotate, type, effectHolders: ['.napElement'] })
+    const element = compileSharedDown({ effect, id, node, position, rotate, type, effectHolders: ['.napElement'] }, readOnly)
     return element
   }
 
@@ -345,10 +362,25 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    *
    * compiles a gif object to actual element
    */
-  const compileImageDown = ({ effect, imageURL, id, position, rotate, type, imageWidth }: Lib.T.Elements.Image): HTMLDivElement => {
+  const compileImageDown = ({ effect, imageURL, id, position, rotate, type, imageWidth }: Lib.T.Elements.Image, readOnly = false): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.image({ imageURL, imageWidth }, dummyTexts))
-    const element = compileSharedDown({ effect, id, node, position, rotate, type, effectHolders: ['.napElement'] })
+    const element = compileSharedDown({ effect, id, node, position, rotate, type, effectHolders: ['.napElement'] }, readOnly)
     return element
+  }
+
+  /**
+   *
+   *
+   *
+   * adds readonly frame to an element
+   */
+  const addReadOnlyFrameTo = (element: HTMLElement, type: Lib.T.Options): HTMLDivElement => {
+    const frame = document.createElement('div')
+    frame.classList.add('frame')
+    frame.appendChild(element)
+    frame.setAttribute(Lib.CO.FRAMES_DATA_ATTRS.TYPE, type)
+
+    return frame
   }
 
   /**
@@ -357,7 +389,7 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    *
    * adds frame with custom buttons to an element
    */
-  const addFrameTo = (element: HTMLElement, actions: Lib.T.ElementFrameActionTypes[], type: Lib.T.Options, id: string) => {
+  const addFrameTo = (element: HTMLElement, actions: Lib.T.ElementFrameActionTypes[], type: Lib.T.Options, id: string): HTMLDivElement => {
     if (!actions.includes('noSyncDelete')) {
       actions.push('delete')
     }

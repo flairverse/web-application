@@ -1,7 +1,7 @@
 // <module><ModuleName>Atoms
 
 // components
-export * as componentNapViewerAtoms from './component.nap-viewer'
+export * as componentNapViewerAtoms from './component.nap-viewer.atoms'
 // hooks
 export * as hookFontAtoms from './hook.font.atom'
 // layouts
@@ -11,3 +11,4 @@ export * as layoutTopNavbarAtoms from './layout.top-navbar.atom'
 export * as pageCreateNapAtoms from './page.create-nap.atom'
 // providers
 export * as providerInternationalizationAtoms from './provider.internationalization.atom'
+

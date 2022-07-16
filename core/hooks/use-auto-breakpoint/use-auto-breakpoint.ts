@@ -1,13 +1,13 @@
 import * as storeKeys from '@/constants/store-keys.constants'
 import { breakPointsArrays, numeralBreakpoints } from '@/constants/style-variables.constant'
-import { hookUseAutoBreakpointAtoms, StoreLib } from '@/store'
+import { hookUseAutoBreakpointAtomFamilies, StoreLib } from '@/store'
 import { NumeralBreakpoints } from '@/types/style-variables.type'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { useWindowSize } from '../use-window-size'
 
 export const useAutoBreakpoint = () => {
   const setBreakpoint = useSetRecoilState(
-    hookUseAutoBreakpointAtoms.currentWindowBreakpoint(storeKeys.HOOK__USE_AUTO_BREAKPOINT___CURRENT_WINDOW_BREAKPOINT),
+    hookUseAutoBreakpointAtomFamilies.currentWindowBreakpoint(storeKeys.HOOK__USE_AUTO_BREAKPOINT___CURRENT_WINDOW_BREAKPOINT),
   )
   const { xxl, xl, lg, md, sm, xs } = numeralBreakpoints
   const { numeral, stringified } = breakPointsArrays
@@ -43,7 +43,7 @@ export const useAutoBreakpoint = () => {
 
 export const useGetAutoBreakpoint = () => {
   const breakpoint = useRecoilValue(
-    hookUseAutoBreakpointAtoms.currentWindowBreakpoint(storeKeys.HOOK__USE_AUTO_BREAKPOINT___CURRENT_WINDOW_BREAKPOINT),
+    hookUseAutoBreakpointAtomFamilies.currentWindowBreakpoint(storeKeys.HOOK__USE_AUTO_BREAKPOINT___CURRENT_WINDOW_BREAKPOINT),
   )
 
   return breakpoint
