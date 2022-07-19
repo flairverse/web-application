@@ -295,3 +295,8 @@ export type BoardSize = {
   width: number
   height: number
 }
+
+export interface CompileDownOptions {
+  readonly?: boolean
+  scale?: number
+}

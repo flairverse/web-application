@@ -1,5 +1,6 @@
 import { NapCreatorUIKitLib } from '@/components/ui-kit/nap'
 import { breakPoints } from '@/constants/style-variables.constant'
+import { BoardSize } from '@/models/nap.model'
 import { Modal } from 'antd'
 import styled, { keyframes } from 'styled-components'
 import * as Lib from '.'
@@ -71,7 +72,13 @@ export const NapGroup = styled.div`
   transition: all 150ms linear;
   z-index: 1;
   opacity: 0.5;
-  overflow: hidden;
+  overflow: auto;
+  /* -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  } */
 
   &.active,
   &.beforeActive,
@@ -188,7 +195,7 @@ export const NapBar = styled.div`
   }
 `
 
-export const Nap = styled.div`
+export const Nap = styled(NapCreatorUIKitLib.S.MainBoard)<{ size: BoardSize }>`
   width: calc(100% - ${NAP_BAR_WIDTH * 3}px);
   height: 100%;
   position: absolute;
@@ -200,6 +207,8 @@ export const Nap = styled.div`
   padding: 10px 0 10px 10px;
   display: flex;
   flex-direction: column;
+  min-width: ${({ size: { width } }) => width}px;
+  min-height: ${({ size: { height } }) => height}px;
 
   > .navigator {
     position: absolute;
@@ -348,9 +357,4 @@ export const Nap = styled.div`
       }
     }
   }
-`
-
-export const MainBoard = styled(NapCreatorUIKitLib.S.MainBoard)`
-  position: relative;
-  width: 100%;
 `

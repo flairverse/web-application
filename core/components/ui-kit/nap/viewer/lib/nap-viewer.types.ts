@@ -12,7 +12,6 @@ export interface NapGroupProps {
   onAchieveStart: () => void
   storeKeys: {
     napIndex: string
-    compiledElements: string
   }
 }
 
@@ -26,12 +25,9 @@ export interface NapProps extends NapModel {
   napLength: number
   onForward: () => void
   onBackward: () => void
-  storeKeys: {
-    compiledElements: string
-  }
 }
 
-export interface CompiledDownNapProps extends Pick<NapProps, 'storeKeys'>, NapModel {}
+export interface CompiledDownNapProps extends NapModel {}
 
 export interface UseCompiledDownNapProps extends CompiledDownNapProps {
   containerRef: RefObject<HTMLDivElement>

@@ -77,10 +77,14 @@ export const useNavigateButton = ({ enabled, role }: Pick<Lib.T.NavigateButtonPr
  * functionalities for the CompiledDownNap component
  */
 export const useCompiledDownNap = (nap: Lib.T.UseCompiledDownNapProps) => {
-  const { storeKeys, containerRef } = nap
+  const { containerRef } = nap
   const fakeBoardRef = useRef<HTMLDivElement>(null)
   const { compileDown } = NapCreatorUIKitLib.H.useBoardCompileDown(fakeBoardRef)
-  const setElements = useSetRecoilState(componentNapViewerAtomFamilies.compiledElements(storeKeys.compiledElements))
+
+  const compileDownOptions: NapCreatorUIKitLib.T.CompileDownOptions = {
+    readonly: true,
+    scale: nap.boardScale,
+  }
 
   const compileDownOnMount = () => {
     const { current: container } = containerRef
@@ -88,50 +92,50 @@ export const useCompiledDownNap = (nap: Lib.T.UseCompiledDownNapProps) => {
       return
     }
 
-    console.log(nap)
-
     const elements: HTMLElement[] = []
 
     for (const text of nap.text) {
-      elements.push(compileDown(text, true))
+      elements.push(compileDown(text, compileDownOptions))
     }
 
     for (const post of nap.post) {
-      elements.push(compileDown(post, true))
+      elements.push(compileDown(post, compileDownOptions))
     }
 
     for (const mention of nap.mention) {
-      elements.push(compileDown(mention, true))
+      elements.push(compileDown(mention, compileDownOptions))
     }
 
     for (const question of nap.question) {
-      elements.push(compileDown(question, true))
+      elements.push(compileDown(question, compileDownOptions))
     }
 
     for (const quiz of nap.quiz) {
-      elements.push(compileDown(quiz, true))
+      elements.push(compileDown(quiz, compileDownOptions))
     }
 
     for (const reminder of nap.reminder) {
-      elements.push(compileDown(reminder, true))
+      elements.push(compileDown(reminder, compileDownOptions))
     }
 
     for (const gif of nap.gif) {
-      elements.push(compileDown(gif, true))
+      elements.push(compileDown(gif, compileDownOptions))
     }
 
     for (const image of nap.image) {
-      elements.push(compileDown(image, true))
+      elements.push(compileDown(image, compileDownOptions))
     }
 
     for (const link of nap.link) {
-      elements.push(compileDown(link, true))
+      elements.push(compileDown(link, compileDownOptions))
     }
 
     // setElements(elements)
     for (const element of elements) {
       container.appendChild(element)
     }
+
+    container.outerHTML = container.innerHTML
   }
 
   useEffect(compileDownOnMount, [])

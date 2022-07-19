@@ -6,11 +6,13 @@ export interface NapModel extends BaseModel, NapBoardModel {
   creator: UserModel
 }
 
+export type BoardSize = {
+  width: number
+  height: number
+}
+
 export interface NapBoardModel {
-  boardSize: {
-    width: number
-    height: number
-  }
+  boardSize: BoardSize
   boardScale: number
   text: NapCreatorUIKitLib.T.Elements.Text[]
   post: NapCreatorUIKitLib.T.Elements.Post[]

@@ -22,14 +22,7 @@ export const NapGroup: FC<Lib.T.NapGroupProps> = props => {
             ))}
           </Lib.S.NapBar>
 
-          <Nap
-            {...naps[napIndex]}
-            napLength={naps.length}
-            onBackward={backward}
-            onForward={forward}
-            key={napIndex}
-            storeKeys={{ compiledElements: `${storeKeys.compiledElements}_${napIndex}` }}
-          />
+          <Nap {...naps[napIndex]} napLength={naps.length} onBackward={backward} onForward={forward} key={napIndex} />
         </>
       )}
     </Lib.S.NapGroup>
@@ -46,10 +39,10 @@ export const NavigateButton: FC<Lib.T.NavigateButtonProps> = ({ role, onClick, e
 }
 
 export const Nap: FC<Lib.T.NapProps> = nap => {
-  const { creator, onBackward, onForward } = nap
+  const { creator, onBackward, onForward, boardSize } = nap
 
   return (
-    <Lib.S.Nap>
+    <Lib.S.Nap size={boardSize}>
       <span className="navigator forward" onClick={onForward} />
       <span className="navigator backward" onClick={onBackward} />
 
@@ -102,8 +95,7 @@ export const Nap: FC<Lib.T.NapProps> = nap => {
 
 export const CompiledDownNap: FC<Lib.T.CompiledDownNapProps> = nap => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const { storeKeys } = nap
   const {} = Lib.H.useCompiledDownNap({ ...nap, containerRef })
 
-  return <Lib.S.MainBoard style={{ ...nap.boardSize }} ref={containerRef} />
+  return <div style={{ ...nap.boardSize }} ref={containerRef} />
 }

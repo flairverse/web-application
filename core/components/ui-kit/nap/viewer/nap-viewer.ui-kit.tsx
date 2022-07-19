@@ -35,7 +35,6 @@ export const NapViewer: FC = () => {
               onAchieveStart={backward}
               storeKeys={{
                 napIndex: storeKeys.COMPONENT__NAP_VIEWER___NAP_INDEX_ + i,
-                compiledElements: storeKeys.COMPONENT__NAP_VIEWER___COMPILED_ELEMENTS_ + i,
               }}
             />
           ))}
