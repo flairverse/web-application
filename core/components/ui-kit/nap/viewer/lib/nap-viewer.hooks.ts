@@ -134,10 +134,7 @@ export const useCompiledDownNap = (nap: Lib.T.UseCompiledDownNapProps) => {
     for (const element of elements) {
       container.appendChild(element)
     }
-
-    container.outerHTML = container.innerHTML
   }
 
   useEffect(compileDownOnMount, [])
-  return {}
 }

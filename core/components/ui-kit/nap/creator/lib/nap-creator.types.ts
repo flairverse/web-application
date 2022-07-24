@@ -235,10 +235,11 @@ export type DummyTexts = ReturnType<typeof Lib.H.useDummyTexts>
 
 export type ItemsDOMStringGenerators = {
   text: (innerText: string, dummyTexts: DummyTexts) => string
-  post: (args: Pick<Elements.Post, 'post' | 'user'>, dummyTexts: DummyTexts) => string
+  post: (args: Pick<Elements.Post, 'post' | 'user'>, dummyTexts: DummyTexts, compileOptions?: CompileDownOptions) => string
   mention: (
     args: Pick<Elements.Mention, 'fullName' | 'job' | 'profile' | 'username' | 'userID' | 'hasNap' | 'seen' | 'followers' | 'subscribes'>,
     dummyTexts: DummyTexts,
+    compileOptions?: CompileDownOptions,
   ) => string
   question: (args: Pick<Elements.Question, 'hint' | 'question' | 'questionerUser' | 'hintEnabled'>, dummyTexts: DummyTexts) => string
   quiz: (
@@ -249,6 +250,24 @@ export type ItemsDOMStringGenerators = {
   gif: (args: Pick<Elements.Gif, 'gifURL' | 'gifWidth'>, dummyTexts: DummyTexts) => string
   image: (args: Pick<Elements.Image, 'imageURL' | 'imageWidth'>, dummyTexts: DummyTexts) => string
   link: (innerText: string, href: string, dummyTexts: DummyTexts) => string
+}
+
+export type ItemsDOMStringGeneratorsLogics = {
+  post: (
+    postId: number,
+    compileOptions?: CompileDownOptions,
+  ) => {
+    articleNode: string
+  }
+
+  mention: (
+    username: string,
+    compileOptions?: CompileDownOptions,
+  ) => {
+    topLevelNode: string
+  }
+
+  scaleOutIn: (compileOptions?: CompileDownOptions) => string
 }
 
 export interface MentionProps {

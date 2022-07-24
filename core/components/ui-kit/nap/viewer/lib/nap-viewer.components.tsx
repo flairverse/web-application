@@ -1,7 +1,7 @@
 import { Button, Mentions } from 'antd'
 import moment from 'moment'
 import { FC, useRef } from 'react'
-import { FaEllipsisH, FaPause, FaShare } from 'react-icons/fa'
+import { FaChevronLeft, FaChevronRight, FaEllipsisH, FaPause } from 'react-icons/fa'
 import { HiChevronRight } from 'react-icons/hi'
 import { RiSendPlane2Fill } from 'react-icons/ri'
 import * as Lib from '.'
@@ -9,7 +9,7 @@ import * as Lib from '.'
 const { Option } = Mentions
 
 export const NapGroup: FC<Lib.T.NapGroupProps> = props => {
-  const { active, naps, storeKeys } = props
+  const { active, naps } = props
   const { classNames, backward, forward, napIndex } = Lib.H.useNapGroup(props)
 
   return (
@@ -18,7 +18,9 @@ export const NapGroup: FC<Lib.T.NapGroupProps> = props => {
         <>
           <Lib.S.NapBar>
             {naps.map((_, index) => (
-              <span key={index} className={napIndex >= index ? 'active' : undefined} />
+              <span key={index}>
+                <span />
+              </span>
             ))}
           </Lib.S.NapBar>
 
@@ -42,10 +44,7 @@ export const Nap: FC<Lib.T.NapProps> = nap => {
   const { creator, onBackward, onForward, boardSize } = nap
 
   return (
-    <Lib.S.Nap size={boardSize}>
-      <span className="navigator forward" onClick={onForward} />
-      <span className="navigator backward" onClick={onBackward} />
-
+    <Lib.S.Nap>
       <div className="topContent">
         <div className="profile">
           <img src={creator.profileImage} alt="User profile" />
@@ -58,12 +57,16 @@ export const Nap: FC<Lib.T.NapProps> = nap => {
         </div>
 
         <div className="actions">
-          <span title="Share with friends">
-            <FaShare size={20} />
+          <span title="Prevues nap" onClick={onBackward}>
+            <FaChevronLeft size={20} />
           </span>
 
           <span title="Pause sliding">
             <FaPause size={20} />
+          </span>
+
+          <span title="Next nap" onClick={onForward}>
+            <FaChevronRight size={20} />
           </span>
 
           <span title="More options">
@@ -95,7 +98,11 @@ export const Nap: FC<Lib.T.NapProps> = nap => {
 
 export const CompiledDownNap: FC<Lib.T.CompiledDownNapProps> = nap => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const {} = Lib.H.useCompiledDownNap({ ...nap, containerRef })
+  Lib.H.useCompiledDownNap({ ...nap, containerRef })
 
-  return <div style={{ ...nap.boardSize }} ref={containerRef} />
+  return (
+    <Lib.S.CompiledDownNap>
+      <Lib.S.StyledNapBoard ref={containerRef} size={nap.boardSize} />
+    </Lib.S.CompiledDownNap>
+  )
 }

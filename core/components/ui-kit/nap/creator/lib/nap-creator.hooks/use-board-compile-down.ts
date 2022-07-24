@@ -135,7 +135,6 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
     const element = compileSharedDown({ actionTypes, effect, id, node, position, rotate, type }, options)
 
     DOM.addStyles(element, { fontSize })
-    console.log({ fontSize })
     DOM.forcePlainTextForContentEditables(node)
 
     node.addEventListener('keyup', () => node.setAttribute('data-text', node.innerText))
@@ -197,7 +196,7 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
     { id, position, rotate, type, effect, ...rest }: Lib.T.Elements.Post,
     options?: Lib.T.CompileDownOptions,
   ): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.post(rest, dummyTexts))
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.post(rest, dummyTexts, options))
     const element = compileSharedDown({ effect, id, node, position, rotate, type, effectHolders: ['.napElement'] }, options)
     return element
   }
@@ -212,7 +211,7 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
     { effect, id, position, rotate, type, ...rest }: Lib.T.Elements.Mention,
     options?: Lib.T.CompileDownOptions,
   ): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.mention(rest, dummyTexts))
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.mention(rest, dummyTexts, options))
     const element = compileSharedDown({ effect, id, node, position, rotate, type, effectHolders: ['.napElement'] }, options)
     return element
   }
@@ -400,7 +399,7 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
    */
   const addReadOnlyFrameTo = (element: HTMLElement, type: Lib.T.Options): HTMLDivElement => {
     const frame = document.createElement('div')
-    frame.classList.add('frame')
+    frame.classList.add('frame', 'readOnly')
     frame.appendChild(element)
     frame.setAttribute(Lib.CO.FRAMES_DATA_ATTRS.TYPE, type)
 

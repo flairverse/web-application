@@ -2,7 +2,7 @@ import { NapCreatorUIKitLib } from '@/components/ui-kit/nap'
 import { breakPoints } from '@/constants/style-variables.constant'
 import { BoardSize } from '@/models/nap.model'
 import { Modal } from 'antd'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 import * as Lib from '.'
 
 const NAVIGATE_BUTTONS_WIDTH = 35
@@ -72,7 +72,6 @@ export const NapGroup = styled.div`
   transition: all 150ms linear;
   z-index: 1;
   opacity: 0.5;
-  overflow: auto;
   /* -ms-overflow-style: none;
   scrollbar-width: none;
 
@@ -151,15 +150,6 @@ export const NavigateButton = styled.button<Pick<Lib.T.NavigateButtonProps, 'ena
   }
 `
 
-export const napBarAnimation = keyframes`
-  from {
-    height: 0;
-  }
-  to {
-    height: 100%;
-  }
-`
-
 export const NapBar = styled.div`
   position: absolute;
   right: 0;
@@ -180,22 +170,17 @@ export const NapBar = styled.div`
     position: relative;
     overflow: hidden;
 
-    &.active {
-      &::after {
-        content: '';
-        background-color: var(--layer-2-text-1);
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        height: 100%;
-        animation: ${napBarAnimation} 5s linear;
-      }
+    > span {
+      background-color: var(--layer-2-text-1);
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
     }
   }
 `
 
-export const Nap = styled(NapCreatorUIKitLib.S.MainBoard)<{ size: BoardSize }>`
+export const Nap = styled.div`
   width: calc(100% - ${NAP_BAR_WIDTH * 3}px);
   height: 100%;
   position: absolute;
@@ -207,51 +192,13 @@ export const Nap = styled(NapCreatorUIKitLib.S.MainBoard)<{ size: BoardSize }>`
   padding: 10px 0 10px 10px;
   display: flex;
   flex-direction: column;
-  min-width: ${({ size: { width } }) => width}px;
-  min-height: ${({ size: { height } }) => height}px;
-
-  > .navigator {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100px;
-    z-index: 0;
-    cursor: pointer;
-
-    @media screen and (max-width: ${breakPoints.md}) {
-      width: 50px;
-    }
-
-    @media screen and (max-width: ${breakPoints.sm}) {
-      width: 30px;
-    }
-
-    &:hover {
-      background: black;
-
-      &.forward {
-        background: linear-gradient(-90deg, #00000033, transparent);
-      }
-
-      &.backward {
-        background: linear-gradient(90deg, #00000033, transparent);
-      }
-    }
-
-    &.forward {
-      right: -15px;
-    }
-
-    &.backward {
-      left: 0;
-    }
-  }
 
   > .topContent {
     height: 40px;
     width: 100%;
     display: flex;
     position: relative;
+    z-index: 1;
 
     > .profile {
       flex: 1;
@@ -357,4 +304,26 @@ export const Nap = styled(NapCreatorUIKitLib.S.MainBoard)<{ size: BoardSize }>`
       }
     }
   }
+`
+export const CompiledDownNap = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`
+
+export const StyledNapBoard = styled(NapCreatorUIKitLib.S.MainBoard)<{ size: BoardSize }>`
+  position: relative;
+  width: ${({ size: { width } }) => width}px;
+  min-width: ${({ size: { width } }) => width}px;
+  height: ${({ size: { height } }) => height}px;
+  min-height: ${({ size: { height } }) => height}px;
 `

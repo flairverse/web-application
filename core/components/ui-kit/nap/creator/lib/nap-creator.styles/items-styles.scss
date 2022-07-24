@@ -14,6 +14,10 @@
     color: var(--layer-2-text-2);
     border: 1px solid var(--layer-2-border);
 
+    &.readOnly {
+      cursor: pointer;
+    }
+
     > header {
       display: flex;
 
@@ -169,6 +173,10 @@
     border: 1px solid var(--layer-2-border);
     border-radius: 15px;
     padding: 10px;
+
+    &.readOnly {
+      cursor: pointer;
+    }
 
     > .profileContainer {
       width: 100%;

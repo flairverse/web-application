@@ -464,6 +464,10 @@ export const MainBoard = styled.div`
     transform: scale(1) rotate(0deg);
     outline: none;
 
+    &.readOnly {
+      transition: all 150ms linear;
+    }
+
     * {
       user-select: none;
     }
@@ -512,6 +516,7 @@ export const MainBoard = styled.div`
         margin: 0;
         transition: ${TRANSITION};
         font-size: 100%;
+        white-space: pre-wrap;
         word-break: break-all;
         color: var(--layer-2-text-3);
       }
