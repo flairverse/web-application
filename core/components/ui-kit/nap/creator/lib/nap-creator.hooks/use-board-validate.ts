@@ -265,8 +265,12 @@ export const useBoardValidate = () => {
     }
 
     // validate endDate
-    const thirtyMinute = 30 * 60 * 1000
-    if (moment(endTime).diff(moment()) < thirtyMinute) {
+    const thirtyMinutes = 30 * 60 * 1000
+
+    console.log(endTime)
+    console.log(moment().toDate().toISOString())
+
+    if (moment(endTime).diff(moment()) < thirtyMinutes) {
       isValid = false
       reasons.push({ error: Lib.E.ValidatorErrorEnum.reminder_lessThanThirtyMinute, elementID: id })
     }

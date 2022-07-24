@@ -1,3 +1,5 @@
+import { NapViewer } from '@/components/ui-kit/nap/viewer'
+import { useSSREffect } from '@/hooks/use-ssr-effect'
 import { AcceleratorsProvider } from '@/providers/accelerator'
 import { DevtoolsProvider } from '@/providers/devtools'
 import { FontProvider } from '@/providers/font'
@@ -8,12 +10,22 @@ import '@/styles/index.scss'
 import { NextComponent } from '@/types/next-page.type'
 import { appWithTranslation } from 'next-i18next.config'
 import { ThemeProvider } from 'next-themes'
+import { useState } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { RecoilRoot } from 'recoil'
 
 const FlairVerse: NextComponent = ({ Component, pageProps }) => {
   const Layout = Component.layout || ((children: JSX.Element) => <>{children}</>)
   const queryClient = new QueryClient()
+
+  const [x, y] = useState(false)
+
+  useSSREffect(() => {
+    const { pathname } = window.location
+    if (pathname === '' || pathname === '/') {
+      y(true)
+    }
+  })
 
   return (
     <RecoilRoot>
@@ -27,6 +39,8 @@ const FlairVerse: NextComponent = ({ Component, pageProps }) => {
               <AcceleratorsProvider>
                 <Layout>
                   <GlobalHooksProvider>
+                    {x && <NapViewer />}
+
                     <Component {...pageProps} />
                   </GlobalHooksProvider>
                 </Layout>

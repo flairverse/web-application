@@ -1,4 +1,4 @@
-import { componentTimePickerAtoms } from '@/store/atomFamilies'
+import { componentTimePickerAtomFamilies } from '@/store/atomFamilies'
 import { FC } from 'react'
 import { useRecoilValue } from 'recoil'
 import { Layered } from '../layered'
@@ -16,7 +16,7 @@ export const DateTimePicker: FC<Lib.T.DateTimePickerProps> = ({
   closeOnConfirm = true,
   minimumDate: minimumDateProp,
 }) => {
-  const visibility = useRecoilValue(componentTimePickerAtoms.timePickerPopupVisibility(storeKeys.visibility))
+  const visibility = useRecoilValue(componentTimePickerAtomFamilies.timePickerPopupVisibility(storeKeys.visibility))
   const { modalProps, layeredProps } = Lib.H.useDateTimePicker({
     storeKeys,
     minimumDateProp,

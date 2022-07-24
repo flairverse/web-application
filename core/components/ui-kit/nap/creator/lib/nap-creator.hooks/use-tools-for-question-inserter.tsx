@@ -1,7 +1,7 @@
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { AiOutlineRotateRight } from 'react-icons/ai'
-import { FaRegLightbulb } from 'react-icons/fa'
-import { IoColorFilterOutline } from 'react-icons/io5'
+import { BiPalette } from 'react-icons/bi'
+import { RiLightbulbLine } from 'react-icons/ri'
 import { useRecoilValue } from 'recoil'
 import * as Lib from '..'
 
@@ -15,13 +15,13 @@ export const useToolsForQuestionInserter = ({ boardRef }: Lib.T.ToolsForInserter
 
   const tools: Pick<Lib.T.ToolProps, 'Icon' | 'type' | 'title' | 'disabled'>[] = [
     {
-      Icon: FaRegLightbulb,
+      Icon: RiLightbulbLine,
       type: 'question-hint',
       title: 'Toggle hint',
       disabled: activeOption !== 'question' || activeItemID === null,
     },
     {
-      Icon: IoColorFilterOutline,
+      Icon: BiPalette,
       type: 'question-effect',
       title: 'Effect',
       disabled: activeOption !== 'question' || activeItemID === null,

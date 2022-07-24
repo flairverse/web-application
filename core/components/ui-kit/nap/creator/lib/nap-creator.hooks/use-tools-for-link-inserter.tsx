@@ -1,7 +1,8 @@
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { AiOutlineRotateRight } from 'react-icons/ai'
+import { BiPalette } from 'react-icons/bi'
 import { GoTextSize } from 'react-icons/go'
-import { IoAddCircleOutline, IoColorFilterOutline } from 'react-icons/io5'
+import { IoAddCircleOutline } from 'react-icons/io5'
 import { useRecoilValue } from 'recoil'
 import * as Lib from '..'
 
@@ -26,7 +27,7 @@ export const useToolsForLinkInserter = ({ boardRef }: Lib.T.ToolsForInserters) =
       disabled: activeOption !== 'link' || activeItemID === null,
     },
     {
-      Icon: IoColorFilterOutline,
+      Icon: BiPalette,
       type: 'link-effect',
       title: 'Effect',
       disabled: activeOption !== 'link' || activeItemID === null,

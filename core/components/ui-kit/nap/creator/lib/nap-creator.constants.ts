@@ -310,13 +310,46 @@ export const ITEMS_DOM_STRING_COMPONENTS: Lib.T.ItemsDOMStringComponents = {
   `,
 }
 
+export const ITEMS_DOM_STRING_LOGICS: Lib.T.ItemsDOMStringGeneratorsLogics = {
+  post: (postId, compileOptions) => ({
+    articleNode: !compileOptions ? '' : `onclick="window.open('/qafoori/${postId}/get-post-slug-by-passing-post-id-to-an-endpoint', '_blank')"`,
+  }),
+
+  mention: (username, compileOptions) => ({
+    topLevelNode: !compileOptions ? '' : `onclick="window.open('/${username}', '_blank')"`,
+  }),
+
+  scaleOutIn: compileOptions =>
+    !compileOptions?.readonly
+      ? ''
+      : `
+        onmouseover="
+          const scale = ${compileOptions.scale || '1'} - 0.03
+          const rotate = this.parentNode.getAttribute('data-rotation')
+          const transform = 'rotate(' + rotate + 'deg)' + ' scale(' + scale + ')'
+          this.parentNode.style.transform = transform
+        "
+        onmouseleave="
+          const scale = ${compileOptions.scale || '1'}
+          const rotate = this.parentNode.getAttribute('data-rotation')
+          const transform = 'rotate(' + rotate + 'deg)' + ' scale(' + scale + ')'
+          this.parentNode.style.transform = transform
+        "
+      `,
+}
+
 export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
   text: (innerText, _dummyTexts) => `
     <p data-text="${innerText}">${innerText}</p>
   `,
 
-  post: ({ post, user }, _dummyTexts) => `
-    <article class="napElement post" data-post-id="${post.id}">
+  post: ({ post, user }, _dummyTexts, compileOptions) => `
+    <article
+      class="napElement post ${compileOptions?.readonly ? 'readOnly' : ''}"
+      data-post-id="${post.id}"
+      ${ITEMS_DOM_STRING_LOGICS.post(post.id, compileOptions).articleNode}
+      ${ITEMS_DOM_STRING_LOGICS.scaleOutIn(compileOptions)}
+    >
       <header>
         <div class="profilePicture">
           ${ITEMS_DOM_STRING_COMPONENTS.profile({
@@ -385,8 +418,13 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
     </article>
   `,
 
-  mention: ({ fullName, username, job, profile, userID, hasNap, seen, followers, subscribes }, _dummyTexts) => `
-    <div class="napElement mention" data-user-id="${userID}">
+  mention: ({ fullName, username, job, profile, userID, hasNap, seen, followers, subscribes }, _dummyTexts, compileOptions) => `
+    <div
+      class="napElement mention ${compileOptions?.readonly ? 'readOnly' : ''}"
+      data-user-id="${userID}"
+      ${ITEMS_DOM_STRING_LOGICS.mention(username, compileOptions).topLevelNode}
+      ${ITEMS_DOM_STRING_LOGICS.scaleOutIn(compileOptions)}
+    >
       <div class="profileContainer">
         ${ITEMS_DOM_STRING_COMPONENTS.profile({ hasNap, seen, profile, size: 6 })}
       </div>

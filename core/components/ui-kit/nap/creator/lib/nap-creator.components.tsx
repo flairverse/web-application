@@ -9,7 +9,7 @@ import { useGetAutoBreakpoint } from '@/hooks/use-auto-breakpoint'
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { Grid as GifList } from '@giphy/react-components'
 import { Alert, Button, Popconfirm } from 'antd'
-import * as mock from 'mock'
+import * as staticMocks from 'mock/static'
 import { FC } from 'react'
 import { FaEllipsisH, FaPause, FaShare } from 'react-icons/fa'
 import { HiChevronRight } from 'react-icons/hi'
@@ -42,10 +42,10 @@ export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active, boardRef, imageInputRe
 }
 
 export const ToolBoxNextBtn: FC<Lib.T.ToolBoxNextBtnProps> = ({ boardRef }) => {
-  const { compileAndValidateAll } = Lib.H.useBoardCompileUp(boardRef)
+  const { finalizeBoard } = Lib.H.useToolBoxNextBtn({ boardRef })
 
   return (
-    <Button type="primary" onClick={() => compileAndValidateAll()} className="nextBtn">
+    <Button type="primary" onClick={finalizeBoard} className="nextBtn">
       <span>Next</span>
       <HiChevronRight color="var(--layer-2-text-3)" size={20} />
     </Button>
@@ -73,8 +73,10 @@ export const DraftMessage = () => {
               onConfirm={onConfirmDisable}
               okText="Yes"
               cancelText="No"
+              className="cy-disable-db-popup"
+              cancelButtonProps={{ className: 'cy-close-db-popup' }}
             >
-              <Button size="small" type="text">
+              <Button size="small" type="text" className="cy-disable-db">
                 Disable it
               </Button>
             </Popconfirm>
@@ -166,8 +168,8 @@ export const PostsPickUp: FC<Lib.T.PostsPickUpProps> = ({ boardRef }) => {
 
   return (
     <PickUp {...pickUpProps} visibility={pickUp}>
-      {Array.from(Array(mock.pickCard.length)).map((_, index) => {
-        return <CardPick key={index} {...mock.pickCard[index]} onSelect={onPostSelect} napProfileScale={napProfileScale} />
+      {Array.from(Array(staticMocks.pickCard.length)).map((_, index) => {
+        return <CardPick key={index} {...staticMocks.pickCard[index]} onSelect={onPostSelect} napProfileScale={napProfileScale} />
       })}
     </PickUp>
   )
@@ -180,8 +182,8 @@ export const MentionPickUp: FC<Lib.T.MentionPickUpProps> = ({ boardRef }) => {
   return (
     <PickUp {...pickUpProps} visibility={pickUp}>
       <Lib.S.Mentions>
-        {Array.from(Array(mock.mentions.length)).map((_, index) => (
-          <Mention key={index} {...mock.mentions[index]} onClick={onUserSelect} />
+        {Array.from(Array(staticMocks.mentions.length)).map((_, index) => (
+          <Mention key={index} {...staticMocks.mentions[index]} onClick={onUserSelect} />
         ))}
       </Lib.S.Mentions>
     </PickUp>
@@ -230,7 +232,7 @@ export const Tool: FC<Lib.T.ToolProps> = ({ disabled, Icon, type, onClick, title
     <Lib.S.Tool index={index} className={`${disabled && 'disabled'}`}>
       <LongTap popup={{ content: title, mobileOnly: true }}>
         <Button type="dashed" onClick={() => onClick(type)}>
-          <Icon color="var(--layer-2-text-2)" size={17} />
+          <Icon color="var(--layer-2-text-2)" size={20} />
           <span>{title}</span>
         </Button>
       </LongTap>

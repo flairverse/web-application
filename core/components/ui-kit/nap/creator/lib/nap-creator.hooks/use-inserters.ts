@@ -307,7 +307,7 @@ export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
         position: { left: '85px', top: '85px' },
         rotate: 0,
         reminderName: '',
-        endTime: new Date().toISOString(),
+        endTime: Lib.HE.getReminderInitialTime().minimumDate.toISOString(),
       }
       this.appendItem(reminder, false)
     }

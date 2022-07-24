@@ -3,10 +3,12 @@ import { CardMain } from '@/components/ui-kit/card'
 import { Horizontal, HorizontalUIKitLib } from '@/components/ui-kit/horizontal'
 import { NapProfile } from '@/components/ui-kit/nap'
 import { SuggestionBox } from '@/components/ui-kit/suggestion-box'
+import { napViewerVisibility } from '@/store/atoms/component.nap-viewer.atoms'
 import { Button } from 'antd'
-import * as mock from 'mock'
+import * as staticMocks from 'mock/static'
 import Link from 'next/link'
 import { FC } from 'react'
+import { useSetRecoilState } from 'recoil'
 import * as Lib from '.'
 
 export const Topic: FC<Lib.T.TopicProps> = ({ counter, title, TopicIcon, topic, href, ...rest }) => {
@@ -43,14 +45,14 @@ export const Topics: FC<Lib.T.TopicsProps> = ({ ...rest }) => {
 export const LeftAside: FC = () => {
   return (
     <Lib.S.TopThings>
-      <SuggestionBox topic="article" title="Top articles" suggestionsItems={mock.suggestionInBox1} />
+      <SuggestionBox topic="article" title="Top articles" suggestionsItems={staticMocks.suggestionInBox1} />
       <SuggestionBox
         topic="article"
         title="We are proud of your valuable articles and read them with interest."
         suggestionContent={{ href: '/', buttonText: 'Publish now' }}
       />
-      <SuggestionBox topic="podcast" title="Top podcast" suggestionsFlairs={mock.suggestionFlair2} />
-      <SuggestionBox topic="blog" title="Top blog" suggestionsItems={mock.suggestionInBox2} />
+      <SuggestionBox topic="podcast" title="Top podcast" suggestionsFlairs={staticMocks.suggestionFlair2} />
+      <SuggestionBox topic="blog" title="Top blog" suggestionsItems={staticMocks.suggestionInBox2} />
       <SuggestionBox topic="blog" title="We cant't wait to read what you write." suggestionContent={{ href: '/', buttonText: 'Write now' }} />
     </Lib.S.TopThings>
   )
@@ -59,24 +61,26 @@ export const LeftAside: FC = () => {
 export const RightAside: FC = () => {
   return (
     <Lib.S.TopThings>
-      <SuggestionBox topic="job" title="Top job" suggestionsItems={mock.suggestionInBox2} />
+      <SuggestionBox topic="job" title="Top job" suggestionsItems={staticMocks.suggestionInBox2} />
       <SuggestionBox
         topic="job"
         title="People with flair are waiting for your company jobs."
         suggestionContent={{ href: '/', buttonText: 'Make now' }}
       />
-      <SuggestionBox topic="podcast" title="Top podcast" suggestionsItems={mock.suggestionInBox1} />
+      <SuggestionBox topic="podcast" title="Top podcast" suggestionsItems={staticMocks.suggestionInBox1} />
       <SuggestionBox
         topic="podcast"
         title="Do you have any amazing things to say? We listen to them."
         suggestionContent={{ href: '/', buttonText: 'Speak now' }}
       />
-      <SuggestionBox topic="podcast" title="Top podcast" suggestionsFlairs={mock.suggestionFlair1} />
+      <SuggestionBox topic="podcast" title="Top podcast" suggestionsFlairs={staticMocks.suggestionFlair1} />
     </Lib.S.TopThings>
   )
 }
 
 export const NapsList: FC = () => {
+  const xxx = useSetRecoilState(napViewerVisibility)
+
   const items: HorizontalUIKitLib.T.HorizontalItemProps[] = [
     ...Array.from(Array(50)).map((item, index) => {
       return {
@@ -92,7 +96,7 @@ export const NapsList: FC = () => {
 
   return (
     <Lib.S.NapsList className="napList">
-      <Horizontal speed={2} items={items} onItemsClick={id => alert(id * 2)} />
+      <Horizontal speed={2} items={items} onItemsClick={id => xxx(true)} />
     </Lib.S.NapsList>
   )
 }
@@ -109,7 +113,7 @@ export const ForYouContent: FC = () => {
   return (
     <Lib.S.CardsContainer>
       {Array.from(Array(20)).map((item, index) => {
-        return <CardMain key={index} post={mock.blog1.post} user={mock.blog1.user} />
+        return <CardMain key={index} post={staticMocks.blog1.post} user={staticMocks.blog1.user} />
       })}
     </Lib.S.CardsContainer>
   )

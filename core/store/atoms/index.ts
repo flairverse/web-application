@@ -1,5 +1,7 @@
 // <module><ModuleName>Atoms
 
+// components
+export * as componentNapViewerAtoms from './component.nap-viewer.atoms'
 // hooks
 export * as hookFontAtoms from './hook.font.atom'
 // layouts
