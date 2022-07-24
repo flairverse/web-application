@@ -1,4 +1,4 @@
-import { Link } from 'next-i18next.config'
+import Link from 'next/link'
 import { PropsWithChildren } from 'react'
 import * as Lib from './lib'
 
