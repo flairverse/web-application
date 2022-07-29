@@ -1,7 +1,7 @@
 import { NapCreatorUIKitLib } from '@/components/ui-kit/nap'
 import { useClassNames } from '@/hooks/use-class-names'
-import { componentNapViewerAtomFamilies, componentNapViewerAtoms } from '@/store'
-import { useEffect, useRef } from 'react'
+import { componentNapViewerAtomFamilies, componentNapViewerAtoms, StoreLib } from '@/store'
+import { FormEvent, useEffect, useRef } from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import * as Lib from '.'
 
@@ -137,4 +137,17 @@ export const useCompiledDownNap = (nap: Lib.T.UseCompiledDownNapProps) => {
   }
 
   useEffect(compileDownOnMount, [])
+}
+
+export const useAnswerQuestionModal = ({ storeKeys }: Pick<Lib.T.AnswerQuestionModalProps, 'storeKeys'>) => {
+  const [modalInfo, setModalInfo] = useRecoilState(componentNapViewerAtomFamilies.answerQuestionModalVisibility(storeKeys.modals.answerQuestion))
+
+  const close = () => setModalInfo(StoreLib.CO.ANSWER_QUESTION_MODAL_DEFAULTS)
+
+  const submit = (evt?: FormEvent<HTMLFormElement>) => {
+    evt?.preventDefault()
+    alert('submitted')
+  }
+
+  return { modalInfo, close, submit }
 }

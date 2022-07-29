@@ -1,3 +1,5 @@
+import { NapProfile } from '@/components/ui-kit/nap'
+import { useMention } from '@/hooks/use-mention'
 import { Button, Mentions } from 'antd'
 import moment from 'moment'
 import { FC, useRef } from 'react'
@@ -42,6 +44,7 @@ export const NavigateButton: FC<Lib.T.NavigateButtonProps> = ({ role, onClick, e
 
 export const Nap: FC<Lib.T.NapProps> = nap => {
   const { creator, onBackward, onForward, boardSize } = nap
+  const { onMentionKeyDown } = useMention(() => alert('send reply'))
 
   return (
     <Lib.S.Nap>
@@ -81,7 +84,7 @@ export const Nap: FC<Lib.T.NapProps> = nap => {
 
       <div className="bottomContent">
         <div className="input">
-          <Mentions placeholder="Reply to this nap... You can @mention people" autoSize={{ maxRows: 10 }}>
+          <Mentions placeholder="Reply to this nap... You can @mention people" autoSize={{ maxRows: 10 }} onKeyDown={onMentionKeyDown}>
             <Option value="afc163">afc163</Option>
             <Option value="zombieJ">zombieJ</Option>
             <Option value="yesmeck">yesmeck</Option>
@@ -104,5 +107,60 @@ export const CompiledDownNap: FC<Lib.T.CompiledDownNapProps> = nap => {
     <Lib.S.CompiledDownNap>
       <Lib.S.StyledNapBoard ref={containerRef} size={nap.boardSize} />
     </Lib.S.CompiledDownNap>
+  )
+}
+
+export const AnswerQuestionModal: FC<Lib.T.AnswerQuestionModalProps> = ({ storeKeys }) => {
+  const {
+    close,
+    submit,
+    modalInfo: {
+      hint,
+      question,
+      visibility,
+      questionerUser: { hasNap, profile, seen },
+    },
+  } = Lib.H.useAnswerQuestionModal({ storeKeys })
+  const { onMentionKeyDown } = useMention(submit)
+
+  return (
+    <Lib.S.AnswerQuestionModal
+      visible={visibility}
+      title={null}
+      footer={null}
+      onCancel={close}
+      centered
+      maskStyle={{ background: 'rgba(0, 0, 0, 0.9)' }}
+    >
+      <div className="questionCard">
+        <NapProfile id={1} profile={profile} hasNap={hasNap} seen={seen} className="userProfile" size={0.7} />
+
+        <p>
+          {question}
+          <span>
+            <b>hint: </b>
+            {hint}
+          </span>
+        </p>
+      </div>
+
+      <form className="form" onSubmit={submit}>
+        <div className="answer">
+          <Mentions placeholder="Type your answer here..." autoSize={{ maxRows: 10, minRows: 5 }} autoFocus onKeyDown={onMentionKeyDown}>
+            <Option value="afc163">afc163</Option>
+            <Option value="zombieJ">zombieJ</Option>
+            <Option value="yesmeck">yesmeck</Option>
+          </Mentions>
+        </div>
+
+        <div className="actions">
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+
+          <Button onClick={close}>Discard</Button>
+        </div>
+      </form>
+    </Lib.S.AnswerQuestionModal>
   )
 }

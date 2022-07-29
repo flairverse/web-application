@@ -5,7 +5,9 @@ import { useRecoilValue } from 'recoil'
 import * as Lib from '..'
 
 export const useToolsForReminderInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
-  const { changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({ boardRef })
+  const { changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({
+    boardRef,
+  })
   const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
   const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
 

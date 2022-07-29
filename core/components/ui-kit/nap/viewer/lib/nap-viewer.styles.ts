@@ -109,6 +109,7 @@ export const NapGroup = styled.div`
   }
 `
 
+// prettier-ignore
 export const NavigateButton = styled.button<Pick<Lib.T.NavigateButtonProps, 'enabled'>>`
   position: absolute;
   right: 5px;
@@ -326,4 +327,57 @@ export const StyledNapBoard = styled(NapCreatorUIKitLib.S.MainBoard)<{ size: Boa
   min-width: ${({ size: { width } }) => width}px;
   height: ${({ size: { height } }) => height}px;
   min-height: ${({ size: { height } }) => height}px;
+`
+
+export const AnswerQuestionModal = styled(Modal)`
+  .ant-modal-content {
+    background-color: var(--layer-1);
+    border: 1px solid var(--layer-1-border);
+    border-radius: 8px;
+
+    > .ant-modal-body {
+      padding: 0;
+      position: relative;
+
+      > .questionCard {
+        padding: 13px 10px 5px 40px;
+
+        > .userProfile {
+          position: absolute;
+          top: -10px;
+          left: -10px;
+          margin: 0;
+        }
+
+        > p {
+          color: var(--layer-2-text-3);
+          font-size: var(--f-2);
+
+          > span {
+            display: block;
+            color: var(--layer-2-text-2);
+            margin: 10px 0 0 0;
+            border: 1px dashed var(--layer-2-border);
+            padding: 6px 8px;
+          }
+        }
+      }
+
+      > .form {
+        padding: 0 10px 10px 10px;
+        
+        > .answer {
+          margin: 0 0 15px 0;
+        }
+
+        > .actions {
+          > button {
+            &:nth-child(1) {
+              margin: 0 5px 0 0;
+            }
+          }
+        }
+      }
+    }
+  }
 `

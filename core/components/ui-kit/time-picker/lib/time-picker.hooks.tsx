@@ -38,7 +38,10 @@ const useNumeralTimeValue = (storeKey: StoreKeys) => useRecoilValue(componentTim
  */
 export const useDisabledDays = ({ storeKeys, maximumDate, dayEndIsMax }: Lib.T.UseDisabledDays) => {
   const { minYear, minMonth, minDay } = useMinimumValues({ storeKeys })
-  const { maxYear, maxMonth, maxDay } = useMaximumValues({ maximumDate, dayEndIsMax })
+  const { maxYear, maxMonth, maxDay } = useMaximumValues({
+    maximumDate,
+    dayEndIsMax,
+  })
   const year = useNumeralTimeValue(storeKeys.year)
   const month = useNumeralTimeValue(storeKeys.month)
 
@@ -109,7 +112,15 @@ export const useMaximumValues = ({ maximumDate, dayEndIsMax }: Lib.T.UseMaximumV
   const maxAllowedMinute = 59
   const maxHour = dayEndIsMax ? maxAllowedHour : maximumDate.getHours()
   const maxMinute = dayEndIsMax ? maxAllowedMinute : maximumDate.getMinutes()
-  return { maxYear, maxMonth, maxDay, maxHour, maxMinute, maxAllowedHour, maxAllowedMinute }
+  return {
+    maxYear,
+    maxMonth,
+    maxDay,
+    maxHour,
+    maxMinute,
+    maxAllowedHour,
+    maxAllowedMinute,
+  }
 }
 
 /**
@@ -182,7 +193,9 @@ export const useCalculateTimeValue = ({ storeKeys, maximumDate, dayEndIsMax }: L
  * it fixes all wrong time values when their greater value changes
  */
 export const useFixWrongChosenDate = ({ storeKeys, dayEndIsMax, maximumDate }: Lib.T.UseFixWrongChosenDate) => {
-  const { minYear, minMonth, minDay, minMinute, minHour } = useMinimumValues({ storeKeys })
+  const { minYear, minMonth, minDay, minMinute, minHour } = useMinimumValues({
+    storeKeys,
+  })
   const { maxYear, maxMonth, maxDay, maxHour, maxMinute } = useMaximumValues({
     dayEndIsMax,
     maximumDate,
@@ -194,7 +207,11 @@ export const useFixWrongChosenDate = ({ storeKeys, dayEndIsMax, maximumDate }: L
   const [minute, setMinute] = useNumeralTime(storeKeys.minute)
   const isChosenDateEqualMinDate: boolean = minYear === year && minMonth === month && minDay === day + 1
   const isChosenDateEqualMaxDate: boolean = maxYear === year && maxMonth === month && maxDay === day + 1
-  const isMonthDisabled = useDisabledMonths({ dayEndIsMax, maximumDate, storeKeys })
+  const isMonthDisabled = useDisabledMonths({
+    dayEndIsMax,
+    maximumDate,
+    storeKeys,
+  })
   const isDayDisabled = useDisabledDays({ dayEndIsMax, maximumDate, storeKeys })
 
   const fixHourAndMinute = () => {
@@ -366,7 +383,11 @@ export const useDateTimePicker = ({
  */
 export const useTimePickerInput = ({ target, storeKeys, maximumDate, dayEndIsMax }: Lib.T.UseTimePickerInput) => {
   const [value, setValue] = useNumeralTime(storeKeys[target])
-  const { calculateTime } = useCalculateTimeValue({ storeKeys, maximumDate, dayEndIsMax })
+  const { calculateTime } = useCalculateTimeValue({
+    storeKeys,
+    maximumDate,
+    dayEndIsMax,
+  })
 
   const handleInputChange = (evt: WheelEvent<HTMLDivElement>) => {
     const isIncreaseTheAction = evt.deltaY < 0
@@ -523,7 +544,9 @@ export const useDays = ({ storeKeys }: Lib.T.UseDaysArgs) => {
  */
 export const useActions = ({ closeOnConfirm, onConfirm, storeKeys, autoHideEarliest }: Lib.T.UseActionsArgs) => {
   const setVisibility = useSetRecoilState(componentTimePickerAtomFamilies.timePickerPopupVisibility(storeKeys.visibility))
-  const { minYear, minMonth, minDay, minHour, minMinute } = useMinimumValues({ storeKeys })
+  const { minYear, minMonth, minDay, minHour, minMinute } = useMinimumValues({
+    storeKeys,
+  })
   const [year, setYear] = useNumeralTime(storeKeys.year)
   const [month, setMonth] = useNumeralTime(storeKeys.month)
   const [day, setDay] = useNumeralTime(storeKeys.day)

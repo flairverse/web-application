@@ -1,4 +1,5 @@
 import { NapViewer } from '@/components/ui-kit/nap/viewer'
+import * as storeKeys from '@/constants/store-keys.constants'
 import { useSSREffect } from '@/hooks/use-ssr-effect'
 import { AcceleratorsProvider } from '@/providers/accelerator'
 import { DevtoolsProvider } from '@/providers/devtools'
@@ -39,7 +40,16 @@ const FlairVerse: NextComponent = ({ Component, pageProps }) => {
               <AcceleratorsProvider>
                 <Layout>
                   <GlobalHooksProvider>
-                    {x && <NapViewer />}
+                    {x && (
+                      <NapViewer
+                        storeKeys={{
+                          napIndex: storeKeys.COMPONENT__NAP_VIEWER___NAP_INDEX_,
+                          modals: {
+                            answerQuestion: storeKeys.COMPONENT__NAP_VIEWER___ANSWER_QUESTION_VISIBILITY,
+                          },
+                        }}
+                      />
+                    )}
 
                     <Component {...pageProps} />
                   </GlobalHooksProvider>

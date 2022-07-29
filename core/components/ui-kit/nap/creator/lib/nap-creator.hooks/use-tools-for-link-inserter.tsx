@@ -19,7 +19,12 @@ export const useToolsForLinkInserter = ({ boardRef }: Lib.T.ToolsForInserters) =
   const fontSizeStep = 10
 
   const tools: Pick<Lib.T.ToolProps, 'Icon' | 'type' | 'title' | 'disabled'>[] = [
-    { Icon: IoAddCircleOutline, type: 'add-link', title: 'Add new', disabled: !insert.canInsert('link', false) },
+    {
+      Icon: IoAddCircleOutline,
+      type: 'add-link',
+      title: 'Add new',
+      disabled: !insert.canInsert('link', false),
+    },
     {
       Icon: GoTextSize,
       type: 'link-font-size',

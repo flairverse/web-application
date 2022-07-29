@@ -426,7 +426,12 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
       ${ITEMS_DOM_STRING_LOGICS.scaleOutIn(compileOptions)}
     >
       <div class="profileContainer">
-        ${ITEMS_DOM_STRING_COMPONENTS.profile({ hasNap, seen, profile, size: 6 })}
+        ${ITEMS_DOM_STRING_COMPONENTS.profile({
+          hasNap,
+          seen,
+          profile,
+          size: 6,
+        })}
       </div>
 
       <p class="username">@${username}</p>
@@ -449,25 +454,30 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
     </div>
   `,
 
-  question: ({ hint, question, questionerUser: { hasNap, profile, seen }, hintEnabled }, dummyTexts) => `
+  question: ({ hint, question, questionerUser: { hasNap, profile, seen }, hintEnabled }, dummyTexts, compileOptions) => `
     <div
-      class="napElement question"
+      class="napElement question ${compileOptions?.readonly ? 'readOnly' : ''}"
       data-hint-enabled=${hintEnabled}
     >
       <div class="profileContainer">
-        ${ITEMS_DOM_STRING_COMPONENTS.profile({ hasNap, seen, profile, size: 4 })}
+        ${ITEMS_DOM_STRING_COMPONENTS.profile({
+          hasNap,
+          seen,
+          profile,
+          size: 4,
+        })}
       </div>
       
       <p
         class="questionText"
         data-ph="${dummyTexts.question.questionText}"
-        contenteditable="true"
+        contenteditable="${compileOptions?.readonly ? 'false' : 'true'}"
       >${question}</p>
       
       <p
         class="hintSection"
         data-ph="${dummyTexts.question.hint}"
-        contenteditable="true"
+        contenteditable="${compileOptions?.readonly ? 'false' : 'true'}"
         style="display: ${hintEnabled ? 'block' : 'none'}"
       >${hint}</p>
 
@@ -481,7 +491,12 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
       data-hint-enabled=${hintTextEnabled}
     >
       <div class="profileContainer">
-        ${ITEMS_DOM_STRING_COMPONENTS.profile({ hasNap, seen, profile, size: 4 })}
+        ${ITEMS_DOM_STRING_COMPONENTS.profile({
+          hasNap,
+          seen,
+          profile,
+          size: 4,
+        })}
       </div>
 
       <p

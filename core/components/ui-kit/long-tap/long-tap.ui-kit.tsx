@@ -4,7 +4,12 @@ import * as Lib from './lib'
 
 export const LongTap: FC<Lib.T.LongTapProps> = ({ children, timeout, callback, popup, ...rest }) => {
   const popupRef = useRef<HTMLSpanElement>(null)
-  const { handleMouseDown, handleMouseUp } = Lib.H.useLongTap({ timeout, callback, popup, popupRef })
+  const { handleMouseDown, handleMouseUp } = Lib.H.useLongTap({
+    timeout,
+    callback,
+    popup,
+    popupRef,
+  })
 
   return (
     <Lib.S.LongTapContainer

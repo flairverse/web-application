@@ -6,7 +6,10 @@ export const NapCreator: FC = () => {
   const mainBoardParentRef = useRef<HTMLDivElement>(null)
   const imageInputRef = useRef<HTMLInputElement>(null)
   const { on } = Lib.H.useNapCreator({ imageInputRef, boardRef: mainBoardRef })
-  const { onInputChange } = Lib.H.useImagePicker({ imageInputRef, boardRef: mainBoardRef })
+  const { onInputChange } = Lib.H.useImagePicker({
+    imageInputRef,
+    boardRef: mainBoardRef,
+  })
 
   return (
     <>

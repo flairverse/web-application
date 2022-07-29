@@ -111,7 +111,11 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
     element.classList.add(effect)
 
     if (!options?.readonly) {
-      DOM.makeElementDraggable({ element, onDragEnd: () => sync && NapStorage.update(element), blackList })
+      DOM.makeElementDraggable({
+        element,
+        onDragEnd: () => sync && NapStorage.update(element),
+        blackList,
+      })
     }
 
     return element
@@ -180,7 +184,16 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
   ): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.link(link, href, dummyTexts))
     const element = compileTextBasedDown(
-      { node, effect, id, position, rotate, type, fontSize: linkFontSize, additionalActionTypes: ['editLinkRef'] },
+      {
+        node,
+        effect,
+        id,
+        position,
+        rotate,
+        type,
+        fontSize: linkFontSize,
+        additionalActionTypes: ['editLinkRef'],
+      },
       options,
     )
     return element
@@ -197,7 +210,18 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
     options?: Lib.T.CompileDownOptions,
   ): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.post(rest, dummyTexts, options))
-    const element = compileSharedDown({ effect, id, node, position, rotate, type, effectHolders: ['.napElement'] }, options)
+    const element = compileSharedDown(
+      {
+        effect,
+        id,
+        node,
+        position,
+        rotate,
+        type,
+        effectHolders: ['.napElement'],
+      },
+      options,
+    )
     return element
   }
 
@@ -212,7 +236,18 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
     options?: Lib.T.CompileDownOptions,
   ): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.mention(rest, dummyTexts, options))
-    const element = compileSharedDown({ effect, id, node, position, rotate, type, effectHolders: ['.napElement'] }, options)
+    const element = compileSharedDown(
+      {
+        effect,
+        id,
+        node,
+        position,
+        rotate,
+        type,
+        effectHolders: ['.napElement'],
+      },
+      options,
+    )
     return element
   }
 
@@ -226,7 +261,7 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
     { effect, id, position, rotate, type, ...rest }: Lib.T.Elements.Question,
     options?: Lib.T.CompileDownOptions,
   ): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.question(rest, dummyTexts))
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.question(rest, dummyTexts, options))
     node.querySelector('.questionText')?.addEventListener('blur', () => NapStorage.update(element))
     node.querySelector('.hintSection')?.addEventListener('blur', () => NapStorage.update(element))
     const element = compileSharedDown(
@@ -372,7 +407,18 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
     options?: Lib.T.CompileDownOptions,
   ): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.gif({ gifURL, gifWidth }, dummyTexts))
-    const element = compileSharedDown({ effect, id, node, position, rotate, type, effectHolders: ['.napElement'] }, options)
+    const element = compileSharedDown(
+      {
+        effect,
+        id,
+        node,
+        position,
+        rotate,
+        type,
+        effectHolders: ['.napElement'],
+      },
+      options,
+    )
     return element
   }
 
@@ -387,7 +433,18 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
     options?: Lib.T.CompileDownOptions,
   ): HTMLDivElement => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.image({ imageURL, imageWidth }, dummyTexts))
-    const element = compileSharedDown({ effect, id, node, position, rotate, type, effectHolders: ['.napElement'] }, options)
+    const element = compileSharedDown(
+      {
+        effect,
+        id,
+        node,
+        position,
+        rotate,
+        type,
+        effectHolders: ['.napElement'],
+      },
+      options,
+    )
     return element
   }
 
@@ -546,7 +603,11 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
       const linkRef = linkElement.getAttribute('data-href') || ''
       const linkID = frame.id
 
-      setEditLinkPopupLinkTextAndRef({ ref: linkRef, text: linkText, frameID: linkID })
+      setEditLinkPopupLinkTextAndRef({
+        ref: linkRef,
+        text: linkText,
+        frameID: linkID,
+      })
       setEditLinkPopupVisibility(true)
     }
   }

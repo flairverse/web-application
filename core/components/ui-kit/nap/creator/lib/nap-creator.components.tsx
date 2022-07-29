@@ -241,7 +241,9 @@ export const Tool: FC<Lib.T.ToolProps> = ({ disabled, Icon, type, onClick, title
 }
 
 export const EditLinkHrefPopup: FC<Lib.T.EditLinkHrefPopupProps> = ({ boardRef }) => {
-  const { modalProps, inputID, isValidURL, onSubmit } = Lib.H.useEditLinkHref({ boardRef })
+  const { modalProps, inputID, isValidURL, onSubmit } = Lib.H.useEditLinkHref({
+    boardRef,
+  })
   const [popupVisibility, setPopupVisibility] = useRecoilState(pageCreateNapAtoms.editLinkPopupVisibility)
   const [{ ref, text }, setLinkAndRef] = useRecoilState(pageCreateNapAtoms.editLinkPopupLinkTextAndRef)
 
@@ -359,7 +361,10 @@ export const ToolsForGifInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) =
 }
 
 export const ToolsForImageInserter: FC<Lib.T.ToolsForImageInserter> = ({ boardRef, imageInputRef }) => {
-  const { get, on } = Lib.H.useToolsForImageInserter({ boardRef, imageInputRef })
+  const { get, on } = Lib.H.useToolsForImageInserter({
+    boardRef,
+    imageInputRef,
+  })
   return (
     <>
       {get.tools.map((tool, index) => (

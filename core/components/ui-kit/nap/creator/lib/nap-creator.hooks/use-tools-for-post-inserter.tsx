@@ -7,7 +7,9 @@ import * as Lib from '..'
 export const useToolsForPostInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
   const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
   const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
-  const { changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({ boardRef })
+  const { changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({
+    boardRef,
+  })
 
   const tools: Pick<Lib.T.ToolProps, 'Icon' | 'type' | 'title' | 'disabled'>[] = [
     {

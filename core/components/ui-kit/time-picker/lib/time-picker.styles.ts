@@ -7,10 +7,6 @@ const TIME_PICKER_COLON_WIDTH = 20
 export const DateTimePicker = styled(Modal)`
   padding: 0;
 
-  .ant-modal-close {
-    display: none;
-  }
-
   .ant-modal-body {
     padding: 0;
     background-color: var(--layer-1);

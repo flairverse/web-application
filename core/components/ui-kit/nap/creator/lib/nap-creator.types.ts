@@ -241,7 +241,11 @@ export type ItemsDOMStringGenerators = {
     dummyTexts: DummyTexts,
     compileOptions?: CompileDownOptions,
   ) => string
-  question: (args: Pick<Elements.Question, 'hint' | 'question' | 'questionerUser' | 'hintEnabled'>, dummyTexts: DummyTexts) => string
+  question: (
+    args: Pick<Elements.Question, 'hint' | 'question' | 'questionerUser' | 'hintEnabled'>,
+    dummyTexts: DummyTexts,
+    compileOptions?: CompileDownOptions,
+  ) => string
   quiz: (
     args: Pick<Elements.Quiz, 'answers' | 'correctAnswer' | 'hintText' | 'questionText' | 'questioner' | 'hintTextEnabled'>,
     dummyTexts: DummyTexts,

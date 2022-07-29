@@ -71,5 +71,12 @@ export const useGiphyPickUp = ({ boardRef }: Pick<Lib.T.PostsPickUpProps, 'board
     }
   }
 
-  return { pickUpProps, gifFetcher, onGifClick, updateKey, windowWidth, giphyColumns }
+  return {
+    pickUpProps,
+    gifFetcher,
+    onGifClick,
+    updateKey,
+    windowWidth,
+    giphyColumns,
+  }
 }

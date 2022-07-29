@@ -9,11 +9,17 @@ export class DraftSettingsMixin {
   draftSettings: Table<DraftSettingsDBModel, IndexableType> = draftableCollection.draftSettings
 
   async disableDraftedNapBoard(): Promise<this> {
-    await this.draftSettings.put({ draftedNapBoard: false, id: DraftableCollectionEnum.napDraftMessage })
+    await this.draftSettings.put({
+      draftedNapBoard: false,
+      id: DraftableCollectionEnum.napDraftMessage,
+    })
     return this
   }
   async enableDraftedNapBoard(): Promise<this> {
-    await this.draftSettings.put({ draftedNapBoard: true, id: DraftableCollectionEnum.napDraftMessage })
+    await this.draftSettings.put({
+      draftedNapBoard: true,
+      id: DraftableCollectionEnum.napDraftMessage,
+    })
     return this
   }
   async getDraftedNapBoard(): Promise<boolean> {

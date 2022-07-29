@@ -7,7 +7,10 @@ import * as Lib from '.'
 export const useSearchBox = ({ searchBox }: Pick<Lib.T.SearchBoxProps, 'searchBox'>) => {
   const { storeKey, delay, onChange } = searchBox
   const setQuery = useSetRecoilState(componentPickupAtomFamilies.pickUpSearchQuery(storeKey))
-  const debounce = useDebounce<string>({ callback: searchBox.onChange, delay: delay })
+  const debounce = useDebounce<string>({
+    callback: searchBox.onChange,
+    delay: delay,
+  })
 
   const handleOnInput = (evt: FormEvent<HTMLInputElement>) => {
     const { value } = evt.currentTarget

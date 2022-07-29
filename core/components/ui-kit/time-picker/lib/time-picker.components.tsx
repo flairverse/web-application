@@ -56,7 +56,10 @@ export const TimePicker: FC<Lib.T.TimePickerProps> = ({ storeKeys, maximumDate, 
 }
 
 const DatePickerItem: FC<Lib.T.DatePickerItemProps> = ({ target, storeKeys, maximumDate }) => {
-  const { value, formattedValue, onButtonsClick } = Lib.H.useDatePickerItem({ storeKeys, target })
+  const { value, formattedValue, onButtonsClick } = Lib.H.useDatePickerItem({
+    storeKeys,
+    target,
+  })
 
   return (
     <Lib.S.DatePickerItem>
@@ -86,7 +89,10 @@ export const DatePicker: FC<Lib.T.DatePickerProps> = ({ storeKeys, maximumDate }
 }
 
 const Years: FC<Lib.T.YearsProps> = ({ storeKeys, maximumDate }) => {
-  const { years, changeYear, selectedYear } = Lib.H.useYears({ storeKeys, maximumDate })
+  const { years, changeYear, selectedYear } = Lib.H.useYears({
+    storeKeys,
+    maximumDate,
+  })
   return (
     <Fragment>
       {years.map((year, index) => (
@@ -99,7 +105,11 @@ const Years: FC<Lib.T.YearsProps> = ({ storeKeys, maximumDate }) => {
 }
 
 export const Months: FC<Lib.T.MonthsProps> = ({ storeKeys, maximumDate, dayEndIsMax }) => {
-  const isMonthDisabled = Lib.H.useDisabledMonths({ dayEndIsMax, maximumDate, storeKeys })
+  const isMonthDisabled = Lib.H.useDisabledMonths({
+    dayEndIsMax,
+    maximumDate,
+    storeKeys,
+  })
   const { changeMonth, selectedMonth } = Lib.H.useMonths({ storeKeys })
 
   return (
@@ -119,7 +129,11 @@ export const Months: FC<Lib.T.MonthsProps> = ({ storeKeys, maximumDate, dayEndIs
 }
 
 export const Days: FC<Lib.T.DaysProps> = ({ storeKeys, maximumDate, dayEndIsMax }) => {
-  const isDayDisabled = Lib.H.useDisabledDays({ maximumDate, storeKeys, dayEndIsMax })
+  const isDayDisabled = Lib.H.useDisabledDays({
+    maximumDate,
+    storeKeys,
+    dayEndIsMax,
+  })
   const { changeDay, selectedDay, daysInMonth } = Lib.H.useDays({ storeKeys })
 
   return (

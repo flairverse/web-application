@@ -16,6 +16,10 @@
 
     &.readOnly {
       cursor: pointer;
+
+      .info {
+        cursor: pointer;
+      }
     }
 
     > header {
@@ -326,6 +330,12 @@
       padding: 0 8px;
       border: 1px solid var(--layer-2-border);
       opacity: 0.5;
+    }
+
+    &.readOnly {
+      > span {
+        cursor: text;
+      }
     }
 
     &.no-profile {

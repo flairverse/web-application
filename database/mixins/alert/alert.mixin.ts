@@ -9,11 +9,17 @@ export class AlertMixin {
   napAlerts: Table<NapAlertsDBModel, IndexableType> = alertCollection.napAlerts
 
   async readNapDraftFeatureAlert(): Promise<this> {
-    await this.napAlerts.put({ draftFeature: true, id: AlertCollectionEnum.napAlertsDraftFeature })
+    await this.napAlerts.put({
+      draftFeature: true,
+      id: AlertCollectionEnum.napAlertsDraftFeature,
+    })
     return this
   }
   async unreadNapDraftFeatureAlert(): Promise<this> {
-    await this.napAlerts.put({ draftFeature: false, id: AlertCollectionEnum.napAlertsDraftFeature })
+    await this.napAlerts.put({
+      draftFeature: false,
+      id: AlertCollectionEnum.napAlertsDraftFeature,
+    })
     return this
   }
   async getNapDraftFeatureAlert(): Promise<boolean> {

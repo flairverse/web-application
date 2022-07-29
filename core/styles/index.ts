@@ -340,6 +340,21 @@ export const GlobalStyles = createGlobalStyle`
   .ant-mentions-dropdown-menu-item-active {
     background-color: var(--layer-2);
   }
+
+  .ant-modal-close {
+    display: none;
+  }
+
+  .ant-mentions {
+    border: none;
+    background-color: transparent;
+
+    > .rc-textarea {
+      background-color: var(--layer-2);
+      border: 1px solid var(--layer-2-border);
+      color: var(--layer-2-text-2);
+    }
+  }
   /**
   * End -- Ant design customization
   **/

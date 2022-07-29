@@ -9,12 +9,19 @@ export const useToolsForMentionInserter = ({ boardRef }: Lib.T.ToolsForInserters
   const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
   const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
   const setPickUp = useSetRecoilState(pageCreateNapAtoms.mentionPickUp)
-  const { changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({ boardRef })
+  const { changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({
+    boardRef,
+  })
   const Inserter = Lib.H.useInserters({ boardRef })
   const insert = new Inserter()
 
   const tools: Pick<Lib.T.ToolProps, 'Icon' | 'type' | 'title' | 'disabled'>[] = [
-    { Icon: IoAddCircleOutline, type: 'add-mention', title: 'Add new', disabled: !insert.canInsert('mention', false) },
+    {
+      Icon: IoAddCircleOutline,
+      type: 'add-mention',
+      title: 'Add new',
+      disabled: !insert.canInsert('mention', false),
+    },
     {
       Icon: BiPalette,
       type: 'mention-effect',

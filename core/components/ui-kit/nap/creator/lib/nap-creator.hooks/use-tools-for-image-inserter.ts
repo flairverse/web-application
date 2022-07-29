@@ -17,7 +17,12 @@ export const useToolsForImageInserter = ({ boardRef, imageInputRef }: Lib.T.Tool
   const widthSizeStep = 50
 
   const tools: Pick<Lib.T.ToolProps, 'Icon' | 'type' | 'title' | 'disabled'>[] = [
-    { Icon: IoAddCircleOutline, type: 'add-image', title: 'Add new', disabled: !insert.canInsert('image', false) },
+    {
+      Icon: IoAddCircleOutline,
+      type: 'add-image',
+      title: 'Add new',
+      disabled: !insert.canInsert('image', false),
+    },
     {
       Icon: AiOutlineColumnWidth,
       type: 'image-size',

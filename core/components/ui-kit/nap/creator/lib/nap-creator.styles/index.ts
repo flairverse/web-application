@@ -466,6 +466,10 @@ export const MainBoard = styled.div`
 
     &.readOnly {
       transition: all 150ms linear;
+
+      &:hover {
+        z-index: 2;
+      }
     }
 
     * {
@@ -618,10 +622,6 @@ export const PickImageInput = styled.input`
 
 export const EditLinkHrefPopup = styled(Modal)`
   padding: 0;
-
-  .ant-modal-close {
-    display: none;
-  }
 
   .ant-modal-body {
     padding: 10px;

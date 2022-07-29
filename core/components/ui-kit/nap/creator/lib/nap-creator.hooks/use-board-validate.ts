@@ -84,19 +84,28 @@ export const useBoardValidate = () => {
     // validate id
     if (id.length !== Lib.CO.ELEMENTS_ID_LENGTHS) {
       isValid = false
-      reasons.push({ error: Lib.E.ValidatorErrorEnum.shared_incorrectID, elementID: id })
+      reasons.push({
+        error: Lib.E.ValidatorErrorEnum.shared_incorrectID,
+        elementID: id,
+      })
     }
 
     // validate effect
     if (!possibleEffects.includes(effect)) {
       isValid = false
-      reasons.push({ error: Lib.E.ValidatorErrorEnum.shared_incorrectEffect, elementID: id })
+      reasons.push({
+        error: Lib.E.ValidatorErrorEnum.shared_incorrectEffect,
+        elementID: id,
+      })
     }
 
     // validate type
     if (type !== shouldBe) {
       isValid = false
-      reasons.push({ error: Lib.E.ValidatorErrorEnum.shared_incorrectType, elementID: id })
+      reasons.push({
+        error: Lib.E.ValidatorErrorEnum.shared_incorrectType,
+        elementID: id,
+      })
     }
 
     return { isValid, reasons }
@@ -117,7 +126,10 @@ export const useBoardValidate = () => {
     // validate text
     if (!text.trim()) {
       isValid = false
-      reasons.push({ error: Lib.E.ValidatorErrorEnum.textBased_emptyText, elementID: id })
+      reasons.push({
+        error: Lib.E.ValidatorErrorEnum.textBased_emptyText,
+        elementID: id,
+      })
     }
 
     return { isValid, reasons }
@@ -165,14 +177,20 @@ export const useBoardValidate = () => {
     if (hintEnabled) {
       if (!hint.trim()) {
         isValid = false
-        reasons.push({ error: Lib.E.ValidatorErrorEnum.question_emptyHint, elementID: id })
+        reasons.push({
+          error: Lib.E.ValidatorErrorEnum.question_emptyHint,
+          elementID: id,
+        })
       }
     }
 
     // validate question
     if (!question.trim()) {
       isValid = false
-      reasons.push({ error: Lib.E.ValidatorErrorEnum.question_emptyQuestion, elementID: id })
+      reasons.push({
+        error: Lib.E.ValidatorErrorEnum.question_emptyQuestion,
+        elementID: id,
+      })
     }
 
     return { isValid, reasons }
@@ -193,13 +211,19 @@ export const useBoardValidate = () => {
     // validate link text
     if (!link.trim()) {
       isValid = false
-      reasons.push({ error: Lib.E.ValidatorErrorEnum.textBased_emptyText, elementID: id })
+      reasons.push({
+        error: Lib.E.ValidatorErrorEnum.textBased_emptyText,
+        elementID: id,
+      })
     }
 
     // validate link href
     if (!RegExes.url.test(href)) {
       isValid = false
-      reasons.push({ error: Lib.E.ValidatorErrorEnum.link_incorrectLinkHref, elementID: id })
+      reasons.push({
+        error: Lib.E.ValidatorErrorEnum.link_incorrectLinkHref,
+        elementID: id,
+      })
     }
 
     return { isValid, reasons }
@@ -220,27 +244,39 @@ export const useBoardValidate = () => {
     // validate answers
     if (answers.filter(answer => answer !== '').length < 2) {
       isValid = false
-      reasons.push({ error: Lib.E.ValidatorErrorEnum.quiz_incorrectAnswersLength, elementID: id })
+      reasons.push({
+        error: Lib.E.ValidatorErrorEnum.quiz_incorrectAnswersLength,
+        elementID: id,
+      })
     }
 
     // validate hint
     if (hintTextEnabled) {
       if (!hintText.trim()) {
         isValid = false
-        reasons.push({ error: Lib.E.ValidatorErrorEnum.quiz_incorrectHint, elementID: id })
+        reasons.push({
+          error: Lib.E.ValidatorErrorEnum.quiz_incorrectHint,
+          elementID: id,
+        })
       }
     }
 
     // validate questionText
     if (!questionText.trim()) {
       isValid = false
-      reasons.push({ error: Lib.E.ValidatorErrorEnum.quiz_incorrectQuestionText, elementID: id })
+      reasons.push({
+        error: Lib.E.ValidatorErrorEnum.quiz_incorrectQuestionText,
+        elementID: id,
+      })
     }
 
     // validate correct answer
     if (correctAnswer < 0 || correctAnswer > 3) {
       isValid = false
-      reasons.push({ error: Lib.E.ValidatorErrorEnum.quiz_incorrectCorrectAnswer, elementID: id })
+      reasons.push({
+        error: Lib.E.ValidatorErrorEnum.quiz_incorrectCorrectAnswer,
+        elementID: id,
+      })
     }
 
     return { isValid, reasons }
@@ -261,7 +297,10 @@ export const useBoardValidate = () => {
     // validate reminderName
     if (!reminderName.trim()) {
       isValid = false
-      reasons.push({ error: Lib.E.ValidatorErrorEnum.reminder_incorrectReminderName, elementID: id })
+      reasons.push({
+        error: Lib.E.ValidatorErrorEnum.reminder_incorrectReminderName,
+        elementID: id,
+      })
     }
 
     // validate endDate
@@ -272,7 +311,10 @@ export const useBoardValidate = () => {
 
     if (moment(endTime).diff(moment()) < thirtyMinutes) {
       isValid = false
-      reasons.push({ error: Lib.E.ValidatorErrorEnum.reminder_lessThanThirtyMinute, elementID: id })
+      reasons.push({
+        error: Lib.E.ValidatorErrorEnum.reminder_lessThanThirtyMinute,
+        elementID: id,
+      })
     }
 
     return { isValid, reasons }

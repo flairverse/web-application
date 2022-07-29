@@ -54,7 +54,10 @@ export const mockedNaps: NapModel[] = [
   Lib.HE.randomNaps({
     length: 1,
     args: {
-      creator: UserMockLib.HE.randomUsers({ length: 1, args: { naps: Lib.HE.randomNaps({ length: 3 }) } })[0],
+      creator: UserMockLib.HE.randomUsers({
+        length: 1,
+        args: { naps: Lib.HE.randomNaps({ length: 3 }) },
+      })[0],
     },
   })[0],
 

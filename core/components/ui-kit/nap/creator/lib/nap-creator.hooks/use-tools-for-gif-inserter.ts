@@ -15,7 +15,12 @@ export const useToolsForGifInserter = ({ boardRef }: Lib.T.ToolsForInserters) =>
   const widthSizeStep = 50
 
   const tools: Pick<Lib.T.ToolProps, 'Icon' | 'type' | 'title' | 'disabled'>[] = [
-    { Icon: IoAddCircleOutline, type: 'add-gif', title: 'Add new', disabled: false },
+    {
+      Icon: IoAddCircleOutline,
+      type: 'add-gif',
+      title: 'Add new',
+      disabled: false,
+    },
     {
       Icon: AiOutlineColumnWidth,
       type: 'gif-size',
