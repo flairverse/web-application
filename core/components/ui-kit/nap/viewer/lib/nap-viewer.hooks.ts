@@ -140,7 +140,7 @@ export const useCompiledDownNap = (nap: Lib.T.UseCompiledDownNapProps) => {
 }
 
 export const useAnswerQuestionModal = ({ storeKeys }: Pick<Lib.T.AnswerQuestionModalProps, 'storeKeys'>) => {
-  const [modalInfo, setModalInfo] = useRecoilState(componentNapViewerAtomFamilies.answerQuestionModalVisibility(storeKeys.modals.answerQuestion))
+  const [modalInfo, setModalInfo] = useRecoilState(componentNapViewerAtomFamilies.answerQuestionModal(storeKeys.modals.answerQuestion))
 
   const close = () => setModalInfo(StoreLib.CO.ANSWER_QUESTION_MODAL_DEFAULTS)
 

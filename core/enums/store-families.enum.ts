@@ -7,5 +7,5 @@ export enum AtomFamilies {
   timePickerMinimumDate = 'TIME_PICKER_MINIMUM_DATE',
   currentWindowBreakpoint = 'CURRENT_WINDOW_BREAK_POINT',
   napIndex = 'NAP_INDEX',
-  answerQuestionModalVisibility = 'ANSWER_QUESTION_MODAL_VISIBILITY',
+  answerQuestionModal = 'ANSWER_QUESTION_MODAL',
 }

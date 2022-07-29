@@ -7,7 +7,7 @@ export const napIndex = atomFamily<number, SerializableParam>({
   default: 0,
 })
 
-export const answerQuestionModalVisibility = atomFamily<Lib.T.AnswerQuestionModal, SerializableParam>({
-  key: AtomFamilies.answerQuestionModalVisibility,
+export const answerQuestionModal = atomFamily<Lib.T.AnswerQuestionModal, SerializableParam>({
+  key: AtomFamilies.answerQuestionModal,
   default: Lib.CO.ANSWER_QUESTION_MODAL_DEFAULTS,
 })

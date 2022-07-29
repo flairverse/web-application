@@ -137,16 +137,23 @@ export const AnswerQuestionModal: FC<Lib.T.AnswerQuestionModalProps> = ({ storeK
 
         <p>
           {question}
-          <span>
-            <b>hint: </b>
-            {hint}
-          </span>
+          {hint && (
+            <span>
+              <b>hint: </b>
+              {hint}
+            </span>
+          )}
         </p>
       </div>
 
       <form className="form" onSubmit={submit}>
         <div className="answer">
-          <Mentions placeholder="Type your answer here..." autoSize={{ maxRows: 10, minRows: 5 }} autoFocus onKeyDown={onMentionKeyDown}>
+          <Mentions
+            placeholder="Type your answer here...  ( you can @mention people )"
+            autoSize={{ maxRows: 10, minRows: 5 }}
+            autoFocus
+            onKeyDown={onMentionKeyDown}
+          >
             <Option value="afc163">afc163</Option>
             <Option value="zombieJ">zombieJ</Option>
             <Option value="yesmeck">yesmeck</Option>

@@ -1,3 +1,4 @@
+import { EMOJIS } from '@/constants/emojis.constants'
 import { Dates } from '@/helpers/dates'
 import { Num } from '@/helpers/number'
 import { Str } from '@/helpers/string'
@@ -481,11 +482,11 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
         style="display: ${hintEnabled ? 'block' : 'none'}"
       >${hint}</p>
 
-      <span>${dummyTexts.question.replyButton}</span>
+      <span class="replyHere">${dummyTexts.question.replyButton}</span>
     </div>
   `,
 
-  quiz: ({ answers, correctAnswer, hintText, questionText, questioner: { hasNap, profile, seen }, hintTextEnabled }, dummyTexts) => `
+  quiz: ({ answers, correctAnswer, hintText, questionText, questioner: { hasNap, profile, seen }, hintTextEnabled }, dummyTexts, compileOptions) => `
     <div
       class="napElement quiz"
       data-hint-enabled=${hintTextEnabled}
@@ -502,13 +503,13 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
       <p
         class="questionText"
         data-ph="${dummyTexts.quiz.questionText}"
-        contenteditable="true"
+        contenteditable="${compileOptions?.readonly ? 'false' : 'true'}"
       >${questionText}</p>
 
       <p
         class="hintSection"
         data-ph="${dummyTexts.quiz.hint}"
-        contenteditable="true"
+        contenteditable="${compileOptions?.readonly ? 'false' : 'true'}"
         style="display: ${hintTextEnabled ? 'block' : 'none'}"
       >${hintText}</p>
 
@@ -517,7 +518,7 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
           .map(
             (answer, index) => `
               <div
-                class="answer ${correctAnswer === index}"
+                class="answer ${correctAnswer === index && !compileOptions?.readonly}"
                 data-activation="${index === 0 || index === 1 || answer ? 'active' : 'inactive'}"
                 style="display: ${index === 0 || index === 1 || answer || answers[index - 1] ? 'flex' : 'none'}"
               >
@@ -529,7 +530,7 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
                 <p 
                   class="answerText"
                   data-ph="${dummyTexts.quiz.answersPlaceholder}"
-                  contenteditable="true"
+                  contenteditable="${compileOptions?.readonly ? 'false' : 'true'}"
                   data-index="${index}"
                 >${answer}</p>
               </div>
@@ -540,13 +541,13 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
     </div>
   `,
 
-  reminder: ({ reminderName, endTime }, dummyTexts) => {
+  reminder: ({ reminderName, endTime }, dummyTexts, compileOptions) => {
     const endsOn = moment(endTime)
     const timeZone = Dates.getDateTimezone(endTime)
 
     return `
       <div
-        class="napElement reminder no-effect"
+        class="napElement reminder no-effect ${compileOptions?.readonly ? 'readOnly' : ''}"
         data-end-time="${endTime}"
       >
         <p
@@ -575,7 +576,16 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
         </div>
 
         <div class="actions">
-          <span class="remindMe">${dummyTexts.reminder.remindMe}</span>
+          <span class="remindMe">
+            ${dummyTexts.reminder.remindMe}
+            ${
+              compileOptions?.readonly
+                ? Array.from(Array(8))
+                    .map(() => `<span data-emoji="${EMOJIS.BELL[Num.random(0, EMOJIS.BELL.length - 1)]}"></span>`)
+                    .join('')
+                : ''
+            }
+          </span>
         </div>
       </div>
     `
@@ -585,7 +595,12 @@ export const ITEMS_DOM_STRING: Lib.T.ItemsDOMStringGenerators = {
 
   image: ({ imageURL, imageWidth: width }) => ITEMS_DOM_STRING_COMPONENTS.imageBaseItem({ dataUrl: imageURL, width }, 'image'),
 
-  link: (innerText, href) => `
-    <p data-text="${innerText}" class="link" data-href="${href}">${innerText}</p>
+  link: (innerText, href, _dummyTexts, compileOptions) => `
+    <p
+      data-text="${innerText}"
+      class="link ${compileOptions?.readonly ? 'readOnly' : ''}"
+      data-href="${href}"
+      ${ITEMS_DOM_STRING_LOGICS.scaleOutIn(compileOptions)}
+    >${innerText}</p>
   `,
 }

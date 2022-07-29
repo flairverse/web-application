@@ -523,6 +523,10 @@ export const MainBoard = styled.div`
         white-space: pre-wrap;
         word-break: break-all;
         color: var(--layer-2-text-3);
+
+        &.readOnly {
+          cursor: pointer;
+        }
       }
 
       ${Object.values(textEffects).map(item => item)}

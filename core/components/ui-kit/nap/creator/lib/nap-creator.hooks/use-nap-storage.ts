@@ -8,22 +8,26 @@ export const useNapStorage = (boardRef: RefObject<HTMLDivElement>) => {
 
   // CRUD API for the nap storage
   return class NapStorage {
+    static get isCreatorPage(): boolean {
+      return window.location.href.includes('create-new/nap')
+    }
+
     static async create(type: Exclude<Lib.T.ElementalOptions, 'reminder'>, elementInfo: Lib.T.Elements.All) {
-      if (!(await db.getDraftedNapBoard())) {
+      if (!(await db.getDraftedNapBoard()) || !NapStorage.isCreatorPage) {
         return
       }
       await db.addNewNapElement(type, elementInfo)
     }
 
     static async readAll() {
-      if (!(await db.getDraftedNapBoard())) {
+      if (!(await db.getDraftedNapBoard()) || !NapStorage.isCreatorPage) {
         return []
       }
       return await db.readAllNapElements()
     }
 
     static async update(element: HTMLDivElement) {
-      if (!(await db.getDraftedNapBoard())) {
+      if (!(await db.getDraftedNapBoard()) || !NapStorage.isCreatorPage) {
         return
       }
       const compiledElement = compileUp(element)
@@ -34,7 +38,7 @@ export const useNapStorage = (boardRef: RefObject<HTMLDivElement>) => {
     }
 
     static async delete(element: HTMLDivElement) {
-      if (!(await db.getDraftedNapBoard())) {
+      if (!(await db.getDraftedNapBoard()) || !NapStorage.isCreatorPage) {
         return
       }
       const compiledElement = compileUp(element)

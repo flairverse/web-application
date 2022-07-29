@@ -1,6 +1,6 @@
 import * as storeKeys from '@/constants/store-keys.constants'
 import { DOM } from '@/helpers/DOM'
-import { componentTimePickerAtomFamilies } from '@/store/atomFamilies'
+import { componentNapViewerAtomFamilies, componentTimePickerAtomFamilies } from '@/store/atomFamilies'
 import { pageCreateNapAtoms } from '@/store/atoms'
 import { RefObject } from 'react'
 import { useSetRecoilState } from 'recoil'
@@ -12,6 +12,9 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
   const setEditLinkPopupVisibility = useSetRecoilState(pageCreateNapAtoms.editLinkPopupVisibility)
   const setTimePickerVisibility = useSetRecoilState(
     componentTimePickerAtomFamilies.timePickerPopupVisibility(storeKeys.PAGE__CREATE_NAP___TIME_PICKER_POPUP),
+  )
+  const setAnswerQuestionModal = useSetRecoilState(
+    componentNapViewerAtomFamilies.answerQuestionModal(storeKeys.COMPONENT__NAP_VIEWER___ANSWER_QUESTION_VISIBILITY),
   )
   const setEditLinkPopupLinkTextAndRef = useSetRecoilState(pageCreateNapAtoms.editLinkPopupLinkTextAndRef)
   const NapStorage = Lib.H.useNapStorage(boardRef)
@@ -182,7 +185,12 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
     { type, id, link, position, linkFontSize, effect, rotate, href }: Lib.T.Elements.Link,
     options?: Lib.T.CompileDownOptions,
   ): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.link(link, href, dummyTexts))
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.link(link, href, dummyTexts, options))
+
+    if (options?.readonly) {
+      node.addEventListener('click', () => window.open(href, '_blank'))
+    }
+
     const element = compileTextBasedDown(
       {
         node,
@@ -264,6 +272,11 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
     const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.question(rest, dummyTexts, options))
     node.querySelector('.questionText')?.addEventListener('blur', () => NapStorage.update(element))
     node.querySelector('.hintSection')?.addEventListener('blur', () => NapStorage.update(element))
+
+    if (options?.readonly) {
+      node.querySelector('.replyHere')?.addEventListener('click', () => setAnswerQuestionModal({ ...rest, visibility: true }))
+    }
+
     const element = compileSharedDown(
       {
         effect,
@@ -292,7 +305,7 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
     { effect, id, position, rotate, type, ...rest }: Lib.T.Elements.Quiz,
     options?: Lib.T.CompileDownOptions,
   ): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.quiz(rest, dummyTexts))
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.quiz(rest, dummyTexts, options))
     const element = compileSharedDown(
       {
         effect,
@@ -311,7 +324,7 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
     DOM.forcePlainTextForContentEditables(node)
     activateFrameByFocusingContentEditables(element)
 
-    const answerNumbers = <NodeListOf<HTMLDivElement>>element.querySelectorAll('.answer > span')
+    const answerNumbers = <NodeListOf<HTMLDivElement>>element.querySelectorAll(options?.readonly ? '.answer' : '.answer > span')
     const answerContents = <NodeListOf<HTMLDivElement>>element.querySelectorAll('.answer > p')
 
     answerNumbers.forEach(answerNumber =>
@@ -327,7 +340,7 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
     })
 
     function switchCorrectAnswer(answerNumber: HTMLDivElement) {
-      const answerBox = <HTMLDivElement>answerNumber.parentNode!
+      const answerBox = options?.readonly ? <HTMLDivElement>answerNumber : <HTMLDivElement>answerNumber.parentNode!
       const answerActivation = answerBox.getAttribute('data-activation')!
 
       if (answerActivation === 'inactive') {
@@ -376,7 +389,21 @@ export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
     { effect, id, position, reminderName, rotate, type, endTime }: Lib.T.Elements.Reminder,
     options?: Lib.T.CompileDownOptions,
   ): HTMLDivElement => {
-    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.reminder({ reminderName, endTime }, dummyTexts))
+    const node = DOM.DOMStringToNode(Lib.CO.ITEMS_DOM_STRING.reminder({ reminderName, endTime }, dummyTexts, options))
+
+    if (options?.readonly) {
+      const remindMeButton = node.querySelector('.remindMe')
+      remindMeButton?.addEventListener('click', () => {
+        window.requestAnimationFrame(() => {
+          remindMeButton.classList.remove('is-animating')
+
+          window.requestAnimationFrame(() => {
+            remindMeButton.classList.add('is-animating')
+          })
+        })
+      })
+    }
+
     const element = compileSharedDown(
       {
         effect,

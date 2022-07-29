@@ -354,7 +354,29 @@ export const GlobalStyles = createGlobalStyle`
       border: 1px solid var(--layer-2-border);
       color: var(--layer-2-text-2);
     }
+
+    &-dropdown {
+      background-color: var(--layer-2);
+      border: 1px solid var(--layer-2-border);
+      border-radius: 5px;
+      overflow: hidden;
+
+      &-menu {
+
+        &-item {
+          color: var(--layer-2-text-2);
+          transition: all 150ms linear;
+
+          &:hover,
+          &-active {
+            background-color: var(--layer-1);
+            color: var(--layer-2-text-3);
+          }
+        }
+      }
+    }
   }
+
   /**
   * End -- Ant design customization
   **/

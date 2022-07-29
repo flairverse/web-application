@@ -359,6 +359,7 @@ export const AnswerQuestionModal = styled(Modal)`
             margin: 10px 0 0 0;
             border: 1px dashed var(--layer-2-border);
             padding: 6px 8px;
+            border-radius: 5px;
           }
         }
       }

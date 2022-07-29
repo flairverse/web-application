@@ -249,11 +249,12 @@ export type ItemsDOMStringGenerators = {
   quiz: (
     args: Pick<Elements.Quiz, 'answers' | 'correctAnswer' | 'hintText' | 'questionText' | 'questioner' | 'hintTextEnabled'>,
     dummyTexts: DummyTexts,
+    compileOptions?: CompileDownOptions,
   ) => string
-  reminder: (args: Pick<Elements.Reminder, 'endTime' | 'reminderName'>, dummyTexts: DummyTexts) => string
+  reminder: (args: Pick<Elements.Reminder, 'endTime' | 'reminderName'>, dummyTexts: DummyTexts, compileOptions?: CompileDownOptions) => string
   gif: (args: Pick<Elements.Gif, 'gifURL' | 'gifWidth'>, dummyTexts: DummyTexts) => string
   image: (args: Pick<Elements.Image, 'imageURL' | 'imageWidth'>, dummyTexts: DummyTexts) => string
-  link: (innerText: string, href: string, dummyTexts: DummyTexts) => string
+  link: (innerText: string, href: string, dummyTexts: DummyTexts, compileOptions?: CompileDownOptions) => string
 }
 
 export type ItemsDOMStringGeneratorsLogics = {
