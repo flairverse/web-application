@@ -365,7 +365,7 @@ export const AnswerQuestionModal = styled(Modal)`
 
       > .form {
         padding: 0 10px 10px 10px;
-        
+
         > .answer {
           margin: 0 0 15px 0;
         }
