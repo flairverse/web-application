@@ -1,7 +1,8 @@
 module.exports = {
   ports: {
-    server: 9998,
     client: 9999,
+    server: 9998,
+    storybook: 9997,
   },
   urls: {
     repo: 'https://shorturl.at/vxY69',
