@@ -1,18 +1,20 @@
+import { Menu } from '@/components/ui-kit/menu'
 import { NapProfile } from '@/components/ui-kit/nap'
 import { useMention } from '@/hooks/use-mention'
 import { Button, Mentions } from 'antd'
 import moment from 'moment'
 import { FC, useRef } from 'react'
-import { FaChevronLeft, FaChevronRight, FaEllipsisH, FaPause } from 'react-icons/fa'
+import { FaChevronLeft, FaChevronRight, FaEllipsisH } from 'react-icons/fa'
 import { HiChevronRight } from 'react-icons/hi'
+import { IoCloseSharp } from 'react-icons/io5'
 import { RiSendPlane2Fill } from 'react-icons/ri'
 import * as Lib from '.'
 
 const { Option } = Mentions
 
 export const NapGroup: FC<Lib.T.NapGroupProps> = props => {
-  const { active, naps } = props
-  const { classNames, backward, forward, napIndex } = Lib.H.useNapGroup(props)
+  const { active, naps, close, creatorStoreKeys } = props
+  const { classNames, napIndex, backward, forward, setNapIndex } = Lib.H.useNapGroup(props)
 
   return (
     <Lib.S.NapGroup className={classNames}>
@@ -20,13 +22,21 @@ export const NapGroup: FC<Lib.T.NapGroupProps> = props => {
         <>
           <Lib.S.NapBar>
             {naps.map((_, index) => (
-              <span key={index}>
+              <span key={index} className={napIndex >= index ? 'active' : undefined} onClick={() => setNapIndex(index)}>
                 <span />
               </span>
             ))}
           </Lib.S.NapBar>
 
-          <Nap {...naps[napIndex]} napLength={naps.length} onBackward={backward} onForward={forward} key={napIndex} />
+          <Nap
+            {...naps[napIndex]}
+            napLength={naps.length}
+            onBackward={backward}
+            onForward={forward}
+            key={napIndex}
+            close={close}
+            creatorStoreKeys={creatorStoreKeys}
+          />
         </>
       )}
     </Lib.S.NapGroup>
@@ -43,8 +53,9 @@ export const NavigateButton: FC<Lib.T.NavigateButtonProps> = ({ role, onClick, e
 }
 
 export const Nap: FC<Lib.T.NapProps> = nap => {
-  const { creator, onBackward, onForward, boardSize } = nap
+  const { creator, onBackward, onForward, close } = nap
   const { onMentionKeyDown } = useMention(() => alert('send reply'))
+  const { moreOptionMenuItems } = Lib.H.useNap()
 
   return (
     <Lib.S.Nap>
@@ -64,23 +75,28 @@ export const Nap: FC<Lib.T.NapProps> = nap => {
             <FaChevronLeft size={20} />
           </span>
 
-          <span title="Pause sliding">
-            <FaPause size={20} />
-          </span>
-
           <span title="Next nap" onClick={onForward}>
             <FaChevronRight size={20} />
           </span>
 
-          <span title="More options">
-            <FaEllipsisH size={20} />
+          <Menu<Lib.T.MoreOptionKeys, void>
+            items={moreOptionMenuItems}
+            position={['35px', '-31px', 'unset', 'unset']}
+            openMenuEffect="scale-out"
+            compact
+          >
+            <span title="More options" tabIndex={0}>
+              <FaEllipsisH size={22} />
+            </span>
+          </Menu>
+
+          <span title="Close" onClick={close}>
+            <IoCloseSharp size={30} />
           </span>
         </div>
       </div>
 
       <CompiledDownNap {...nap} />
-
-      {/* <div className="gap" /> */}
 
       <div className="bottomContent">
         <div className="input">

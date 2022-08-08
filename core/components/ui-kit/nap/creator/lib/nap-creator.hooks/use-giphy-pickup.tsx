@@ -1,21 +1,18 @@
 import { PickUpUIKitLib } from '@/components/ui-kit/pick-up'
 import { environments } from '@/constants/environments.constant'
-import * as storeKeys from '@/constants/store-keys.constants'
 import { numeralBreakpoints } from '@/constants/style-variables.constant'
 import { useGetAutoBreakpoint } from '@/hooks/use-auto-breakpoint'
-import { pageCreateNapAtoms } from '@/store/atoms'
-import { StoreKeys } from '@/types/recoil.type'
+import { componentNapCreatorAtomFamilies } from '@/store'
 import { GifsResult, GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
 import { useRef, useState } from 'react'
 import { useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
-export const useGiphyPickUp = ({ boardRef }: Pick<Lib.T.PostsPickUpProps, 'boardRef'>) => {
-  const searchQueryKey: StoreKeys = storeKeys.PAGE__CREATE_NAP___GIFS_PICKUP_SEARCH_QUERY
-  const setPickUp = useSetRecoilState(pageCreateNapAtoms.giphyPickUp)
-  const setActiveOptions = useSetRecoilState(pageCreateNapAtoms.activeOption)
-  const Inserters = Lib.H.useInserters({ boardRef })
+export const useGiphyPickUp = ({ boardRef, storeKeys }: Lib.T.UseGiphyPickUp) => {
+  const setPickUp = useSetRecoilState(componentNapCreatorAtomFamilies.giphyPickUp(storeKeys.popups.giphy))
+  const setActiveOptions = useSetRecoilState(componentNapCreatorAtomFamilies.activeOption(storeKeys.activeOption))
+  const Inserters = Lib.H.useInserters({ boardRef, storeKeys })
   const insert = new Inserters()
   const [searchQuery, setSearchQuery] = useState('')
   const [updateKey, setUpdateKey] = useState(0)
@@ -45,7 +42,7 @@ export const useGiphyPickUp = ({ boardRef }: Pick<Lib.T.PostsPickUpProps, 'board
     onClose: handlePickUpClose,
     placeholder: 'Search... (powered by GIPHY)',
     searchBox: {
-      storeKey: searchQueryKey,
+      storeKey: storeKeys.searchQueries.giphy,
       delay: 750,
       onChange: value => {
         setSearchQuery(value)
@@ -55,7 +52,7 @@ export const useGiphyPickUp = ({ boardRef }: Pick<Lib.T.PostsPickUpProps, 'board
   })
 
   const onGifClick = ({ images: { fixed_height } }: IGif) => {
-    // fixed_height will always giv the gif in 200px height
+    // fixed_height will always give the gif in 200px height
     insert.newGif(fixed_height.url)
   }
 

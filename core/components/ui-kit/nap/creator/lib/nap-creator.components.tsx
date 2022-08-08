@@ -6,20 +6,22 @@ import { DateTimePicker } from '@/components/ui-kit/time-picker'
 import * as alertKeys from '@/constants/alert-keys.constant'
 import { numeralBreakpoints } from '@/constants/style-variables.constant'
 import { useGetAutoBreakpoint } from '@/hooks/use-auto-breakpoint'
-import { pageCreateNapAtoms } from '@/store/atoms'
+import { componentNapCreatorAtomFamilies } from '@/store'
 import { Grid as GifList } from '@giphy/react-components'
 import { Alert, Button, Popconfirm } from 'antd'
 import * as staticMocks from 'mock/static'
 import { FC } from 'react'
-import { FaEllipsisH, FaPause, FaShare } from 'react-icons/fa'
+import { FaChevronLeft, FaChevronRight, FaEllipsisH } from 'react-icons/fa'
 import { HiChevronRight } from 'react-icons/hi'
+import { IoCloseSharp } from 'react-icons/io5'
 import { MdOutlineClose } from 'react-icons/md'
+import { RiSendPlane2Fill } from 'react-icons/ri'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import * as Lib from '.'
 import { NapProfile } from '../../profile'
 
-export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active, boardRef, imageInputRef }) => {
-  const [activeOption, setActiveOption] = useRecoilState(pageCreateNapAtoms.activeOption)
+export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active, boardRef, imageInputRef, storeKeys }) => {
+  const [activeOption, setActiveOption] = useRecoilState(componentNapCreatorAtomFamilies.activeOption(storeKeys.activeOption))
 
   return (
     <Lib.S.ToolboxContainer active={active}>
@@ -33,7 +35,7 @@ export const Toolbox: FC<Lib.T.ToolboxProps> = ({ active, boardRef, imageInputRe
           <MdOutlineClose color="var(--layer-2-text-3)" size={22} />
         </span>
         <div className="tools">
-          <Tools selectedOption={activeOption} boardRef={boardRef} imageInputRef={imageInputRef} />
+          <Tools selectedOption={activeOption} boardRef={boardRef} imageInputRef={imageInputRef} storeKeys={storeKeys} />
         </div>
         <ToolBoxNextBtn boardRef={boardRef} />
       </div>
@@ -87,11 +89,11 @@ export const DraftMessage = () => {
   )
 }
 
-export const Items: FC<Lib.T.ItemsProps> = ({ onOptionsClick, boardRef, imageInputRef }) => {
-  const showMoreOptions = useRecoilValue(pageCreateNapAtoms.showMoreOptions)
-  const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
-  const { onItemClick } = Lib.H.useItems({ onOptionsClick, boardRef })
-  const items = Lib.H.useDefinedItems()
+export const Items: FC<Lib.T.ItemsProps> = ({ onOptionsClick, boardRef, imageInputRef, storeKeys }) => {
+  const showMoreOptions = useRecoilValue(componentNapCreatorAtomFamilies.showMoreOptions(storeKeys.showMoreOptions))
+  const activeOption = useRecoilValue(componentNapCreatorAtomFamilies.activeOption(storeKeys.activeOption))
+  const { onItemClick } = Lib.H.useItems({ onOptionsClick, boardRef, storeKeys })
+  const items = Lib.H.useDefinedItems({ storeKeys })
 
   return (
     <>
@@ -134,22 +136,31 @@ export const GuidLines: FC = () => {
           <div className="gap" />
 
           <span className="action">
-            <FaShare size={20} />
+            <FaChevronLeft size={20} />
           </span>
 
           <span className="action">
-            <FaPause size={20} />
+            <FaChevronRight size={20} />
           </span>
 
           <span className="action">
-            <FaEllipsisH size={20} />
+            <FaEllipsisH size={22} />
+          </span>
+
+          <span className="action">
+            <IoCloseSharp size={30} />
           </span>
         </div>
 
         <div className="gap" />
 
         <div className="bottom">
-          <span className="input">Reply to this nap...</span>
+          <span className="input">
+            Reply to this nap... You can @mention people
+            <span className="button">
+              <RiSendPlane2Fill size={20} />
+            </span>
+          </span>
         </div>
       </div>
 
@@ -160,9 +171,9 @@ export const GuidLines: FC = () => {
   )
 }
 
-export const PostsPickUp: FC<Lib.T.PostsPickUpProps> = ({ boardRef }) => {
-  const { pickUpProps, onPostSelect } = Lib.H.usePostsPickUp({ boardRef })
-  const pickUp = useRecoilValue(pageCreateNapAtoms.postsPickUp)
+export const PostsPickUp: FC<Lib.T.PostsPickUpProps> = ({ boardRef, storeKeys }) => {
+  const { pickUpProps, onPostSelect } = Lib.H.usePostsPickUp({ boardRef, storeKeys })
+  const pickUp = useRecoilValue(componentNapCreatorAtomFamilies.postsPickUp(storeKeys.popups.post))
   const { breakpoint } = useGetAutoBreakpoint()
   const napProfileScale = breakpoint <= numeralBreakpoints.md ? 0.35 : 0.5
 
@@ -175,9 +186,9 @@ export const PostsPickUp: FC<Lib.T.PostsPickUpProps> = ({ boardRef }) => {
   )
 }
 
-export const MentionPickUp: FC<Lib.T.MentionPickUpProps> = ({ boardRef }) => {
-  const { pickUpProps, onUserSelect } = Lib.H.useMentionPickUp({ boardRef })
-  const pickUp = useRecoilValue(pageCreateNapAtoms.mentionPickUp)
+export const MentionPickUp: FC<Lib.T.MentionPickUpProps> = ({ boardRef, storeKeys }) => {
+  const { pickUpProps, onUserSelect } = Lib.H.useMentionPickUp({ boardRef, storeKeys })
+  const pickUp = useRecoilValue(componentNapCreatorAtomFamilies.mentionPickUp(storeKeys.popups.mention))
 
   return (
     <PickUp {...pickUpProps} visibility={pickUp}>
@@ -190,9 +201,9 @@ export const MentionPickUp: FC<Lib.T.MentionPickUpProps> = ({ boardRef }) => {
   )
 }
 
-export const GiphyPickUp: FC<Lib.T.GifPickUpProps> = ({ boardRef }) => {
-  const { pickUpProps, gifFetcher, onGifClick, updateKey, windowWidth, giphyColumns } = Lib.H.useGiphyPickUp({ boardRef })
-  const pickUp = useRecoilValue(pageCreateNapAtoms.giphyPickUp)
+export const GiphyPickUp: FC<Lib.T.GifPickUpProps> = ({ boardRef, storeKeys }) => {
+  const { pickUpProps, gifFetcher, onGifClick, updateKey, windowWidth, giphyColumns } = Lib.H.useGiphyPickUp({ boardRef, storeKeys })
+  const pickUp = useRecoilValue(componentNapCreatorAtomFamilies.giphyPickUp(storeKeys.popups.giphy))
 
   return (
     <PickUp {...pickUpProps} visibility={pickUp}>
@@ -222,8 +233,8 @@ export const Mention: FC<Lib.T.MentionProps> = ({ id, username, profile, hasNap,
   )
 }
 
-export const ReminderTimePicker: FC<Lib.T.ReminderTimePickerProps> = ({ boardRef }) => {
-  const { get } = Lib.H.useReminderTimePicker({ boardRef })
+export const ReminderTimePicker: FC<Lib.T.ReminderTimePickerProps> = ({ boardRef, storeKeys }) => {
+  const { get } = Lib.H.useReminderTimePicker({ boardRef, storeKeys })
   return <DateTimePicker {...get.timePickerProps} />
 }
 
@@ -240,12 +251,17 @@ export const Tool: FC<Lib.T.ToolProps> = ({ disabled, Icon, type, onClick, title
   )
 }
 
-export const EditLinkHrefPopup: FC<Lib.T.EditLinkHrefPopupProps> = ({ boardRef }) => {
+export const EditLinkHrefPopup: FC<Lib.T.EditLinkHrefPopupProps> = ({ boardRef, storeKeys }) => {
   const { modalProps, inputID, isValidURL, onSubmit } = Lib.H.useEditLinkHref({
     boardRef,
+    storeKeys,
   })
-  const [popupVisibility, setPopupVisibility] = useRecoilState(pageCreateNapAtoms.editLinkPopupVisibility)
-  const [{ ref, text }, setLinkAndRef] = useRecoilState(pageCreateNapAtoms.editLinkPopupLinkTextAndRef)
+  const [popupVisibility, setPopupVisibility] = useRecoilState(
+    componentNapCreatorAtomFamilies.editLinkPopupVisibility(storeKeys.popups.editLink),
+  )
+  const [{ ref, text }, setLinkAndRef] = useRecoilState(
+    componentNapCreatorAtomFamilies.editLinkPopupLinkTextAndRef(storeKeys.popups.editLinkDetail),
+  )
 
   return (
     <Lib.S.EditLinkHrefPopup {...modalProps} visible={popupVisibility}>
@@ -278,13 +294,13 @@ export const EditLinkHrefPopup: FC<Lib.T.EditLinkHrefPopupProps> = ({ boardRef }
   )
 }
 
-export const Tools: FC<Lib.T.ToolsProps> = ({ selectedOption, boardRef, imageInputRef }) => {
-  const tools = Lib.H.useTools({ selectedOption, boardRef, imageInputRef })
+export const Tools: FC<Lib.T.ToolsProps> = ({ selectedOption, boardRef, imageInputRef, storeKeys }) => {
+  const tools = Lib.H.useTools({ selectedOption, boardRef, imageInputRef, storeKeys })
   return <Lib.S.Tools>{tools}</Lib.S.Tools>
 }
 
-export const ToolsForTextInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) => {
-  const { get, on } = Lib.H.useToolsForTextInserter({ boardRef })
+export const ToolsForTextInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef, storeKeys }) => {
+  const { get, on } = Lib.H.useToolsForTextInserter({ boardRef, storeKeys })
   return (
     <>
       {get.tools.map((tool, index) => (
@@ -294,8 +310,8 @@ export const ToolsForTextInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) 
   )
 }
 
-export const ToolsForPostInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) => {
-  const { get, on } = Lib.H.useToolsForPostInserter({ boardRef })
+export const ToolsForPostInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef, storeKeys }) => {
+  const { get, on } = Lib.H.useToolsForPostInserter({ boardRef, storeKeys })
   return (
     <>
       {get.tools.map((tool, index) => (
@@ -305,8 +321,8 @@ export const ToolsForPostInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) 
   )
 }
 
-export const ToolsForMentionInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) => {
-  const { get, on } = Lib.H.useToolsForMentionInserter({ boardRef })
+export const ToolsForMentionInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef, storeKeys }) => {
+  const { get, on } = Lib.H.useToolsForMentionInserter({ boardRef, storeKeys })
   return (
     <>
       {get.tools.map((tool, index) => (
@@ -316,8 +332,8 @@ export const ToolsForMentionInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef 
   )
 }
 
-export const ToolsForQuestionInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) => {
-  const { get, on } = Lib.H.useToolsForQuestionInserter({ boardRef })
+export const ToolsForQuestionInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef, storeKeys }) => {
+  const { get, on } = Lib.H.useToolsForQuestionInserter({ boardRef, storeKeys })
   return (
     <>
       {get.tools.map((tool, index) => (
@@ -327,8 +343,8 @@ export const ToolsForQuestionInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef
   )
 }
 
-export const ToolsForQuizInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) => {
-  const { get, on } = Lib.H.useToolsForQuizInserter({ boardRef })
+export const ToolsForQuizInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef, storeKeys }) => {
+  const { get, on } = Lib.H.useToolsForQuizInserter({ boardRef, storeKeys })
   return (
     <>
       {get.tools.map((tool, index) => (
@@ -338,8 +354,8 @@ export const ToolsForQuizInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) 
   )
 }
 
-export const ToolsForReminderInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) => {
-  const { get, on } = Lib.H.useToolsForReminderInserter({ boardRef })
+export const ToolsForReminderInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef, storeKeys }) => {
+  const { get, on } = Lib.H.useToolsForReminderInserter({ boardRef, storeKeys })
   return (
     <>
       {get.tools.map((tool, index) => (
@@ -349,8 +365,8 @@ export const ToolsForReminderInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef
   )
 }
 
-export const ToolsForGifInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) => {
-  const { get, on } = Lib.H.useToolsForGifInserter({ boardRef })
+export const ToolsForGifInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef, storeKeys }) => {
+  const { get, on } = Lib.H.useToolsForGifInserter({ boardRef, storeKeys })
   return (
     <>
       {get.tools.map((tool, index) => (
@@ -360,10 +376,11 @@ export const ToolsForGifInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) =
   )
 }
 
-export const ToolsForImageInserter: FC<Lib.T.ToolsForImageInserter> = ({ boardRef, imageInputRef }) => {
+export const ToolsForImageInserter: FC<Lib.T.ToolsForImageInserter> = ({ boardRef, imageInputRef, storeKeys }) => {
   const { get, on } = Lib.H.useToolsForImageInserter({
     boardRef,
     imageInputRef,
+    storeKeys,
   })
   return (
     <>
@@ -374,8 +391,8 @@ export const ToolsForImageInserter: FC<Lib.T.ToolsForImageInserter> = ({ boardRe
   )
 }
 
-export const ToolsForLinkInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef }) => {
-  const { get, on } = Lib.H.useToolsForLinkInserter({ boardRef })
+export const ToolsForLinkInserter: FC<Lib.T.ToolsForInserters> = ({ boardRef, storeKeys }) => {
+  const { get, on } = Lib.H.useToolsForLinkInserter({ boardRef, storeKeys })
   return (
     <>
       {get.tools.map((tool, index) => (

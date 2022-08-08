@@ -1,14 +1,16 @@
 import { RegExes } from '@/constants/reg-exes.constant'
 import { Str } from '@/helpers/string'
-import { pageCreateNapAtoms } from '@/store/atoms'
+import { componentNapCreatorAtomFamilies } from '@/store'
 import { ModalProps } from 'antd'
 import { FormEvent, useMemo } from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
-export const useEditLinkHref = ({ boardRef }: Pick<Lib.T.EditLinkHrefPopupProps, 'boardRef'>) => {
-  const setPopupVisibility = useSetRecoilState(pageCreateNapAtoms.editLinkPopupVisibility)
-  const [{ ref, frameID }, setEditLinkPopupLinkTextAndRef] = useRecoilState(pageCreateNapAtoms.editLinkPopupLinkTextAndRef)
+export const useEditLinkHref = ({ boardRef, storeKeys }: Pick<Lib.T.EditLinkHrefPopupProps, 'boardRef' | 'storeKeys'>) => {
+  const setPopupVisibility = useSetRecoilState(componentNapCreatorAtomFamilies.editLinkPopupVisibility(storeKeys.popups.editLink))
+  const [{ ref, frameID }, setEditLinkPopupLinkTextAndRef] = useRecoilState(
+    componentNapCreatorAtomFamilies.editLinkPopupLinkTextAndRef(storeKeys.popups.editLinkDetail),
+  )
   const isValidURL = useMemo(() => RegExes.url.test(ref), [ref])
   const NapStorage = Lib.H.useNapStorage(boardRef)
 

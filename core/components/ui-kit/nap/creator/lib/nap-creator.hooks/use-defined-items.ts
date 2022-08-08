@@ -1,4 +1,4 @@
-import { pageCreateNapAtoms } from '@/store/atoms'
+import { componentNapCreatorAtomFamilies } from '@/store'
 import { AiOutlineGif, AiOutlineMessage } from 'react-icons/ai'
 import { BsChevronCompactLeft, BsFillImageFill, BsPlusSquare, BsQuestionCircle } from 'react-icons/bs'
 import { FiBell, FiLink2 } from 'react-icons/fi'
@@ -7,8 +7,8 @@ import { MdFormatColorText } from 'react-icons/md'
 import { useRecoilValue } from 'recoil'
 import * as Lib from '..'
 
-export const useDefinedItems = () => {
-  const showMoreOptions = useRecoilValue(pageCreateNapAtoms.showMoreOptions)
+export const useDefinedItems = ({ storeKeys }: Lib.T.UseDefinedItems) => {
+  const showMoreOptions = useRecoilValue(componentNapCreatorAtomFamilies.showMoreOptions(storeKeys.showMoreOptions))
 
   const items: Lib.T.Item[] = [
     {

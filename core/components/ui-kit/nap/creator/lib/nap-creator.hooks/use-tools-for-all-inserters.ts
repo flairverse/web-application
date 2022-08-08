@@ -1,9 +1,9 @@
-import { pageCreateNapAtoms } from '@/store/atoms'
+import { componentNapCreatorAtomFamilies } from '@/store'
 import { useRecoilValue } from 'recoil'
 import * as Lib from '..'
 
-export const useToolsForAllInserters = ({ boardRef }: Pick<Lib.T.ToolsForInserters, 'boardRef'>) => {
-  const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
+export const useToolsForAllInserters = ({ boardRef, storeKeys }: Pick<Lib.T.ToolsForInserters, 'boardRef' | 'storeKeys'>) => {
+  const activeItemID = useRecoilValue(componentNapCreatorAtomFamilies.activeItemID(storeKeys.activeItemID))
   const NapStorage = Lib.H.useNapStorage(boardRef)
 
   /**

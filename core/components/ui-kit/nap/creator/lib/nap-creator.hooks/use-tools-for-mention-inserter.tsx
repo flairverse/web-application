@@ -1,18 +1,16 @@
-import { pageCreateNapAtoms } from '@/store/atoms'
+import { componentNapCreatorAtomFamilies } from '@/store'
 import { AiOutlineRotateRight } from 'react-icons/ai'
 import { BiPalette } from 'react-icons/bi'
 import { IoAddCircleOutline } from 'react-icons/io5'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
-export const useToolsForMentionInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
-  const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
-  const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
-  const setPickUp = useSetRecoilState(pageCreateNapAtoms.mentionPickUp)
-  const { changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({
-    boardRef,
-  })
-  const Inserter = Lib.H.useInserters({ boardRef })
+export const useToolsForMentionInserter = ({ boardRef, storeKeys }: Lib.T.ToolsForInserters) => {
+  const activeItemID = useRecoilValue(componentNapCreatorAtomFamilies.activeItemID(storeKeys.activeItemID))
+  const activeOption = useRecoilValue(componentNapCreatorAtomFamilies.activeOption(storeKeys.activeOption))
+  const setPickUp = useSetRecoilState(componentNapCreatorAtomFamilies.mentionPickUp(storeKeys.popups.mention))
+  const { changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({ boardRef, storeKeys })
+  const Inserter = Lib.H.useInserters({ boardRef, storeKeys })
   const insert = new Inserter()
 
   const tools: Pick<Lib.T.ToolProps, 'Icon' | 'type' | 'title' | 'disabled'>[] = [

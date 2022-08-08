@@ -1,13 +1,14 @@
-import { pageCreateNapAtoms } from '@/store/atoms'
+import * as storeKeys from '@/constants/store-keys.constants'
+import { componentNapCreatorAtomFamilies } from '@/store'
 import { useEffect } from 'react'
 import { useSetRecoilState } from 'recoil'
 import * as Lib from '.'
 
 export const useAcceleratorsProvider = () => {
-  const setPostsPickUpInCreateNapPage = useSetRecoilState(pageCreateNapAtoms.postsPickUp)
-  const setMentionPickUpInCreateNapPage = useSetRecoilState(pageCreateNapAtoms.mentionPickUp)
-  const setGiphyPickUpInCreateNapPage = useSetRecoilState(pageCreateNapAtoms.giphyPickUp)
-  const setActiveOptionInCreateNapPage = useSetRecoilState(pageCreateNapAtoms.activeOption)
+  const setPostsPickUpInCreateNapPage = useSetRecoilState(componentNapCreatorAtomFamilies.postsPickUp(storeKeys.PAGE__CREATE_NAP___POSTS_PICK_UP_VISIBILITY))
+  const setMentionPickUpInCreateNapPage = useSetRecoilState(componentNapCreatorAtomFamilies.mentionPickUp(storeKeys.PAGE__CREATE_NAP___MENTION_POPUP_VISIBILITY))
+  const setGiphyPickUpInCreateNapPage = useSetRecoilState(componentNapCreatorAtomFamilies.giphyPickUp(storeKeys.PAGE__CREATE_NAP___GIPHY_PICK_UP_VISIBILITY))
+  const setActiveOptionInCreateNapPage = useSetRecoilState(componentNapCreatorAtomFamilies.activeOption(storeKeys.PAGE__CREATE_NAP___ACTIVE_OPTION))
 
   /**
    *

@@ -1,18 +1,18 @@
-import { pageCreateNapAtoms } from '@/store/atoms'
+import { componentNapCreatorAtomFamilies } from '@/store'
 import { useEffect } from 'react'
 import { useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
-export const useNapCreator = ({ boardRef, imageInputRef }: Lib.T.UseNapCreatorArgs) => {
+export const useNapCreator = ({ boardRef, imageInputRef, storeKeys }: Lib.T.UseNapCreatorArgs) => {
   Lib.H.useFramesScaling(boardRef)
-  const setShowMoreOptions = useSetRecoilState(pageCreateNapAtoms.showMoreOptions)
-  const setActiveOption = useSetRecoilState(pageCreateNapAtoms.activeOption)
-  const setPostPopupVisibility = useSetRecoilState(pageCreateNapAtoms.postsPickUp)
-  const setMentionPopupVisibility = useSetRecoilState(pageCreateNapAtoms.mentionPickUp)
-  const setGifPopupVisibility = useSetRecoilState(pageCreateNapAtoms.giphyPickUp)
-  const { pickImage } = Lib.H.useImagePicker({ imageInputRef, boardRef })
+  const setShowMoreOptions = useSetRecoilState(componentNapCreatorAtomFamilies.showMoreOptions(storeKeys.showMoreOptions))
+  const setActiveOption = useSetRecoilState(componentNapCreatorAtomFamilies.activeOption(storeKeys.activeOption))
+  const setPostPopupVisibility = useSetRecoilState(componentNapCreatorAtomFamilies.postsPickUp(storeKeys.popups.post))
+  const setMentionPopupVisibility = useSetRecoilState(componentNapCreatorAtomFamilies.mentionPickUp(storeKeys.popups.mention))
+  const setGifPopupVisibility = useSetRecoilState(componentNapCreatorAtomFamilies.giphyPickUp(storeKeys.popups.giphy))
+  const { pickImage } = Lib.H.useImagePicker({ imageInputRef, boardRef, storeKeys })
   const NapStorage = Lib.H.useNapStorage(boardRef)
-  const Inserters = Lib.H.useInserters({ boardRef })
+  const Inserters = Lib.H.useInserters({ boardRef, storeKeys })
 
   const optionsClick = (key: Lib.T.Options) => {
     if (key !== 'more|less') {

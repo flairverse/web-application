@@ -4,9 +4,9 @@ import { useMemo } from 'react'
 import { useRecoilValue } from 'recoil'
 import * as Lib from '..'
 
-export const useReminderTimePicker = ({ boardRef }: Lib.T.UseReminderTimePicker) => {
+export const useReminderTimePicker = ({ boardRef, storeKeys }: Lib.T.UseReminderTimePicker) => {
   const visibility = useRecoilValue(componentTimePickerAtomFamilies.timePickerPopupVisibility('PAGE__CREATE_NAP___TIME_PICKER_POPUP'))
-  const Updater = Lib.H.useUpdaters({ boardRef })
+  const Updater = Lib.H.useUpdaters({ boardRef, storeKeys })
   const updater = new Updater()
 
   function onReminderConfirm(confirmedValue: Date) {

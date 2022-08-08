@@ -1,13 +1,13 @@
 import { PickUpUIKitLib } from '@/components/ui-kit/pick-up'
-import { pageCreateNapAtoms } from '@/store/atoms'
+import { componentNapCreatorAtomFamilies } from '@/store'
 import { useRef } from 'react'
 import { useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
-export const usePostsPickUp = ({ boardRef }: Pick<Lib.T.PostsPickUpProps, 'boardRef'>) => {
-  const setPickUp = useSetRecoilState(pageCreateNapAtoms.postsPickUp)
-  const setActiveOptions = useSetRecoilState(pageCreateNapAtoms.activeOption)
-  const Inserters = Lib.H.useInserters({ boardRef })
+export const usePostsPickUp = ({ boardRef, storeKeys }: Pick<Lib.T.PostsPickUpProps, 'boardRef' | 'storeKeys'>) => {
+  const setPickUp = useSetRecoilState(componentNapCreatorAtomFamilies.postsPickUp(storeKeys.popups.post))
+  const setActiveOptions = useSetRecoilState(componentNapCreatorAtomFamilies.activeOption(storeKeys.activeOption))
+  const Inserters = Lib.H.useInserters({ boardRef, storeKeys })
 
   const handlePickUpClose = () => {
     const { current: board } = boardRef

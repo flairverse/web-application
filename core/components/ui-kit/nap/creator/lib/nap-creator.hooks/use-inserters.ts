@@ -1,12 +1,12 @@
-import { pageCreateNapAtoms } from '@/store/atoms'
+import { componentNapCreatorAtomFamilies } from '@/store'
 import { useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
-export const useInserters = ({ boardRef }: Lib.T.UseInsertersArgs) => {
-  const { compileDown } = Lib.H.useBoardCompileDown(boardRef)
-  const setShowMoreOptions = useSetRecoilState(pageCreateNapAtoms.showMoreOptions)
-  const setGifPickupVisibility = useSetRecoilState(pageCreateNapAtoms.giphyPickUp)
-  const items = Lib.H.useDefinedItems()
+export const useInserters = ({ boardRef, storeKeys }: Lib.T.UseInsertersArgs) => {
+  const { compileDown } = Lib.H.useBoardCompileDown({ boardRef, storeKeys })
+  const setShowMoreOptions = useSetRecoilState(componentNapCreatorAtomFamilies.showMoreOptions(storeKeys.showMoreOptions))
+  const setGifPickupVisibility = useSetRecoilState(componentNapCreatorAtomFamilies.giphyPickUp(storeKeys.popups.giphy))
+  const items = Lib.H.useDefinedItems({ storeKeys })
   const NapStorage = Lib.H.useNapStorage(boardRef)
   const dummyTexts = Lib.H.useDummyTexts()
 

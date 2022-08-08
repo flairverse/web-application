@@ -1,16 +1,17 @@
-import { pageCreateNapAtoms } from '@/store/atoms'
+import { componentNapCreatorAtomFamilies } from '@/store'
 import { AiOutlineRotateRight } from 'react-icons/ai'
 import { BiPalette } from 'react-icons/bi'
 import { RiLightbulbLine } from 'react-icons/ri'
 import { useRecoilValue } from 'recoil'
 import * as Lib from '..'
 
-export const useToolsForQuestionInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
+export const useToolsForQuestionInserter = ({ boardRef, storeKeys }: Lib.T.ToolsForInserters) => {
   const { getFocusedItem, changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({
     boardRef,
+    storeKeys,
   })
-  const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
-  const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
+  const activeItemID = useRecoilValue(componentNapCreatorAtomFamilies.activeItemID(storeKeys.activeItemID))
+  const activeOption = useRecoilValue(componentNapCreatorAtomFamilies.activeOption(storeKeys.activeOption))
   const NapStorage = Lib.H.useNapStorage(boardRef)
 
   const tools: Pick<Lib.T.ToolProps, 'Icon' | 'type' | 'title' | 'disabled'>[] = [

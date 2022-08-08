@@ -1,12 +1,12 @@
-import { pageCreateNapAtoms } from '@/store/atoms'
+import { componentNapCreatorAtomFamilies } from '@/store'
 import { useEffect } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import * as Lib from '..'
 
-export const useItems = ({ onOptionsClick, boardRef }: Pick<Lib.T.ItemsProps, 'boardRef' | 'onOptionsClick'>) => {
-  const [activeOption, setActiveOptions] = useRecoilState(pageCreateNapAtoms.activeOption)
-  const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
-  const Insert = Lib.H.useInserters({ boardRef })
+export const useItems = ({ onOptionsClick, boardRef, storeKeys }: Pick<Lib.T.ItemsProps, 'boardRef' | 'onOptionsClick' | 'storeKeys'>) => {
+  const [activeOption, setActiveOptions] = useRecoilState(componentNapCreatorAtomFamilies.activeOption(storeKeys.activeOption))
+  const activeItemID = useRecoilValue(componentNapCreatorAtomFamilies.activeItemID(storeKeys.activeItemID))
+  const Insert = Lib.H.useInserters({ boardRef, storeKeys })
 
   const focusActiveItem = (target?: Lib.T.Options) => {
     if (activeItemID) {

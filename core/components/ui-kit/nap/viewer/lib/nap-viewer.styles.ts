@@ -17,6 +17,11 @@ export const NapViewerContainer = styled(Modal)`
   left: 0;
   height: 100%;
   max-width: unset;
+  user-select: none;
+
+  * {
+    user-select: none;
+  }
 
   > .ant-modal-content {
     height: 100%;
@@ -169,7 +174,23 @@ export const NapBar = styled.div`
     border-radius: 100px;
     margin: 2px 0;
     position: relative;
-    overflow: hidden;
+    cursor: pointer;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: calc(100% + 10px);
+      z-index: 3;
+    }
+
+    &:hover {
+      width: calc(100% - 3px);
+      border-radius: 3px;
+      transition: width 75ms linear;
+    }
 
     > span {
       background-color: var(--layer-2-text-1);
@@ -177,6 +198,13 @@ export const NapBar = styled.div`
       left: 0;
       right: 0;
       top: 0;
+      border-radius: inherit;
+    }
+
+    &.active {
+      > span {
+        bottom: 0;
+      }
     }
   }
 `
@@ -234,7 +262,8 @@ export const Nap = styled.div`
       display: flex;
       padding: 0 10px 0 0;
 
-      > span {
+      > span,
+      > div > span {
         height: 100%;
         display: flex;
         align-items: center;
@@ -256,11 +285,6 @@ export const Nap = styled.div`
       }
     }
   }
-
-  /* > .gap {
-    width: 1px;
-    pointer-events: none;
-  } */
 
   > .bottomContent {
     width: 100%;

@@ -1,27 +1,58 @@
 import { DOMHelperLib } from '@/helpers/DOM'
 import { Range } from '@/types/enumerable'
+import { StoreKeys } from '@/types/recoil.type'
 import { Topic } from '@/types/topics'
 import { RefObject } from 'react'
 import { IconType } from 'react-icons/lib'
 import * as Lib from '.'
 
-export interface ItemsProps {
+export interface NapCreatorStoreKeys {
+  activeOption: StoreKeys
+  activeItemID: StoreKeys
+  showMoreOptions: StoreKeys
+  popups: {
+    post: StoreKeys
+    mention: StoreKeys
+    giphy: StoreKeys
+    timePicker: StoreKeys
+    answerQuestion: StoreKeys
+    editLink: StoreKeys
+    editLinkDetail: StoreKeys
+  }
+  searchQueries: {
+    giphy: StoreKeys
+  }
+}
+
+export interface NapCreatorProps {
+  storeKeys: NapCreatorStoreKeys
+}
+
+export interface UseBoardCompileDown extends Pick<NapCreatorProps, 'storeKeys'> {
+  boardRef: RefObject<HTMLDivElement>
+}
+
+export interface UseGiphyPickUp extends Pick<NapCreatorProps, 'storeKeys'>, Pick<PostsPickUpProps, 'boardRef'> {}
+
+export interface ItemsProps extends Pick<NapCreatorProps, 'storeKeys'> {
   onOptionsClick: (key: Options) => void
   boardRef: RefObject<HTMLDivElement>
   imageInputRef: RefObject<HTMLInputElement>
 }
 
+export interface UseDefinedItems extends Pick<NapCreatorProps, 'storeKeys'> {}
+
 export interface ItemsShadowingProps {
   active: boolean
 }
 
-export interface ToolsProps extends Pick<ItemsProps, 'boardRef' | 'imageInputRef'> {
+export interface ToolsProps extends Pick<ItemsProps, 'boardRef' | 'imageInputRef'>, Pick<NapCreatorProps, 'storeKeys'> {
   selectedOption: Options | 'none'
 }
 
-export interface ReminderTimePickerProps extends Pick<ItemsProps, 'boardRef'> {}
+export interface ReminderTimePickerProps extends Pick<ItemsProps, 'boardRef'>, Pick<NapCreatorProps, 'storeKeys'> {}
 
-export interface ToolsForInserters extends Pick<ItemsProps, 'boardRef'> {}
+export interface ToolsForInserters extends Pick<ItemsProps, 'boardRef'>, Pick<NapCreatorProps, 'storeKeys'> {}
 export interface ToolsForImageInserter extends ToolsForInserters, Pick<ToolsProps, 'imageInputRef'> {}
 
 export type Options = typeof Lib.CO.OPTIONS[number]
@@ -34,9 +65,9 @@ export type Item = {
   limit: number
 }
 
-export interface UseImagePickerArgs extends Pick<ItemsProps, 'imageInputRef' | 'boardRef'> {}
+export interface UseImagePickerArgs extends Pick<ItemsProps, 'imageInputRef' | 'boardRef'>, Pick<NapCreatorProps, 'storeKeys'> {}
 
-export interface ToolboxProps extends Pick<ItemsProps, 'boardRef' | 'imageInputRef'> {
+export interface ToolboxProps extends Pick<ItemsProps, 'boardRef' | 'imageInputRef'>, Pick<NapCreatorProps, 'storeKeys'> {
   active?: boolean
 }
 
@@ -212,14 +243,14 @@ export interface PostCardProps {
   }
 }
 
-export interface PostsPickUpProps {
+export interface PostsPickUpProps extends Pick<NapCreatorProps, 'storeKeys'> {
   boardRef: RefObject<HTMLDivElement>
 }
 
-export interface MentionPickUpProps {
+export interface MentionPickUpProps extends Pick<NapCreatorProps, 'storeKeys'> {
   boardRef: RefObject<HTMLDivElement>
 }
-export interface GifPickUpProps {
+export interface GifPickUpProps extends Pick<NapCreatorProps, 'storeKeys'> {
   boardRef: RefObject<HTMLDivElement>
 }
 
@@ -283,15 +314,15 @@ export interface MentionProps {
   onClick?: (id: number) => void
 }
 
-export interface UseInsertersArgs extends Pick<ItemsProps, 'boardRef'> {}
+export interface UseInsertersArgs extends Pick<ItemsProps, 'boardRef'>, Pick<NapCreatorProps, 'storeKeys'> {}
 
-export interface UseNapCreatorArgs extends Pick<ItemsProps, 'boardRef'>, Pick<ItemsProps, 'imageInputRef'> {}
+export interface UseNapCreatorArgs extends Pick<ItemsProps, 'boardRef'>, Pick<ItemsProps, 'imageInputRef'>, Pick<NapCreatorProps, 'storeKeys'> {}
 
-export interface UseUpdatersArgs extends Pick<ItemsProps, 'boardRef'> {}
+export interface UseUpdatersArgs extends Pick<ItemsProps, 'boardRef'>, Pick<NapCreatorProps, 'storeKeys'> {}
 
-export interface UseReminderTimePicker extends Pick<ItemsProps, 'boardRef'> {}
+export interface UseReminderTimePicker extends Pick<ItemsProps, 'boardRef'>, Pick<NapCreatorProps, 'storeKeys'> {}
 
-export interface EditLinkHrefPopupProps extends Pick<ItemsProps, 'boardRef'> {}
+export interface EditLinkHrefPopupProps extends Pick<ItemsProps, 'boardRef'>, Pick<NapCreatorProps, 'storeKeys'> {}
 
 export interface CompileSharedDownArgs extends Elements.BaseElement, Pick<DOMHelperLib.T.MakeElementDraggableArgs, 'blackList'> {
   node: HTMLElement

@@ -1,16 +1,16 @@
-import { pageCreateNapAtoms } from '@/store/atoms'
+import { componentNapCreatorAtomFamilies } from '@/store'
 import { AiOutlineColumnWidth, AiOutlineRotateRight } from 'react-icons/ai'
 import { BiPalette } from 'react-icons/bi'
 import { IoAddCircleOutline } from 'react-icons/io5'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
-export const useToolsForGifInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
+export const useToolsForGifInserter = ({ boardRef, storeKeys }: Lib.T.ToolsForInserters) => {
   const NapStorage = Lib.H.useNapStorage(boardRef)
-  const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
-  const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
-  const setPickUp = useSetRecoilState(pageCreateNapAtoms.giphyPickUp)
-  const { changeRotation, getFocusedItem, changeEffect } = Lib.H.useToolsForAllInserters({ boardRef })
+  const activeItemID = useRecoilValue(componentNapCreatorAtomFamilies.activeItemID(storeKeys.activeItemID))
+  const activeOption = useRecoilValue(componentNapCreatorAtomFamilies.activeOption(storeKeys.activeOption))
+  const setPickUp = useSetRecoilState(componentNapCreatorAtomFamilies.giphyPickUp(storeKeys.popups.giphy))
+  const { changeRotation, getFocusedItem, changeEffect } = Lib.H.useToolsForAllInserters({ boardRef, storeKeys })
   const widthSizeRange = [100, 300]
   const widthSizeStep = 50
 

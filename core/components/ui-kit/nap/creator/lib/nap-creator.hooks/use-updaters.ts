@@ -1,7 +1,7 @@
 import * as Lib from '..'
 
-export const useUpdaters = ({ boardRef }: Lib.T.UseUpdatersArgs) => {
-  const Inserters = Lib.H.useInserters({ boardRef })
+export const useUpdaters = ({ boardRef, storeKeys }: Lib.T.UseUpdatersArgs) => {
+  const Inserters = Lib.H.useInserters({ boardRef, storeKeys })
   const { compileUp } = Lib.H.useBoardCompileUp(boardRef)
   return class Updater {
     board: HTMLDivElement | null = null

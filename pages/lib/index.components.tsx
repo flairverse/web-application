@@ -3,7 +3,8 @@ import { CardMain } from '@/components/ui-kit/card'
 import { Horizontal, HorizontalUIKitLib } from '@/components/ui-kit/horizontal'
 import { NapProfile } from '@/components/ui-kit/nap'
 import { SuggestionBox } from '@/components/ui-kit/suggestion-box'
-import { napViewerVisibility } from '@/store/atoms/component.nap-viewer.atoms'
+import * as storeKeys from '@/constants/store-keys.constants'
+import { componentNapViewerAtomFamilies } from '@/store'
 import { Button } from 'antd'
 import * as staticMocks from 'mock/static'
 import Link from 'next/link'
@@ -79,7 +80,9 @@ export const RightAside: FC = () => {
 }
 
 export const NapsList: FC = () => {
-  const xxx = useSetRecoilState(napViewerVisibility)
+  const setNapViewerVisibility = useSetRecoilState(
+    componentNapViewerAtomFamilies.napViewerVisibility(storeKeys.COMPONENT__NAP_VIEWER___NAP_VIEWER_POPUP_VISIBILITY),
+  )
 
   const items: HorizontalUIKitLib.T.HorizontalItemProps[] = [
     ...Array.from(Array(50)).map((item, index) => {
@@ -96,7 +99,7 @@ export const NapsList: FC = () => {
 
   return (
     <Lib.S.NapsList className="napList">
-      <Horizontal speed={2} items={items} onItemsClick={id => xxx(true)} />
+      <Horizontal speed={2} items={items} onItemsClick={id => setNapViewerVisibility(true)} />
     </Lib.S.NapsList>
   )
 }

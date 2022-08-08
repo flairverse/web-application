@@ -11,3 +11,9 @@ export const ANSWER_QUESTION_MODAL_DEFAULTS: Lib.T.AnswerQuestionModal = {
     seen: false,
   },
 }
+
+export const EDIT_LINK_POPUP_LINK_TEXT_AND_REF_DEFAULTS: Lib.T.EditLinkPopupLinkTextAndRef = {
+  text: '',
+  ref: '',
+  frameID: '',
+}

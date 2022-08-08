@@ -1,22 +1,18 @@
-import * as storeKeys from '@/constants/store-keys.constants'
 import { DOM } from '@/helpers/DOM'
+import { componentNapCreatorAtomFamilies } from '@/store'
 import { componentNapViewerAtomFamilies, componentTimePickerAtomFamilies } from '@/store/atomFamilies'
-import { pageCreateNapAtoms } from '@/store/atoms'
-import { RefObject } from 'react'
 import { useSetRecoilState } from 'recoil'
 import * as Lib from '..'
 
-export const useBoardCompileDown = (boardRef: RefObject<HTMLDivElement>) => {
-  const setActiveOption = useSetRecoilState(pageCreateNapAtoms.activeOption)
-  const setActiveItemID = useSetRecoilState(pageCreateNapAtoms.activeItemID)
-  const setEditLinkPopupVisibility = useSetRecoilState(pageCreateNapAtoms.editLinkPopupVisibility)
-  const setTimePickerVisibility = useSetRecoilState(
-    componentTimePickerAtomFamilies.timePickerPopupVisibility(storeKeys.PAGE__CREATE_NAP___TIME_PICKER_POPUP),
+export const useBoardCompileDown = ({ boardRef, storeKeys }: Lib.T.UseBoardCompileDown) => {
+  const setActiveOption = useSetRecoilState(componentNapCreatorAtomFamilies.activeOption(storeKeys.activeOption))
+  const setActiveItemID = useSetRecoilState(componentNapCreatorAtomFamilies.activeItemID(storeKeys.activeItemID))
+  const setEditLinkPopupVisibility = useSetRecoilState(componentNapCreatorAtomFamilies.editLinkPopupVisibility(storeKeys.popups.editLink))
+  const setTimePickerVisibility = useSetRecoilState(componentTimePickerAtomFamilies.timePickerPopupVisibility(storeKeys.popups.timePicker))
+  const setAnswerQuestionModal = useSetRecoilState(componentNapViewerAtomFamilies.answerQuestionModal(storeKeys.popups.answerQuestion))
+  const setEditLinkPopupLinkTextAndRef = useSetRecoilState(
+    componentNapCreatorAtomFamilies.editLinkPopupLinkTextAndRef(storeKeys.popups.editLinkDetail),
   )
-  const setAnswerQuestionModal = useSetRecoilState(
-    componentNapViewerAtomFamilies.answerQuestionModal(storeKeys.COMPONENT__NAP_VIEWER___ANSWER_QUESTION_VISIBILITY),
-  )
-  const setEditLinkPopupLinkTextAndRef = useSetRecoilState(pageCreateNapAtoms.editLinkPopupLinkTextAndRef)
   const NapStorage = Lib.H.useNapStorage(boardRef)
   const dummyTexts = Lib.H.useDummyTexts()
 

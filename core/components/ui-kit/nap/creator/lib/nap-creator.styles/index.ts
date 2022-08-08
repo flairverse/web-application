@@ -304,14 +304,31 @@ export const GuideLines = styled.div`
     > .bottom {
       > .input {
         width: 50%;
-        border: 3px solid ${GUIDE_LINES_COLOR};
-        border-radius: 100px;
-        height: 40px;
+        border: 2px solid ${GUIDE_LINES_COLOR};
+        border-radius: 6px;
+        height: 35px;
         display: flex;
         align-items: center;
         padding: 0 10px;
         color: ${GUIDE_LINES_COLOR};
         user-select: none;
+        position: relative;
+        font-family: var(--ff-3);
+
+        > .button {
+          border: 2px solid var(--layer-2-dash);
+          display: flex;
+          right: -42px;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width: 35px;
+          height: 35px;
+          margin: auto;
+          border-radius: 6px;
+          align-items: center;
+          justify-content: center;
+        }
       }
     }
   }

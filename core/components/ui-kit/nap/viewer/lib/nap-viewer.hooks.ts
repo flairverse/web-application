@@ -1,6 +1,7 @@
+import { MenuUIKitLib } from '@/components/ui-kit/menu'
 import { NapCreatorUIKitLib } from '@/components/ui-kit/nap'
 import { useClassNames } from '@/hooks/use-class-names'
-import { componentNapViewerAtomFamilies, componentNapViewerAtoms, StoreLib } from '@/store'
+import { componentNapViewerAtomFamilies, StoreLib } from '@/store'
 import { FormEvent, useEffect, useRef } from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import * as Lib from '.'
@@ -14,10 +15,10 @@ const napsLength = 10
  *
  * functionalities for the NapViewer component
  */
-export const useNapViewer = () => {
-  const [viewerVisibility, setViewer] = useRecoilState(componentNapViewerAtoms.napViewerVisibility)
-  const setNapGroupIndex = useSetRecoilState(componentNapViewerAtoms.napGroupIndex)
-  const close = () => setViewer(false)
+export const useNapViewer = ({ storeKeys }: Lib.T.UseNapViewer) => {
+  const [viewerVisibility, setViewerVisibility] = useRecoilState(componentNapViewerAtomFamilies.napViewerVisibility(storeKeys.visibility))
+  const setNapGroupIndex = useSetRecoilState(componentNapViewerAtomFamilies.napGroupIndex(storeKeys.napGroupIndex))
+  const close = () => setViewerVisibility(false)
   const forward = () => setNapGroupIndex(currentVal => (currentVal + 1 < napsLength ? currentVal + 1 : currentVal))
   const backward = () => setNapGroupIndex(currentVal => (currentVal - 1 >= 0 ? currentVal - 1 : currentVal))
 
@@ -38,7 +39,7 @@ export const useNapGroup = ({ active, afterActive, beforeActive, naps, storeKeys
 
   const forward = () => {
     if (napIndex + 1 < naps.length) {
-      setNapIndex(napIndex + 1)
+      setNapIndex(currentIndex => currentIndex + 1)
     } else {
       onAchieveEnd()
     }
@@ -46,13 +47,13 @@ export const useNapGroup = ({ active, afterActive, beforeActive, naps, storeKeys
 
   const backward = () => {
     if (napIndex - 1 >= 0) {
-      setNapIndex(napIndex - 1)
+      setNapIndex(currentIndex => currentIndex - 1)
     } else {
       onAchieveStart()
     }
   }
 
-  return { classNames, forward, backward, napIndex }
+  return { classNames, napIndex, forward, backward, setNapIndex }
 }
 
 /**
@@ -77,9 +78,9 @@ export const useNavigateButton = ({ enabled, role }: Pick<Lib.T.NavigateButtonPr
  * functionalities for the CompiledDownNap component
  */
 export const useCompiledDownNap = (nap: Lib.T.UseCompiledDownNapProps) => {
-  const { containerRef } = nap
+  const { containerRef, creatorStoreKeys } = nap
   const fakeBoardRef = useRef<HTMLDivElement>(null)
-  const { compileDown } = NapCreatorUIKitLib.H.useBoardCompileDown(fakeBoardRef)
+  const { compileDown } = NapCreatorUIKitLib.H.useBoardCompileDown({ boardRef: fakeBoardRef, storeKeys: creatorStoreKeys })
 
   const compileDownOptions: NapCreatorUIKitLib.T.CompileDownOptions = {
     readonly: true,
@@ -150,4 +151,26 @@ export const useAnswerQuestionModal = ({ storeKeys }: Pick<Lib.T.AnswerQuestionM
   }
 
   return { modalInfo, close, submit }
+}
+
+export const useNap = () => {
+  const moreOptionMenuItems: MenuUIKitLib.T.MenuItem<Lib.T.MoreOptionKeys>[] = [
+    {
+      title: 'Report Abuse',
+      key: 'report-abuse',
+      onClick: () => {},
+    },
+    {
+      title: 'Send To Friends',
+      key: 'send-to-friends',
+      onClick: () => {},
+    },
+    {
+      title: 'Share in Another Way',
+      key: 'share-in-another-way',
+      onClick: () => {},
+    },
+  ]
+
+  return { moreOptionMenuItems }
 }

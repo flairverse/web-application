@@ -1,44 +1,49 @@
 import { useMemo } from 'react'
 import * as Lib from '..'
 
-export const useTools = ({ selectedOption, boardRef, imageInputRef }: Pick<Lib.T.ToolsProps, 'selectedOption' | 'boardRef' | 'imageInputRef'>) => {
+export const useTools = ({
+  selectedOption,
+  boardRef,
+  imageInputRef,
+  storeKeys,
+}: Pick<Lib.T.ToolsProps, 'selectedOption' | 'boardRef' | 'imageInputRef' | 'storeKeys'>) => {
   const checkTools = (): JSX.Element | null => {
     if (selectedOption !== 'none') {
       switch (selectedOption) {
         case 'text': {
-          return <Lib.C.ToolsForTextInserter boardRef={boardRef} />
+          return <Lib.C.ToolsForTextInserter boardRef={boardRef} storeKeys={storeKeys} />
         }
 
         case 'post': {
-          return <Lib.C.ToolsForPostInserter boardRef={boardRef} />
+          return <Lib.C.ToolsForPostInserter boardRef={boardRef} storeKeys={storeKeys} />
         }
 
         case 'mention': {
-          return <Lib.C.ToolsForMentionInserter boardRef={boardRef} />
+          return <Lib.C.ToolsForMentionInserter boardRef={boardRef} storeKeys={storeKeys} />
         }
 
         case 'question': {
-          return <Lib.C.ToolsForQuestionInserter boardRef={boardRef} />
+          return <Lib.C.ToolsForQuestionInserter boardRef={boardRef} storeKeys={storeKeys} />
         }
 
         case 'quiz': {
-          return <Lib.C.ToolsForQuizInserter boardRef={boardRef} />
+          return <Lib.C.ToolsForQuizInserter boardRef={boardRef} storeKeys={storeKeys} />
         }
 
         case 'reminder': {
-          return <Lib.C.ToolsForReminderInserter boardRef={boardRef} />
+          return <Lib.C.ToolsForReminderInserter boardRef={boardRef} storeKeys={storeKeys} />
         }
 
         case 'gif': {
-          return <Lib.C.ToolsForGifInserter boardRef={boardRef} />
+          return <Lib.C.ToolsForGifInserter boardRef={boardRef} storeKeys={storeKeys} />
         }
 
         case 'image': {
-          return <Lib.C.ToolsForImageInserter boardRef={boardRef} imageInputRef={imageInputRef} />
+          return <Lib.C.ToolsForImageInserter boardRef={boardRef} imageInputRef={imageInputRef} storeKeys={storeKeys} />
         }
 
         case 'link': {
-          return <Lib.C.ToolsForLinkInserter boardRef={boardRef} />
+          return <Lib.C.ToolsForLinkInserter boardRef={boardRef} storeKeys={storeKeys} />
         }
 
         case 'more|less': {

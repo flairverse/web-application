@@ -1,4 +1,4 @@
-import { componentNapViewerAtoms } from '@/store'
+import { componentNapViewerAtomFamilies } from '@/store'
 import { mockedNaps } from 'mock/nap'
 import { FC } from 'react'
 import { useRecoilValue } from 'recoil'
@@ -6,10 +6,9 @@ import * as Lib from './lib'
 
 const napsLength = 10
 
-export const NapViewer: FC<Lib.T.NapViewerProps> = ({ storeKeys }) => {
-  const { close, viewerVisibility, backward, forward } = Lib.H.useNapViewer()
-  const groupIndex = useRecoilValue(componentNapViewerAtoms.napGroupIndex)
-
+export const NapViewer: FC<Lib.T.NapViewerProps> = ({ storeKeys, creatorStoreKeys }) => {
+  const groupIndex = useRecoilValue(componentNapViewerAtomFamilies.napGroupIndex(storeKeys.napGroupIndex))
+  const { close, viewerVisibility, backward, forward } = Lib.H.useNapViewer({ storeKeys })
   return (
     <>
       <Lib.S.NapViewerContainer
@@ -18,7 +17,6 @@ export const NapViewer: FC<Lib.T.NapViewerProps> = ({ storeKeys }) => {
         width="100%"
         visible={viewerVisibility}
         onCancel={close}
-        closable={false}
         maskStyle={{ background: 'rgba(0, 0, 0, 0.9)' }}
       >
         <div>
@@ -27,12 +25,16 @@ export const NapViewer: FC<Lib.T.NapViewerProps> = ({ storeKeys }) => {
           <div>
             {Array.from(Array(napsLength)).map((_, i) => (
               <Lib.C.NapGroup
+                key={i}
                 naps={mockedNaps}
                 active={groupIndex === i}
                 beforeActive={groupIndex === i + 1}
                 afterActive={groupIndex === i - 1}
                 onAchieveEnd={forward}
                 onAchieveStart={backward}
+                onAchieveAll={close}
+                close={close}
+                creatorStoreKeys={creatorStoreKeys}
                 storeKeys={{
                   ...storeKeys,
                   napIndex: storeKeys.napIndex + i,

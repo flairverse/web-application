@@ -1,4 +1,4 @@
-import { pageCreateNapAtoms } from '@/store/atoms'
+import { componentNapCreatorAtomFamilies } from '@/store'
 import { AiOutlineRotateRight } from 'react-icons/ai'
 import { BiPalette } from 'react-icons/bi'
 import { GoTextSize } from 'react-icons/go'
@@ -6,15 +6,16 @@ import { IoAddCircleOutline } from 'react-icons/io5'
 import { useRecoilValue } from 'recoil'
 import * as Lib from '..'
 
-export const useToolsForTextInserter = ({ boardRef }: Lib.T.ToolsForInserters) => {
-  const Inserter = Lib.H.useInserters({ boardRef })
+export const useToolsForTextInserter = ({ boardRef, storeKeys }: Lib.T.ToolsForInserters) => {
+  const Inserter = Lib.H.useInserters({ boardRef, storeKeys })
   const NapStorage = Lib.H.useNapStorage(boardRef)
   const insert = new Inserter()
   const { getFocusedItem, changeRotation, changeEffect } = Lib.H.useToolsForAllInserters({
     boardRef,
+    storeKeys,
   })
-  const activeItemID = useRecoilValue(pageCreateNapAtoms.activeItemID)
-  const activeOption = useRecoilValue(pageCreateNapAtoms.activeOption)
+  const activeItemID = useRecoilValue(componentNapCreatorAtomFamilies.activeItemID(storeKeys.activeItemID))
+  const activeOption = useRecoilValue(componentNapCreatorAtomFamilies.activeOption(storeKeys.activeOption))
   const fontSizeRange = [10, 50]
   const fontSizeStep = 10
 
