@@ -256,12 +256,8 @@ export const EditLinkHrefPopup: FC<Lib.T.EditLinkHrefPopupProps> = ({ boardRef, 
     boardRef,
     storeKeys,
   })
-  const [popupVisibility, setPopupVisibility] = useRecoilState(
-    componentNapCreatorAtomFamilies.editLinkPopupVisibility(storeKeys.popups.editLink),
-  )
-  const [{ ref, text }, setLinkAndRef] = useRecoilState(
-    componentNapCreatorAtomFamilies.editLinkPopupLinkTextAndRef(storeKeys.popups.editLinkDetail),
-  )
+  const [popupVisibility, setPopupVisibility] = useRecoilState(componentNapCreatorAtomFamilies.editLinkPopupVisibility(storeKeys.popups.editLink))
+  const [{ ref, text }, setLinkAndRef] = useRecoilState(componentNapCreatorAtomFamilies.editLinkPopupLinkTextAndRef(storeKeys.popups.editLinkDetail))
 
   return (
     <Lib.S.EditLinkHrefPopup {...modalProps} visible={popupVisibility}>

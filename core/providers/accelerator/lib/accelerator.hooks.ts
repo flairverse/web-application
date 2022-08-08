@@ -5,9 +5,15 @@ import { useSetRecoilState } from 'recoil'
 import * as Lib from '.'
 
 export const useAcceleratorsProvider = () => {
-  const setPostsPickUpInCreateNapPage = useSetRecoilState(componentNapCreatorAtomFamilies.postsPickUp(storeKeys.PAGE__CREATE_NAP___POSTS_PICK_UP_VISIBILITY))
-  const setMentionPickUpInCreateNapPage = useSetRecoilState(componentNapCreatorAtomFamilies.mentionPickUp(storeKeys.PAGE__CREATE_NAP___MENTION_POPUP_VISIBILITY))
-  const setGiphyPickUpInCreateNapPage = useSetRecoilState(componentNapCreatorAtomFamilies.giphyPickUp(storeKeys.PAGE__CREATE_NAP___GIPHY_PICK_UP_VISIBILITY))
+  const setPostsPickUpInCreateNapPage = useSetRecoilState(
+    componentNapCreatorAtomFamilies.postsPickUp(storeKeys.PAGE__CREATE_NAP___POSTS_PICK_UP_VISIBILITY),
+  )
+  const setMentionPickUpInCreateNapPage = useSetRecoilState(
+    componentNapCreatorAtomFamilies.mentionPickUp(storeKeys.PAGE__CREATE_NAP___MENTION_POPUP_VISIBILITY),
+  )
+  const setGiphyPickUpInCreateNapPage = useSetRecoilState(
+    componentNapCreatorAtomFamilies.giphyPickUp(storeKeys.PAGE__CREATE_NAP___GIPHY_PICK_UP_VISIBILITY),
+  )
   const setActiveOptionInCreateNapPage = useSetRecoilState(componentNapCreatorAtomFamilies.activeOption(storeKeys.PAGE__CREATE_NAP___ACTIVE_OPTION))
 
   /**

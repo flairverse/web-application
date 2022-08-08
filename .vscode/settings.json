@@ -96,7 +96,5 @@
     "dexie",
     "Popconfirm"
   ],
-  "githubPullRequests.ignoredPullRequestBranches": [
-    "develop"
-  ]
+  "githubPullRequests.ignoredPullRequestBranches": ["develop"]
 }

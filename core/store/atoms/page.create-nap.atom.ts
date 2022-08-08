@@ -43,5 +43,4 @@
 //   default: { text: '', ref: '', frameID: '' },
 // })
 
-export { };
-
+export {}
